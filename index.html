@@ -1,76 +1,84 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RANNTA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rannta</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
+      margin: 0;
+      font-family: Arial, sans-serif;
       background-color: #0d0d0d;
       color: white;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
       text-align: center;
     }
-    .logo {
-      margin-top: 40px;
+    header {
+      position: relative;
+      padding: 1em;
     }
-    .rannta-title {
-      font-family: 'Georgia', serif;
-      font-size: 2.5rem;
-      color: gold;
-      margin-top: 10px;
-      margin-bottom: 30px;
-    }
-    nav {
+    .nav-links {
       position: absolute;
-      top: 20px;
-      right: 40px;
+      top: 2em;
+      right: 2em;
     }
-    nav a {
+    .nav-links a {
       color: white;
-      margin: 0 10px;
       text-decoration: none;
+      margin-left: 20px;
       font-weight: bold;
     }
-    nav a:hover {
-      text-decoration: underline;
+    .logo-wrapper {
+      margin-top: 30px;
     }
-    .hero {
-      margin-top: 60px;
-      padding: 30px;
+    .logo-wrapper img {
+      width: 100px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
-    .hero p {
-      font-size: 1.5rem;
-      line-height: 1.6;
+    .site-title {
+      font-size: 2em;
+      color: gold;
+      margin-top: 10px;
+      font-family: 'Georgia', serif;
+    }
+    .slogan {
+      margin: 80px auto;
+      max-width: 800px;
+      line-height: 2;
     }
     footer {
       background-color: #1a1a1a;
-      padding: 15px 0;
-      margin-top: 50px;
+      color: white;
+      padding: 1em;
+      position: relative;
+      bottom: 0;
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="whitepaper.html">Whitepaper</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-  <div class="logo">
-    <img src="coin.png" alt="RANNTA Coin" width="140">
-  </div>
-  <div class="rannta-title">Rannta</div>
-  <div class="hero">
-    <p><strong>Rise anew.</strong></p>
-    <p><strong>A memorial for the tragic Los Angeles fire</strong></p>
-    <p><strong>A symbol for rebuilding and returning to the glory of the United States.</strong></p>
-  </div>
+  <header>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="whitepaper.html">Whitepaper</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <div class="logo-wrapper">
+      <img src="coin.png" alt="Rannta Logo">
+      <div class="site-title">Rannta</div>
+    </div>
+  </header>
+
+  <main class="slogan">
+    <h2>Rise anew.</h2>
+    <h2>A memorial for the tragic Los Angeles fire</h2>
+    <h2>A symbol for rebuilding and returning to the glory of the United States.</h2>
+  </main>
+
   <footer>
-    <p>© 2025 RANNTA. All rights reserved.</p>
+    &copy; 2025 RANNTA. All rights reserved.
   </footer>
 </body>
 </html>
