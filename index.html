@@ -1,29 +1,76 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>RANNTA</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .logo {
+      margin-top: 40px;
+    }
+    .rannta-title {
+      font-family: 'Georgia', serif;
+      font-size: 2.5rem;
+      color: gold;
+      margin-top: 10px;
+      margin-bottom: 30px;
+    }
+    nav {
+      position: absolute;
+      top: 20px;
+      right: 40px;
+    }
+    nav a {
+      color: white;
+      margin: 0 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+    .hero {
+      margin-top: 60px;
+      padding: 30px;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      line-height: 1.6;
+    }
+    footer {
+      background-color: #1a1a1a;
+      padding: 15px 0;
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <img src="coin.png" alt="RANNTA Logo" class="logo" />
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="whitepaper.html">Whitepaper</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero">
-      <h1>Rise anew. A memorial for the tragic Los Angeles fire — A symbol for rebuilding and returning to the glory of the United States.</h1>
-    </section>
-  </main>
-
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="whitepaper.html">Whitepaper</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="logo">
+    <img src="coin.png" alt="RANNTA Coin" width="140">
+  </div>
+  <div class="rannta-title">Rannta</div>
+  <div class="hero">
+    <p><strong>Rise anew.</strong></p>
+    <p><strong>A memorial for the tragic Los Angeles fire</strong></p>
+    <p><strong>A symbol for rebuilding and returning to the glory of the United States.</strong></p>
+  </div>
   <footer>
-    <p>&copy; 2025 RANNTA. All rights reserved.</p>
+    <p>© 2025 RANNTA. All rights reserved.</p>
   </footer>
 </body>
 </html>
