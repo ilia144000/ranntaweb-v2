@@ -3,127 +3,78 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RANNTA NFTs – The Griffin Collection</title>
+  <title>NFTs – RANNTA Griffin Series</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #0d0d0d;
       color: #f5f5f5;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
     }
 
     header {
-      text-align: center;
-      padding: 40px 20px 20px;
-      background: #111;
-    }
-
-    nav {
-      margin-bottom: 20px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: #111;
     }
 
     nav a {
-      color: #f5f5f5;
       margin: 0 15px;
+      color: #f5f5f5;
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
     }
 
     nav a:hover {
       color: #00ffff;
     }
 
-    h1 {
-      color: #ff3333;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      color: #ffffff;
-      margin-top: 0;
-    }
-
-    .content {
-      max-width: 1200px;
-      margin: auto;
-      padding: 40px 20px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .left, .right {
-      flex: 1 1 300px;
-    }
-
-    .left p {
+    section {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 20px 40px;
       line-height: 1.8;
     }
 
-    .tier {
+    h1 {
+      color: #ff4444;
+      font-size: 2em;
       margin-bottom: 20px;
-      padding: 15px;
-      border-left: 4px solid #ff3333;
-      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    .qr {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .qr img {
+      width: 180px;
+      border: 2px solid #444;
       border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .tier {
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.03);
     }
 
     .tier h3 {
       margin-top: 0;
-      color: #ff4444;
-    }
-
-    .tier.rare {
-      border-color: #33ccff;
-    }
-
-    .tier.rare h3 {
-      color: #33ccff;
-    }
-
-    .tier.common {
-      border-color: #bbbbbb;
-    }
-
-    .tier.common h3 {
-      color: #ffffff;
-    }
-
-    .tier.supreme {
-      border-color: orange;
-    }
-
-    .tier.supreme h3 {
-      color: orange;
-    }
-
-    .qr-box {
-      text-align: center;
-    }
-
-    .qr-box img {
-      width: 180px;
-      border: 2px solid #555;
-      border-radius: 8px;
-      margin-bottom: 10px;
     }
 
     footer {
-      text-align: center;
-      padding: 30px;
-      color: #777;
       background-color: #111;
-      margin-top: 40px;
-    }
-
-    @media screen and (max-width: 768px) {
-      .content {
-        flex-direction: column;
-        align-items: center;
-      }
+      color: #777;
+      text-align: center;
+      padding: 20px 0;
+      font-size: 0.9em;
+      margin-top: 60px;
     }
   </style>
 </head>
@@ -132,53 +83,52 @@
 <header>
   <nav>
     <a href="index.html">Home</a>
-    <a href="about.html">About</a>
+    <a href="nft.html">NFTs & Sale</a>
     <a href="whitepaper.html">Whitepaper</a>
     <a href="contact.html">Contact</a>
   </nav>
-  <h1>RANNTA NFTs</h1>
-  <p>Explore the mythic Griffin collection minted on <a href="https://getgems.io/rannta" target="_blank" style="color:red;">Getgems</a></p>
 </header>
 
-<section class="content">
-  <div class="left">
-    <h2>△ Phase I — The Fire Token</h2>
-    <p>
-      We launched RANNTA not as currency, but as ceremony.<br/>
-      From the smoke came:<br/>
-      — RANNTA (TON-based token)<br/>
-      — 114 NFTs for public and field alignment<br/>
-      — With precise distribution:
-    </p>
+<section>
+  <h1>RANNTA NFTs – Griffin Initiation Series</h1>
 
-    <div class="tier">
-      <h3>🔺 Legendary (6 total)</h3>
-      <p>900,000 RANNTA tokens per NFT<br/>
-      → 3 reserved for team, 3 public</p>
-    </div>
+  <p>The Griffin collection is not just art — it is activation. A mythic invocation born from the ashes of Fire Tuesday. A field protocol encoded in flame, symbol, and number.</p>
 
-    <div class="tier rare">
-      <h3>🔷 Rare (24 total)</h3>
-      <p>600,000 RANNTA tokens per NFT<br/>
-      → 8 reserved for team, 16 public</p>
-    </div>
+  <p>From the smoke came:</p>
+  <ul>
+    <li>— RANNTA (TON-based token)</li>
+    <li>— 114 NFTs for public and ceremonial alignment</li>
+    <li>— Precisely distributed into distinct tiers:</li>
+  </ul>
 
-    <div class="tier common">
-      <h3>⚪ Common (81 total)</h3>
-      <p>300,000 RANNTA tokens per NFT<br/>
-      → 21 reserved for team, 60 public</p>
-    </div>
-
-    <div class="tier supreme">
-      <h3>🔥 Supreme (3 total)</h3>
-      <p>33 TON per NFT (mythic access)<br/>
-      = 963,000 future RANNTA per each</p>
-    </div>
+  <div class="tier">
+    <h3>🔺 Legendary (6 total)</h3>
+    <p>900,000 RANNTA tokens per NFT<br/>
+    → 3 reserved for team, 3 public</p>
   </div>
 
-  <div class="right qr-box">
+  <div class="tier">
+    <h3>🔷 Rare (24 total)</h3>
+    <p>600,000 RANNTA tokens per NFT<br/>
+    → 8 reserved for team, 16 public</p>
+  </div>
+
+  <div class="tier">
+    <h3>⚪ Common (81 total)</h3>
+    <p>300,000 RANNTA tokens per NFT<br/>
+    → 21 reserved for team, 60 public</p>
+  </div>
+
+  <div class="tier">
+    <h3>🔥 Supreme (3 total)</h3>
+    <p>33 TON per NFT (mythic access)<br/>
+    = 963,000 future RANNTA per each</p>
+  </div>
+
+  <div class="qr">
     <img src="RANNTA_Getgems_QR.png" alt="RANNTA Getgems QR">
-    <p>Scan to access the<br/>RANNTA Getgems collection</p>
+    <p>Scan to view RANNTA collection on Getgems</p>
+    <p><a href="https://getgems.io/rannta" target="_blank">View NFTs on Getgems</a></p>
   </div>
 </section>
 
