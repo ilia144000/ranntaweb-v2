@@ -1,38 +1,87 @@
 
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #111;
-    color: white;
-    text-align: center;
+  background-color: #0d0d0d;
+  color: #f5f5f5;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
 }
-header {
-    padding: 20px;
+
+a {
+  color: #f5f5f5;
+  text-decoration: none;
 }
-.menu {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    font-size: 0.9rem;
+
+a:hover {
+  color: #00ffff;
+  text-decoration: underline;
 }
-.menu li {
-    display: inline;
+
+nav {
+  text-align: center;
+  background-color: #111;
+  padding: 15px 0;
 }
-.menu a {
-    color: white;
-    text-decoration: none;
+
+nav a {
+  margin: 0 15px;
+  font-weight: bold;
 }
-.logo {
-    width: 100px;
-    margin: 20px auto;
-    display: block;
+
+h1, h2, h3 {
+  color: #ff3333;
+  text-align: center;
 }
-.title {
-    color: gold;
-    font-size: 2rem;
+
+section, footer {
+  padding: 20px;
+  max-width: 960px;
+  margin: auto;
 }
-main {
-    padding: 20px;
+
+footer {
+  text-align: center;
+  font-size: 0.85em;
+  color: #888;
+  padding: 40px 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.qr-box img {
+  width: 180px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+.tier {
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.tier h3 {
+  margin: 0 0 10px;
+}
+
+.tier.red { border-left: 4px solid #ff4444; }
+.tier.blue { border-left: 4px solid #33ccff; }
+.tier.white { border-left: 4px solid #bbbbbb; }
+.tier.orange { border-left: 4px solid orange; }
+
+@media screen and (max-width: 768px) {
+  nav a {
+    display: inline-block;
+    margin: 8px 12px;
+  }
+  section, footer {
+    padding: 15px;
+  }
 }
