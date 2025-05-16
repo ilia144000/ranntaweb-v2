@@ -1,120 +1,30 @@
 
 body {
-  background-color: #0d0d0d;
-  color: #f5f5f5;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  line-height: 1.7;
-}
-
-a {
-  color: #f5f5f5;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #FFD700;
-  text-decoration: underline;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  background-color: #111;
-  padding: 15px 0;
-}
-
-nav a {
-  margin: 0 15px;
-  font-weight: bold;
-  color: #f5f5f5;
-}
-
-nav a:hover {
-  color: #FFD700;
-}
-
-h1, h2, h3 {
-  color: #ff3333;
-  text-align: center;
-}
-
-section, footer {
-  padding: 20px;
-  max-width: 960px;
-  margin: auto;
-}
-
-footer {
-  text-align: center;
-  font-size: 0.85em;
-  color: #888;
-  padding: 40px 0;
-  background-color: #111;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-.qr-box img {
-  width: 180px;
-  border: 2px solid #444;
-  border-radius: 8px;
-  display: block;
-  margin: 0 auto;
-}
-
-.tier {
-  padding: 15px;
-  margin: 20px 0;
-  border-radius: 8px;
-  background-color: rgba(255, 255, 255, 0.02);
-}
-
-.tier h3 {
-  margin: 0 0 10px;
-}
-
-.tier.red { border-left: 4px solid #ff4444; }
-.tier.blue { border-left: 4px solid #33ccff; }
-.tier.white { border-left: 4px solid #bbbbbb; }
-.tier.orange { border-left: 4px solid orange; }
-
-/* CTA Button */
-.cta {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #ff4444;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.cta:hover {
-  background-color: #cc0000;
-}
-
-@media screen and (max-width: 768px) {
-  nav {
-    flex-direction: column;
+    background-color: black;
+    color: white;
+    font-family: Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
     text-align: center;
-  }
-  nav a {
-    margin: 8px 0;
-  }
-  section, footer {
-    padding: 15px;
-  }
-  h1 {
-    font-size: 1.8em;
-  }
-  h2, h3 {
-    font-size: 1.5em;
-  }
+}
+header {
+    padding: 20px;
+}
+.logo {
+    max-height: 100px;
+}
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+nav li {
+    display: inline;
+    margin: 0 10px;
+}
+nav a {
+    color: white;
+    text-decoration: none;
+}
+main {
+    margin-top: 50px;
 }
