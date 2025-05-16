@@ -14,12 +14,14 @@ a {
 }
 
 a:hover {
-  color: #00ffff;
+  color: #FFD700;
   text-decoration: underline;
 }
 
 nav {
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   background-color: #111;
   padding: 15px 0;
 }
@@ -27,6 +29,11 @@ nav {
 nav a {
   margin: 0 15px;
   font-weight: bold;
+  color: #f5f5f5;
+}
+
+nav a:hover {
+  color: #FFD700;
 }
 
 h1, h2, h3 {
@@ -45,6 +52,7 @@ footer {
   font-size: 0.85em;
   color: #888;
   padding: 40px 0;
+  background-color: #111;
 }
 
 img {
@@ -76,12 +84,37 @@ img {
 .tier.white { border-left: 4px solid #bbbbbb; }
 .tier.orange { border-left: 4px solid orange; }
 
+/* CTA Button */
+.cta {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #ff4444;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.cta:hover {
+  background-color: #cc0000;
+}
+
 @media screen and (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    text-align: center;
+  }
   nav a {
-    display: inline-block;
-    margin: 8px 12px;
+    margin: 8px 0;
   }
   section, footer {
     padding: 15px;
+  }
+  h1 {
+    font-size: 1.8em;
+  }
+  h2, h3 {
+    font-size: 1.5em;
   }
 }
