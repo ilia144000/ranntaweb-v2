@@ -1,14 +1,22 @@
 body {
-    background-color: black;
-    color: white;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #111;
+    color: #fff;
     margin: 0;
     padding: 0;
-    text-align: center;
 }
+
 .logo {
     max-height: 100px;
+    margin: 28px auto 8px auto;
+    display: block;
 }
+
+header {
+    background: #181818;
+    padding-bottom: 12px;
+}
+
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -17,68 +25,98 @@ nav ul {
     justify-content: center;
     flex-wrap: wrap;
 }
+
 nav li {
-    margin: 8px 10px;
+    margin: 8px 16px;
 }
-nav a, nav a:visited, nav a:active, nav a:focus, nav a:hover,
-a, a:visited, a:active, a:focus, a:hover {
-    color: gold;
+
+nav a {
+    color: #FFD700;
     text-decoration: none;
     font-weight: bold;
+    font-size: 1.08em;
+    transition: color 0.18s;
+    letter-spacing: 0.02em;
 }
-nav a:hover, a:hover {
-    text-decoration: underline;
-}
-main {
-    margin: 50px 20px;
-}
-h1, h2, h3 {
-    color: gold;
-}
-.member {
-    margin: 30px auto;
-    max-width: 600px;
-    padding: 20px;
-    border: 1px solid gold;
-    border-radius: 10px;
-    background-color: #111;
-}
-.member h3 {
-    margin: 0;
-    font-size: 20px;
-    color: gold;
-}
-.member p {
+
+nav a:hover {
     color: #fff;
-    font-size: 16px;
-    line-height: 1.7;
+    text-shadow: 0 2px 12px #FFD70088;
 }
-.team-banner {
-    width: 100%;
-    max-width: 960px;
-    height: auto;
-    display: block;
-    margin: 40px auto;
-    border: 2px solid gold;
-    border-radius: 8px;
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.15);
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 14px;
+    margin-top: 0.5em;
+    color: #FFD700;
 }
-@media (max-width: 600px) {
+
+h2 {
+    color: #FFD700;
+    margin-top: 2.2em;
+    margin-bottom: 0.9em;
+}
+
+a {
+    color: #00BFFF;
+    transition: color 0.18s;
+}
+
+a:hover {
+    color: #FFD700;
+}
+
+ul {
+    margin: 0 0 1.4em 1.4em;
+}
+
+li {
+    margin-bottom: 7px;
+}
+
+footer {
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    padding: 0 8px;
+}
+
+@media (max-width: 700px) {
     .logo {
-        max-height: 70px;
-    }
-    nav li {
-        margin: 6px;
-        font-size: 14px;
-    }
-    main {
-        margin: 30px 12px;
+        max-height: 64px;
     }
     h1 {
-        font-size: 22px;
+        font-size: 1.18em;
     }
-    p {
-        font-size: 15px;
-        line-height: 1.6;
+    h2 {
+        font-size: 1.02em;
     }
+}
+
+main {
+    max-width: 700px;
+    margin: 40px auto 0 auto;
+    padding: 24px 16px 60px 16px;
+    background: #181818;
+    border-radius: 18px;
+    box-shadow: 0 6px 48px #0005;
+    font-size: 1.08em;
+    line-height: 1.7;
+}
+main h1, main h2 {
+    color: #FFD700;
+}
+main h2 {
+    margin-top: 1.8em;
+    margin-bottom: 0.6em;
+    font-size: 1.15em;
+}
+main ul {
+    margin: 0 0 1.2em 1.5em;
+    padding: 0;
+}
+main li {
+    margin-bottom: 0.4em;
 }
