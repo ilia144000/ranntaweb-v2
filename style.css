@@ -95,6 +95,7 @@ footer {
     }
 }
 
+/* Modern box style for main content */
 main {
     max-width: 700px;
     margin: 40px auto 0 auto;
@@ -119,4 +120,27 @@ main ul {
 }
 main li {
     margin-bottom: 0.4em;
+}
+
+/* Responsive team banner */
+.team-banner {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 32px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 36px #0007;
+    object-fit: cover;
+}
+
+@media (max-width: 600px) {
+    .team-banner {
+        max-width: 98vw;
+        border-radius: 7px;
+        margin: 0 auto 20px auto;
+    }
+    main {
+        padding: 12px 2vw 40px 2vw;
+    }
 }
