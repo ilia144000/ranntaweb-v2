@@ -1,34 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>RANNTA Wallet</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- ethers.js CDN -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.umd.min.js"></script>
-  <!-- QRCode.js CDN -->
+  <script src="https://unpkg.com/tonweb/dist/tonweb.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-  <!-- Main Site Style -->
-  <link rel="stylesheet" href="/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <link rel="stylesheet" href="/style.css" />
   <style>
+    body {
+      background: #13131a;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
     .wallet-box {
       background: #181818;
       border-radius: 18px;
       box-shadow: 0 6px 48px #0005;
-      max-width: 400px;
-      width: 95%;
+      max-width: 420px;
+      width: 98%;
       margin: 32px auto 0 auto;
       padding: 28px 18px 32px 18px;
       text-align: center;
       font-size: 1.08em;
       line-height: 1.7;
     }
-    .wallet-actions {
-      margin: 22px 0 12px 0;
+    .wallet-nav {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
+      justify-content: space-around;
+      background: #161616;
+      border-radius: 12px;
+      margin: 28px 0 12px 0;
+      box-shadow: 0 2px 9px #0004;
+      padding: 6px 2px 4px 2px;
+      position: sticky;
+      top: 0;
+      z-index: 4;
+    }
+    .wallet-nav button {
+      background: none;
+      border: none;
+      color: #ffd700;
+      font-size: 1.09em;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 7px 16px;
+      border-radius: 7px;
+      transition: background 0.17s, color 0.17s;
+    }
+    .wallet-nav button.active,
+    .wallet-nav button:hover {
+      background: linear-gradient(90deg, #ffd700, #ff9100);
+      color: #181818;
     }
     .wallet-btn {
       background: linear-gradient(90deg, #ffd700, #ff9100);
@@ -42,6 +67,7 @@
       transition: box-shadow 0.16s;
       box-shadow: 0 2px 10px #0003;
       outline: none;
+      margin: 4px 0;
     }
     .wallet-btn:disabled {
       opacity: 0.5;
@@ -51,7 +77,8 @@
       box-shadow: 0 4px 18px #ffd70044;
       color: #fff;
     }
-    .wallet-input, .wallet-select {
+    .wallet-input,
+    .wallet-select {
       margin: 7px 0 15px 0;
       padding: 9px;
       border-radius: 7px;
@@ -68,7 +95,7 @@
       word-break: break-all;
       margin-bottom: 13px;
       font-size: 0.99em;
-      color: #FFD700;
+      color: #ffd700;
       text-align: center;
     }
     .wallet-balance {
@@ -86,267 +113,692 @@
       color: #aaa;
       font-size: 0.93em;
     }
+    .wallet-lock {
+      background: #181818;
+      border-radius: 16px;
+      box-shadow: 0 3px 18px #0007;
+      max-width: 340px;
+      margin: 36px auto 0 auto;
+      padding: 36px 18px 36px 18px;
+      text-align: center;
+      font-size: 1.08em;
+      line-height: 1.7;
+    }
+    .token-list {
+      margin: 12px 0 0 0;
+      text-align: left;
+    }
+    .token-list li {
+      background: #191919;
+      color: #ffd700;
+      border-radius: 8px;
+      padding: 7px 12px;
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .token-list .small {
+      font-size: 0.93em;
+      color: #aaa;
+      margin-left: 10px;
+    }
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 22px;
+      background: #ffd700;
+      color: #181818;
+      padding: 10px 19px;
+      border-radius: 13px;
+      font-weight: bold;
+      z-index: 2222;
+      box-shadow: 0 2px 12px #0006;
+      opacity: 0.96;
+    }
+    #seed-modal,
+    #add-token-modal,
+    #qr-modal,
+    #ai-modal,
+    #contact-modal {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99;
+      background: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+    }
+    #seed-modal > div,
+    #add-token-modal > div,
+    #qr-modal > div,
+    #ai-modal > div,
+    #contact-modal > div {
+      max-width: 370px;
+      margin: 40px auto;
+      background: #181818;
+      border-radius: 14px;
+      padding: 28px 20px;
+      box-shadow: 0 2px 18px #0009;
+      text-align: center;
+    }
+    .account-list {
+      margin: 0 0 17px 0;
+    }
+    .account-list button {
+      margin: 2px 4px;
+    }
     @media (max-width: 600px) {
-      .wallet-box {
+      .wallet-box,
+      .wallet-lock,
+      #seed-modal > div,
+      #add-token-modal > div,
+      #qr-modal > div,
+      #ai-modal > div,
+      #contact-modal > div {
         padding: 12px 4vw 18px 4vw;
       }
+      .wallet-nav {
+        font-size: 0.96em;
+      }
+    }
+    .rannta-promo {
+      color: #ffd700;
+      margin: 10px 0 16px 0;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <main>
-    <div class="wallet-box">
-      <h1>RANNTA Wallet</h1>
-      <p style="margin-bottom:24px">
-        Decentralized, secure & multi-chain wallet for RANNTA.<br>
-        Ethereum + other networks coming soon!
-      </p>
-      <div>
-        <select id="network" class="wallet-select">
-          <option value="eth">Ethereum Mainnet</option>
-          <option value="bnb">Binance Smart Chain</option>
-          <option value="polygon">Polygon</option>
-        </select>
+    <div style="margin-bottom: 18px;">
+      <img src="assets/wallet-optimized.png" alt="RANNTA Griffin Logo"
+        style="width: 90px; max-width: 32vw; display: block; margin: 0 auto 10px auto; filter: drop-shadow(0 0 14px #ffd700bb);" />
+    </div>
+    <div id="lock-screen" class="wallet-lock" style="display:none;">
+      <div
+        style="
+          margin-bottom: 12px;
+          font-size: 2em;
+          color: #ffd700;
+          font-family: Georgia, serif;
+          text-shadow: 0 2px 16px #fff6;
+        "
+      >
+        RANNTA
       </div>
-      <div id="wallet-section">
-        <button class="wallet-btn" onclick="showCreateWallet()">Create Wallet</button>
-        <button class="wallet-btn" onclick="showRestoreWallet()">Restore Wallet</button>
+      <div
+        style="
+          margin: 12px 0 18px 0;
+          color: #ffd700;
+          font-size: 1.12em;
+          font-style: italic;
+          font-family: Georgia, serif;
+        "
+      >
+        This is the gateway of the awakened...
       </div>
-      <div id="form-section" style="display:none;">
-        <div id="create-form" style="display:none;">
-          <p><b>Create a new wallet</b></p>
-          <button class="wallet-btn" onclick="createWallet()">Generate Wallet</button>
-        </div>
-        <div id="restore-form" style="display:none;">
-          <p><b>Restore from Seed Phrase</b></p>
-          <input type="text" id="seed-input" class="wallet-input" placeholder="Enter your seed phrase">
-          <button class="wallet-btn" onclick="restoreWallet()">Restore</button>
-        </div>
-      </div>
-      <div id="user-section" style="display:none;">
-        <div class="wallet-balance">Balance: <span id="balance">0</span> <span id="coin">ETH</span></div>
-        <div class="wallet-address" id="wallet-address"></div>
-        <div class="wallet-qr" id="qrcode"></div>
-        <div class="wallet-actions">
-          <button class="wallet-btn" onclick="copyAddress()">Copy</button>
-          <button class="wallet-btn" onclick="showSend()">Send</button>
-          <button class="wallet-btn" onclick="showSwap()">Swap</button>
-          <button class="wallet-btn" onclick="logout()">Logout</button>
-        </div>
-      </div>
-      <div id="send-section" style="display:none;">
-        <input class="wallet-input" id="send-to" placeholder="Recipient Address">
-        <input class="wallet-input" id="send-amount" type="number" min="0" step="any" placeholder="Amount">
-        <button class="wallet-btn" onclick="sendTx()">Send</button>
-        <button class="wallet-btn" onclick="hideSend()">Cancel</button>
-        <div class="wallet-info" id="send-info"></div>
-      </div>
-      <div id="swap-section" style="display:none;">
-        <input class="wallet-input" id="swap-amount" type="number" min="0" step="any" placeholder="Amount to swap">
-        <select class="wallet-input" id="swap-token">
-          <option value="ETH">ETH</option>
-          <option value="USDT">USDT</option>
-        </select>
-        <button class="wallet-btn" onclick="swapToken()">Swap</button>
-        <button class="wallet-btn" onclick="hideSwap()">Cancel</button>
-        <div class="wallet-info">*Demo only: Swap is a placeholder.</div>
+      <h2>Unlock Wallet</h2>
+      <input
+        type="password"
+        id="unlock-password"
+        class="wallet-input"
+        placeholder="Enter your password"
+      />
+      <button class="wallet-btn" onclick="unlockWallet()">Unlock</button>
+      <div id="unlock-info" class="wallet-info"></div>
+      <div
+        style="margin-top: 22px; color: #888; font-size: 0.97em"
+      >
+        If you forgot your password,<br />restore wallet with your seed
+        phrase.
       </div>
     </div>
-    <footer>
-      &copy; 2025 RANNTA | All rights reserved.
-    </footer>
+    <div class="wallet-box" id="app-box" style="display:none;">
+      <div
+        style="
+          margin-bottom: 10px;
+          font-size: 2em;
+          color: #ffd700;
+          font-family: Georgia, serif;
+          text-shadow: 0 2px 16px #fff6;
+        "
+      >
+        RANNTA
+      </div>
+      <div class="wallet-nav">
+        <button
+          id="tabbtn-dashboard"
+          onclick="showTab('dashboard')"
+          class="active"
+        >
+          Dashboard
+        </button>
+        <button id="tabbtn-swap" onclick="showTab('swap')">Swap</button>
+        <button id="tabbtn-nft" onclick="showTab('nft')">NFT</button>
+        <button id="tabbtn-history" onclick="showTab('history')">
+          History
+        </button>
+        <button id="tabbtn-dapp" onclick="showTab('dapp')">DApps</button>
+        <button id="tabbtn-settings" onclick="showTab('settings')">
+          Settings
+        </button>
+      </div>
+      <div id="tab-dashboard">
+        <div class="account-list" id="account-list"></div>
+        <div>
+          <select
+            id="network"
+            class="wallet-select"
+            onchange="changeNetwork()"
+          ></select>
+          <button
+            class="wallet-btn"
+            style="margin: 0 0 10px 0"
+            onclick="addNetwork()"
+            title="Coming soon"
+            disabled
+          >
+            Add Network
+          </button>
+        </div>
+        <div class="rannta-promo" id="rannta-promo" style="display:none;">
+          🚀 RANNTA Network (Coming Soon)<br />
+          A new era of speed, security and vision is coming.
+        </div>
+        <div class="wallet-balance">
+          Balance: <span id="balance">0</span> <span id="coin">ETH</span>
+        </div>
+        <div class="wallet-address" id="wallet-address"></div>
+        <div class="wallet-qr" id="qrcode"></div>
+        <div>
+          <button class="wallet-btn" onclick="copyAddress()">Copy</button>
+          <button class="wallet-btn" onclick="showQRModal()">Show QR</button>
+        </div>
+        <ul class="token-list" id="token-list"></ul>
+        <button class="wallet-btn" onclick="showAddTokenModal()">
+          Add Token
+        </button>
+      </div>
+      <div id="tab-swap" style="display:none;">
+        <h2>Swap Tokens</h2>
+        <div>
+          <input
+            class="wallet-input"
+            id="swap-from-amount"
+            placeholder="Amount"
+          />
+          <select class="wallet-input" id="swap-from-token"></select>
+          <span style="font-weight: bold;">→</span>
+          <select class="wallet-input" id="swap-to-token"></select>
+          <button class="wallet-btn" onclick="getSwapQuote()">Get Quote</button>
+        </div>
+        <div id="swap-quote-info" style="margin: 10px 0; color: #ffd700;"></div>
+        <button class="wallet-btn" onclick="performSwap()" id="swap-btn" style="display:none;">
+          Swap
+        </button>
+      </div>
+      <div id="tab-nft" style="display:none;">
+        <div
+          style="
+            margin: 40px 0 30px 0;
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: bold;
+          "
+        >
+          🚧 NFT Gallery Coming Soon...
+        </div>
+      </div>
+      <div id="tab-history" style="display:none;">
+        <div
+          style="
+            margin: 40px 0 30px 0;
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: bold;
+          "
+        >
+          🚧 History Coming Soon...
+        </div>
+      </div>
+      <div id="tab-dapp" style="display:none;">
+        <div
+          style="
+            margin: 40px 0 30px 0;
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: bold;
+          "
+        >
+          🚧 DApp Browser Coming Soon...
+        </div>
+      </div>
+      <div id="tab-settings" style="display:none;">
+        <button class="wallet-btn" onclick="showSeedPhraseModal()">
+          Export Seed Phrase
+        </button>
+        <button class="wallet-btn" onclick="showContactModal()">
+          Contact Us
+        </button>
+        <button class="wallet-btn" onclick="showAIChat()">
+          RANNTA AI Chat
+        </button>
+        <button
+          class="wallet-btn"
+          onclick="logout()"
+          style="background: #222; color: #ffd700"
+        >
+          Logout
+        </button>
+        <div style="margin-top: 22px; color: #ffd700;">
+          Settings and more features coming soon...
+        </div>
+      </div>
+    </div>
+    <div id="add-token-modal" class="wallet-lock" style="display: none;">
+      <div>
+        <h2>Add Token</h2>
+        <input
+          class="wallet-input"
+          id="token-address"
+          placeholder="Token Contract Address"
+        />
+        <input
+          class="wallet-input"
+          id="token-symbol"
+          placeholder="Token Symbol (e.g. USDT)"
+        />
+        <input
+          class="wallet-input"
+          id="token-decimals"
+          placeholder="Decimals (e.g. 18)"
+          type="number"
+          min="0"
+        />
+        <button class="wallet-btn" onclick="addToken()">Add</button>
+        <button
+          class="wallet-btn"
+          onclick="closeAddTokenModal()"
+          style="background: #444; color: #fff"
+        >
+          Cancel
+        </button>
+        <div class="wallet-info" id="add-token-info"></div>
+      </div>
+    </div>
+    <div id="seed-modal">
+      <div>
+        <h2>Show Seed Phrase</h2>
+        <input
+          type="password"
+          id="modal-password"
+          class="wallet-input"
+          placeholder="Enter your password"
+        />
+        <button class="wallet-btn" onclick="revealSeedPhrase()">Show</button>
+        <button
+          class="wallet-btn"
+          onclick="closeSeedModal()"
+          style="background: #444; color: #fff"
+        >
+          Cancel
+        </button>
+        <div
+          id="seed-result"
+          class="wallet-info"
+          style="margin-top: 17px; word-break: break-all"
+        ></div>
+      </div>
+    </div>
+    <div id="qr-modal" style="display: none;">
+      <div>
+        <div id="quick-qr"></div>
+        <div
+          style="margin-top: 10px; font-size: 1.04em; color: #ffd700"
+          id="quick-qr-addr"
+        ></div>
+        <button class="wallet-btn" style="margin-top: 18px" onclick="closeQRModal()">
+          Close
+        </button>
+      </div>
+    </div>
+    <div id="contact-modal">
+      <div>
+        <h2>Contact Us</h2>
+        <div style="margin-bottom: 12px">
+          <a
+            href="mailto:info@rannta.com"
+            style="color: #ffd700; font-weight: bold"
+          >Email: info@rannta.com</a>
+        </div>
+        <div style="margin-bottom: 12px">
+          <a
+            href="https://t.me/ranntacoin2025"
+            style="color: #ffd700; font-weight: bold"
+          >Telegram: @ranntacoin2025</a>
+        </div>
+        <div style="margin: 14px 0 14px 0; font-size: 0.98em">
+          Or leave a message below:
+        </div>
+        <input
+          class="wallet-input"
+          id="contact-email"
+          placeholder="Your Email"
+        />
+        <textarea
+          class="wallet-input"
+          id="contact-message"
+          rows="3"
+          placeholder="Your Message"
+        ></textarea>
+        <button class="wallet-btn" onclick="sendContact()">Send Message</button>
+        <button
+          class="wallet-btn"
+          onclick="closeContactModal()"
+          style="background: #444; color: #fff"
+        >
+          Close
+        </button>
+        <div id="contact-result" class="wallet-info" style="margin-top: 12px"></div>
+      </div>
+    </div>
+    <div id="ai-modal">
+      <div>
+        <h2>RANNTA AI Chat</h2>
+        <div
+          style="margin: 12px 0 16px 0; font-size: 1.08em; color: #ffd700"
+        >
+          Ask me anything about crypto, RANNTA, or blockchain!<br />
+          (AI chat feature coming soon!)
+        </div>
+        <button
+          class="wallet-btn"
+          onclick="closeAIChat()"
+          style="background: #444; color: #fff"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+    <div id="toast" class="toast" style="display: none"></div>
+    <footer>&copy; 2025 RANNTA | All rights reserved.</footer>
   </main>
   <script>
-    // === NETWORK SETTINGS ===
+    // Network definitions
     const networks = {
       eth: {
-        name: "Ethereum Mainnet",
-        rpc: "https://rpc.ankr.com/eth",
-        coin: "ETH",
+        name: 'Ethereum',
+        rpc: 'https://rpc.ankr.com/eth',
+        coin: 'ETH',
         chainId: 1,
+        type: 'evm'
       },
       bnb: {
-        name: "Binance Smart Chain",
-        rpc: "https://rpc.ankr.com/bsc",
-        coin: "BNB",
+        name: 'BNB Chain',
+        rpc: 'https://rpc.ankr.com/bsc',
+        coin: 'BNB',
         chainId: 56,
+        type: 'evm'
       },
       polygon: {
-        name: "Polygon",
-        rpc: "https://rpc.ankr.com/polygon",
-        coin: "MATIC",
+        name: 'Polygon',
+        rpc: 'https://rpc.ankr.com/polygon',
+        coin: 'MATIC',
         chainId: 137,
+        type: 'evm'
+      },
+      avalanche: {
+        name: 'Avalanche',
+        rpc: 'https://rpc.ankr.com/avalanche',
+        coin: 'AVAX',
+        chainId: 43114,
+        type: 'evm'
+      },
+      fantom: {
+        name: 'Fantom',
+        rpc: 'https://rpc.ankr.com/fantom',
+        coin: 'FTM',
+        chainId: 250,
+        type: 'evm'
+      },
+      arbitrum: {
+        name: 'Arbitrum',
+        rpc: 'https://rpc.ankr.com/arbitrum',
+        coin: 'ARB',
+        chainId: 42161,
+        type: 'evm'
+      },
+      optimism: {
+        name: 'Optimism',
+        rpc: 'https://rpc.ankr.com/optimism',
+        coin: 'OP',
+        chainId: 10,
+        type: 'evm'
+      },
+      base: {
+        name: 'Base',
+        rpc: 'https://mainnet.base.org',
+        coin: 'ETH',
+        chainId: 8453,
+        type: 'evm'
+      },
+      zksync: {
+        name: 'zkSync Era',
+        rpc: 'https://mainnet.era.zksync.io',
+        coin: 'ETH',
+        chainId: 324,
+        type: 'evm'
+      },
+      tron: {
+        name: 'Tron',
+        api: 'https://api.trongrid.io',
+        coin: 'TRX',
+        chainId: null,
+        type: 'tron'
+      },
+      sol: {
+        name: 'Solana',
+        api: 'https://api.mainnet-beta.solana.com',
+        coin: 'SOL',
+        chainId: null,
+        type: 'solana'
+      },
+      ton: {
+        name: 'TON',
+        api: 'https://toncenter.com/api/v2/jsonRPC',
+        coin: 'TON',
+        chainId: null,
+        type: 'ton'
+      },
+      btc: {
+        name: 'Bitcoin',
+        api: 'https://blockstream.info/api',
+        coin: 'BTC',
+        chainId: null,
+        type: 'bitcoin'
+      },
+      doge: {
+        name: 'Dogecoin',
+        api: 'https://dogechain.info/api/v1',
+        coin: 'DOGE',
+        chainId: null,
+        type: 'dogecoin'
+      },
+      ltc: {
+        name: 'Litecoin',
+        api: 'https://ltc1.trezor.io/api',
+        coin: 'LTC',
+        chainId: null,
+        type: 'litecoin'
+      },
+      rannta: {
+        name: 'RANNTA Network (Coming Soon)',
+        coin: 'RANNTA',
+        type: 'rannta',
+        comingSoon: true
       }
     };
-
-    let provider = null;
-    let wallet = null;
-    let currentNet = 'eth';
-
-    document.getElementById("network").addEventListener("change", async function(e) {
-      currentNet = e.target.value;
-      await updateProvider();
-      if (wallet) showWallet();
-    });
-
-    async function updateProvider() {
-      const net = networks[currentNet];
-      provider = new ethers.providers.JsonRpcProvider(net.rpc);
-      document.getElementById("coin").textContent = net.coin;
-    }
-    updateProvider();
-
-    // === UI & WALLET FUNCTIONS ===
-    function showCreateWallet() {
-      document.getElementById("wallet-section").style.display = "none";
-      document.getElementById("form-section").style.display = "block";
-      document.getElementById("create-form").style.display = "block";
-      document.getElementById("restore-form").style.display = "none";
-    }
-    function showRestoreWallet() {
-      document.getElementById("wallet-section").style.display = "none";
-      document.getElementById("form-section").style.display = "block";
-      document.getElementById("create-form").style.display = "none";
-      document.getElementById("restore-form").style.display = "block";
-    }
-    function logout() {
-      wallet = null;
-      localStorage.removeItem('rannta_wallet');
-      document.getElementById("user-section").style.display = "none";
-      document.getElementById("wallet-section").style.display = "block";
-      clearQRCode();
-    }
-
-    function showWallet() {
-      document.getElementById("form-section").style.display = "none";
-      document.getElementById("user-section").style.display = "block";
-      document.getElementById("send-section").style.display = "none";
-      document.getElementById("swap-section").style.display = "none";
-      updateBalance();
-      document.getElementById("wallet-address").textContent = wallet.address;
-      showQRCode(wallet.address);
-    }
-
-    function createWallet() {
-      wallet = ethers.Wallet.createRandom();
-      saveWallet();
-      alert("Save your seed phrase somewhere safe:\n\n" + wallet.mnemonic.phrase);
-      showWallet();
-    }
-
-    function restoreWallet() {
-      const phrase = document.getElementById("seed-input").value.trim();
-      try {
-        wallet = ethers.Wallet.fromMnemonic(phrase);
-        saveWallet();
-        showWallet();
-      } catch (e) {
-        alert("Invalid seed phrase!");
-      }
-    }
-
-    function saveWallet() {
-      localStorage.setItem('rannta_wallet', wallet.mnemonic.phrase);
-    }
-
-    function loadWallet() {
-      const phrase = localStorage.getItem('rannta_wallet');
-      if (phrase) {
-        try {
-          wallet = ethers.Wallet.fromMnemonic(phrase);
-        } catch { wallet = null; }
-      }
-    }
-
-    async function updateBalance() {
-      if (!wallet || !provider) return;
-      const address = wallet.address;
-      try {
-        const bal = await provider.getBalance(address);
-        const net = networks[currentNet];
-        document.getElementById("balance").textContent = ethers.utils.formatEther(bal);
-        document.getElementById("coin").textContent = net.coin;
-      } catch {
-        document.getElementById("balance").textContent = "Error";
-      }
-    }
-
-    function copyAddress() {
-      if (wallet) {
-        navigator.clipboard.writeText(wallet.address);
-        alert("Address copied!");
-      }
-    }
-
-    function showSend() {
-      document.getElementById("send-section").style.display = "block";
-      document.getElementById("swap-section").style.display = "none";
-    }
-    function hideSend() {
-      document.getElementById("send-section").style.display = "none";
-    }
-    async function sendTx() {
-      const to = document.getElementById("send-to").value.trim();
-      const amount = document.getElementById("send-amount").value.trim();
-      if (!ethers.utils.isAddress(to)) {
-        document.getElementById("send-info").textContent = "Invalid recipient address.";
-        return;
-      }
-      if (isNaN(amount) || Number(amount) <= 0) {
-        document.getElementById("send-info").textContent = "Invalid amount.";
-        return;
-      }
-      try {
-        const net = networks[currentNet];
-        const _provider = new ethers.providers.JsonRpcProvider(net.rpc);
-        const signer = wallet.connect(_provider);
-        const tx = await signer.sendTransaction({
-          to,
-          value: ethers.utils.parseEther(amount)
-        });
-        document.getElementById("send-info").textContent = "Transaction sent! TxHash: " + tx.hash;
-        updateBalance();
-      } catch (e) {
-        document.getElementById("send-info").textContent = "Error: " + e.message;
-      }
-    }
-
-    function showSwap() {
-      document.getElementById("swap-section").style.display = "block";
-      document.getElementById("send-section").style.display = "none";
-    }
-    function hideSwap() {
-      document.getElementById("swap-section").style.display = "none";
-    }
-    function swapToken() {
-      alert("Swap functionality is a placeholder in this demo.");
-    }
-
-    // QR Code functions
-    let qrcode = null;
-    function showQRCode(addr) {
-      clearQRCode();
-      qrcode = new QRCode(document.getElementById("qrcode"), {
-        text: addr,
-        width: 126,
-        height: 126,
-        colorDark : "#181825",
-        colorLight : "#fffbe7",
-        correctLevel : QRCode.CorrectLevel.M
-      });
-    }
-    function clearQRCode() {
-      const box = document.getElementById("qrcode");
-      box.innerHTML = "";
-    }
-
-    // Load wallet from localStorage if exists
-    window.onload = () => {
-      loadWallet();
-      if (wallet) {
-        showWallet();
-      }
+    const defaultTokens = {
+      ton: [
+        {
+          address:
+            'EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR',
+          symbol: 'RANNTA',
+          name: 'RANNTA Token',
+          decimals: 9,
+          logoURI:
+            'https://raw.githubusercontent.com/ilia144000/rannta-token/main/logo.png',
+          isDefault: true
+        }
+      ],
+      eth: [
+        {
+          symbol: 'ETH',
+          name: 'Ethereum',
+          isNative: true,
+          isDefault: true
+        },
+        {
+          address:
+            '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+          symbol: 'USDT',
+          name: 'Tether',
+          decimals: 6,
+          logoURI:
+            'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png',
+          isDefault: true
+        },
+        {
+          address:
+            '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+          symbol: 'USDC',
+          name: 'USD Coin',
+          decimals: 6,
+          logoURI:
+            'https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png',
+          isDefault: true
+        }
+      ],
+      bnb: [
+        {
+          symbol: 'BNB',
+          name: 'Binance Coin',
+          isNative: true,
+          isDefault: true
+        },
+        {
+          address:
+            '0x55d398326f99059fF775485246999027B3197955',
+          symbol: 'USDT',
+          name: 'Tether',
+          decimals: 18,
+          logoURI:
+            'https://assets.coingecko.com/coins/images/325/large/Tether-logo.png',
+          isDefault: true
+        }
+      ],
+      polygon: [
+        {
+          symbol: 'MATIC',
+          name: 'Polygon',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      avalanche: [
+        {
+          symbol: 'AVAX',
+          name: 'Avalanche',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      fantom: [
+        {
+          symbol: 'FTM',
+          name: 'Fantom',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      arbitrum: [
+        {
+          symbol: 'ARB',
+          name: 'Arbitrum',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      optimism: [
+        {
+          symbol: 'OP',
+          name: 'Optimism',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      base: [
+        {
+          symbol: 'ETH',
+          name: 'Base',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      zksync: [
+        {
+          symbol: 'ETH',
+          name: 'zkSync Era',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      tron: [
+        {
+          symbol: 'TRX',
+          name: 'Tron',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      sol: [
+        {
+          symbol: 'SOL',
+          name: 'Solana',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      btc: [
+        {
+          symbol: 'BTC',
+          name: 'Bitcoin',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      doge: [
+        {
+          symbol: 'DOGE',
+          name: 'Dogecoin',
+          isNative: true,
+          isDefault: true
+        }
+      ],
+      ltc: [
+        {
+          symbol: 'LTC',
+          name: 'Litecoin',
+          isNative: true,
+          isDefault: true
+        }
+      ]
     };
+    // The rest of your JavaScript wallet logic continues here
   </script>
 </body>
 </html>
