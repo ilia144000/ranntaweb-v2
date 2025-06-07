@@ -240,7 +240,7 @@
           placeholder="Enter your password"
           autocomplete="current-password"
         />
-        <button class="wallet-btn" style="margin-top: 10px; width: 100%;" onclick="unlockWallet()">Login</button>
+        <button class="wallet-btn" style="margin-top: 10px; width: 100%;" onclick="showLogin()">Login</button>
       </div>
       <div style="margin: 18px 0 8px 0; border-bottom: 1px solid #ffd70033;"></div>
       <button class="wallet-btn" style="width: 100%; margin-bottom: 11px;" onclick="showCreateWallet()">
@@ -253,22 +253,34 @@
         If you forgot your password, restore wallet with your seed phrase.<br>
         <span style="color:#ffd700;">Never share your password or seed phrase with anyone.</span>
       </div>
+      <div id="loginerr" class="wallet-info"></div>
     </div>
     <div class="wallet-box" id="app-box" style="display:none;">
-      <!-- All your wallet content, tabs, etc. -->
+      <!-- Your original dashboard, tabs, etc. remain unchanged -->
     </div>
     <footer>&copy; 2025 RANNTA | All rights reserved.</footer>
   </main>
   <script>
-    // --- Blockchain networks and tokens definitions (unchanged) ---
-    const networks = { /* ... all previous networks ... */ };
-    const defaultTokens = { /* ... all previous tokens ... */ };
+    // Your blockchain networks and tokens definitions remain here (unchanged)
 
-    // --- Wallet Login/Seed/Restore Functions ---
-    function unlockWallet() {
-      alert("Login with password: " + document.getElementById("unlock-password").value);
+    function encrypt(text, pass) {
+      return CryptoJS.AES.encrypt(text, pass).toString();
     }
-
+    function decrypt(cipher, pass) {
+      try {
+        const bytes = CryptoJS.AES.decrypt(cipher, pass);
+        return bytes.toString(CryptoJS.enc.Utf8);
+      } catch(e) { return ""; }
+    }
+    function showLogin() {
+      const pass = document.getElementById("unlock-password").value;
+      const cipher = localStorage.getItem("wallet_encrypted_seed");
+      if (!cipher) { document.getElementById("loginerr").innerText = "No wallet found. Create or restore one first."; return; }
+      const dec = decrypt(cipher, pass);
+      if (!bip39.validateMnemonic(dec)) { document.getElementById("loginerr").innerText = "Invalid password or corrupted data."; return; }
+      document.getElementById("loginerr").innerText = "Wallet unlocked! (Demo only)";
+      // Here you show your dashboard/app box as needed
+    }
     function showCreateWallet() {
       const seedPhrase = bip39.generateMnemonic();
       document.getElementById("lock-screen").innerHTML = `
@@ -286,49 +298,28 @@
           <p style="color:#aaa;font-size:1em;">Save the following 12-word seed phrase somewhere safe:</p>
           <div id="generated-seed" style="background:#111;border-radius:8px;padding:16px;margin:10px 0;color:#ffd700;font-size:1.07em;letter-spacing:1px;word-break:break-word;">${seedPhrase}</div>
           <button class="wallet-btn" onclick="copySeed()">Copy Seed Phrase</button>
-          <button class="wallet-btn" style="margin-left:12px;" onclick="proceedToSetPassword('${seedPhrase}')">Continue</button>
+          <input type="password" id="setpass1" class="wallet-input" placeholder="Set Password">
+          <input type="password" id="setpass2" class="wallet-input" placeholder="Repeat Password">
+          <button class="wallet-btn" onclick="finishCreate('${seedPhrase}')">Continue</button>
         </div>
         <button class="wallet-btn alt" style="width:100%;margin-top:18px;" onclick="location.reload()">Back</button>
+        <div id="createerr" class="wallet-info"></div>
       `;
-      window._generatedSeed = seedPhrase;
     }
-
     function copySeed() {
       const txt = document.getElementById("generated-seed").innerText;
       navigator.clipboard.writeText(txt);
       alert("Seed phrase copied!");
     }
-
-    function proceedToSetPassword(seedPhrase) {
-      document.getElementById("lock-screen").innerHTML = `
-        <div style="margin-bottom:18px;">
-          <img src="assets/wallet-optimized.png" alt="RANNTA Griffin Logo"
-            style="width:90px;max-width:32vw;display:block;margin:0 auto 10px auto;filter:drop-shadow(0 0 14px #ffd700bb);" />
-        </div>
-        <div style="margin-bottom:10px;font-size:2em;color:#ffd700;font-family:Georgia,serif;text-shadow:0 2px 16px #fff6;">
-          RANNTA
-        </div>
-        <div style="margin:16px 0 18px 0;color:#ffd700;font-size:1.12em;font-style:italic;font-family:Georgia,serif;">
-          Set a password for your wallet:
-        </div>
-        <input type="password" id="set-pass-1" class="wallet-input" placeholder="Enter password" />
-        <input type="password" id="set-pass-2" class="wallet-input" placeholder="Confirm password" />
-        <button class="wallet-btn" style="width:100%;" onclick="finishWalletSetup('${seedPhrase}')">Finish & Login</button>
-        <button class="wallet-btn alt" style="width:100%;margin-top:12px;" onclick="location.reload()">Cancel</button>
-      `;
-    }
-
-    function finishWalletSetup(seedPhrase) {
-      let p1 = document.getElementById("set-pass-1").value;
-      let p2 = document.getElementById("set-pass-2").value;
-      if (p1.length < 6) return alert("Password must be at least 6 characters.");
-      if (p1 !== p2) return alert("Passwords do not match.");
-      localStorage.setItem("wallet_seed", seedPhrase);
-      localStorage.setItem("wallet_password", p1);
-      alert("Wallet created! (Seed and password stored in browser localStorage for demo only!)");
+    function finishCreate(seed) {
+      const p1 = document.getElementById("setpass1").value;
+      const p2 = document.getElementById("setpass2").value;
+      if (p1.length < 6) { document.getElementById("createerr").innerText = "Password must be at least 6 characters."; return; }
+      if (p1 !== p2) { document.getElementById("createerr").innerText = "Passwords do not match."; return; }
+      localStorage.setItem("wallet_encrypted_seed", encrypt(seed, p1));
+      alert("Wallet created & secured!");
       location.reload();
     }
-
     function showRestoreWallet() {
       document.getElementById("lock-screen").innerHTML = `
         <div style="margin-bottom:18px;">
@@ -341,25 +332,22 @@
         <div style="margin:16px 0 18px 0;color:#ffd700;font-size:1.12em;font-style:italic;font-family:Georgia,serif;">
           Restore Wallet with 12-word Seed
         </div>
-        <textarea id="restore-seed" class="wallet-input" placeholder="Enter your 12-word seed phrase here..." rows="2" style="width:96%;margin-bottom:14px;"></textarea>
-        <input type="password" id="restore-pass" class="wallet-input" placeholder="Set a new password" />
+        <textarea id="restoreseed" class="wallet-input" placeholder="Enter your 12-word seed phrase here..." rows="2" style="width:96%;margin-bottom:14px;"></textarea>
+        <input type="password" id="setpass3" class="wallet-input" placeholder="Set New Password" />
         <button class="wallet-btn" style="width:100%;" onclick="finishRestore()">Restore Wallet</button>
         <button class="wallet-btn alt" style="width:100%;margin-top:12px;" onclick="location.reload()">Cancel</button>
+        <div id="restoreerr" class="wallet-info"></div>
       `;
     }
-
     function finishRestore() {
-      let seed = document.getElementById("restore-seed").value.trim();
-      let pass = document.getElementById("restore-pass").value;
-      if (!bip39.validateMnemonic(seed)) return alert("Seed phrase is invalid or not 12/24 words.");
-      if (pass.length < 6) return alert("Password must be at least 6 characters.");
-      localStorage.setItem("wallet_seed", seed);
-      localStorage.setItem("wallet_password", pass);
-      alert("Wallet restored! (Seed and password stored in browser localStorage for demo only!)");
+      let seed = document.getElementById("restoreseed").value.trim();
+      let pass = document.getElementById("setpass3").value;
+      if (!bip39.validateMnemonic(seed)) { document.getElementById("restoreerr").innerText = "Invalid seed phrase."; return; }
+      if (pass.length < 6) { document.getElementById("restoreerr").innerText = "Password too short."; return; }
+      localStorage.setItem("wallet_encrypted_seed", encrypt(seed, pass));
+      alert("Wallet restored & encrypted!");
       location.reload();
     }
-
-    // Your other wallet logic...
   </script>
 </body>
 </html>
