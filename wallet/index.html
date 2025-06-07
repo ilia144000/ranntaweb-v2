@@ -214,10 +214,7 @@
 </head>
 <body>
   <main>
-    <div style="margin-bottom: 18px;">
-      <img src="assets/wallet-optimized.png" alt="RANNTA Griffin Logo"
-        style="width: 90px; max-width: 32vw; display: block; margin: 0 auto 10px auto; filter: drop-shadow(0 0 14px #ffd700bb);" />
-    </div>
+    <!-- Lock Screen -->
     <div id="lock-screen" class="wallet-lock" style="display:none;">
       <div
         style="
@@ -257,7 +254,13 @@
         phrase.
       </div>
     </div>
+
+    <!-- Wallet App -->
     <div class="wallet-box" id="app-box" style="display:none;">
+      <div style="margin-bottom: 18px;">
+        <img src="assets/wallet-optimized.png" alt="RANNTA Griffin Logo"
+          style="width: 90px; max-width: 32vw; display: block; margin: 0 auto 10px auto; filter: drop-shadow(0 0 14px #ffd700bb);" />
+      </div>
       <div
         style="
           margin-bottom: 10px;
@@ -287,6 +290,8 @@
           Settings
         </button>
       </div>
+
+      <!-- Dashboard Tab -->
       <div id="tab-dashboard">
         <div class="account-list" id="account-list"></div>
         <div>
@@ -323,6 +328,8 @@
           Add Token
         </button>
       </div>
+
+      <!-- Swap Tab -->
       <div id="tab-swap" style="display:none;">
         <h2>Swap Tokens</h2>
         <div>
@@ -341,6 +348,8 @@
           Swap
         </button>
       </div>
+
+      <!-- NFT Tab -->
       <div id="tab-nft" style="display:none;">
         <div
           style="
@@ -353,6 +362,8 @@
           🚧 NFT Gallery Coming Soon...
         </div>
       </div>
+
+      <!-- History Tab -->
       <div id="tab-history" style="display:none;">
         <div
           style="
@@ -365,6 +376,8 @@
           🚧 History Coming Soon...
         </div>
       </div>
+
+      <!-- DApp Browser Tab -->
       <div id="tab-dapp" style="display:none;">
         <div
           style="
@@ -377,6 +390,8 @@
           🚧 DApp Browser Coming Soon...
         </div>
       </div>
+
+      <!-- Settings Tab -->
       <div id="tab-settings" style="display:none;">
         <button class="wallet-btn" onclick="showSeedPhraseModal()">
           Export Seed Phrase
@@ -399,6 +414,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Add Token Modal -->
     <div id="add-token-modal" class="wallet-lock" style="display: none;">
       <div>
         <h2>Add Token</h2>
@@ -430,6 +447,8 @@
         <div class="wallet-info" id="add-token-info"></div>
       </div>
     </div>
+
+    <!-- Seed Phrase Modal -->
     <div id="seed-modal">
       <div>
         <h2>Show Seed Phrase</h2>
@@ -454,6 +473,8 @@
         ></div>
       </div>
     </div>
+
+    <!-- QR Modal -->
     <div id="qr-modal" style="display: none;">
       <div>
         <div id="quick-qr"></div>
@@ -466,6 +487,8 @@
         </button>
       </div>
     </div>
+
+    <!-- Contact Modal -->
     <div id="contact-modal">
       <div>
         <h2>Contact Us</h2>
@@ -506,6 +529,8 @@
         <div id="contact-result" class="wallet-info" style="margin-top: 12px"></div>
       </div>
     </div>
+
+    <!-- AI Chat Modal -->
     <div id="ai-modal">
       <div>
         <h2>RANNTA AI Chat</h2>
@@ -524,9 +549,13 @@
         </button>
       </div>
     </div>
+
+    <!-- Toast Notification -->
     <div id="toast" class="toast" style="display: none"></div>
+
     <footer>&copy; 2025 RANNTA | All rights reserved.</footer>
   </main>
+
   <script>
     // Network definitions
     const networks = {
@@ -642,6 +671,8 @@
         comingSoon: true
       }
     };
+
+    // Default tokens per network
     const defaultTokens = {
       ton: [
         {
@@ -798,7 +829,14 @@
         }
       ]
     };
-    // The rest of your JavaScript wallet logic continues here
+
+    // Your JavaScript wallet logic here:
+    // Functions for showing tabs, unlocking wallet, managing tokens,
+    // connecting to networks, swap, add token, etc.
+
+    // For brevity, full JS logic is not included here.
+    // If you want, I can provide the complete JavaScript separately.
+
   </script>
 </body>
 </html>
