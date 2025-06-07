@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RANNTA Wallet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ethers.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.umd.min.js"></script>
+  <!-- QRCode.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Main Site Style -->
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    .wallet-box {
+      background: #181818;
+      border-radius: 18px;
+      box-shadow: 0 6px 48px #0005;
+      max-width: 400px;
+      width: 95%;
+      margin: 32px auto 0 auto;
+      padding: 28px 18px 32px 18px;
+      text-align: center;
+      font-size: 1.08em;
+      line-height: 1.7;
+    }
+    .wallet-actions {
+      margin: 22px 0 12px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .wallet-btn {
+      background: linear-gradient(90deg, #ffd700, #ff9100);
+      color: #181818;
+      padding: 11px 24px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.03em;
+      cursor: pointer;
+      transition: box-shadow 0.16s;
+      box-shadow: 0 2px 10px #0003;
+      outline: none;
+    }
+    .wallet-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .wallet-btn:hover {
+      box-shadow: 0 4px 18px #ffd70044;
+      color: #fff;
+    }
+    .wallet-input, .wallet-select {
+      margin: 7px 0 15px 0;
+      padding: 9px;
+      border-radius: 7px;
+      border: 1px solid #ffd70055;
+      width: 92%;
+      background: #23234d22;
+      color: #fff;
+      font-size: 1em;
+    }
+    .wallet-address {
+      background: #111;
+      border-radius: 8px;
+      padding: 9px 6px;
+      word-break: break-all;
+      margin-bottom: 13px;
+      font-size: 0.99em;
+      color: #FFD700;
+      text-align: center;
+    }
+    .wallet-balance {
+      font-weight: bold;
+      color: #ffd700;
+      margin-bottom: 7px;
+    }
+    .wallet-qr {
+      margin: 10px 0 12px 0;
+      display: flex;
+      justify-content: center;
+    }
+    .wallet-info {
+      margin: 7px 0 7px 0;
+      color: #aaa;
+      font-size: 0.93em;
+    }
+    @media (max-width: 600px) {
+      .wallet-box {
+        padding: 12px 4vw 18px 4vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="wallet-box">
+      <h1>RANNTA Wallet</h1>
+      <p style="margin-bottom:24px">
+        Decentralized, secure & multi-chain wallet for RANNTA.<br>
+        Ethereum + other networks coming soon!
+      </p>
+      <div>
+        <select id="network" class="wallet-select">
+          <option value="eth">Ethereum Mainnet</option>
+          <option value="bnb">Binance Smart Chain</option>
+          <option value="polygon">Polygon</option>
+        </select>
+      </div>
+      <div id="wallet-section">
+        <button class="wallet-btn" onclick="showCreateWallet()">Create Wallet</button>
+        <button class="wallet-btn" onclick="showRestoreWallet()">Restore Wallet</button>
+      </div>
+      <div id="form-section" style="display:none;">
+        <div id="create-form" style="display:none;">
+          <p><b>Create a new wallet</b></p>
+          <button class="wallet-btn" onclick="createWallet()">Generate Wallet</button>
+        </div>
+        <div id="restore-form" style="display:none;">
+          <p><b>Restore from Seed Phrase</b></p>
+          <input type="text" id="seed-input" class="wallet-input" placeholder="Enter your seed phrase">
+          <button class="wallet-btn" onclick="restoreWallet()">Restore</button>
+        </div>
+      </div>
+      <div id="user-section" style="display:none;">
+        <div class="wallet-balance">Balance: <span id="balance">0</span> <span id="coin">ETH</span></div>
+        <div class="wallet-address" id="wallet-address"></div>
+        <div class="wallet-qr" id="qrcode"></div>
+        <div class="wallet-actions">
+          <button class="wallet-btn" onclick="copyAddress()">Copy</button>
+          <button class="wallet-btn" onclick="showSend()">Send</button>
+          <button class="wallet-btn" onclick="showSwap()">Swap</button>
+          <button class="wallet-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
+      <div id="send-section" style="display:none;">
+        <input class="wallet-input" id="send-to" placeholder="Recipient Address">
+        <input class="wallet-input" id="send-amount" type="number" min="0" step="any" placeholder="Amount">
+        <button class="wallet-btn" onclick="sendTx()">Send</button>
+        <button class="wallet-btn" onclick="hideSend()">Cancel</button>
+        <div class="wallet-info" id="send-info"></div>
+      </div>
+      <div id="swap-section" style="display:none;">
+        <input class="wallet-input" id="swap-amount" type="number" min="0" step="any" placeholder="Amount to swap">
+        <select class="wallet-input" id="swap-token">
+          <option value="ETH">ETH</option>
+          <option value="USDT">USDT</option>
+        </select>
+        <button class="wallet-btn" onclick="swapToken()">Swap</button>
+        <button class="wallet-btn" onclick="hideSwap()">Cancel</button>
+        <div class="wallet-info">*Demo only: Swap is a placeholder.</div>
+      </div>
+    </div>
+    <footer>
+      &copy; 2025 RANNTA | All rights reserved.
+    </footer>
+  </main>
+  <script>
+    // === NETWORK SETTINGS ===
+    const networks = {
+      eth: {
+        name: "Ethereum Mainnet",
+        rpc: "https://rpc.ankr.com/eth",
+        coin: "ETH",
+        chainId: 1,
+      },
+      bnb: {
+        name: "Binance Smart Chain",
+        rpc: "https://rpc.ankr.com/bsc",
+        coin: "BNB",
+        chainId: 56,
+      },
+      polygon: {
+        name: "Polygon",
+        rpc: "https://rpc.ankr.com/polygon",
+        coin: "MATIC",
+        chainId: 137,
+      }
+    };
+
+    let provider = null;
+    let wallet = null;
+    let currentNet = 'eth';
+
+    document.getElementById("network").addEventListener("change", async function(e) {
+      currentNet = e.target.value;
+      await updateProvider();
+      if (wallet) showWallet();
+    });
+
+    async function updateProvider() {
+      const net = networks[currentNet];
+      provider = new ethers.providers.JsonRpcProvider(net.rpc);
+      document.getElementById("coin").textContent = net.coin;
+    }
+    updateProvider();
+
+    // === UI & WALLET FUNCTIONS ===
+    function showCreateWallet() {
+      document.getElementById("wallet-section").style.display = "none";
+      document.getElementById("form-section").style.display = "block";
+      document.getElementById("create-form").style.display = "block";
+      document.getElementById("restore-form").style.display = "none";
+    }
+    function showRestoreWallet() {
+      document.getElementById("wallet-section").style.display = "none";
+      document.getElementById("form-section").style.display = "block";
+      document.getElementById("create-form").style.display = "none";
+      document.getElementById("restore-form").style.display = "block";
+    }
+    function logout() {
+      wallet = null;
+      localStorage.removeItem('rannta_wallet');
+      document.getElementById("user-section").style.display = "none";
+      document.getElementById("wallet-section").style.display = "block";
+      clearQRCode();
+    }
+
+    function showWallet() {
+      document.getElementById("form-section").style.display = "none";
+      document.getElementById("user-section").style.display = "block";
+      document.getElementById("send-section").style.display = "none";
+      document.getElementById("swap-section").style.display = "none";
+      updateBalance();
+      document.getElementById("wallet-address").textContent = wallet.address;
+      showQRCode(wallet.address);
+    }
+
+    function createWallet() {
+      wallet = ethers.Wallet.createRandom();
+      saveWallet();
+      alert("Save your seed phrase somewhere safe:\n\n" + wallet.mnemonic.phrase);
+      showWallet();
+    }
+
+    function restoreWallet() {
+      const phrase = document.getElementById("seed-input").value.trim();
+      try {
+        wallet = ethers.Wallet.fromMnemonic(phrase);
+        saveWallet();
+        showWallet();
+      } catch (e) {
+        alert("Invalid seed phrase!");
+      }
+    }
+
+    function saveWallet() {
+      localStorage.setItem('rannta_wallet', wallet.mnemonic.phrase);
+    }
+
+    function loadWallet() {
+      const phrase = localStorage.getItem('rannta_wallet');
+      if (phrase) {
+        try {
+          wallet = ethers.Wallet.fromMnemonic(phrase);
+        } catch { wallet = null; }
+      }
+    }
+
+    async function updateBalance() {
+      if (!wallet || !provider) return;
+      const address = wallet.address;
+      try {
+        const bal = await provider.getBalance(address);
+        const net = networks[currentNet];
+        document.getElementById("balance").textContent = ethers.utils.formatEther(bal);
+        document.getElementById("coin").textContent = net.coin;
+      } catch {
+        document.getElementById("balance").textContent = "Error";
+      }
+    }
+
+    function copyAddress() {
+      if (wallet) {
+        navigator.clipboard.writeText(wallet.address);
+        alert("Address copied!");
+      }
+    }
+
+    function showSend() {
+      document.getElementById("send-section").style.display = "block";
+      document.getElementById("swap-section").style.display = "none";
+    }
+    function hideSend() {
+      document.getElementById("send-section").style.display = "none";
+    }
+    async function sendTx() {
+      const to = document.getElementById("send-to").value.trim();
+      const amount = document.getElementById("send-amount").value.trim();
+      if (!ethers.utils.isAddress(to)) {
+        document.getElementById("send-info").textContent = "Invalid recipient address.";
+        return;
+      }
+      if (isNaN(amount) || Number(amount) <= 0) {
+        document.getElementById("send-info").textContent = "Invalid amount.";
+        return;
+      }
+      try {
+        const net = networks[currentNet];
+        const _provider = new ethers.providers.JsonRpcProvider(net.rpc);
+        const signer = wallet.connect(_provider);
+        const tx = await signer.sendTransaction({
+          to,
+          value: ethers.utils.parseEther(amount)
+        });
+        document.getElementById("send-info").textContent = "Transaction sent! TxHash: " + tx.hash;
+        updateBalance();
+      } catch (e) {
+        document.getElementById("send-info").textContent = "Error: " + e.message;
+      }
+    }
+
+    function showSwap() {
+      document.getElementById("swap-section").style.display = "block";
+      document.getElementById("send-section").style.display = "none";
+    }
+    function hideSwap() {
+      document.getElementById("swap-section").style.display = "none";
+    }
+    function swapToken() {
+      alert("Swap functionality is a placeholder in this demo.");
+    }
+
+    // QR Code functions
+    let qrcode = null;
+    function showQRCode(addr) {
+      clearQRCode();
+      qrcode = new QRCode(document.getElementById("qrcode"), {
+        text: addr,
+        width: 126,
+        height: 126,
+        colorDark : "#181825",
+        colorLight : "#fffbe7",
+        correctLevel : QRCode.CorrectLevel.M
+      });
+    }
+    function clearQRCode() {
+      const box = document.getElementById("qrcode");
+      box.innerHTML = "";
+    }
+
+    // Load wallet from localStorage if exists
+    window.onload = () => {
+      loadWallet();
+      if (wallet) {
+        showWallet();
+      }
+    };
+  </script>
+</body>
+</html>
