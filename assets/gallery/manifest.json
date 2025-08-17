@@ -1,74 +1,44 @@
 [
   {
-    "file": "Divine Genome – Sabalan Codex.png",
+    "file": "divine-genome-sabalan-codex.png",
     "title": "Divine Genome — Sabalan Codex",
     "caption": "Signal geometry from the Sabalan Codex.",
-    "alt": "MSF triangular emblem with griffin and codex motifs",
-    "w": 1024,
-    "h": 1024
+    "alt": "MSF emblem with griffin and codex motifs"
   },
   {
-    "file": "Earthkeeper #001.png",
+    "file": "earthkeeper-001.png",
     "title": "Earthkeeper #001",
     "caption": "Tree of Breath — the first guardian.",
-    "alt": "Circular MSF seal with tree and runic ring",
-    "w": 1024,
-    "h": 1024
+    "alt": "Circular MSF seal with tree and runic ring"
   },
   {
-    "file": "Eternal Guardians of Persia.png",
+    "file": "eternal-guardians-of-persia.png",
     "title": "Eternal Guardians of Persia",
     "caption": "A vigil of symbols across the eternal plain.",
-    "alt": "Gold sigils array on dark field for guardians of Persia",
-    "w": 1200,
-    "h": 800
+    "alt": "Gold sigils array for guardians of Persia"
   },
   {
-    "file": "Supreme Zodiac – Token#4.png",
+    "file": "supreme-zodiac-token-4.png",
     "title": "Supreme Zodiac — Token #4",
     "caption": "Arc of fate across the twelve houses.",
-    "alt": "Zodiac-themed MSF token triangle with griffin",
-    "w": 1024,
-    "h": 1536
+    "alt": "Zodiac-themed MSF token triangle with griffin"
   },
   {
-    "file": "Water_Heart_master.png.png",
+    "file": "water-heart-master.png",
     "title": "Water Heart",
     "caption": "A covenant of water and light.",
-    "alt": "Blue water heart symbol with glow",
-    "w": 1024,
-    "h": 1024
+    "alt": "Blue water heart symbol with glow"
   },
   {
-    "file": "Genesis 26 – Sentinel’s Oath.png",
+    "file": "genesis-26-sentinels-oath.png",
     "title": "Genesis 26 — Sentinel’s Oath",
     "caption": "The oath engraved in light.",
-    "alt": "Triangular plaque with griffin and inscription Sentinel’s Oath",
-    "w": 1024,
-    "h": 1536
+    "alt": "Triangular plaque with griffin and inscription Sentinels Oath"
   },
   {
-    "file": "Genesis 13 – Serpent’s Covenant.png",
+    "file": "genesis-13-serpents-covenant.png",
     "title": "Genesis 13 — Serpent’s Covenant",
     "caption": "The serpent’s covenant in gilded script.",
-    "alt": "Triangular plaque with serpent covenant inscription",
-    "w": 1024,
-    "h": 1536
-  },
-  {
-    "file": "1234.png",
-    "title": "Artifact 1234",
-    "caption": "Prototype study.",
-    "alt": "MSF art study sample 1234",
-    "w": 1024,
-    "h": 1024
-  },
-  {
-    "file": "12345.png",
-    "title": "Artifact 12345",
-    "caption": "Prototype study.",
-    "alt": "MSF art study sample 12345",
-    "w": 1024,
-    "h": 1024
+    "alt": "Triangular plaque bearing the serpent covenant inscription"
   }
 ]
