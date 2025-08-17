@@ -80,15 +80,21 @@
     <script>
       (async function(){
         try{
-          const res = await fetch('assets/gallery/manifest.json?v=2');
+          const res = await fetch('assets/gallery/manifest.json?v=3');
+          if(!res.ok) throw new Error('manifest not found');
           const items = await res.json();
           const grid = document.getElementById('gallery-grid');
-          items.forEach(it => {
-            const file = it.file;                               // original filename with spaces/# etc.
-            const encodedFile = encodeURIComponent(file);
+
+          function safeUrl(path){
+            // encode URI but also escape '#'
+            return encodeURI(path).replace(/#/g, '%23');
+          }
+
+          for (const it of items){
+            const file = it.file; // original filename (may contain spaces/#/unicode)
             const base = file.replace(/\.[^.]+$/, '');
-            const encodedWebp = `assets/gallery/${encodeURIComponent(base)}.webp`;
-            const fallback = `assets/gallery/${encodedFile}`;    // png/jpg fallback
+            const webp = safeUrl(`assets/gallery/${base}.webp`);
+            const fallback = safeUrl(`assets/gallery/${file}`);
             const w = it.w || 1200, h = it.h || 800;
             const title = it.title || '';
             const caption = it.caption || '';
@@ -96,13 +102,25 @@
 
             const fig = document.createElement('figure');
             fig.className = 'gallery-item';
-            fig.innerHTML = `
-              <img src="${encodedWebp}" onerror="this.onerror=null; this.src='${fallback}'" alt="${alt.replace(/"/g,'&quot;')}" loading="lazy" width="${w}" height="${h}">
-              <figcaption class=\"caption\"><strong>${title}</strong><br>${caption}</figcaption>
-              <noscript><img src="${fallback}" alt="${alt.replace(/"/g,'&quot;')}" width="${w}" height="${h}"></noscript>
-            `;
+
+            const img = document.createElement('img');
+            img.width = w; img.height = h; img.loading = 'lazy';
+            img.alt = alt;
+            // Show fallback immediately; upgrade to webp if it exists
+            img.src = fallback;
+            const probe = new Image();
+            probe.onload = () => { img.src = webp; };
+            probe.onerror = () => {/* keep fallback */};
+            probe.src = webp;
+
+            const cap = document.createElement('figcaption');
+            cap.className = 'caption';
+            cap.innerHTML = `<strong>${title}</strong><br>${caption}`;
+
+            fig.appendChild(img);
+            fig.appendChild(cap);
             grid.appendChild(fig);
-          });
+          }
         } catch (e) {
           console.error('Gallery load failed', e);
         }
