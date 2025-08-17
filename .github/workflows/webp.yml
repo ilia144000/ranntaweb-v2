@@ -1,1 +1,78 @@
+name: Convert images to WebP
+
+on:
+  push:
+    branches: [ main ]               # اگر شاخه‌ت چیز دیگری‌ست، همین را عوض کن
+    paths:
+      - 'assets/gallery/**/*.{jpg,jpeg,png,JPG,JPEG,PNG}'  # فقط وقتی JPG/PNG پوش می‌شود اجرا کن
+
+jobs:
+  webp:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write                # اجازهٔ کامیت‌کردن خروجی‌ها
+
+    concurrency:
+      group: webp-auto               # جلوگیری از اجرای هم‌زمان چند شغل
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install webp tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webp
+
+      - name: Convert new/changed images to WebP
+        env:
+          QUALITY: '82'              # کیفیت پیشنهادی عکس‌ها
+          MAX_WIDTH: '1200'          # پهنای هدف برای کاهش حجم؛ 0 یعنی بدون تغییر
+        run: |
+          set -e
+          # پیدا کردن فایل‌های تغییر کرده (دفعهٔ اول اگر diff نداشت، کل گالری را بررسی می‌کنیم)
+          FILES="$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- \
+            'assets/gallery/**/*.[Jj][Pp][Gg]' \
+            'assets/gallery/**/*.[Jj][Pp][Ee][Gg]' \
+            'assets/gallery/**/*.[Pp][Nn][Gg]' || true)"
+          if [ -z "$FILES" ]; then
+            FILES="$(git ls-files \
+              'assets/gallery/**/*.[Jj][Pp][Gg]' \
+              'assets/gallery/**/*.[Jj][Pp][Ee][Gg]' \
+              'assets/gallery/**/*.[Pp][Nn][Gg]' || true)"
+          fi
+
+          echo "$FILES" | while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            out="${f%.*}.webp"
+            if [ -f "$out" ]; then
+              echo "Skip (exists): $out"
+              continue
+            fi
+            case "$f" in
+              *.png|*.PNG)
+                # برای گرافیک/لوگو: بدون افت کیفیت
+                cwebp -lossless "$f" -o "$out"
+                ;;
+              *)
+                # برای عکس/بافت: با کیفیت و تغییر اندازه
+                if [ "$MAX_WIDTH" = "0" ]; then
+                  cwebp -q "$QUALITY" -m 6 "$f" -o "$out"
+                else
+                  cwebp -q "$QUALITY" -m 6 -resize "$MAX_WIDTH" 0 "$f" -o "$out"
+                fi
+                ;;
+            esac
+            echo "Converted: $f -> $out"
+          done
+
+      - name: Commit WebP files back
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'assets/gallery/**/*.webp'
+          message: 'chore(webp): auto-convert gallery images [skip ci]'
+          default_author: github_actions
 
