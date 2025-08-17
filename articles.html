@@ -1,45 +1,135 @@
-<!-- Why RANNTA Runs on TON -->
-<section id="why-ton" class="nft-links" style="scroll-margin-top:80px;">
-  <h2>Why RANNTA Runs on TON</h2>
-  <p><em>Speed, sovereignty, and symbolic state.</em> RANNTA needs a chain that handles cultural tempo without taxing collectors. The Open Network (TON) provides low fees, rapid finality, and a modern VM for on-chain logic that powers Mythosymbolic Fractalism (MSF).</p>
-  <h3>What TON enables</h3>
-  <ul>
-    <li><strong>Fast & affordable:</strong> near-instant transfers and sustainable fees for micro-patronage and series mints.</li>
-    <li><strong>Programmable rituals:</strong> composable contracts for time-locks, staged reveals, and multi-sig covenants.</li>
-    <li><strong>UX reach:</strong> growing wallets, explorers, and integrations suitable for mainstream art audiences.</li>
-  </ul>
-  <h3>Why it matters for MSF</h3>
-  <p>MSF pieces carry hidden codes and narrative state. TON lets us bind those states to on-chain events—editions that evolve, seals that unlock, and royalties that route with precision.</p>
-  <p><a href="#top">Back to Articles ↑</a></p>
-</section>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RANNTA | Articles</title>
+  <link rel="stylesheet" href="style.css" />
 
-<!-- Mythogenia -->
-<section id="mythogenia" class="nft-links" style="scroll-margin-top:80px;">
-  <h2>Mythogenia: Fire, Memory, Return</h2>
-  <p>Each Mythogenia work is built on a triad—<strong>Fire × Sound × Symbol</strong>. Fire speaks of renewal, sound names the form, and symbol binds it to memory. Across the series, motifs reappear at Fibonacci distances so that return is rhythmic, not repetitive.</p>
-  <h3>Visual grammar</h3>
-  <ul>
-    <li>Seals follow golden-ratio grids; glyph positions encode meaning rather than decoration.</li>
-    <li>Numbers map to zodiacal houses; hue and grade track the season of release.</li>
-    <li>Steganographic text binds the artwork hash to a public oath for provenance.</li>
-  </ul>
-  <h3>Reading the cycle</h3>
-  <p>The collection functions as a wheel. Viewers complete the loop by decoding—moving from surface beauty to the narrative substrate that animates the piece.</p>
-  <p><a href="#top">Back to Articles ↑</a></p>
-</section>
+  <!-- SEO -->
+  <meta name="description" content="RANNTA Articles — protocol rationale, MSF lore, and integrity practices."/>
+  <link rel="canonical" href="https://rannta.com/articles.html"/>
 
-<!-- Stego & C2PA -->
-<section id="stego-c2pa" class="nft-links" style="scroll-margin-top:80px;">
-  <h2>Designing Stego & C2PA for NFTs</h2>
-  <p>Collectors deserve provable origins. MSF pieces ship with layered proofs that make spoofing costly and remix verifiable.</p>
-  <h3>Layered proof stack</h3>
-  <ol>
-    <li><strong>Hash binding:</strong> filenames and manifests include the mint hash; wallets and marketplaces can verify alignment.</li>
-    <li><strong>Invisible watermark:</strong> low-amplitude embeds that survive typical resizes and recompressions while remaining human-imperceptible.</li>
-    <li><strong>C2PA manifest:</strong> a signed provenance trail linking creator, toolchain, and mint transaction.</li>
-  </ol>
-  <h3>Signature block</h3>
-  <pre style="white-space:pre-wrap; overflow:auto; font-size:12px; background:#0e0e0e; border:1px solid #333; border-radius:8px; padding:10px;">"creator_signature": {
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RANNTA — Articles">
+  <meta property="og:description" content="Why RANNTA runs on TON, Mythogenia notes, and Stego & C2PA for NFTs.">
+  <meta property="og:url" content="https://rannta.com/articles.html">
+  <meta property="og:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RANNTA — Articles">
+  <meta name="twitter:description" content="Protocol, lore, and integrity for MSF.">
+  <meta name="twitter:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
+
+  <style>
+    /* Minimal extras; بقیه را style.css پوشش می‌دهد */
+    .pill{display:inline-block;padding:2px 8px;border:1px solid #FFD700;border-radius:999px;
+          font-size:.8em;color:#FFD700;margin-right:6px}
+    .cards{display:grid;grid-template-columns:1fr;gap:12px}
+    @media(min-width:900px){.cards{grid-template-columns:repeat(2,1fr)}}
+    .card{background:#0e0e0e;border:1px solid #333;border-radius:12px;padding:16px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+    .card h3{margin:6px 0 8px;color:#FFD700}
+    .card p{margin:0 0 10px}
+    .card a{color:#FFD700;text-decoration:none}
+    .card a:hover{text-decoration:underline}
+    .section-anchor{scroll-margin-top:80px}
+  </style>
+</head>
+<body>
+<header>
+  <img src="rannta.png" alt="RANNTA Logo" class="logo" />
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="whitepaper.html">Whitepaper</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="airdrop.html">Airdrop</a></li>
+      <li><a href="nft.html">NFT Sale</a></li>
+      <li><a href="symbolists.html">Symbolists</a></li>
+      <li><a href="rannta-story.html">About RANNTA</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="team.html">Team</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div id="top"></div>
+
+  <h1>Articles</h1>
+  <p>Protocol, lore, and integrity for the MSF movement.</p>
+
+  <!-- Cards -->
+  <section class="nft-links">
+    <h2>Featured</h2>
+    <div class="cards">
+      <article class="card">
+        <p><span class="pill">Protocol</span><span class="pill">TON</span></p>
+        <h3><a href="#why-ton">Why RANNTA Runs on TON</a></h3>
+        <p>Speed, sovereignty, and symbolic state — the case for TON as the substrate of RANNTA.</p>
+        <a href="#why-ton">Read →</a>
+      </article>
+
+      <article class="card">
+        <p><span class="pill">Lore</span><span class="pill">Collection</span></p>
+        <h3><a href="#mythogenia">Mythogenia: Fire, Memory, Return</a></h3>
+        <p>Reading the sigils of Mythogenia and their relation to cyclical time.</p>
+        <a href="#mythogenia">Read →</a>
+      </article>
+
+      <article class="card">
+        <p><span class="pill">Tech</span><span class="pill">Integrity</span></p>
+        <h3><a href="#stego-c2pa">Designing Stego & C2PA for NFTs</a></h3>
+        <p>Hashes, invisible watermarks, and signed provenance for MSF.</p>
+        <a href="#stego-c2pa">Read →</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- Article sections (single header & footer) -->
+  <section id="why-ton" class="nft-links section-anchor">
+    <h2>Why RANNTA Runs on TON</h2>
+    <p><em>Speed, sovereignty, and symbolic state.</em> RANNTA needs a chain that handles cultural tempo without taxing collectors. The Open Network (TON) provides low fees, rapid finality, and a modern VM for on-chain logic that powers Mythosymbolic Fractalism (MSF).</p>
+    <h3>What TON enables</h3>
+    <ul>
+      <li><strong>Fast &amp; affordable:</strong> near-instant transfers and sustainable fees for micro-patronage and series mints.</li>
+      <li><strong>Programmable rituals:</strong> composable contracts for time-locks, staged reveals, and multi-sig covenants.</li>
+      <li><strong>UX reach:</strong> growing wallets, explorers, and integrations suitable for mainstream art audiences.</li>
+    </ul>
+    <h3>Why it matters for MSF</h3>
+    <p>MSF pieces carry hidden codes and narrative state. TON lets us bind those states to on-chain events—editions that evolve, seals that unlock, and royalties that route with precision.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </section>
+
+  <section id="mythogenia" class="nft-links section-anchor">
+    <h2>Mythogenia: Fire, Memory, Return</h2>
+    <p>Each Mythogenia work is built on a triad—<strong>Fire × Sound × Symbol</strong>. Fire speaks of renewal, sound names the form, and symbol binds it to memory. Across the series, motifs reappear at Fibonacci distances so that return is rhythmic, not repetitive.</p>
+    <h3>Visual grammar</h3>
+    <ul>
+      <li>Seals follow golden-ratio grids; glyph positions encode meaning rather than decoration.</li>
+      <li>Numbers map to zodiacal houses; hue and grade track the season of release.</li>
+      <li>Steganographic text binds the artwork hash to a public oath for provenance.</li>
+    </ul>
+    <h3>Reading the cycle</h3>
+    <p>The collection functions as a wheel. Viewers complete the loop by decoding—moving from surface beauty to the narrative substrate that animates the piece.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </section>
+
+  <section id="stego-c2pa" class="nft-links section-anchor">
+    <h2>Designing Stego &amp; C2PA for NFTs</h2>
+    <p>Collectors deserve provable origins. MSF pieces ship with layered proofs that make spoofing costly and remix verifiable.</p>
+    <h3>Layered proof stack</h3>
+    <ol>
+      <li><strong>Hash binding:</strong> filenames and manifests include the mint hash; wallets and marketplaces can verify alignment.</li>
+      <li><strong>Invisible watermark:</strong> low-amplitude embeds that survive typical resizes and recompressions while remaining human-imperceptible.</li>
+      <li><strong>C2PA manifest:</strong> a signed provenance trail linking creator, toolchain, and mint transaction.</li>
+    </ol>
+    <h3>Signature block</h3>
+<pre style="white-space:pre-wrap; overflow:auto; font-size:12px; background:#0e0e0e; border:1px solid #333; border-radius:8px; padding:10px;">"creator_signature": {
   "name": "ilia144000",
   "style": "MSF",
   "symbol": "RANNTA",
@@ -50,6 +140,13 @@
   ],
   "hash_tag": "#MSFbyILIA144000"
 }</pre>
-  <p>These layers help marketplaces filter fakes, allow artists to prove lineage, and give collectors confidence that the piece they hold is the intended edition.</p>
-  <p><a href="#top">Back to Articles ↑</a></p>
-</section>
+    <p>These layers help marketplaces filter fakes, allow artists to prove lineage, and give collectors confidence that the piece they hold is the intended edition.</p>
+    <p><a href="#top">Back to top ↑</a></p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 RANNTA. Forged in fire. Built for the future. — Powered by TON.</p>
+</footer>
+</body>
+</html>
