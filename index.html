@@ -1,95 +1,130 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>RANNTA | Home</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-        .banner {
-            margin-top: 40px;
-        }
-        .banner img {
-            max-width: 280px;
-            width: 90%;
-            height: auto;
-        }
-        .banner-text {
-            margin-top: 20px;
-            font-size: 16px;
-            color: gold;
-        }
-        .banner a {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            color: black;
-            background-color: gold;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        footer {
-            margin-top: 60px;
-            padding: 20px 0;
-            font-size: 13px;
-            color: gray;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RANNTA | Home</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- SEO -->
+  <meta name="description" content="RANNTA — token & mythic protocol powered by TON, and home of Mythosymbolic Fractalism (MSF). Explore the vision, utilities, and the RANNTA universe."/>
+  <link rel="canonical" href="https://rannta.com/index.html"/>
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RANNTA — Born of Fire, Forged in Purpose">
+  <meta property="og:description" content="Symbol of rebirth and programmable meaning. Built on TON. Read the vision, explore utilities, and enter the RANNTA universe."/>
+  <meta property="og:url" content="https://rannta.com/index.html">
+  <meta property="og:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RANNTA — Born of Fire, Forged in Purpose">
+  <meta name="twitter:description" content="Mythic token & MSF movement on TON.">
+  <meta name="twitter:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
+
+  <style>
+    /* reuse site palette/components; keep theme consistent */
+    footer { font-size: 13px; color: #999; text-align: center; margin-top: 60px; }
+    .nft-links { background: #111; border: 1px solid #333; border-radius: 12px; padding: 18px 20px; margin: 20px auto; max-width: 980px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+    .nft-links h2 { color: #FFD700; margin: 0 0 10px 0; font-size: 22px; }
+    .nft-links ul { list-style: none; margin: 0; padding: 0; line-height: 1.7; }
+    .nft-links a { color: #FFD700; text-decoration: none; }
+    .nft-links a:hover { text-decoration: underline; }
+
+    .banner { margin: 30px auto 0; max-width: 980px; text-align: center; }
+    .banner img { max-width: 520px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+    .banner-text { margin-top: 14px; font-size: 16px; color: #FFD700; }
+    .cta-row { margin-top: 14px; display: inline-flex; gap: 10px; flex-wrap: wrap; }
+    .btn-solid { display: inline-block; padding: 10px 16px; border-radius: 10px; background: #FFD700; color: #111; font-weight: 700; text-decoration: none; }
+    .btn-ghost { display: inline-block; padding: 10px 16px; border-radius: 10px; border: 1px solid #FFD700; color: #FFD700; text-decoration: none; }
+
+    .columns { display: grid; grid-template-columns: 1fr; gap: 14px; }
+    @media (min-width: 860px){ .columns { grid-template-columns: 1fr 1fr; } }
+  </style>
 </head>
 <body>
-    <header>
-    <img src="rannta.png" alt="RANNTA Logo" class="logo" />
-    <nav>
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="whitepaper.html">Whitepaper</a></li>
-            <li><a href="roadmap.html">Roadmap</a></li>
-            <li><a href="airdrop.html">Airdrop</a></li>
-            <li><a href="nft.html">NFT Sale</a></li>
-            <li><a href="symbolists.html">Symbolists</a></li>
-            <li><a href="rannta-story.html">About RANNTA</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="team.html">Team</a></li>
-        </ul>
-    </nav>
+<header>
+  <img src="rannta.png" alt="RANNTA Logo" class="logo" />
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="whitepaper.html">Whitepaper</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="airdrop.html">Airdrop</a></li>
+      <li><a href="nft.html">NFT Sale</a></li>
+      <li><a href="symbolists.html">Symbolists</a></li>
+      <li><a href="rannta-story.html">About RANNTA</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="team.html">Team</a></li>
+    </ul>
+  </nav>
 </header>
-    <main>
-        <h1>RANNTA: Born of Fire, Forged in Purpose</h1>
-        <p>A symbol of rebirth, resilience, and a return to conscious greatness.</p>
 
-        <div class="banner">
-            <img src="gate.png" alt="RANNTA Gate Symbol" />
-            <div class="banner-text">
-                Own a symbol of rebirth — Explore the RANNTA NFT Collection
-            </div>
-            <a href="https://getgems.io/rannta" target="_blank">View Collection</a>
-        </div>
+<main>
+  <h1>RANNTA: Born of Fire, Forged in Purpose</h1>
+  <p>A symbol of rebirth, resilience, and a return to conscious greatness.</p>
 
-        <!-- New Section: Why RANNTA Runs on TON -->
-        <section style="background-color: #111; color: #eee; padding: 30px; margin-top: 40px; border-radius: 15px; box-shadow: 0 0 15px rgba(255,255,255,0.1);">
-            <h2 style="font-size: 24px; color: gold; margin-bottom: 15px;">Why RANNTA Runs on TON – And Why That Matters</h2>
-            <p style="line-height: 1.6;">
-                RANNTA isn't just a token—it’s a symbol of speed, truth, and sovereignty in a decentralized future.
-                That’s why we chose <strong>The Open Network (TON)</strong> as our foundation.
-            </p>
-            <p style="line-height: 1.6;">
-                Powered by lightning-fast transactions, ultra-low fees, and a secure, scalable infrastructure, TON enables
-                RANNTA to thrive across Web3—from NFTs to staking to symbolic smart contracts.
-            </p>
-            <p style="font-style: italic; color: #ccc; margin-bottom: 20px;">
-                We believe in freedom of value. We believe in programmable meaning. TON makes both possible.
-            </p>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <a href="https://ton.org" target="_blank" style="background-color: gold; color: black; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">Explore TON</a>
-                <a href="https://docs.ton.org" target="_blank" style="color: gold; text-decoration: underline;">Developer Docs</a>
-                <a href="https://tonscan.org" target="_blank" style="color: gold; text-decoration: underline;">TON Explorer</a>
-            </div>
-        </section>
-    </main>
-    <footer>
-        <p>© 2025 RANNTA. All rights reserved. <br/>
-        Forged in fire. Built for the future. — Powered by TON.</p>
-    </footer>
+  <!-- HERO -->
+  <div class="banner">
+    <img src="gate.png" alt="RANNTA Gate Symbol" />
+    <div class="banner-text">Own a symbol of rebirth — enter the RANNTA universe.</div>
+    <div class="cta-row">
+      <a class="btn-solid" href="https://getgems.io/rannta" target="_blank" rel="noopener">View TON Collection</a>
+      <a class="btn-ghost" href="whitepaper.html">Read Whitepaper</a>
+      <a class="btn-ghost" href="nft.html">Explore All NFTs</a>
+    </div>
+  </div>
+
+  <!-- WHY TON (from your previous index, themed box) -->
+  <section class="nft-links">
+    <h2>Why RANNTA Runs on TON — and Why It Matters</h2>
+    <div class="columns">
+      <div>
+        <p>RANNTA isn’t just a token — it’s a symbol of speed, truth, and sovereignty in a decentralized future. That’s why we chose <strong>The Open Network (TON)</strong> as our foundation.</p>
+        <p>With lightning-fast transactions, ultra‑low fees, and secure scalability, TON lets RANNTA evolve across Web3 — from NFTs to staking to symbolic smart contracts.</p>
+        <p><em>We believe in freedom of value. We believe in programmable meaning. TON makes both possible.</em></p>
+      </div>
+      <div>
+        <ul>
+          <li>Instant transfers · low fees</li>
+          <li>On‑chain programmability for symbolic logic</li>
+          <li>Battle‑tested infra & growing ecosystem</li>
+        </ul>
+        <p class="cta-row" style="margin-top:8px;">
+          <a class="btn-solid" href="https://ton.org" target="_blank" rel="noopener">Explore TON</a>
+          <a class="btn-ghost" href="https://docs.ton.org" target="_blank" rel="noopener">Developer Docs</a>
+          <a class="btn-ghost" href="https://tonscan.org" target="_blank" rel="noopener">TON Explorer</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RANNTA UTILITIES (token focus; avoids duplicating NFT page) -->
+  <section class="nft-links">
+    <h2>RANNTA Utility</h2>
+    <ul>
+      <li>Access: gated drops, symbolist tools, and private lore.</li>
+      <li>Governance: vote on releases and narrative arcs.</li>
+      <li>Interoperability: bridges MSF art with on‑chain actions.</li>
+    </ul>
+  </section>
+
+  <!-- QUICK LINKS (distinct from nft.html collections list) -->
+  <section class="nft-links">
+    <h2>Quick Links</h2>
+    <ul>
+      <li>📜 <a href="whitepaper.html">RANNTA Whitepaper</a></li>
+      <li>🗺 <a href="roadmap.html">Roadmap</a></li>
+      <li>🜚 <a href="nft.html">NFT Hub (All Collections)</a></li>
+      <li>✉️ <a href="contact.html">Contact / Partnerships</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>© 2025 RANNTA. All rights reserved. <br/>
+  Forged in fire. Built for the future. — Powered by TON.</p>
+</footer>
 </body>
 </html>
