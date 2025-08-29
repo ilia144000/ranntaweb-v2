@@ -24,7 +24,6 @@
   <meta name="twitter:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
 
   <style>
-    /* reuse site palette/components; keep theme consistent */
     footer { font-size: 13px; color: #999; text-align: center; margin-top: 60px; }
     .nft-links { background: #111; border: 1px solid #333; border-radius: 12px; padding: 18px 20px; margin: 20px auto; max-width: 980px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
     .nft-links h2 { color: #FFD700; margin: 0 0 10px 0; font-size: 22px; }
@@ -41,6 +40,14 @@
 
     .columns { display: grid; grid-template-columns: 1fr; gap: 14px; }
     @media (min-width: 860px){ .columns { grid-template-columns: 1fr 1fr; } }
+
+    /* added pills + copy button styling */
+    .value-list { list-style: none; margin: 0; padding: 0; line-height: 1.9; }
+    .value-list li { margin-bottom: 10px; }
+    .pill { display:inline-block; margin-right:8px; padding:4px 8px; border:1px solid #FFD700; border-radius:999px; font-size:12px; color:#FFD700; }
+    code { background:#141414; padding:2px 6px; border-radius:6px; border:1px solid #333; }
+    .copy-btn { padding:6px 10px; margin-left:6px; border-radius:8px; border:1px solid #FFD700; color:#FFD700; background:#111; cursor:pointer; }
+    .copy-btn:hover { background:#FFD700; color:#111; }
   </style>
 </head>
 <body>
@@ -78,41 +85,54 @@
     </div>
   </div>
 
-  <!-- WHY TON (from your previous index, themed box) -->
+  <!-- WHY TON -->
   <section class="nft-links">
     <h2>Why RANNTA Runs on TON — and Why It Matters</h2>
     <div class="columns">
       <div>
         <p>RANNTA isn’t just a token — it’s a symbol of speed, truth, and sovereignty in a decentralized future. That’s why we chose <strong>The Open Network (TON)</strong> as our foundation.</p>
-        <p>With lightning-fast transactions, ultra‑low fees, and secure scalability, TON lets RANNTA evolve across Web3 — from NFTs to staking to symbolic smart contracts.</p>
+        <p>With lightning-fast transactions, ultra-low fees, and secure scalability, TON lets RANNTA evolve across Web3 — from NFTs to staking to symbolic smart contracts.</p>
         <p><em>We believe in freedom of value. We believe in programmable meaning. TON makes both possible.</em></p>
       </div>
       <div>
-        <ul>
-          <li>Instant transfers · low fees</li>
-          <li>On‑chain programmability for symbolic logic</li>
-          <li>Battle‑tested infra & growing ecosystem</li>
+        <ul class="value-list">
+          <li>
+            <span class="pill">Official DOI</span>
+            <a href="https://doi.org/10.5281/zenodo.16994661" target="_blank" rel="noopener">10.5281/zenodo.16994661</a>
+          </li>
+          <li>
+            <span class="pill">Smart Contract</span>
+            <code id="jettonAddr">EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</code>
+            <button class="copy-btn" onclick="copyJetton()">Copy</button>
+          </li>
+          <li>
+            <span class="pill">Transparency Pack</span>
+            <a href="https://github.com/ilia144000/rannta-token" target="_blank" rel="noopener">GitHub Repository</a>
+          </li>
+          <li>
+            <span class="pill">Token Info</span>
+            <a href="token-info.md" target="_blank" rel="noopener">token-info.md</a>
+          </li>
+          <li>
+            <span class="pill">Whitepaper</span>
+            <a href="WHITEPAPER.md" target="_blank" rel="noopener">Read on-site</a>
+          </li>
         </ul>
-        <p class="cta-row" style="margin-top:8px;">
-          <a class="btn-solid" href="https://ton.org" target="_blank" rel="noopener">Explore TON</a>
-          <a class="btn-ghost" href="https://docs.ton.org" target="_blank" rel="noopener">Developer Docs</a>
-          <a class="btn-ghost" href="https://tonscan.org" target="_blank" rel="noopener">TON Explorer</a>
-        </p>
       </div>
     </div>
   </section>
 
-  <!-- RANNTA UTILITIES (token focus; avoids duplicating NFT page) -->
+  <!-- RANNTA UTILITIES -->
   <section class="nft-links">
     <h2>RANNTA Utility</h2>
     <ul>
       <li>Access: gated drops, symbolist tools, and private lore.</li>
       <li>Governance: vote on releases and narrative arcs.</li>
-      <li>Interoperability: bridges MSF art with on‑chain actions.</li>
+      <li>Interoperability: bridges MSF art with on-chain actions.</li>
     </ul>
   </section>
 
-  <!-- QUICK LINKS (distinct from nft.html collections list) -->
+  <!-- QUICK LINKS -->
   <section class="nft-links">
     <h2>Quick Links</h2>
     <ul>
@@ -126,7 +146,20 @@
 
 <footer>
   <p>© 2025 RANNTA. All rights reserved. <br/>
-  Forged in fire. Built for the future. — Powered by TON.</p>
+  Forged in fire. Built for the future. — Powered by TON.<br/>
+  Official DOI: <a href="https://doi.org/10.5281/zenodo.16994661">10.5281/zenodo.16994661</a></p>
 </footer>
+
+<script>
+  function copyJetton() {
+    const txt = document.getElementById('jettonAddr').innerText.trim();
+    navigator.clipboard.writeText(txt).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      const old = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(()=>btn.textContent = old, 1400);
+    });
+  }
+</script>
 </body>
 </html>
