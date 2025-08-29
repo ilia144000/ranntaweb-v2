@@ -24,10 +24,11 @@
   <meta name="twitter:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
 
   <style>
+    /* theme-compatible tweaks */
     footer { font-size: 13px; color: #999; text-align: center; margin-top: 60px; }
     .nft-links { background: #111; border: 1px solid #333; border-radius: 12px; padding: 18px 20px; margin: 20px auto; max-width: 980px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
     .nft-links h2 { color: #FFD700; margin: 0 0 10px 0; font-size: 22px; }
-    .nft-links ul { list-style: none; margin: 0; padding: 0; line-height: 1.9; }
+    .nft-links ul { list-style: none; margin: 0; padding: 0; line-height: 1.7; }
     .nft-links a { color: #FFD700; text-decoration: none; }
     .nft-links a:hover { text-decoration: underline; }
 
@@ -35,15 +36,53 @@
     .banner img { max-width: 520px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,.35); }
     .banner-text { margin-top: 14px; font-size: 16px; color: #FFD700; }
 
-    .columns { display: grid; grid-template-columns: 1fr; gap: 14px; }
-    @media (min-width: 860px){ .columns { grid-template-columns: 1fr 1fr; } }
+    /* two-column layout */
+    .columns { display:grid; grid-template-columns: 1fr; gap:14px; }
+    @media (min-width: 860px){
+      .columns { grid-template-columns: 1.2fr 0.8fr; }
+      .info-panel { align-self: center; } /* vertically centered next to text */
+    }
 
-    .value-list { list-style: none; margin: 0; padding: 0; line-height: 2; }
-    .value-list li { margin-bottom: 12px; }
-    .pill { display:inline-block; min-width: 110px; margin-right:8px; padding:4px 8px; border:1px solid #FFD700; border-radius:999px; font-size:12px; color:#FFD700; text-align:center; }
-    code { background:#141414; padding:2px 6px; border-radius:6px; border:1px solid #333; }
-    .copy-btn { padding:4px 10px; margin-left:6px; border-radius:8px; border:1px solid #FFD700; color:#FFD700; background:#111; cursor:pointer; }
-    .copy-btn:hover { background:#FFD700; color:#111; }
+    /* key-value grid on the right */
+    .kv{
+      display:grid;
+      grid-template-columns: 150px 1fr;   /* label / value */
+      column-gap: 14px;
+      row-gap: 12px;
+      align-items:center;
+    }
+    .label{
+      justify-self:start;
+      padding:4px 10px;
+      border:1px solid #FFD700;
+      border-radius:999px;
+      font-size:12px;
+      color:#FFD700;
+      white-space:nowrap;
+    }
+    .kv a, .kv code{
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display:block;
+    }
+
+    /* contract row */
+    .mono{ display:flex; align-items:center; gap:8px; min-width:0; }
+    code{ background:#141414; padding:2px 6px; border-radius:6px; border:1px solid #333; }
+
+    /* copy button */
+    .copy-btn{
+      padding:4px 10px; border-radius:8px; border:1px solid #FFD700;
+      color:#FFD700; background:#111; cursor:pointer;
+    }
+    .copy-btn:hover{ background:#FFD700; color:#111; }
+
+    /* mobile */
+    @media (max-width: 859px){
+      .kv{ grid-template-columns: 1fr; }
+      .label{ width:max-content; margin-bottom:4px; }
+    }
   </style>
 </head>
 <body>
@@ -70,7 +109,7 @@
   <h1>RANNTA: Born of Fire, Forged in Purpose</h1>
   <p>A symbol of rebirth, resilience, and a return to conscious greatness.</p>
 
-  <!-- HERO -->
+  <!-- HERO (no buttons) -->
   <div class="banner">
     <img src="gate.png" alt="RANNTA Gate Symbol" />
     <div class="banner-text">Own a symbol of rebirth — enter the RANNTA universe.</div>
@@ -85,34 +124,35 @@
         <p>With lightning-fast transactions, ultra-low fees, and secure scalability, TON lets RANNTA evolve across Web3 — from NFTs to staking to symbolic smart contracts.</p>
         <p><em>We believe in freedom of value. We believe in programmable meaning. TON makes both possible.</em></p>
       </div>
-      <div>
-        <ul class="value-list">
-          <li>
-            <span class="pill">Official DOI</span>
-            <a href="https://doi.org/10.5281/zenodo.16994661" target="_blank" rel="noopener">10.5281/zenodo.16994661</a>
-          </li>
-          <li>
-            <span class="pill">Smart Contract</span>
+
+      <!-- Right column: neat key/value list -->
+      <div class="info-panel">
+        <div class="kv">
+          <span class="label">Official DOI</span>
+          <a href="https://doi.org/10.5281/zenodo.16994661" target="_blank" rel="noopener">
+            10.5281/zenodo.16994661
+          </a>
+
+          <span class="label">Smart Contract</span>
+          <div class="mono">
             <code id="jettonAddr">EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</code>
             <button class="copy-btn" onclick="copyJetton()">Copy</button>
-          </li>
-          <li>
-            <span class="pill">GitHub</span>
-            <a href="https://github.com/ilia144000" target="_blank" rel="noopener">github.com/ilia144000</a>
-          </li>
-          <li>
-            <span class="pill">Getgems</span>
-            <a href="https://getgems.io/user/UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL" target="_blank" rel="noopener">getgems.io/user/…WuxS6m4bL</a>
-          </li>
-          <li>
-            <span class="pill">OpenSea</span>
-            <a href="https://opensea.io/RANNTA" target="_blank" rel="noopener">opensea.io/RANNTA</a>
-          </li>
-          <li>
-            <span class="pill">Magic Eden</span>
-            <a href="https://magiceden.io/marketplace/rannst" target="_blank" rel="noopener">magiceden.io/marketplace/rannst</a>
-          </li>
-        </ul>
+          </div>
+
+          <span class="label">GitHub</span>
+          <a href="https://github.com/ilia144000" target="_blank" rel="noopener">github.com/ilia144000</a>
+
+          <span class="label">Getgems</span>
+          <a href="https://getgems.io/user/UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL" target="_blank" rel="noopener">
+            getgems.io/user/…WuxS6m4bL
+          </a>
+
+          <span class="label">OpenSea</span>
+          <a href="https://opensea.io/RANNTA" target="_blank" rel="noopener">opensea.io/RANNTA</a>
+
+          <span class="label">Magic Eden</span>
+          <a href="https://magiceden.io/marketplace/rannst" target="_blank" rel="noopener">magiceden.io/marketplace/rannst</a>
+        </div>
       </div>
     </div>
   </section>
