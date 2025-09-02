@@ -36,11 +36,11 @@
       </div>
     </div>
   </header>
-  <main class="container">
 
+  <main class="container">
     <section class="hero">
       <h1>Collect, Create & Trade — on TON</h1>
-      <p>Lightweight, non‑custodial NFT marketplace with TonConnect.</p>
+      <p>Lightweight, non-custodial NFT marketplace with TonConnect.</p>
     </section>
 
     <div class="toolbar">
@@ -56,11 +56,17 @@
     </div>
 
     <section id="grid" class="grid" aria-live="polite"></section>
-
   </main>
+
   <footer class="footer">© 2025 RANNTA ARCA — All rights reserved.</footer>
+
+  <!-- TonConnect UI (local asset) -->
   <script src="assets/tonconnect-ui.min.js"></script>
+
+  <!-- Your existing app script -->
   <script src="assets/app.js"></script>
+
+  <!-- Service worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
@@ -68,6 +74,63 @@
           .catch(console.error);
       });
     }
+  </script>
+
+  <!-- TonConnect wiring for existing Connect button -->
+  <script>
+    (function () {
+      const MANIFEST_URL = '/market/tonconnect-manifest.json';
+
+      // Initialize TonConnect (no auto-rendered button; we bind to your own button)
+      const tcui = new TON_CONNECT_UI.TonConnectUI({
+        manifestUrl: MANIFEST_URL,
+        uiPreferences: { theme: 'SYSTEM' }
+      });
+
+      const connectBtn = document.getElementById('btn-connect');
+      const profileLink = document.getElementById('nav-profile');
+
+      // Click handler: connect if disconnected, disconnect if connected
+      connectBtn.addEventListener('click', async () => {
+        try {
+          const wallet = await tcui.getWallet();
+          if (wallet) {
+            await tcui.disconnect();
+          } else {
+            await tcui.connectWallet();
+          }
+        } catch (err) {
+          console.error('TonConnect error:', err);
+        }
+      });
+
+      // Update UI on status change
+      tcui.onStatusChange((walletInfo) => {
+        if (walletInfo && walletInfo.account) {
+          const addr = walletInfo.account.address;
+          const short = `${addr.slice(0, 4)}…${addr.slice(-4)}`;
+          connectBtn.textContent = short;
+          connectBtn.classList.add('connected');
+          if (profileLink) {
+            profileLink.textContent = `Profile (${short})`;
+            profileLink.classList.add('connected');
+          }
+        } else {
+          connectBtn.textContent = '🔗 Connect';
+          connectBtn.classList.remove('connected');
+          if (profileLink) {
+            profileLink.textContent = 'Profile';
+            profileLink.classList.remove('connected');
+          }
+        }
+      });
+
+      // Restore previous session on reload
+      tcui.restoreConnection();
+
+      // Expose for other scripts (e.g., buy buttons)
+      window.__tonconnect = tcui;
+    })();
   </script>
 </body>
 </html>
