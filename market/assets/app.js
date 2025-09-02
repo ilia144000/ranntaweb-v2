@@ -2,10 +2,9 @@
 const TON_MANIFEST_URL = 'https://rannta.com/market/tonconnect-manifest.json';
 const NFT_SRC = 'nfts.json';
 
-/* Globals */
 let tonConnectUI = null;
 
-/* Init TonConnect as soon as page loads */
+/* Init TonConnect */
 function initTonConnect() {
   const mountPoint = document.getElementById('tonconnect');
   if (!mountPoint) return;
@@ -37,12 +36,21 @@ function wireWalletState() {
   update();
 }
 
-/* Hook connect buttons */
-function hookConnectButtons() {
+/* Hook header buttons */
+function hookHeaderButtons() {
+  // Connect
   document.querySelectorAll('#btn-connect').forEach(btn => {
     btn.addEventListener('click', () => {
       initTonConnect();
       if (tonConnectUI) tonConnectUI.openModal();
+    });
+  });
+
+  // Swap → redirect to DEX
+  document.querySelectorAll('#btn-swap').forEach(btn => {
+    btn.addEventListener('click', () => {
+      // هر صرافی DEX روی TON رو میشه گذاشت؛ من DeDust رو گذاشتم
+      window.open('https://dedust.io/swap', '_blank');
     });
   });
 }
@@ -50,5 +58,5 @@ function hookConnectButtons() {
 /* Run on every page */
 document.addEventListener('DOMContentLoaded', () => {
   initTonConnect();
-  hookConnectButtons();
+  hookHeaderButtons();
 });
