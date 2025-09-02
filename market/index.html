@@ -8,7 +8,6 @@
   <meta name="theme-color" content="#0f0f11" />
   <link rel="icon" href="assets/rannta-arca1.png" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="preload" as="script" href="assets/tonconnect-ui.min.js" />
   <link rel="stylesheet" href="assets/marketplace.css" />
 </head>
 <body data-page="home">
@@ -26,9 +25,7 @@
           <a id="nav-profile" href="profile.html">Profile</a>
         </nav>
       </div>
-      <div class="middle">
-        <!-- optional global search slot -->
-      </div>
+      <div class="middle"></div>
       <div class="actions" id="actions">
         <button id="btn-swap" class="btn secondary btn-small">⇄ Swap</button>
         <button id="btn-connect" class="btn btn-small">🔗 Connect</button>
@@ -60,10 +57,10 @@
 
   <footer class="footer">© 2025 RANNTA ARCA — All rights reserved.</footer>
 
-  <!-- TonConnect UI (local asset) -->
-  <script src="assets/tonconnect-ui.min.js"></script>
+  <!-- TonConnect UI via CDN (reliable path) -->
+  <script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
 
-  <!-- Your existing app script -->
+  <!-- Your app script -->
   <script src="assets/app.js"></script>
 
   <!-- Service worker -->
@@ -76,60 +73,72 @@
     }
   </script>
 
-  <!-- TonConnect wiring for existing Connect button -->
+  <!-- TonConnect wiring -->
   <script>
     (function () {
       const MANIFEST_URL = '/market/tonconnect-manifest.json';
-
-      // Initialize TonConnect (no auto-rendered button; we bind to your own button)
-      const tcui = new TON_CONNECT_UI.TonConnectUI({
-        manifestUrl: MANIFEST_URL,
-        uiPreferences: { theme: 'SYSTEM' }
-      });
-
       const connectBtn = document.getElementById('btn-connect');
       const profileLink = document.getElementById('nav-profile');
 
-      // Click handler: connect if disconnected, disconnect if connected
-      connectBtn.addEventListener('click', async () => {
-        try {
-          const wallet = await tcui.getWallet();
-          if (wallet) {
-            await tcui.disconnect();
+      function notLoaded() {
+        console.error('TonConnect UI script not found on window.');
+      }
+
+      function init() {
+        if (!window.TON_CONNECT_UI) return notLoaded();
+
+        const tcui = new TON_CONNECT_UI.TonConnectUI({
+          manifestUrl: MANIFEST_URL,
+          uiPreferences: { theme: 'SYSTEM' }
+        });
+
+        // Toggle connect / disconnect on your existing button
+        connectBtn.addEventListener('click', async () => {
+          try {
+            const w = await tcui.getWallet();
+            if (w) {
+              await tcui.disconnect();
+            } else {
+              await tcui.connectWallet();
+            }
+          } catch (e) {
+            console.error('TonConnect error:', e);
+          }
+        });
+
+        // Reflect status in UI
+        tcui.onStatusChange((info) => {
+          if (info && info.account) {
+            const addr = info.account.address;
+            const short = `${addr.slice(0,4)}…${addr.slice(-4)}`;
+            connectBtn.textContent = short;
+            connectBtn.classList.add('connected');
+            if (profileLink) {
+              profileLink.textContent = `Profile (${short})`;
+              profileLink.classList.add('connected');
+            }
           } else {
-            await tcui.connectWallet();
+            connectBtn.textContent = '🔗 Connect';
+            connectBtn.classList.remove('connected');
+            if (profileLink) {
+              profileLink.textContent = 'Profile';
+              profileLink.classList.remove('connected');
+            }
           }
-        } catch (err) {
-          console.error('TonConnect error:', err);
-        }
-      });
+        });
 
-      // Update UI on status change
-      tcui.onStatusChange((walletInfo) => {
-        if (walletInfo && walletInfo.account) {
-          const addr = walletInfo.account.address;
-          const short = `${addr.slice(0, 4)}…${addr.slice(-4)}`;
-          connectBtn.textContent = short;
-          connectBtn.classList.add('connected');
-          if (profileLink) {
-            profileLink.textContent = `Profile (${short})`;
-            profileLink.classList.add('connected');
-          }
-        } else {
-          connectBtn.textContent = '🔗 Connect';
-          connectBtn.classList.remove('connected');
-          if (profileLink) {
-            profileLink.textContent = 'Profile';
-            profileLink.classList.remove('connected');
-          }
-        }
-      });
+        // Restore previous session
+        tcui.restoreConnection();
 
-      // Restore previous session on reload
-      tcui.restoreConnection();
+        // Expose globally if needed by other scripts
+        window.__tonconnect = tcui;
+      }
 
-      // Expose for other scripts (e.g., buy buttons)
-      window.__tonconnect = tcui;
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
     })();
   </script>
 </body>
