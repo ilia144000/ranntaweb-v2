@@ -29,17 +29,20 @@
       <div class="middle">
         <!-- optional global search slot -->
       </div>
-      <div class="actions" id="actions">
-        <button id="btn-swap" class="btn secondary btn-small">⇄ Swap</button>
-        <button id="btn-connect" class="btn btn-small">🔗 Connect</button>
-        <div class="connect" id="tonconnect" aria-hidden="true"></div>
+      <div class="actions">
+        <a id="btn-swap" class="pill" href="javascript:void(0)" role="button">↔ Swap</a>
+        <a id="btn-connect" class="pill" href="javascript:void(0)" role="button">
+          <span class="label">Connect Wallet</span>
+        </a>
+        <a id="btn-disconnect" class="pill hidden" href="javascript:void(0)" role="button">Disconnect</a>
       </div>
+      <!-- TonConnect mount point (hidden) -->
+      <div id="tonconnect" class="connect" aria-hidden="true"></div>
     </div>
   </header>
   <main class="container">
 
     <article id="nft-card" class="card nft-card">
-      
       <div class="pad">
         <h1 id="nft-name">—</h1>
         <p id="nft-desc" class="meta"></p>
@@ -47,7 +50,7 @@
         <div class="meta">Collection: <span id="nft-collection">—</span></div>
         <div class="meta">Owner: <span id="nft-owner">—</span></div>
         <div class="toolbar" style="margin-top:12px;">
-          <button id="buy-nft" class="btn">Buy</button>
+          <button id="buy-nft" class="btn" data-buy data-sale-address="" data-price="">Buy</button>
           <a id="nft-addr" class="btn secondary" href="#" target="_blank" rel="nofollow noopener">Address</a>
         </div>
       </div>
