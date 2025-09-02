@@ -1,68 +1,55 @@
-/* ================= RANNTA ARCA — app.js (robust TonConnect) ================ */
+/* ================= RANNTA ARCA — app.js (all pages connect) ================ */
 const TON_MANIFEST_URL = 'https://rannta.com/market/tonconnect-manifest.json';
-
 let tonConnectUI = null;
 
-/* Load a script, with multi-source fallback (local → unpkg → jsDelivr) */
+/* Load TonConnect UI (local → unpkg → jsDelivr) */
 async function loadTonConnectUi() {
   const urls = [
     'assets/tonconnect-ui.min.js',
     'https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js',
     'https://cdn.jsdelivr.net/npm/@tonconnect/ui@latest/dist/tonconnect-ui.min.js'
   ];
-
   for (const src of urls) {
-    // already loaded?
     if (window.TON_CONNECT_UI) return true;
     if ([...document.scripts].some(s => s.src.includes(src))) {
-      await new Promise(r => setTimeout(r, 0));
-      if (window.TON_CONNECT_UI) return true;
+      await 0; if (window.TON_CONNECT_UI) return true;
     }
     try {
-      await new Promise((resolve, reject) => {
-        const tag = document.createElement('script');
-        tag.src = src;
-        tag.async = true;
-        tag.onload = resolve;
-        tag.onerror = () => reject(new Error('Failed: ' + src));
-        document.head.appendChild(tag);
+      await new Promise((ok, err) => {
+        const s = document.createElement('script');
+        s.src = src; s.async = true; s.onload = ok; s.onerror = () => err(new Error(src));
+        document.head.appendChild(s);
       });
       if (window.TON_CONNECT_UI) return true;
-    } catch (e) {
-      console.warn('[ARCA] Fallback load failed:', src, e);
-    }
+    } catch {}
   }
   return false;
 }
 
-/* Make sure TonConnect is ready and mounted */
-async function ensureTon() {
+/* Ensure TonConnect mounted once */
+async function ensureTonMounted() {
   if (!window.TON_CONNECT_UI) {
     const ok = await loadTonConnectUi();
-    if (!ok) {
-      alert('TonConnect library failed to load.');
-      return null;
-    }
+    if (!ok) return null;
   }
   if (!tonConnectUI) {
     const host = document.getElementById('tonconnect');
-    if (!host) {
-      console.error('[ARCA] #tonconnect not found in DOM');
-      return null;
-    }
+    if (!host) return null;
     tonConnectUI = new TON_CONNECT_UI.TonConnectUI({ manifestUrl: TON_MANIFEST_URL });
     tonConnectUI.mount('#tonconnect');
 
-    // sync wallet → nav + localStorage
     const update = () => {
+      const btn = document.getElementById('btn-connect');
       const acc = tonConnectUI?.account;
-      const nav = document.getElementById('nav-profile');
       if (acc) {
         const addr = acc.address;
-        if (nav) nav.href = `profile.html?address=${addr}`;
         localStorage.setItem('rannta_wallet', addr);
+        if (btn) btn.textContent = 'Connected';
+        const nav = document.getElementById('nav-profile');
+        if (nav) nav.href = `profile.html?address=${addr}`;
       } else {
         localStorage.removeItem('rannta_wallet');
+        if (btn) btn.textContent = 'Connect Wallet';
       }
     };
     tonConnectUI.onStatusChange(update);
@@ -71,26 +58,26 @@ async function ensureTon() {
   return tonConnectUI;
 }
 
-/* Header buttons */
+/* Wire header actions (works on every page) */
 function wireHeader() {
-  // Connect
-  document.querySelectorAll('#btn-connect').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const ui = await ensureTon();
+  const connectEl = document.getElementById('btn-connect');
+  if (connectEl) {
+    connectEl.addEventListener('click', async () => {
+      const ui = await ensureTonMounted();
       if (ui && typeof ui.openModal === 'function') ui.openModal();
     });
-  });
-
-  // Swap → STON.fi
-  document.querySelectorAll('#btn-swap').forEach(btn => {
-    btn.addEventListener('click', () => {
+  }
+  const swapEl = document.getElementById('btn-swap');
+  if (swapEl) {
+    swapEl.addEventListener('click', () => {
+      // STON.fi (user friendly). اگر خواستی TonSwap: https://tonswap.io/
       window.open('https://app.ston.fi/swap?chartVisible=false', '_blank', 'noopener');
     });
-  });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   wireHeader();
-  // اگر دوست داری بدون کلیک هم آماده باشد، این خط را باز کن:
-  // ensureTon();
+  // اگر خواستی همیشه آماده باشد، این را باز کن:
+  // ensureTonMounted();
 });
