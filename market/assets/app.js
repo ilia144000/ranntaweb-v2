@@ -260,3 +260,73 @@ window.arcaDeployCollection = async function(payload) {
     alert('Deploy cancelled or failed.');
   }
 };
+/* ====== RANNTA ARCA — Direct Deploy (no backend) ======
+ * روش ساده: مقادیر از پیش‌محاسبه‌شده بگذار (stateinit_base64 + address)
+ * بعداً می‌تونیم Builder داخل مرورگر فعال کنیم تا stateInit را داینامیک بسازد.
+ */
+
+// 1) کانفیگ سریع (حتماً این دو مقدار را ست کن تا دیپلوی واقعی شود)
+const DIRECT_DEPLOY_CONFIG = {
+  // base64ِ کامل StateInit (code + data) برای همین کالکشنی که می‌خوای بسازی
+  DEFAULT_STATEINIT_B64: '',   // ← اینجا بچسبان
+  // آدرس نهایی همون StateInit (workchain معمولاً 0). مثال: EQC... (bounceable)
+  DEFAULT_FUTURE_ADDRESS: ''   // ← اینجا بچسبان
+};
+
+// 2) (اختیاری) اگر بعداً خواستی Builder مرورگری فعال شود، این تابع را پر کن
+// باید بر اساس payload ورودی، stateInitBase64 و address بسازد.
+async function buildCollectionStateInitInBrowser(payload) {
+  // TODO: اینجا با TonWeb/@ton/core، data cell از name/slug/royalty بساز و با code ترکیب کن.
+  // خروجی باید شیء زیر باشد:
+  // return { stateInitB64: 'base64...', address: 'EQ...' };
+  return null; // فعلاً غیرفعال
+}
+
+// 3) ابزار کوچک برای بررسی
+function isNonEmptyStr(s){ return typeof s === 'string' && s.trim().length > 0; }
+
+// 4) هستهٔ Direct Deploy
+window.arcaDirectDeployCollection = async function(payload) {
+  const ui = await ensureTonMounted();
+  if (!ui) { alert('TonConnect not ready.'); return; }
+  if (!ui.account) { await onClickConnect(); return; }
+
+  // اول تلاش کن اگر Builder فعال بود، بسازه
+  let built = null;
+  try { built = await buildCollectionStateInitInBrowser(payload); } catch(_) {}
+
+  const stateInitB64 = built?.stateInitB64 || DIRECT_DEPLOY_CONFIG.DEFAULT_STATEINIT_B64;
+  const futureAddr   = built?.address      || DIRECT_DEPLOY_CONFIG.DEFAULT_FUTURE_ADDRESS;
+
+  if (!isNonEmptyStr(stateInitB64) || !isNonEmptyStr(futureAddr)) {
+    alert('Direct Deploy not configured:\nPlease set DEFAULT_STATEINIT_B64 and DEFAULT_FUTURE_ADDRESS in app.js\n—or implement buildCollectionStateInitInBrowser().');
+    return;
+  }
+
+  // تخمین ساده (برای نمایش قبل از ارسال)
+  const amountTon = (window.arcaEstimateDeploy ? window.arcaEstimateDeploy(payload?.supply || 0) : 0.22);
+
+  const tx = {
+    validUntil: Math.floor(Date.now() / 1000) + 5 * 60,
+    messages: [{
+      address: futureAddr,         // آدرس کانترکت آینده (از stateInit)
+      amount: toNano(amountTon),   // مقدار TON برای دیپلوی (گس/ذخیره‌سازی)
+      stateInit: stateInitB64      // همین باعث می‌شود «دیپلوی» انجام شود
+      // body: <optional payload>   // اگر لازم بود پارامترهای اولیه را هم بفرستی
+    }]
+  };
+
+  try {
+    const res = await ui.sendTransaction(tx);
+    console.log('[DIRECT_DEPLOY_TX]', res);
+    alert('Transaction sent. Confirm in your wallet.\nThe contract will be deployed at:\n' + futureAddr);
+  } catch (e) {
+    console.warn('Direct deploy cancelled/failed:', e);
+    alert('Deploy cancelled or failed.');
+  }
+};
+
+// سازگاری عقب‌رو (اگر جای دیگری arcaDeployCollection صدا زده شد)
+if (!window.arcaDeployCollection) {
+  window.arcaDeployCollection = window.arcaDirectDeployCollection;
+}
