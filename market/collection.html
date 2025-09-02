@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" class="arca-page">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Collections — RANNTA ARCA</title>
+  <meta name="description" content="Browse NFT collections on RANNTA ARCA." />
+  <meta name="theme-color" content="#0f0f11" />
+  <link rel="icon" href="assets/rannta-arca1.png" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preload" as="script" href="assets/tonconnect-ui.min.js" />
+  <link rel="stylesheet" href="assets/marketplace.css" />
+</head>
+<body data-page="collection">
+  <header class="header">
+    <div class="wrap header-grid">
+      <div class="left">
+        <a class="brand" href="index.html">
+          <img class="logo" src="assets/rannta-arca1.png" alt="RANNTA ARCA" />
+          <span class="brand-text">RANNTA ARCA</span>
+        </a>
+        <nav class="nav">
+          <a href="index.html">Explore</a>
+          <a href="collection.html">Collections</a>
+          <a href="create.html">Create</a>
+          <a id="nav-profile" href="profile.html">Profile</a>
+        </nav>
+      </div>
+      <div class="middle">
+        <!-- optional global search slot -->
+      </div>
+      <div class="actions" id="actions">
+        <button id="btn-swap" class="btn secondary btn-small">⇄ Swap</button>
+        <button id="btn-connect" class="btn btn-small">🔗 Connect</button>
+        <div class="connect" id="tonconnect" aria-hidden="true"></div>
+      </div>
+    </div>
+  </header>
+  <main class="container">
+
+    <section class="hero">
+      <h1>Collection: <span id="collection-slug">—</span></h1>
+      <p>Browse items from a specific collection.</p>
+    </section>
+
+    <div class="toolbar">
+      <input id="search" class="search" type="search" placeholder="Search in this collection…">
+      <div class="right">
+        <select id="sort" class="select" aria-label="Sort">
+          <option value="">No sorting</option>
+          <option value="price-asc">Price ↑</option>
+          <option value="price-desc">Price ↓</option>
+          <option value="name">Alphabetical</option>
+        </select>
+      </div>
+    </div>
+
+    <section id="grid" class="grid" aria-live="polite"></section>
+
+  </main>
+  <footer class="footer">© 2025 RANNTA ARCA — All rights reserved.</footer>
+  <script src="assets/tonconnect-ui.min.js"></script>
+  <script src="assets/app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/market/service-worker.js', { scope: '/market/' })
+          .catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+[
+  {
+    "address": "SALE_ARCA_GENESIS",
+    "saleAddress": "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL",
+    "owner": "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL",
+    "collection": "RANNTA ARCA",
+    "name": "RANNTA ARCA \u2014 Genesis Seal",
+    "description": "Official marketplace seal. Sacred geometry, Griffin guardian, and blockchain cryptography in gold.",
+    "image": "https://emerald-important-bat-644.mypinata.cloud/ipfs/bafybeickteyl2rt6yfxrx5oktaguitw4glbs2ossl36rtf6didxyg74hcy",
+    "price": 0.5
+  },
+  {
+    "address": "SALE_GRIFFIN_1",
+    "saleAddress": "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL",
+    "owner": "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL",
+    "collection": "RANNTA Griffin \u2013 Initiation",
+    "name": "Griffin \u2014 Initiation #1",
+    "description": "MSF style Griffin from Initiation series.",
+    "image": "https://emerald-important-bat-644.mypinata.cloud/ipfs/bafybeih3uhdzabwjrojxmdjdhis5xnxxmvlqkwrn37faeg56c5ovdr3zgu",
+    "price": 1.0
+  },
+  {
+    "address": "SALE_GRIFFIN_2",
+    "saleAddress": "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL",
+    "owner": "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL",
+    "collection": "RANNTA Griffin \u2013 Initiation",
+    "name": "Griffin \u2014 Initiation #2",
+    "description": "Second Griffin of Initiation series.",
+    "image": "https://emerald-important-bat-644.mypinata.cloud/ipfs/bafybeifanbmy7qp4iqnpozctqbs3rml3wrxudt4kwivq5uydedsu6nbsyy",
+    "price": 1.2
+  },
+  {
+    "address": "SALE_DRAGON_1",
+    "saleAddress": "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL",
+    "owner": "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL",
+    "collection": "RANNTA Dragon \u2013 Prime",
+    "name": "Dragon \u2014 Prime #1",
+    "description": "Prime series dragon in MSF style.",
+    "image": "https://emerald-important-bat-644.mypinata.cloud/ipfs/bafybeieutq3eldexpqc3phgbxkmwwrpl6xsyteqx5rp4u2uyv47b7iqefm",
+    "price": 2.5
+  }
+]

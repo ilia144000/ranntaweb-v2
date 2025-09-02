@@ -1,0 +1,146 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.logo {
+    max-height: 100px;
+    margin: 28px auto 8px auto;
+    display: block;
+}
+
+header {
+    background: #181818;
+    padding-bottom: 12px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+nav li {
+    margin: 8px 16px;
+}
+
+nav a {
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.08em;
+    transition: color 0.18s;
+    letter-spacing: 0.02em;
+}
+
+nav a:hover {
+    color: #fff;
+    text-shadow: 0 2px 12px #FFD70088;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 14px;
+    margin-top: 0.5em;
+    color: #FFD700;
+}
+
+h2 {
+    color: #FFD700;
+    margin-top: 2.2em;
+    margin-bottom: 0.9em;
+}
+
+a {
+    color: #00BFFF;
+    transition: color 0.18s;
+}
+
+a:hover {
+    color: #FFD700;
+}
+
+ul {
+    margin: 0 0 1.4em 1.4em;
+}
+
+li {
+    margin-bottom: 7px;
+}
+
+footer {
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    padding: 0 8px;
+}
+
+@media (max-width: 700px) {
+    .logo {
+        max-height: 64px;
+    }
+    h1 {
+        font-size: 1.18em;
+    }
+    h2 {
+        font-size: 1.02em;
+    }
+}
+
+/* Modern box style for main content */
+main {
+    max-width: 700px;
+    margin: 40px auto 0 auto;
+    padding: 24px 16px 60px 16px;
+    background: #181818;
+    border-radius: 18px;
+    box-shadow: 0 6px 48px #0005;
+    font-size: 1.08em;
+    line-height: 1.7;
+}
+main h1, main h2 {
+    color: #FFD700;
+}
+main h2 {
+    margin-top: 1.8em;
+    margin-bottom: 0.6em;
+    font-size: 1.15em;
+}
+main ul {
+    margin: 0 0 1.2em 1.5em;
+    padding: 0;
+}
+main li {
+    margin-bottom: 0.4em;
+}
+
+/* Responsive team banner */
+.team-banner {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 32px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 36px #0007;
+    object-fit: cover;
+}
+
+@media (max-width: 600px) {
+    .team-banner {
+        max-width: 98vw;
+        border-radius: 7px;
+        margin: 0 auto 20px auto;
+    }
+    main {
+        padding: 12px 2vw 40px 2vw;
+    }
+}

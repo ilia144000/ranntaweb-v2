@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "jsx": "preserve",
+        "moduleResolution": "bundler",
+        "target": "ES2022",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "strict": true,
+        "noEmit": true,
+        "module": "esnext",
+        "resolveJsonModule": true,
+        "isolatedModules": true
+    }
+}

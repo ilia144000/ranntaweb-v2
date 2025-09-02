@@ -1,0 +1,108 @@
+;; ===================== RANNTA ARCA MARKETPLACE =====================
+;; SPDX-License-Identifier: MIT
+;; Language: FunC (TON Virtual Machine)
+
+;; Storage schema:
+;; cell[0] = marketplace owner (msg_addr)
+;; dict = listings (key = nft_address, value = {seller, price, royalty, creator})
+
+global owner_address: slice;
+
+type Listing = cell;
+
+;; Save listing
+() save_listing(slice nft, slice seller, int price, int royalty, slice creator) impure {
+  var ds = get_data().begin_parse();
+  owner_address = ds~load_msg_addr();
+  var listings = ds~load_dict();
+
+  listings.set_builder(nft, begin_cell()
+    .store_slice(seller)
+    .store_uint(price, 64)
+    .store_uint(royalty, 16)
+    .store_slice(creator)
+    .end_cell());
+
+  set_data(begin_cell().store_slice(owner_address).store_dict(listings).end_cell());
+}
+
+;; Remove listing
+() remove_listing(slice nft) impure {
+  var ds = get_data().begin_parse();
+  owner_address = ds~load_msg_addr();
+  var listings = ds~load_dict();
+  listings.delete(nft);
+  set_data(begin_cell().store_slice(owner_address).store_dict(listings).end_cell());
+}
+
+;; Get listing
+(int, slice, int, slice) get_listing(slice nft) {
+  var ds = get_data().begin_parse();
+  owner_address = ds~load_msg_addr();
+  var listings = ds~load_dict();
+  var cell_opt = listings.lookup(nft);
+  if (null?(cell_opt)) {
+    return (0, null(), 0, null());
+  }
+  var cs = cell_opt.begin_parse();
+  var seller = cs~load_msg_addr();
+  var price = cs~load_uint(64);
+  var royalty = cs~load_uint(16);
+  var creator = cs~load_msg_addr();
+  return (price, seller, royalty, creator);
+}
+
+;; Send TON safely
+() send_ton(slice to_addr, int amount) impure {
+  send_raw_message(begin_cell()
+    .store_uint(0x18, 6)   ;; mode = pay gas separately
+    .store_slice(to_addr)
+    .store_coins(amount)
+    .store_ref(null())
+    .end_cell(), 1);
+}
+
+;; Main entry
+() recv_internal(int balance, cell in_msg, slice in_body) impure {
+  var op = in_body~load_uint(32);
+
+  ;; 0x01 = List
+  if (op == 0x01) {
+    var nft = in_body~load_msg_addr();
+    var seller = in_body~load_msg_addr();
+    var price = in_body~load_uint(64);
+    var royalty = in_body~load_uint(16);
+    var creator = in_body~load_msg_addr();
+    save_listing(nft, seller, price, royalty, creator);
+  }
+
+  ;; 0x02 = Cancel
+  if (op == 0x02) {
+    var nft = in_body~load_msg_addr();
+    remove_listing(nft);
+  }
+
+  ;; 0x03 = Buy
+  if (op == 0x03) {
+    var nft = in_body~load_msg_addr();
+    var (price, seller, royalty, creator) = get_listing(nft);
+    if (price == 0) {
+      throw(101); ;; Not listed
+    }
+
+    ;; Calculate shares
+    var royalty_amount = (price * royalty) / 10000; ;; royalty in basis points
+    var fee_amount = (price * 250) / 10000;         ;; 2.5% marketplace fee
+    var seller_amount = price - royalty_amount - fee_amount;
+
+    ;; Payouts
+    if (royalty_amount > 0) send_ton(creator, royalty_amount);
+    if (fee_amount > 0) send_ton(owner_address, fee_amount);
+    send_ton(seller, seller_amount);
+
+    ;; Remove listing
+    remove_listing(nft);
+
+    ;; TODO: transfer NFT ownership (TIP-4 standard call)
+  }
+}
