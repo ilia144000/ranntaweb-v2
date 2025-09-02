@@ -29,11 +29,15 @@
       <div class="middle">
         <!-- optional global search slot -->
       </div>
-      <div class="actions" id="actions">
-        <button id="btn-swap" class="btn secondary btn-small">⇄ Swap</button>
-        <button id="btn-connect" class="btn btn-small">🔗 Connect</button>
-        <div class="connect" id="tonconnect" aria-hidden="true"></div>
+      <div class="actions">
+        <a id="btn-swap" class="pill" href="javascript:void(0)" role="button">↔ Swap</a>
+        <a id="btn-connect" class="pill" href="javascript:void(0)" role="button">
+          <span class="label">Connect Wallet</span>
+        </a>
+        <a id="btn-disconnect" class="pill hidden" href="javascript:void(0)" role="button">Disconnect</a>
       </div>
+      <!-- TonConnect mount point (hidden) -->
+      <div id="tonconnect" class="connect" aria-hidden="true"></div>
     </div>
   </header>
   <main class="container">
