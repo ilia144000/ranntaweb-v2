@@ -60,3 +60,26 @@ document.addEventListener('DOMContentLoaded', () => {
   initTonConnect();
   hookHeaderButtons();
 });
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1) Init TonConnect
+  if (window.TON_CONNECT_UI) {
+    tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: 'https://rannta.com/market/tonconnect-manifest.json'
+    });
+    tonConnectUI.mount('#tonconnect');
+  } else {
+    console.error('TonConnect UI library not loaded');
+  }
+
+  // 2) Button event
+  const btn = document.getElementById('btn-connect');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      if (tonConnectUI) {
+        tonConnectUI.openModal();
+      } else {
+        alert('TonConnect not ready. Check console for errors.');
+      }
+    });
+  }
+});
