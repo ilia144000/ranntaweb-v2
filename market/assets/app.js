@@ -205,3 +205,58 @@ function wireUI() {
 }
 
 document.addEventListener('DOMContentLoaded', wireUI);
+/* ====== RANNTA ARCA — Deploy helpers (append at file end) ====== */
+
+/** تنظیمات تخمینی هزینه‌ها (TON) — ساده و شفاف */
+const ARCA_FEE_EST = {
+  deployMin: 0.05,
+  deployMax: 0.20,
+  safety: 0.02,   // حاشیه اطمینان
+};
+
+/** آدرس فکتوری شما برای دیپلوی کالکشن — حتماً جایگزین کن! */
+const COLLECTION_FACTORY = 'EQxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'; 
+// TODO: آدرس واقعی Factory/Deployer قرارداد خودت را بگذار.
+
+/** برآورد هزینه‌ی دیپلوی (الان فقط دیپلوی؛ مینتِ آتی جداست) */
+function estimateDeployCostTon(supply) {
+  // می‌تونی هوشمندترش کنی، فعلاً ساده: سقف + safety
+  return +(ARCA_FEE_EST.deployMax + ARCA_FEE_EST.safety).toFixed(3);
+}
+
+/** خروجی برای استفاده در صفحات */
+window.arcaEstimateDeploy = estimateDeployCostTon;
+
+/** دیپلوی کالکشن: کیف پول را باز می‌کند (Transfer به Factory) */
+window.arcaDeployCollection = async function(payload) {
+  // payload: { name, slug, supply, priceTon, royaltyPct, royaltyAddr }
+  const ui = await ensureTonMounted();
+  if (!ui) { alert('TonConnect not ready.'); return; }
+  if (!ui.account) { await onClickConnect(); return; }
+
+  if (!COLLECTION_FACTORY || !/^E[Q|U]/.test(COLLECTION_FACTORY)) {
+    alert('Factory address is not set. Please configure COLLECTION_FACTORY in app.js');
+    return;
+  }
+
+  const amountTon = estimateDeployCostTon(payload?.supply || 0);
+
+  // نکته: در فاز بعدی، payload/stateInit را اضافه می‌کنیم تا Factory بداند چه دیپلوی کند.
+  const tx = {
+    validUntil: Math.floor(Date.now() / 1000) + 5 * 60,
+    messages: [{
+      address: COLLECTION_FACTORY,
+      amount: toNano(amountTon),
+      // payload: <base64 BOC>  // آینده: برای پاس‌دادن name/slug/royalty و ...
+    }]
+  };
+
+  try {
+    const res = await ui.sendTransaction(tx);
+    console.log('[DEPLOY_TX]', res);
+    alert('Transaction sent. Confirm in your wallet.\n(Factory will deploy the collection.)');
+  } catch (e) {
+    console.warn('Deploy cancelled/failed:', e);
+    alert('Deploy cancelled or failed.');
+  }
+};
