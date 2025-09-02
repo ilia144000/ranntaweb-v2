@@ -1,5 +1,6 @@
-/* ================= RANNTA ARCA — app.js (all pages connect) ================ */
+/* ================= RANNTA ARCA — app.js (connect on click, all pages) ================ */
 const TON_MANIFEST_URL = 'https://rannta.com/market/tonconnect-manifest.json';
+
 let tonConnectUI = null;
 
 /* Load TonConnect UI (local → unpkg → jsDelivr) */
@@ -26,15 +27,15 @@ async function loadTonConnectUi() {
   return false;
 }
 
-/* Ensure TonConnect mounted once */
+/* Ensure TonConnect mounted once and return UI */
 async function ensureTonMounted() {
   if (!window.TON_CONNECT_UI) {
     const ok = await loadTonConnectUi();
-    if (!ok) return null;
+    if (!ok) { alert('TonConnect library failed to load.'); return null; }
   }
   if (!tonConnectUI) {
     const host = document.getElementById('tonconnect');
-    if (!host) return null;
+    if (!host) { console.error('[ARCA] #tonconnect not found'); return null; }
     tonConnectUI = new TON_CONNECT_UI.TonConnectUI({ manifestUrl: TON_MANIFEST_URL });
     tonConnectUI.mount('#tonconnect');
 
@@ -58,7 +59,7 @@ async function ensureTonMounted() {
   return tonConnectUI;
 }
 
-/* Wire header actions (works on every page) */
+/* Wire header actions (Connect + Swap) */
 function wireHeader() {
   const connectEl = document.getElementById('btn-connect');
   if (connectEl) {
@@ -70,7 +71,7 @@ function wireHeader() {
   const swapEl = document.getElementById('btn-swap');
   if (swapEl) {
     swapEl.addEventListener('click', () => {
-      // STON.fi (user friendly). اگر خواستی TonSwap: https://tonswap.io/
+      // STON.fi (friendly fees). For TonSwap use: https://tonswap.io/
       window.open('https://app.ston.fi/swap?chartVisible=false', '_blank', 'noopener');
     });
   }
@@ -78,6 +79,5 @@ function wireHeader() {
 
 document.addEventListener('DOMContentLoaded', () => {
   wireHeader();
-  // اگر خواستی همیشه آماده باشد، این را باز کن:
-  // ensureTonMounted();
+  // اگر خواستی بدون کلیک هم آماده باشد:  ensureTonMounted();
 });
