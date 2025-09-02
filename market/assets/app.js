@@ -1,85 +1,96 @@
-/* ===================== RANNTA ARCA — app.js ===================== */
+/* ================= RANNTA ARCA — app.js (robust TonConnect) ================ */
 const TON_MANIFEST_URL = 'https://rannta.com/market/tonconnect-manifest.json';
-const NFT_SRC = 'nfts.json';
 
 let tonConnectUI = null;
 
-/* Init TonConnect */
-function initTonConnect() {
-  const mountPoint = document.getElementById('tonconnect');
-  if (!mountPoint) return;
+/* Load a script, with multi-source fallback (local → unpkg → jsDelivr) */
+async function loadTonConnectUi() {
+  const urls = [
+    'assets/tonconnect-ui.min.js',
+    'https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js',
+    'https://cdn.jsdelivr.net/npm/@tonconnect/ui@latest/dist/tonconnect-ui.min.js'
+  ];
+
+  for (const src of urls) {
+    // already loaded?
+    if (window.TON_CONNECT_UI) return true;
+    if ([...document.scripts].some(s => s.src.includes(src))) {
+      await new Promise(r => setTimeout(r, 0));
+      if (window.TON_CONNECT_UI) return true;
+    }
+    try {
+      await new Promise((resolve, reject) => {
+        const tag = document.createElement('script');
+        tag.src = src;
+        tag.async = true;
+        tag.onload = resolve;
+        tag.onerror = () => reject(new Error('Failed: ' + src));
+        document.head.appendChild(tag);
+      });
+      if (window.TON_CONNECT_UI) return true;
+    } catch (e) {
+      console.warn('[ARCA] Fallback load failed:', src, e);
+    }
+  }
+  return false;
+}
+
+/* Make sure TonConnect is ready and mounted */
+async function ensureTon() {
   if (!window.TON_CONNECT_UI) {
-    console.error('[ARCA] tonconnect-ui.min.js not loaded.');
-    return;
+    const ok = await loadTonConnectUi();
+    if (!ok) {
+      alert('TonConnect library failed to load.');
+      return null;
+    }
   }
   if (!tonConnectUI) {
+    const host = document.getElementById('tonconnect');
+    if (!host) {
+      console.error('[ARCA] #tonconnect not found in DOM');
+      return null;
+    }
     tonConnectUI = new TON_CONNECT_UI.TonConnectUI({ manifestUrl: TON_MANIFEST_URL });
     tonConnectUI.mount('#tonconnect');
-    wireWalletState();
+
+    // sync wallet → nav + localStorage
+    const update = () => {
+      const acc = tonConnectUI?.account;
+      const nav = document.getElementById('nav-profile');
+      if (acc) {
+        const addr = acc.address;
+        if (nav) nav.href = `profile.html?address=${addr}`;
+        localStorage.setItem('rannta_wallet', addr);
+      } else {
+        localStorage.removeItem('rannta_wallet');
+      }
+    };
+    tonConnectUI.onStatusChange(update);
+    update();
   }
+  return tonConnectUI;
 }
 
-/* Wallet state sync */
-function wireWalletState() {
-  const update = () => {
-    const acc = tonConnectUI?.account;
-    const nav = document.getElementById('nav-profile');
-    if (acc) {
-      const addr = acc.address;
-      if (nav) nav.href = `profile.html?address=${addr}`;
-      localStorage.setItem('rannta_wallet', addr);
-    } else {
-      localStorage.removeItem('rannta_wallet');
-    }
-  };
-  tonConnectUI.onStatusChange(update);
-  update();
-}
-
-/* Hook header buttons */
-function hookHeaderButtons() {
+/* Header buttons */
+function wireHeader() {
   // Connect
   document.querySelectorAll('#btn-connect').forEach(btn => {
-    btn.addEventListener('click', () => {
-      initTonConnect();
-      if (tonConnectUI) tonConnectUI.openModal();
+    btn.addEventListener('click', async () => {
+      const ui = await ensureTon();
+      if (ui && typeof ui.openModal === 'function') ui.openModal();
     });
   });
 
-  // Swap → redirect to DEX
+  // Swap → STON.fi
   document.querySelectorAll('#btn-swap').forEach(btn => {
     btn.addEventListener('click', () => {
-      // هر صرافی DEX روی TON رو میشه گذاشت؛ من DeDust رو گذاشتم
-      window.open('https://dedust.io/swap', '_blank');
+      window.open('https://app.ston.fi/swap?chartVisible=false', '_blank', 'noopener');
     });
   });
 }
 
-/* Run on every page */
 document.addEventListener('DOMContentLoaded', () => {
-  initTonConnect();
-  hookHeaderButtons();
-});
-document.addEventListener('DOMContentLoaded', async () => {
-  // 1) Init TonConnect
-  if (window.TON_CONNECT_UI) {
-    tonConnectUI = new TON_CONNECT_UI.TonConnectUI({
-      manifestUrl: 'https://rannta.com/market/tonconnect-manifest.json'
-    });
-    tonConnectUI.mount('#tonconnect');
-  } else {
-    console.error('TonConnect UI library not loaded');
-  }
-
-  // 2) Button event
-  const btn = document.getElementById('btn-connect');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      if (tonConnectUI) {
-        tonConnectUI.openModal();
-      } else {
-        alert('TonConnect not ready. Check console for errors.');
-      }
-    });
-  }
+  wireHeader();
+  // اگر دوست داری بدون کلیک هم آماده باشد، این خط را باز کن:
+  // ensureTon();
 });
