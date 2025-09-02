@@ -174,3 +174,20 @@
   margin:0 !important;
   padding:0 !important;
 }
+/* Pills unified */
+.arca-page .pill{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:6px; padding:10px 14px; min-height:40px;
+  font-size:14px; font-weight:600; border-radius:999px;
+  border:1px solid #2a2a31; background:transparent; color:#e7e7ea;
+  cursor:pointer; user-select:none; text-decoration:none;
+  transition:background .2s,color .2s,border-color .2s;
+}
+.arca-page .pill:hover{ background:#2a2a31; color:#FBBF24; border-color:#3a3a44; }
+
+/* Connected state (green tick) */
+.arca-page .pill.connected{ border-color:#16a34a; color:#16a34a; font-weight:700; }
+.arca-page .pill.connected::before{ content:"✔"; margin-right:6px; color:#16a34a; }
+
+.hidden{ display:none !important; }
+#tonconnect{ display:none; } /* modal opens via JS */
