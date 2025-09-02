@@ -1,5 +1,5 @@
 /* ===================== RANNTA ARCA — service-worker.js ===================== */
-const VER = 'v1.0.1';
+const VER = 'v1.0.2';
 const CACHE_STATIC  = `arca-static-${VER}`;
 const CACHE_DYNAMIC = `arca-dyn-${VER}`;
 const CACHE_IMAGES  = `arca-img-${VER}`;
