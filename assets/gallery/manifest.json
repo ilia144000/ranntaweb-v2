@@ -1,44 +1,74 @@
 [
   {
-    "file": "divine-genome-sabalan-codex.png",
-    "title": "Divine Genome — Sabalan Codex",
-    "caption": "Signal geometry from the Sabalan Codex.",
-    "alt": "MSF emblem with griffin and codex motifs"
+    "file": "Cosmic-Woman-Final-4K.png",
+    "title": "Cosmic Woman",
+    "caption": "Final 4K edition — symbol of cosmic awakening.",
+    "alt": "Cosmic Woman symbolic NFT",
+    "w": 1600,
+    "h": 1600
   },
   {
-    "file": "earthkeeper-001.png",
-    "title": "Earthkeeper #001",
-    "caption": "Tree of Breath — the first guardian.",
-    "alt": "Circular MSF seal with tree and runic ring"
+    "file": "Eternal-Captivity.png",
+    "title": "Eternal Captivity",
+    "caption": "Chains of spirit within the mythic cycle.",
+    "alt": "Eternal Captivity symbolic NFT",
+    "w": 1600,
+    "h": 1600
   },
   {
-    "file": "eternal-guardians-of-persia.png",
-    "title": "Eternal Guardians of Persia",
-    "caption": "A vigil of symbols across the eternal plain.",
-    "alt": "Gold sigils array for guardians of Persia"
+    "file": "God-Time-Captivity..png",
+    "title": "God-Time Captivity",
+    "caption": "Fragments of divine time locked in captivity.",
+    "alt": "God-Time Captivity symbolic NFT",
+    "w": 1600,
+    "h": 1600
   },
   {
-    "file": "supreme-zodiac-token-4.png",
-    "title": "Supreme Zodiac — Token #4",
-    "caption": "Arc of fate across the twelve houses.",
-    "alt": "Zodiac-themed MSF token triangle with griffin"
+    "file": "Hades-of-Scorpio.png",
+    "title": "Hades of Scorpio",
+    "caption": "Scorpio’s underworld archetype in MSF language.",
+    "alt": "Hades of Scorpio symbolic NFT",
+    "w": 1600,
+    "h": 1600
   },
   {
-    "file": "water-heart-master.png",
-    "title": "Water Heart",
-    "caption": "A covenant of water and light.",
-    "alt": "Blue water heart symbol with glow"
+    "file": "Human-Centered-Art-MSF-NFT.png",
+    "title": "Human Centered Art",
+    "caption": "MSF NFT exploring human-centered geometry and myth.",
+    "alt": "Human Centered Art MSF NFT",
+    "w": 1600,
+    "h": 1600
   },
   {
-    "file": "genesis-26-sentinels-oath.png",
-    "title": "Genesis 26 — Sentinel’s Oath",
-    "caption": "The oath engraved in light.",
-    "alt": "Triangular plaque with griffin and inscription Sentinels Oath"
+    "file": "MatrixExit.png",
+    "title": "Matrix Exit",
+    "caption": "Departure from the illusory matrix — coded path.",
+    "alt": "Matrix Exit symbolic NFT",
+    "w": 1600,
+    "h": 1600
   },
   {
-    "file": "genesis-13-serpents-covenant.png",
-    "title": "Genesis 13 — Serpent’s Covenant",
-    "caption": "The serpent’s covenant in gilded script.",
-    "alt": "Triangular plaque bearing the serpent covenant inscription"
+    "file": "Symbols-Rule-The-World.png",
+    "title": "Symbols Rule The World",
+    "caption": "Emblematic proof: symbols outlast empires.",
+    "alt": "Symbols Rule The World symbolic NFT",
+    "w": 1600,
+    "h": 1600
+  },
+  {
+    "file": "Vitruvian-Woman-Golden-Age.png",
+    "title": "Vitruvian Woman — Golden Age",
+    "caption": "Sacred proportion reimagined for the coming age.",
+    "alt": "Vitruvian Woman Golden Age symbolic NFT",
+    "w": 1600,
+    "h": 1600
+  },
+  {
+    "file": "genesis-serpents-covenant.png",
+    "title": "Genesis: Serpents’ Covenant",
+    "caption": "Covenant sealed in serpentine myth.",
+    "alt": "Genesis Serpents Covenant symbolic NFT",
+    "w": 1600,
+    "h": 1600
   }
 ]
