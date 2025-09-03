@@ -39,6 +39,10 @@
     .nft-links { background:#111; border:1px solid #333; border-radius:12px; padding:18px 20px; margin:20px auto; max-width:980px; box-shadow:0 6px 18px rgba(0,0,0,.35); }
     .nft-links h2 { color:#FFD700; margin:0 0 10px 0; font-size:22px; }
 
+    /* Header / Logo */
+    header{display:flex; align-items:center; gap:20px; padding:10px 20px;}
+    .logo{display:block; height:60px; width:auto;}
+
     .gallery-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     @media (min-width: 980px){ .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
     figure.gallery-item { background:#0e0e0e; border:1px solid #333; border-radius:12px; padding:10px; box-shadow:0 6px 18px rgba(0,0,0,.35); text-align:center; }
@@ -51,7 +55,7 @@
 </head>
 <body>
 <header>
-  <img src="rannta.png" alt="RANNTA Logo" class="logo" />
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160" />
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
@@ -75,7 +79,7 @@
 
   <section class="nft-links">
     <h2>Highlights</h2>
-    <!-- Auto‑rendered gallery; items come from assets/gallery/manifest.json -->
+    <!-- Auto-rendered gallery; items come from assets/gallery/manifest.json -->
     <div id="gallery-grid" class="gallery-grid"></div>
     <script>
       (async function(){
