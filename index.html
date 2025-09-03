@@ -73,6 +73,7 @@
       .label{ width:max-content; margin-bottom:4px; }
     }
 
+    /* Header / Logo */
     header{display:flex; align-items:center; gap:20px; padding:10px 20px;}
     .logo{display:block; height:60px; width:auto;}
   </style>
@@ -109,7 +110,10 @@
 
   <!-- HERO -->
   <div class="banner">
-    <img src="gate.png" alt="RANNTA Gate Symbol" />
+    <picture>
+      <source srcset="assets/brand/gate.webp" type="image/webp">
+      <img src="assets/brand/gate.png" alt="RANNTA Gate Symbol" width="520" height="520" loading="eager">
+    </picture>
     <div class="banner-text">Own a symbol of rebirth — enter the RANNTA universe.</div>
   </div>
 
