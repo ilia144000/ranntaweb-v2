@@ -6,160 +6,76 @@
   <title>RANNTA Verify</title>
   <meta name="robots" content="noindex" />
   <style>
-    :root{
-      --bg:#0f1115; --card:#161a22; --fg:#eaeaea;
-      --ok:#57d9a3; --bad:#ff6b6b; --warn:#ffd166; --muted:0.7;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background:var(--bg); color:var(--fg);
-      display:flex; align-items:center; justify-content:center; margin:0; padding:16px;
-    }
-    .card{
-      background:var(--card); padding:24px 28px; border-radius:16px;
-      width:min(720px, 100%); box-shadow:0 6px 24px rgba(0,0,0,.35)
-    }
-    h1{margin:0 0 6px 0; font-size:22px}
-    .muted{opacity:var(--muted)}
-    .row{display:flex; gap:8px; align-items:center; margin:8px 0}
-    code{background:#0b0e13; padding:2px 6px; border-radius:6px; font-family:var(--mono)}
-    .status{
-      font-weight:800; letter-spacing:.3px; padding:4px 8px; border-radius:8px;
-      display:inline-flex; align-items:center; gap:6px
-    }
-    .ok{color:var(--ok); background:rgba(87,217,163,.12); border:1px solid rgba(87,217,163,.3)}
-    .bad{color:var(--bad); background:rgba(255,107,107,.12); border:1px solid rgba(255,107,107,.3)}
-    .warn{color:#000; background:var(--warn); border:1px solid #000}
-    .actions{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
-    .btn{
-      background:#0b0e13; color:var(--fg); border:1px solid #2a2f3a;
-      padding:8px 12px; border-radius:10px; cursor:pointer;
-    }
-    .btn:disabled{opacity:.5; cursor:not-allowed}
-    .hr{height:1px; background:#232838; margin:12px 0}
-    .small{font-size:12px}
-    .spinner{display:inline-block; width:14px; height:14px; border:2px solid #3a4052; border-top-color:#9aa3b2; border-radius:50%; animation:spin 1s linear infinite}
-    @keyframes spin{to{transform:rotate(360deg)}}
+    body {font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; background: #0f1115; color: #eaeaea; display: flex; min-height: 100vh; align-items: center; justify-content: center; margin: 0;}
+    .card {background: #161a22; padding: 24px 28px; border-radius: 16px; max-width: 640px; width: 100%; box-shadow: 0 6px 24px rgba(0,0,0,.35);}
+    .ok {color: #57d9a3; font-weight: 700;}
+    .bad {color: #ff6b6b; font-weight: 700;}
+    .warn {color: #ffd166; font-weight: 700;}
+    .muted {opacity: 0.7;}
+    code {background: #0b0e13; padding: 2px 6px; border-radius: 6px;}
   </style>
 </head>
 <body>
   <div class="card">
     <h1>RANNTA Verification</h1>
-    <p class="muted">Check status for a given verification id.</p>
-    <div class="hr"></div>
-
-    <div class="row">
-      <strong>ID:</strong> <code id="id">—</code>
-    </div>
-    <div class="row">
-      <strong>Status:</strong>
-      <span id="status" class="status warn">
-        <span class="spinner" aria-hidden="true"></span> Checking…
-      </span>
-    </div>
-    <p id="note" class="muted small"></p>
-
-    <div class="actions">
-      <button id="copyLink" class="btn" disabled>Copy page link</button>
-      <button id="retry" class="btn" disabled>Retry</button>
-    </div>
-
-    <div class="hr"></div>
-    <p class="small muted">
-      API: <code>https://api.rannta.com/verify?id=&lt;YOUR_ID&gt;</code>
-    </p>
+    <p class="muted">Check status for a given verification ID.</p>
+    <hr />
+    <p><strong>ID:</strong> <code id="id">—</code></p>
+    <p><strong>Status:</strong> <span id="status" class="warn">Checking…</span></p>
+    <p id="note" class="muted"></p>
   </div>
 
   <script>
-    (function () {
+    (async function () {
+      const params = new URLSearchParams(window.location.search);
+      const id = params.get("id");
       const idEl = document.getElementById("id");
       const stEl = document.getElementById("status");
       const noteEl = document.getElementById("note");
-      const btnCopy = document.getElementById("copyLink");
-      const btnRetry = document.getElementById("retry");
-
-      const params = new URLSearchParams(window.location.search);
-      const id = params.get("id");
 
       idEl.textContent = id || "No ID provided";
 
-      const setStatus = (label, cls, note="") => {
-        stEl.textContent = label;
-        stEl.className = `status ${cls}`;
-        noteEl.textContent = note;
-      };
-
-      const fetchWithTimeout = (url, ms=8000) => {
-        const ctrl = new AbortController();
-        const t = setTimeout(() => ctrl.abort(), ms);
-        return fetch(url, { signal: ctrl.signal, cache: "no-store" })
-          .finally(() => clearTimeout(t));
-      };
-
-      async function run() {
-        // UI: buttons state
-        btnCopy.disabled = false;
-        btnRetry.disabled = true;
-
-        if (!id) {
-          setStatus("Missing id", "bad", "Add ?id=YOUR_ID to the URL.");
-          btnRetry.disabled = false;
-          return;
-        }
-
-        // Start loading state
-        stEl.innerHTML = '<span class="spinner" aria-hidden="true"></span> Checking…';
-        stEl.className = "status warn";
-        noteEl.textContent = "Requesting verification status from API.";
-
-        try {
-          const url = `https://api.rannta.com/verify?id=${encodeURIComponent(id)}`;
-          const res = await fetchWithTimeout(url, 10000);
-
-          // Attempt to parse JSON safely
-          let data = {};
-          try { data = await res.json(); } catch { /* ignore */ }
-
-          if (res.ok && data && typeof data.ok === "boolean") {
-            if (data.ok) {
-              setStatus("VALID", "ok", "This verification ID is registered in the public registry.");
-            } else {
-              setStatus("NOT FOUND", "bad", "This verification ID was not found in the public registry.");
-            }
-          } else if (res.status === 404) {
-            setStatus("NOT FOUND", "bad", "This verification ID was not found in the public registry.");
-          } else if (res.status === 400) {
-            setStatus("Missing id", "bad", "Query parameter ?id is required.");
-          } else {
-            setStatus(`Error ${res.status || ""}`.trim(), "bad", "Unexpected response from API.");
-          }
-        } catch (err) {
-          const aborted = err && err.name === "AbortError";
-          setStatus(aborted ? "Timeout" : "Network error", "bad",
-            aborted ? "API request timed out. Please try again." : "Unable to reach API. Check your connection and try again.");
-          btnRetry.disabled = false;
-        }
+      if (!id) {
+        stEl.textContent = "Missing id";
+        stEl.className = "bad";
+        noteEl.textContent = "Add ?id=YOUR_ID to the URL.";
+        return;
       }
 
-      // Actions
-      btnCopy.addEventListener("click", async () => {
-        try {
-          await navigator.clipboard.writeText(window.location.href);
-          btnCopy.textContent = "Copied!";
-          setTimeout(() => (btnCopy.textContent = "Copy page link"), 1200);
-        } catch {}
-      });
+      try {
+        const res = await fetch(`https://api.rannta.com/verify?id=${encodeURIComponent(id)}`, {
+          cache: "no-store"
+        });
+        const data = await res.json().catch(() => ({}));
 
-      btnRetry.addEventListener("click", () => {
-        btnRetry.disabled = true;
-        run();
-      });
-
-      // Kickoff
-      run();
+        if (res.ok && typeof data.ok === "boolean") {
+          if (data.ok) {
+            stEl.textContent = "VALID";
+            stEl.className = "ok";
+            noteEl.textContent = "This verification ID is registered in the public registry.";
+          } else {
+            stEl.textContent = "NOT FOUND";
+            stEl.className = "bad";
+            noteEl.textContent = "This verification ID was not found in the public registry.";
+          }
+        } else if (res.status === 404) {
+          stEl.textContent = "NOT FOUND";
+          stEl.className = "bad";
+          noteEl.textContent = "This verification ID was not found in the public registry.";
+        } else if (res.status === 400) {
+          stEl.textContent = "Missing id";
+          stEl.className = "bad";
+          noteEl.textContent = "Query parameter ?id is required.";
+        } else {
+          stEl.textContent = "Error";
+          stEl.className = "bad";
+          noteEl.textContent = "Unexpected response from API.";
+        }
+      } catch (e) {
+        stEl.textContent = "Network error";
+        stEl.className = "bad";
+        noteEl.textContent = "Unable to reach API.";
+      }
     })();
   </script>
 </body>
