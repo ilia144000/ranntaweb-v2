@@ -34,7 +34,7 @@
   />
   <nav>
     <ul>
-      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
       <li><a href="articles.html">Articles</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="whitepaper.html">Whitepaper</a></li>
@@ -121,17 +121,6 @@
   Forged in fire. Built for the future. — Powered by TON.<br/>
   Official DOI: <a href="https://doi.org/10.5281/zenodo.16994661">10.5281/zenodo.16994661</a></p>
 </footer>
-
-<script>
-  function copyJetton() {
-    const txt = document.getElementById('jettonAddr').innerText.trim();
-    navigator.clipboard.writeText(txt).then(() => {
-      const btn = document.querySelector('.copy-btn');
-      const old = btn.textContent;
-      btn.textContent = 'Copied!';
-      setTimeout(()=>btn.textContent = old, 1400);
-    });
-  }
-</script>
+<script src="footer.js"></script>
 </body>
 </html>
