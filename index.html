@@ -6,6 +6,9 @@
   <title>RANNTA | Home</title>
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
   <!-- SEO -->
   <meta name="description" content="RANNTA — token & mythic protocol powered by TON, and home of Mythosymbolic Fractalism (MSF). Explore the vision, utilities, and the RANNTA universe."/>
   <link rel="canonical" href="https://rannta.com/index.html"/>
@@ -22,16 +25,103 @@
   <meta name="twitter:title" content="RANNTA — Born of Fire, Forged in Purpose">
   <meta name="twitter:description" content="Mythic token & MSF movement on TON.">
   <meta name="twitter:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    h1, h2 {
+      font-family: 'Cinzel Decorative', serif;
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 18px;
+    }
+    nav a {
+      position: relative;
+      color: #FFD700;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #FFD700;
+      transition: width 0.3s;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+    .hero {
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: linear-gradient(180deg, #111 0%, #181818 100%);
+    }
+    .hero h1 {
+      font-size: 2.6em;
+      color: #FFD700;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2em;
+      color: #ddd;
+      margin-bottom: 30px;
+    }
+    .btnHero {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #FFD700;
+      color: #111;
+      border-radius: 30px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btnHero:hover {
+      background: #fff;
+      color: #111;
+      box-shadow: 0 0 18px rgba(255,215,0,0.6);
+    }
+    footer {
+      background: #0a0a0a;
+      padding: 40px 20px;
+      color: #999;
+      text-align: center;
+      font-size: 0.9em;
+    }
+    footer a { color: #FFD700; text-decoration: none; }
+    footer .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    footer h3 {
+      color: #FFD700;
+      margin-bottom: 10px;
+      font-size: 1em;
+    }
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    footer li { margin-bottom: 6px; }
+  </style>
 </head>
 <body>
 <header>
-  <img 
-    src="assets/brand/coin.png" 
-    alt="RANNTA Logo" 
-    class="logo" 
-    width="160" 
-    height="160" 
-  />
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160"/>
   <nav>
     <ul>
       <li><a href="index.html" class="active">Home</a></li>
@@ -50,48 +140,19 @@
   </nav>
 </header>
 
-<main>
+<!-- HERO -->
+<section class="hero">
   <h1>RANNTA: Born of Fire, Forged in Purpose</h1>
   <p>A symbol of rebirth, resilience, and a return to conscious greatness.</p>
+  <a href="nft.html" class="btnHero">✨ Enter RANNTAverse</a>
+</section>
 
+<main>
   <!-- WHY TON -->
   <section class="nft-links">
     <h2>Why RANNTA Runs on TON — and Why It Matters</h2>
-
-    <div class="why-text">
-      <p>RANNTA isn’t just a token — it’s a symbol of speed, truth, and sovereignty in a decentralized future. That’s why we chose <strong>The Open Network (TON)</strong> as our foundation.</p>
-      <p>With lightning-fast transactions, ultra-low fees, and secure scalability, TON lets RANNTA evolve across Web3 — from NFTs to staking to symbolic smart contracts.</p>
-      <p><em>We believe in freedom of value. We believe in programmable meaning. TON makes both possible.</em></p>
-    </div>
-
-    <div class="info-panel">
-      <div class="kv">
-        <span class="label">Official DOI</span>
-        <a href="https://doi.org/10.5281/zenodo.16994661" target="_blank" rel="noopener">
-          10.5281/zenodo.16994661
-        </a>
-
-        <span class="label">Smart Contract</span>
-        <div class="mono">
-          <code id="jettonAddr">EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</code>
-          <button class="copy-btn" onclick="copyJetton()">Copy</button>
-        </div>
-
-        <span class="label">GitHub</span>
-        <a href="https://github.com/ilia144000" target="_blank" rel="noopener">github.com/ilia144000</a>
-
-        <span class="label">Getgems</span>
-        <a href="https://getgems.io/user/UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL" target="_blank" rel="noopener">
-          getgems.io/user/…WuxS6m4bL
-        </a>
-
-        <span class="label">OpenSea</span>
-        <a href="https://opensea.io/RANNTA" target="_blank" rel="noopener">opensea.io/RANNTA</a>
-
-        <span class="label">Magic Eden</span>
-        <a href="https://magiceden.io/marketplace/rannst" target="_blank" rel="noopener">magiceden.io/marketplace/rannst</a>
-      </div>
-    </div>
+    <p>RANNTA isn’t just a token — it’s a symbol of speed, truth, and sovereignty in a decentralized future.</p>
+    <p>With lightning-fast transactions, ultra-low fees, and secure scalability, TON lets RANNTA evolve across Web3 — from NFTs to staking to symbolic smart contracts.</p>
   </section>
 
   <!-- RANNTA UTILITIES -->
@@ -103,23 +164,34 @@
       <li>Interoperability: bridges MSF art with on-chain actions.</li>
     </ul>
   </section>
-
-  <!-- QUICK LINKS -->
-  <section class="nft-links">
-    <h2>Quick Links</h2>
-    <ul>
-      <li>📜 <a href="whitepaper.html">RANNTA Whitepaper</a></li>
-      <li>🗺 <a href="roadmap.html">Roadmap</a></li>
-      <li>🜚 <a href="nft.html">NFT Hub (All Collections)</a></li>
-      <li>✉️ <a href="contact.html">Contact / Partnerships</a></li>
-    </ul>
-  </section>
 </main>
 
 <footer>
-  <p>© 2025 RANNTA. All rights reserved. <br/>
-  Forged in fire. Built for the future. — Powered by TON.<br/>
-  Official DOI: <a href="https://doi.org/10.5281/zenodo.16994661">10.5281/zenodo.16994661</a></p>
+  <div class="footer-grid">
+    <div>
+      <h3>About</h3>
+      <ul>
+        <li><a href="rannta-story.html">Our Story</a></li>
+        <li><a href="whitepaper.html">Whitepaper</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="nft.html">NFT Hub</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Connect</h3>
+      <ul>
+        <li><a href="https://twitter.com/ranntacoin">Twitter</a></li>
+        <li><a href="https://t.me/Rannta_coin">Telegram</a></li>
+        <li><a href="https://discord.com/invite/RrVvK79F">Discord</a></li>
+      </ul>
+    </div>
+  </div>
+  <p>© 2025 RANNTA • Forged in fire. Built for the future. Powered by TON.</p>
 </footer>
 <script src="footer.js"></script>
 </body>
