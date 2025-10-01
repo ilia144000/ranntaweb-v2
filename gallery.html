@@ -34,38 +34,31 @@
   </script>
 
   <style>
-    /* Site-consistent theming */
     footer { font-size: 13px; color: #999; text-align: center; margin-top: 60px; }
     .nft-links { background:#111; border:1px solid #333; border-radius:12px; padding:18px 20px; margin:20px auto; max-width:980px; box-shadow:0 6px 18px rgba(0,0,0,.35); }
     .nft-links h2 { color:#FFD700; margin:0 0 10px 0; font-size:22px; }
-
-    /* Header / Logo */
-    header{display:flex; align-items:center; gap:20px; padding:10px 20px;}
-    .logo{display:block; height:60px; width:auto;}
 
     .gallery-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
     @media (min-width: 980px){ .gallery-grid { grid-template-columns: repeat(3, 1fr); } }
     figure.gallery-item { background:#0e0e0e; border:1px solid #333; border-radius:12px; padding:10px; box-shadow:0 6px 18px rgba(0,0,0,.35); text-align:center; }
     .gallery-item img { width:100%; height:auto; border-radius:8px; display:block; }
     .caption { color:#FFD700; font-size:14px; margin-top:6px; }
-    .sources { font-size:13px; color:#aaa; margin-top: 8px; }
-    .sources a { color:#FFD700; text-decoration:none; }
-    .sources a:hover { text-decoration:underline; }
   </style>
 </head>
 <body>
 <header>
-  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160" />
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160"/>
   <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="articles.html">Articles</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="gallery.html" class="active">Gallery</a></li>
       <li><a href="whitepaper.html">Whitepaper</a></li>
       <li><a href="roadmap.html">Roadmap</a></li>
       <li><a href="airdrop.html">Airdrop</a></li>
       <li><a href="nft.html">NFT Sale</a></li>
       <li><a href="symbolists.html">Symbolists</a></li>
+      <li><a href="oracle.html">Oracle</a></li>
       <li><a href="rannta-story.html">About RANNTA</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="team.html">Team</a></li>
@@ -79,7 +72,6 @@
 
   <section class="nft-links">
     <h2>Highlights</h2>
-    <!-- Auto-rendered gallery; items come from assets/gallery/manifest.json -->
     <div id="gallery-grid" class="gallery-grid"></div>
     <script>
       (async function(){
@@ -90,12 +82,11 @@
           const grid = document.getElementById('gallery-grid');
 
           function safeUrl(path){
-            // encode URI but also escape '#'
             return encodeURI(path).replace(/#/g, '%23');
           }
 
           for (const it of items){
-            const file = it.file; // original filename (may contain spaces/#/unicode)
+            const file = it.file;
             const base = file.replace(/\.[^.]+$/, '');
             const webp = safeUrl(`assets/gallery/${base}.webp`);
             const fallback = safeUrl(`assets/gallery/${file}`);
@@ -110,11 +101,10 @@
             const img = document.createElement('img');
             img.width = w; img.height = h; img.loading = 'lazy';
             img.alt = alt;
-            // Show fallback immediately; upgrade to webp if it exists
             img.src = fallback;
             const probe = new Image();
             probe.onload = () => { img.src = webp; };
-            probe.onerror = () => {/* keep fallback */};
+            probe.onerror = () => {};
             probe.src = webp;
 
             const cap = document.createElement('figcaption');
