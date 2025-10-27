@@ -186,3 +186,79 @@ footer p { line-height: 1.8; }
     grid-template-columns: 1fr;
   }
 }
+/* --- RANNTA Signal Hero (add-on) --- */
+.signal-hero {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 42px;
+  padding: 84px 6vw 48px;
+  background: linear-gradient(180deg, #111 0%, #181818 100%);
+}
+
+.signal-hero .hero-copy h1 {
+  font-size: 2.4em;
+  color: #FFD700;
+  margin: 0 0 12px;
+}
+
+.signal-hero .hero-copy .sub {
+  font-size: 1.12em;
+  color: #ddd;
+  margin: 0 0 22px;
+  line-height: 1.6;
+}
+
+.btnHero {
+  display: inline-block;
+  padding: 12px 22px;
+  background: #FFD700;
+  color: #111;
+  border-radius: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s;
+  margin-right: 10px;
+}
+.btnHero:hover {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 0 18px rgba(255,215,0,0.6);
+}
+.btnHero.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,215,0,0.4);
+  color: #fff;
+}
+
+.glyph-figure {
+  text-align: center;
+}
+.glyph-figure img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 36px rgba(0,0,0,.6);
+}
+.glyph-figure figcaption {
+  margin-top: 8px; color: #aaa; font-size: .92em;
+}
+
+.architect .architect-lead { color: #ddd; }
+.architect .architect-signature {
+  margin: 14px 0 0 0;
+  padding: 14px 16px;
+  border-left: 3px solid #FFD700;
+  background: #151515;
+  color: #eee;
+  border-radius: 8px;
+  line-height: 1.7;
+}
+
+/* responsive */
+@media (max-width: 900px) {
+  .signal-hero { grid-template-columns: 1fr; padding: 56px 4vw 34px; }
+  .glyph-figure img { max-width: 360px; }
+  .signal-hero .hero-copy h1 { font-size: 1.8em; }
+}
