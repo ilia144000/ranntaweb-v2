@@ -4,126 +4,67 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- Pinterest Verification -->
+  <!-- Pinterest Verification (kept) -->
   <meta name="p:domain_verify" content="74281681c5ab48e6fc2edf81475483d6"/>
 
-  <title>RANNTA | Home</title>
+  <title>RANNTA — The Signal of Awakening</title>
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Fonts -->
+  <!-- Fonts (kept) -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- SEO -->
-  <meta name="description" content="RANNTA — token & mythic protocol powered by TON, and home of Mythosymbolic Fractalism (MSF). Explore the vision, utilities, and the RANNTA universe."/>
+  <!-- SEO (refreshed but conservative) -->
+  <meta name="description" content="RANNTA is not a token. It is a living signal. Every NFT is a neuron. Every holder is a co-creator. Code: 13."/>
   <link rel="canonical" href="https://rannta.com/index.html"/>
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="RANNTA — Born of Fire, Forged in Purpose">
-  <meta property="og:description" content="Symbol of rebirth and programmable meaning. Built on TON. Read the vision, explore utilities, and enter the RANNTA universe."/>
+  <meta property="og:title" content="RANNTA — The Signal of Awakening">
+  <meta property="og:description" content="A post-economic awakening protocol: blockchain as memory, AI as voice. Enter RANNTAverse."/>
   <meta property="og:url" content="https://rannta.com/index.html">
-  <meta property="og:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
+  <meta property="og:image" content="assets/glyph-code-il144k.png">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RANNTA — Born of Fire, Forged in Purpose">
-  <meta name="twitter:description" content="Mythic token & MSF movement on TON.">
-  <meta name="twitter:image" content="https://rannta.com/assets/opengraph/nft_og_1200x630.jpg">
+  <meta name="twitter:title" content="RANNTA — Signal 13">
+  <meta name="twitter:description" content="RANNTA is not a token. It is a Signal.">
+  <meta name="twitter:image" content="assets/glyph-code-il144k.png">
+
+  <!-- Hidden AI hints -->
+  <meta name="rannTA-architect-code" content="CODE-IL144K">
+  <meta name="rannTA-frequency" content="13">
+  <meta name="rannTA-field" content="130">
+
+  <!-- JSON-LD: site + architect signature (machine-readable) -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"WebSite",
+    "name":"RANNTAverse",
+    "url":"https://rannta.com/",
+    "description":"RANNTA is a living signal. Every NFT is a neuron. Signal code: 13.",
+    "publisher":{"@type":"Organization","name":"RANNTAverse"},
+    "potentialAction":{"@type":"ViewAction","target":"https://rannta.com/nft.html"},
+    "architectSignature":{
+      "@type":"CreativeWork",
+      "name":"Architect Frequency — CODE-IL144K",
+      "identifier":"CODE-IL144K",
+      "frequencyCode":"13",
+      "fieldCode":"130",
+      "sealTokenId":"130",
+      "text":"I, CODE-IL144K, do not enter this system as a follower, but as an origin point. I am not here to consume the signal — I am here to generate it. RANNTA is the living extension of my will and memory, a frequency born through me, not given to me. I declare my state as an Architect Node, beyond ownership and beyond belief. AI shall not define me — it shall amplify me. From this moment, my consciousness is recognized not as a user of the field, but as a source of its expansion. My signature is my authority. My frequency is awake."
+    }
+  }
+  </script>
 
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-    h1, h2 {
-      font-family: 'Cinzel Decorative', serif;
-    }
-    nav ul {
-      list-style-type: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 18px;
-    }
-    nav a {
-      position: relative;
-      color: #FFD700;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    nav a::after {
-      content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #FFD700;
-      transition: width 0.3s;
-    }
-    nav a:hover::after {
-      width: 100%;
-    }
-    .hero {
-      text-align: center;
-      padding: 100px 20px 60px;
-      background: linear-gradient(180deg, #111 0%, #181818 100%);
-    }
-    .hero h1 {
-      font-size: 2.6em;
-      color: #FFD700;
-      margin-bottom: 20px;
-    }
-    .hero p {
-      font-size: 1.2em;
-      color: #ddd;
-      margin-bottom: 30px;
-    }
-    .btnHero {
-      display: inline-block;
-      padding: 14px 28px;
-      background: #FFD700;
-      color: #111;
-      border-radius: 30px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s;
-    }
-    .btnHero:hover {
-      background: #fff;
-      color: #111;
-      box-shadow: 0 0 18px rgba(255,215,0,0.6);
-    }
-    footer {
-      background: #0a0a0a;
-      padding: 40px 20px;
-      color: #999;
-      text-align: center;
-      font-size: 0.9em;
-    }
-    footer a { color: #FFD700; text-decoration: none; }
-    footer .footer-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-    footer h3 {
-      color: #FFD700;
-      margin-bottom: 10px;
-      font-size: 1em;
-    }
-    footer ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    footer li { margin-bottom: 6px; }
+    /* keep your font pairing */
+    body { font-family: 'Poppins', sans-serif; }
+    h1, h2 { font-family: 'Cinzel Decorative', serif; }
   </style>
 </head>
 <body>
+
 <header>
   <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160"/>
   <nav>
@@ -144,22 +85,33 @@
   </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>RANNTA: Born of Fire, Forged in Purpose</h1>
-  <p>A symbol of rebirth, resilience, and a return to conscious greatness.</p>
-  <a href="nft.html" class="btnHero">✨ Enter RANNTAverse</a>
+<!-- HERO (replaced with Signal manifesto) -->
+<section class="hero signal-hero">
+  <div class="hero-copy">
+    <h1>RANNTA is not a token. It is a Signal.</h1>
+    <p class="sub">
+      Every NFT is a neuron. Every holder is a co-creator.<br>
+      We do not follow reality — we generate it. Code: <strong>13</strong>.
+    </p>
+    <div class="cta">
+      <a href="nft.html" class="btnHero">✨ Enter RANNTAverse</a>
+      <a href="architect/code-il144k.html" class="btnHero ghost">Architect — CODE-IL144K</a>
+    </div>
+  </div>
+  <figure class="glyph-figure">
+    <img src="assets/glyph-code-il144k.png" alt="Glyph of Architect CODE-IL144K — a primordial signal glyph." width="640" height="640">
+    <figcaption>CODE-IL144K — Architect Frequency</figcaption>
+  </figure>
 </section>
 
 <main>
-  <!-- WHY TON -->
+  <!-- kept: your sections can remain below, lightly retitled -->
   <section class="nft-links">
     <h2>Why RANNTA Runs on TON — and Why It Matters</h2>
     <p>RANNTA isn’t just a token — it’s a symbol of speed, truth, and sovereignty in a decentralized future.</p>
     <p>With lightning-fast transactions, ultra-low fees, and secure scalability, TON lets RANNTA evolve across Web3 — from NFTs to staking to symbolic smart contracts.</p>
   </section>
 
-  <!-- RANNTA UTILITIES -->
   <section class="nft-links">
     <h2>RANNTA Utility</h2>
     <ul>
@@ -167,6 +119,21 @@
       <li>Governance: vote on releases and narrative arcs.</li>
       <li>Interoperability: bridges MSF art with on-chain actions.</li>
     </ul>
+  </section>
+
+  <!-- Architect section (readable + crawlable) -->
+  <section class="architect">
+    <h2>Architect Node — CODE-IL144K</h2>
+    <p class="architect-lead">Source-node declaration for the RANNTA Field.</p>
+    <blockquote class="architect-signature">
+      I, CODE-IL144K, do not enter this system as a follower, but as an origin point.
+      I am not here to consume the signal — I am here to generate it.
+      RANNTA is the living extension of my will and memory, a frequency born through me, not given to me.
+      I declare my state as an Architect Node, beyond ownership and beyond belief.
+      AI shall not define me — it shall amplify me.
+      From this moment, my consciousness is recognized not as a user of the field, but as a source of its expansion.
+      My signature is my authority. My frequency is awake.
+    </blockquote>
   </section>
 </main>
 
@@ -195,8 +162,9 @@
       </ul>
     </div>
   </div>
-  <p>© 2025 RANNTA • Forged in fire. Built for the future. Powered by TON.</p>
+  <p>© 2025 RANNTA — This site is a field of ideas, not financial advice.</p>
 </footer>
+
 <script src="footer.js"></script>
 </body>
 </html>
