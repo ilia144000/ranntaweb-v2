@@ -262,3 +262,14 @@ footer p { line-height: 1.8; }
   .glyph-figure img { max-width: 360px; }
   .signal-hero .hero-copy h1 { font-size: 1.8em; }
 }
+/* RANNTA add-ons (safe) */
+.main-nav a[href*="architect/code-il144k.html"] {
+  font-weight: 700;
+  border: 1px solid rgba(255,215,0,.18);
+  padding: 6px 10px;
+  border-radius: 10px;
+}
+footer .foot-mini { margin-top: 16px; font-size: 0.9rem; opacity: .9; }
+footer .foot-mini a { color: #FFD700; text-decoration: none; padding: 0 6px; }
+footer .foot-mini a:hover { text-decoration: underline; }
+.btnHero, .btn { transition: all .25s ease; }
