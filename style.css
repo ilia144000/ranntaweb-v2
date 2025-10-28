@@ -1,39 +1,192 @@
-/* Base (from your current CSS) */
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #111;
-  color: #fff;
-  margin: 0;
-  padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #111;
+    color: #fff;
+    margin: 0;
+    padding: 0;
 }
-.logo { max-height: 100px; margin: 28px auto 8px; display: block; }
-header { background: #181818; padding-bottom: 12px; }
-nav ul { list-style: none; padding: 0; margin: 0; display: flex; justify-content: center; flex-wrap: wrap; }
-nav li { margin: 8px 16px; }
-nav a { color: #FFD700; text-decoration: none; font-weight: bold; font-size: 1.08em; transition: color .18s; letter-spacing: .02em; }
-nav a:hover { color: #fff; text-shadow: 0 2px 12px #FFD70088; }
 
-h1 { font-size: 2em; margin: .5em 0 14px; color: #FFD700; }
-h2 { color: #FFD700; margin: 2.2em 0 .9em; }
+.logo {
+    max-height: 100px;
+    margin: 28px auto 8px auto;
+    display: block;
+}
 
-a { color: #00BFFF; transition: color .18s; }
-a:hover { color: #FFD700; }
+header {
+    background: #181818;
+    padding-bottom: 12px;
+}
 
-footer { font-size: 13px; color: #999; text-align: center; margin: 60px 0 30px; padding: 0 8px; }
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
-/* Main container */
+nav li {
+    margin: 8px 16px;
+}
+
+nav a {
+    color: #FFD700;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.08em;
+    transition: color 0.18s;
+    letter-spacing: 0.02em;
+}
+
+nav a:hover {
+    color: #fff;
+    text-shadow: 0 2px 12px #FFD70088;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 14px;
+    margin-top: 0.5em;
+    color: #FFD700;
+}
+
+h2 {
+    color: #FFD700;
+    margin-top: 2.2em;
+    margin-bottom: 0.9em;
+}
+
+a {
+    color: #00BFFF;
+    transition: color 0.18s;
+}
+
+a:hover {
+    color: #FFD700;
+}
+
+ul {
+    margin: 0 0 1.4em 1.4em;
+}
+
+li {
+    margin-bottom: 7px;
+}
+
+footer {
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    padding: 0 8px;
+}
+
+@media (max-width: 700px) {
+    .logo {
+        max-height: 64px;
+    }
+    h1 {
+        font-size: 1.18em;
+    }
+    h2 {
+        font-size: 1.02em;
+    }
+}
+
+/* Modern box style for main content */
 main {
-  max-width: 700px;
-  margin: 40px auto 0;
-  padding: 24px 16px 60px;
-  background: #181818;
-  border-radius: 18px;
-  box-shadow: 0 6px 48px #0005;
-  font-size: 1.08em; line-height: 1.7;
+    max-width: 700px;
+    margin: 40px auto 0 auto;
+    padding: 24px 16px 60px 16px;
+    background: #181818;
+    border-radius: 18px;
+    box-shadow: 0 6px 48px #0005;
+    font-size: 1.08em;
+    line-height: 1.7;
 }
-main h1, main h2 { color: #FFD700; }
+main h1, main h2 {
+    color: #FFD700;
+}
+main h2 {
+    margin-top: 1.8em;
+    margin-bottom: 0.6em;
+    font-size: 1.15em;
+}
+main ul {
+    margin: 0 0 1.2em 1.5em;
+    padding: 0;
+}
+main li {
+    margin-bottom: 0.4em;
+}
 
-/* Signal Hero */
+/* Responsive team banner */
+.team-banner {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 32px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 36px #0007;
+    object-fit: cover;
+}
+
+@media (max-width: 600px) {
+    .team-banner {
+        max-width: 98vw;
+        border-radius: 7px;
+        margin: 0 auto 20px auto;
+    }
+    main {
+        padding: 12px 2vw 40px 2vw;
+    }
+}
+/* --- Unified footer styling (RANNTA) --- */
+footer p { line-height: 1.8; }
+.footer-line { display: inline-block; margin-top: 6px; }
+.footer-label { color: #bbb; }
+.footer-link {
+  color: #FFD700; text-decoration: none; border-bottom: 1px dotted #FFD70033;
+}
+.footer-link:hover {
+  color: #fff; text-shadow: 0 2px 12px #FFD70088; border-bottom-color: transparent;
+}
+.platform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.platform-grid a {
+  display: block;
+  padding: 12px 14px;
+  background: #141414;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: #FFD700;
+  text-decoration: none;
+  font-weight: 500;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+
+.platform-grid a:hover {
+  background: #FFD700;
+  color: #111;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(255,215,0,0.4);
+}
+
+@media (max-width: 700px) {
+  .platform-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* --- RANNTA Signal Hero (add-on) --- */
 .signal-hero {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -42,52 +195,68 @@ main h1, main h2 { color: #FFD700; }
   padding: 84px 6vw 48px;
   background: linear-gradient(180deg, #111 0%, #181818 100%);
 }
-.signal-hero .hero-copy h1 { font-size: 2.4em; color: #FFD700; margin: 0 0 12px; }
-.signal-hero .hero-copy .sub { font-size: 1.12em; color: #ddd; margin: 0 0 22px; line-height: 1.6; }
+
+.signal-hero .hero-copy h1 {
+  font-size: 2.4em;
+  color: #FFD700;
+  margin: 0 0 12px;
+}
+
+.signal-hero .hero-copy .sub {
+  font-size: 1.12em;
+  color: #ddd;
+  margin: 0 0 22px;
+  line-height: 1.6;
+}
 
 .btnHero {
-  display: inline-block; padding: 12px 22px;
-  background: #FFD700; color: #111; border-radius: 30px;
-  font-weight: 700; text-decoration: none; transition: all .25s; margin-right: 10px;
+  display: inline-block;
+  padding: 12px 22px;
+  background: #FFD700;
+  color: #111;
+  border-radius: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.25s;
+  margin-right: 10px;
 }
-.btnHero:hover { background: #fff; color: #111; box-shadow: 0 0 18px rgba(255,215,0,.6); }
-.btnHero.ghost { background: transparent; border: 1px solid rgba(255,215,0,.4); color: #fff; }
+.btnHero:hover {
+  background: #fff;
+  color: #111;
+  box-shadow: 0 0 18px rgba(255,215,0,0.6);
+}
+.btnHero.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,215,0,0.4);
+  color: #fff;
+}
 
-/* NEW: subtle highlight for Origin Declaration */
-.btnHero.highlight {
-  border-color: #FFD670;
-  box-shadow: 0 0 10px rgba(255,214,112,.35);
+.glyph-figure {
+  text-align: center;
 }
-.btnHero.highlight:hover {
-  background: #FFD670; color: #111; transform: translateY(-1px);
-}
-
-.glyph-figure { text-align: center; }
 .glyph-figure img {
-  width: 100%; max-width: 520px; height: auto;
-  border-radius: 12px; box-shadow: 0 6px 36px rgba(0,0,0,.6);
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 6px 36px rgba(0,0,0,.6);
 }
-.glyph-figure figcaption { margin-top: 8px; color: #aaa; font-size: .92em; }
+.glyph-figure figcaption {
+  margin-top: 8px; color: #aaa; font-size: .92em;
+}
 
-/* Architect block */
 .architect .architect-lead { color: #ddd; }
 .architect .architect-signature {
-  margin: 14px 0 0;
+  margin: 14px 0 0 0;
   padding: 14px 16px;
   border-left: 3px solid #FFD700;
-  background: #151515; color: #eee;
-  border-radius: 8px; line-height: 1.7;
+  background: #151515;
+  color: #eee;
+  border-radius: 8px;
+  line-height: 1.7;
 }
 
-/* Footer grid */
-.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:980px;margin:0 auto 12px;padding:0 12px}
-.footer-grid h3{color:#FFD700;margin:.2em 0 .5em}
-.footer-grid ul{list-style:none;margin:0;padding:0}
-.footer-grid li{margin:.4em 0}
-.footer-grid a{text-decoration:none;color:#FFD700;border-bottom:1px dotted #FFD70033}
-.footer-grid a:hover{color:#fff;text-shadow:0 2px 12px #FFD70088;border-bottom-color:transparent}
-
-/* Responsive */
+/* responsive */
 @media (max-width: 900px) {
   .signal-hero { grid-template-columns: 1fr; padding: 56px 4vw 34px; }
   .glyph-figure img { max-width: 360px; }
