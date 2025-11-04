@@ -52,13 +52,40 @@
   <h1>RANNTA Gallery</h1>
   <p>A curated glimpse into the MSF universe.</p>
 
+  <!-- FIX: سبک مینیمال فقط برای گالری تا تصاویر داخل کارت فیت شوند -->
+  <style>
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .gallery-item {
+      background: #0e0e0e;
+      border: 1px solid #222;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .gallery-item img {
+      display: block;
+      width: 100% !important;  /* Override any width attribute */
+      height: auto !important; /* Keep aspect ratio */
+    }
+    .gallery-item .caption {
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      color: #ccc;
+    }
+    .gallery-item .caption strong { color: gold; }
+  </style>
+
   <section class="nft-links">
     <h2>Highlights</h2>
     <div id="gallery-grid" class="gallery-grid"></div>
     <script>
       (async function(){
         try{
-          const res = await fetch('assets/gallery/manifest.json?v=3');
+          const res = await fetch('assets/gallery/manifest.json?v=3', { cache: 'no-store' });
           if(!res.ok) throw new Error('manifest not found');
           const items = await res.json();
           const grid = document.getElementById('gallery-grid');
@@ -72,7 +99,6 @@
             const base = file.replace(/\.[^.]+$/, '');
             const webp = safeUrl(`assets/gallery/${base}.webp`);
             const fallback = safeUrl(`assets/gallery/${file}`);
-            const w = it.w || 1200, h = it.h || 800;
             const title = it.title || '';
             const caption = it.caption || '';
             const alt = it.alt || title || caption || 'RANNTA artwork';
@@ -81,17 +107,19 @@
             fig.className = 'gallery-item';
 
             const img = document.createElement('img');
-            img.width = w; img.height = h; img.loading = 'lazy';
+            // NOTE: حذف ست کردن width/height به‌صورت صفت HTML تا CSS مسلط باشد
+            img.loading = 'lazy';
             img.alt = alt;
             img.src = fallback;
+
+            // Try switch to webp if available
             const probe = new Image();
             probe.onload = () => { img.src = webp; };
-            probe.onerror = () => {};
             probe.src = webp;
 
             const cap = document.createElement('figcaption');
             cap.className = 'caption';
-            cap.innerHTML = `<strong>${title}</strong><br>${caption}`;
+            cap.innerHTML = (title ? `<strong>${title}</strong><br>` : '') + (caption || '');
 
             fig.appendChild(img);
             fig.appendChild(cap);
@@ -105,10 +133,27 @@
   </section>
 </main>
 
-<footer>
-  <p>© 2025 RANNTA. All rights reserved. <br/>
-  Forged in fire. Built for the future. — Powered by TON.</p>
+<footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">About</h3>
+      <a href="rannta-story.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Our Story</a>
+      <a href="whitepaper.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Whitepaper</a>
+    </div>
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
+      <a href="roadmap.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Roadmap</a>
+      <a href="nft.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">NFT Hub</a>
+      <a href="ranntaverse.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">RANNTAverse</a>
+    </div>
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
+      <a href="https://x.com/ranntacoin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Twitter</a>
+      <a href="https://t.me/Rannta_coin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Telegram</a>
+      <a href="https://discord.com/invite/RrVvK79F" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Discord</a>
+    </div>
+  </div>
+  <p style="text-align:center;margin-top:40px;color:#888;">© 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM</p>
 </footer>
-<script src="footer.js"></script>
 </body>
 </html>
