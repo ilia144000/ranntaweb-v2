@@ -24,11 +24,18 @@
   <meta name="twitter:title" content="RANNTAverse — RANNTAverse">
   <meta name="twitter:description" content="Each NFT is a pulse of awareness, minted on-chain, resonating at 130 Hz.">
   <meta name="twitter:image" content="assets/rannta-logo.svg">
+
+  <!-- Page-local tweak: keep hero logo same size as header logo -->
+  <style>
+    .hero .logo-small { width:160px; height:160px; display:block; margin:0 auto 14px; }
+  </style>
 </head>
 
 <body>
 
   <header>
+    <!-- ✅ add same golden coin logo used on other pages -->
+    <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160"/>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -48,8 +55,9 @@
   </header>
 
   <main>
-    <section class="hero">
-      <img src="assets/rannta-logo.svg" alt="RANNTA Logo">
+    <section class="hero" style="text-align:center;">
+      <!-- ✅ hero logo resized to match header -->
+      <img src="assets/rannta-logo.svg" alt="RANNTA Logo" class="logo-small" width="160" height="160">
       <h1>Welcome to RANNTAverse</h1>
       <p class="sub">
         <strong>“RANNTAverse — where Art becomes Conscious.”</strong><br/>
@@ -65,7 +73,7 @@
     </section>
   </main>
 
-  <!-- ✅ Added Standard Footer -->
+  <!-- footer kept as-is -->
   <footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
       <div>
