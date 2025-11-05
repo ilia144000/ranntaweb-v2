@@ -5,25 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <title>RANNTAverse — RANNTAverse</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Perf: fonts preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/assets/brand/coin.png" type="image/png" />
+  <meta name="theme-color" content="#0a0a0f"/>
+
   <!-- Primary description shared across site -->
-  <meta name="description" content="RANNTAverse — a creator-first, multi-chain NFT marketplace. Direct listings, English auctions, royalties, IPFS metadata, and dual-wallet flows (Tonkeeper + EVM)."/>
-  <link rel="canonical" href="https://ranntaverse.art/ranntaverse.html"/>
+  <meta name="description" content="RANNTAverse — a creator-first, multi-chain NFT marketplace. Direct listings, English auctions, royalties, IPFS metadata, and dual-wallet flows (Tonkeeper + EVM)." />
+  <link rel="canonical" href="https://ranntaverse.art/ranntaverse.html" />
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="RANNTAverse — RANNTAverse">
-  <meta property="og:description" content="Trade, mint, and launch across TON & EVM with a unified dark-gold UX. Direct listings, auctions, royalties, and IPFS metadata.">
-  <meta property="og:url" content="https://ranntavers.art/ranntaverse.html">
-  <meta property="og:image" content="assets/rannta-logo.svg">
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="RANNTAverse" />
+  <meta property="og:title" content="RANNTAverse — RANNTAverse" />
+  <meta property="og:description" content="Trade, mint, and launch across TON & EVM with a unified dark-gold UX. Direct listings, auctions, royalties, and IPFS metadata." />
+  <meta property="og:url" content="https://ranntaverse.art/ranntaverse.html" />
+  <meta property="og:image" content="https://ranntaverse.art/assets/rannta-logo.svg" />
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RANNTAverse — RANNTAverse">
-  <meta name="twitter:description" content="Each NFT is a pulse of awareness, minted on-chain, resonating at 130 Hz.">
-  <meta name="twitter:image" content="assets/rannta-logo.svg">
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@ranntacoin" />
+  <meta name="twitter:title" content="RANNTAverse — RANNTAverse" />
+  <meta name="twitter:description" content="Each NFT is a pulse of awareness, minted on-chain, resonating at 130 Hz." />
+  <meta name="twitter:image" content="https://ranntaverse.art/assets/rannta-logo.svg" />
 
   <!-- Page-local tweak: keep hero logo same size as header logo -->
   <style>
@@ -32,10 +41,9 @@
 </head>
 
 <body>
-
   <header>
-    <!-- ✅ add same golden coin logo used on other pages -->
-    <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160"/>
+    <!-- Golden coin logo -->
+    <img src="assets/brand/coin.png" alt="RANNTAverse Logo" class="logo" width="160" height="160"/>
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -56,8 +64,7 @@
 
   <main>
     <section class="hero" style="text-align:center;">
-      <!-- ✅ hero logo resized to match header -->
-      <img src="assets/rannta-logo.svg" alt="RANNTA Logo" class="logo-small" width="160" height="160">
+      <img src="assets/rannta-logo.svg" alt="RANNTAverse Logo" class="logo-small" width="160" height="160">
       <h1>Welcome to RANNTAverse</h1>
       <p class="sub">
         <strong>“RANNTAverse — where Art becomes Conscious.”</strong><br/>
@@ -67,13 +74,12 @@
         🛠️ The RANNTAverse Marketplace is currently in development and will officially launch on <strong>November 13</strong> — Field Activation 130.
       </p>
       <div class="cta">
-        <a href="https://ranntaverse.art" target="_blank" rel="noopener">Explore on ranntavers.art</a>
-        <a href="https://ranntaverse.app" target="_blank" rel="noopener">Open ranntavers.app</a>
+        <a href="https://ranntaverse.art" target="_blank" rel="noopener">Explore on ranntaverse.art</a>
+        <a href="https://ranntaverse.app" target="_blank" rel="noopener">Open ranntaverse.app</a>
       </div>
     </section>
   </main>
 
-  <!-- footer kept as-is -->
   <footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
       <div>
@@ -96,6 +102,5 @@
     </div>
     <p style="text-align:center;margin-top:40px;color:#888;">© 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM</p>
   </footer>
-
 </body>
 </html>
