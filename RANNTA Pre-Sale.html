@@ -8,14 +8,14 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
-  <meta name="description" content="Official RANNTA Pre-Sale on TON. Fixed price, limited allocation, and manual on-chain distribution for early supporters."/>
-  <link rel="canonical" href="https://rannta.com/swap.html"/>
+  <meta name="description" content="Official RANNTA Pre-Sale on TON. Fixed USD price, TON and USDT payments, and manual on-chain distribution for early supporters."/>
+  <link rel="canonical" href="https://rannta.com/presale.html"/>
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Pre-Sale — RANNTA · TON">
   <meta property="og:description" content="Join the official RANNTA Pre-Sale and secure your allocation before the main liquidity pool goes live.">
-  <meta property="og:url" content="https://rannta.com/swap.html">
+  <meta property="og:url" content="https://rannta.com/presale.html">
   <meta property="og:image" content="assets/rannta-logo.svg">
 
   <!-- Twitter -->
@@ -23,6 +23,202 @@
   <meta name="twitter:title" content="Pre-Sale — RANNTA · TON">
   <meta name="twitter:description" content="RANNTA Pre-Sale on TON — symbolic, deflationary, and powering the RANNTAverse marketplace.">
   <meta name="twitter:image" content="assets/rannta-logo.svg">
+
+  <style>
+    /* Small helper styles for the pre-sale calculator */
+    .presale-subtitle {
+      margin-top: 28px;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+      color: #FFD700;
+    }
+    .presale-steps {
+      margin: 0 0 20px 20px;
+      padding-left: 0;
+      font-size: 0.98em;
+      line-height: 1.7;
+    }
+    .presale-steps li {
+      margin-bottom: 6px;
+    }
+    .presale-address-box {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      background: #141414;
+      border: 1px solid rgba(255,215,0,0.3);
+    }
+    .presale-address-label {
+      font-size: 0.9em;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #FFD700;
+      margin-bottom: 6px;
+    }
+    .presale-address {
+      display: block;
+      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.88em;
+      color: #eee;
+      word-break: break-all;
+    }
+    .presale-notes {
+      margin-top: 22px;
+      font-size: 0.92em;
+      color: #ccc;
+    }
+    .presale-notes h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      color: #FFD700;
+    }
+    .presale-notes ul {
+      margin: 0 0 0 18px;
+      padding-left: 0;
+    }
+    .presale-notes li {
+      margin-bottom: 5px;
+    }
+    .swap-page {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 16px 80px;
+    }
+    .swap-panel {
+      background: radial-gradient(circle at top, rgba(255,215,0,0.12), #050505 60%);
+      border-radius: 18px;
+      padding: 24px 20px 28px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.75);
+    }
+    .swap-panel h1 {
+      margin-top: 0;
+      font-size: 1.7em;
+      color: #fff;
+    }
+    .swap-lead {
+      color: #ccc;
+      font-size: 0.98em;
+      margin-bottom: 18px;
+    }
+    .swap-box {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(5,5,5,0.9);
+      padding: 16px 14px;
+      margin-bottom: 20px;
+    }
+    .swap-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+    .swap-row:last-child {
+      margin-bottom: 0;
+    }
+    .swap-row label {
+      font-size: 0.82em;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #a0a0a0;
+    }
+    .swap-token {
+      font-size: 0.95em;
+      color: #eee;
+    }
+    .swap-token strong {
+      color: #FFD700;
+    }
+    .swap-footnote {
+      margin-top: 22px;
+      font-size: 0.86em;
+      color: #999;
+      line-height: 1.6;
+    }
+
+    .calc-box {
+      margin-top: 22px;
+      padding: 16px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,170,255,0.35);
+      background: rgba(3,10,18,0.95);
+    }
+    .calc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .calc-header h3 {
+      margin: 0;
+      font-size: 1em;
+      color: #fff;
+    }
+    .calc-header span {
+      font-size: 0.8em;
+      color: #888;
+    }
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .calc-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .calc-field label {
+      font-size: 0.78em;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #a0a0a0;
+    }
+    .calc-field input {
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: #05080c;
+      color: #fff;
+      font-size: 0.9em;
+      outline: none;
+    }
+    .calc-field input:focus {
+      border-color: #00aaff;
+    }
+    .calc-meta {
+      margin-top: 10px;
+      font-size: 0.85em;
+      color: #ccc;
+    }
+    .calc-meta strong {
+      color: #FFD700;
+    }
+    .calc-meta span {
+      display: inline-block;
+      min-width: 90px;
+    }
+    .calc-status {
+      margin-top: 6px;
+      font-size: 0.8em;
+      color: #888;
+    }
+    .calc-status.error {
+      color: #ff6666;
+    }
+
+    @media (max-width: 640px) {
+      .swap-page {
+        padding-top: 24px;
+      }
+      .swap-panel {
+        padding: 18px 14px 24px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -50,36 +246,44 @@
   <section class="swap-panel">
     <h1>RANNTA Pre-Sale · Phase I</h1>
     <p class="swap-lead">
-      This is the official RANNTA Pre-Sale on the TON blockchain.  
-      Allocation is limited and distribution is done manually, directly on-chain, to protect early supporters.
+      Official RANNTA Pre-Sale on the TON blockchain.  
+      The price is fixed in USD, while TON payments are calculated dynamically using the live TON/USD rate.
+      Distribution is done manually and directly on-chain to protect early supporters.
     </p>
 
     <!-- Price + allocation box -->
-    <div class="swap-row">
-  <label>Fixed Pre-Sale Price</label>
-  <div class="swap-token">
-    <span>1 RANNTA = <strong>$0.0013</strong> (USD)</span>
-  </div>
-</div>
+    <div class="swap-box">
+      <div class="swap-row">
+        <label>Base Pre-Sale Price (USD)</label>
+        <div class="swap-token">
+          <span>1 RANNTA = <strong>$0.0013</strong> (USD)</span>
+        </div>
+      </div>
 
       <div class="swap-row">
-        <label>Indicative TON rate</label>
+        <label>Accepted Currencies</label>
         <div class="swap-token">
-          <span>TON ↔ RANNTA is calculated at the moment of purchase based on live market price of TON.</span>
+          <span>
+            <strong>TON</strong> (native coin on TON) and
+            <strong>USDT (TON)</strong> are both accepted for this phase.
+          </span>
         </div>
       </div>
 
       <div class="swap-row">
         <label>Current Phase</label>
         <div class="swap-token">
-          <span>Phase I — Early Supporters</span>
+          <span>Phase I — Early Supporters Allocation</span>
         </div>
       </div>
 
       <div class="swap-row">
         <label>Allocation</label>
         <div class="swap-token">
-          <span>Limited pool reserved for pre-sale only. Main liquidity pool will be deployed later.</span>
+          <span>
+            A limited pool of RANNTA is reserved for this pre-sale.
+            The main public liquidity pool will be deployed later on DEX for open trading.
+          </span>
         </div>
       </div>
     </div>
@@ -88,33 +292,73 @@
     <h2 class="presale-subtitle">How to join the Pre-Sale</h2>
     <ol class="presale-steps">
       <li>Use a TON wallet such as <strong>Tonhub</strong> or <strong>MyTonWallet</strong>.</li>
-      <li>Send TON to the official Pre-Sale address below.</li>
-      <li>After the transaction is confirmed on-chain, RANNTA will be distributed manually to the same wallet within a short period.</li>
-      <li>For support or confirmation, contact the team via <strong>@ranntacoin</strong> on X/Twitter or the official Telegram channel.</li>
+      <li>Decide whether you want to pay with <strong>TON</strong> or <strong>USDT (TON)</strong>.</li>
+      <li>Use the live calculator below to estimate how much RANNTA you will receive.</li>
+      <li>Send your TON or USDT to the corresponding official pre-sale address.</li>
+      <li>After on-chain confirmation, RANNTA will be distributed manually to the same wallet within a short period.</li>
     </ol>
 
-    <!-- Payment address box -->
+    <!-- TON address -->
     <div class="presale-address-box">
-      <div class="presale-address-label">Official Pre-Sale TON address</div>
+      <div class="presale-address-label">TON payment address (for TON only)</div>
       <code class="presale-address">
-        REPLACE_WITH_YOUR_OFFICIAL_TON_WALLET
+        REPLACE_WITH_TON_PRESALE_ADDRESS
       </code>
-      <!-- NOTE: Replace the placeholder above with your real TON wallet address used to receive Pre-Sale funds. -->
+    </div>
+
+    <!-- USDT address -->
+    <div class="presale-address-box">
+      <div class="presale-address-label">USDT (TON) payment address</div>
+      <code class="presale-address">
+        REPLACE_WITH_USDT_TON_ADDRESS
+      </code>
+    </div>
+
+    <!-- Live calculator -->
+    <div class="calc-box" id="presale-calculator">
+      <div class="calc-header">
+        <h3>Live TON / RANNTA helper</h3>
+        <span id="ton-price-label">Fetching TON price…</span>
+      </div>
+
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label for="tonAmount">You pay (TON)</label>
+          <input type="number" id="tonAmount" min="0" step="0.0001" placeholder="0.0">
+        </div>
+        <div class="calc-field">
+          <label for="usdtAmount">You pay (USDT)</label>
+          <input type="number" id="usdtAmount" min="0" step="0.01" placeholder="0.00">
+        </div>
+        <div class="calc-field">
+          <label for="rannAmount">You receive (RANNTA)</label>
+          <input type="number" id="rannAmount" min="0" step="1" placeholder="0">
+        </div>
+      </div>
+
+      <div class="calc-meta" id="calc-meta">
+        <div><span>TON price:</span> <strong id="tonUsdValue">–</strong> <span>USD</span></div>
+        <div><span>1 TON ≈</span> <strong id="rannPerTon">–</strong> <span>RANNTA</span></div>
+        <div><span>1 RANNTA:</span> <strong>$0.0013</strong> <span>USD (fixed)</span></div>
+      </div>
+      <div class="calc-status" id="calc-status">
+        Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.
+      </div>
     </div>
 
     <div class="presale-notes">
       <h3>Important notes</h3>
       <ul>
         <li>Do not send funds from centralized exchanges. Always use a self-custody TON wallet.</li>
-        <li>There is a per-wallet limit to protect the pool and prevent whales from draining early liquidity. Exact limits will be announced in official channels.</li>
-        <li>This is a symbolic, community-driven Pre-Sale. No guarantees of profit — only participation in the RANNTA Field.</li>
-        <li>The small existing liquidity pool on DEX is for testing and verification only. The main public pool will be deployed after the Pre-Sale.</li>
+        <li>Per-wallet limits may be enforced to protect the pool and avoid whales draining early liquidity.</li>
+        <li>This is a symbolic, community-driven pre-sale. No guarantees of profit — participation is in the RANNTA Field.</li>
+        <li>The small existing liquidity pool on DEX is used for testing and verification only. The main public pool will be deployed after the pre-sale phase.</li>
       </ul>
     </div>
 
     <p class="swap-footnote">
       Always double-check links and addresses.  
-      The only official links are published on <strong>rannta.com</strong>, the verified <strong>@ranntacoin</strong> X/Twitter account,
+      Official links are published only on <strong>rannta.com</strong>, the verified <strong>@ranntacoin</strong> X/Twitter account,
       the official Telegram channel, and the RANNTA Community on X.
     </p>
   </section>
@@ -142,6 +386,97 @@
   </div>
   <p style="text-align:center;margin-top:40px;color:#888;">© 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM</p>
 </footer>
+
+<script>
+  const RANNTA_PRICE_USD = 0.0013;
+  const tonPriceLabel = document.getElementById("ton-price-label");
+  const tonUsdValueEl = document.getElementById("tonUsdValue");
+  const rannPerTonEl = document.getElementById("rannPerTon");
+  const statusEl = document.getElementById("calc-status");
+
+  const tonInput = document.getElementById("tonAmount");
+  const usdtInput = document.getElementById("usdtAmount");
+  const rannInput = document.getElementById("rannAmount");
+
+  let tonUsd = null;
+  let isUpdating = false;
+
+  async function fetchTonPrice() {
+    try {
+      tonPriceLabel.textContent = "Fetching TON price…";
+      const res = await fetch("https://api.coingecko.com/api/v3/simple/price?ids=toncoin&vs_currencies=usd");
+      const data = await res.json();
+      if (data && data.toncoin && typeof data.toncoin.usd === "number") {
+        tonUsd = data.toncoin.usd;
+        tonUsdValueEl.textContent = tonUsd.toFixed(4);
+        const perTon = tonUsd / RANNTA_PRICE_USD;
+        rannPerTonEl.textContent = Math.floor(perTon).toLocaleString();
+        tonPriceLabel.textContent = "Live TON price loaded";
+        statusEl.textContent = "Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.";
+        statusEl.classList.remove("error");
+      } else {
+        throw new Error("Unexpected response");
+      }
+    } catch (err) {
+      tonPriceLabel.textContent = "Failed to fetch TON price";
+      tonUsdValueEl.textContent = "–";
+      rannPerTonEl.textContent = "–";
+      statusEl.textContent = "Could not load live TON price. Please try again later or contact the team.";
+      statusEl.classList.add("error");
+    }
+  }
+
+  function updateFromTON() {
+    if (isUpdating) return;
+    isUpdating = true;
+    const tonVal = parseFloat(tonInput.value || "0");
+    if (!tonUsd || tonVal <= 0) {
+      isUpdating = false;
+      return;
+    }
+    const totalUsd = tonVal * tonUsd;
+    const rann = totalUsd / RANNTA_PRICE_USD;
+    usdtInput.value = totalUsd.toFixed(2);
+    rannInput.value = Math.floor(rann);
+    isUpdating = false;
+  }
+
+  function updateFromUSDT() {
+    if (isUpdating) return;
+    isUpdating = true;
+    const usdtVal = parseFloat(usdtInput.value || "0");
+    if (usdtVal <= 0 || !tonUsd) {
+      isUpdating = false;
+      return;
+    }
+    const rann = usdtVal / RANNTA_PRICE_USD;
+    const tonVal = usdtVal / tonUsd;
+    rannInput.value = Math.floor(rann);
+    tonInput.value = tonVal.toFixed(4);
+    isUpdating = false;
+  }
+
+  function updateFromRANNTA() {
+    if (isUpdating) return;
+    isUpdating = true;
+    const rannVal = parseFloat(rannInput.value || "0");
+    if (rannVal <= 0 || !tonUsd) {
+      isUpdating = false;
+      return;
+    }
+    const totalUsd = rannVal * RANNTA_PRICE_USD;
+    const tonVal = totalUsd / tonUsd;
+    usdtInput.value = totalUsd.toFixed(2);
+    tonInput.value = tonVal.toFixed(4);
+    isUpdating = false;
+  }
+
+  tonInput.addEventListener("input", updateFromTON);
+  usdtInput.addEventListener("input", updateFromUSDT);
+  rannInput.addEventListener("input", updateFromRANNTA);
+
+  fetchTonPrice();
+</script>
 
 </body>
 </html>
