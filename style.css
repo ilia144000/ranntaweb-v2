@@ -757,3 +757,178 @@ body.nav-open {
     max-height: 60px;
   }
 }
+/* === PRO HEADER + MOBILE NAV === */
+
+/* Header main structure */
+.site-header.pro-header {
+  background: #181818;
+  padding: 0 16px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+/* Desktop: centered logo, menu below */
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 18px;
+  text-align: center;
+}
+
+/* Logo link */
+.logo-link {
+  display: inline-block;
+}
+
+/* Exact same as original visual layout */
+.logo {
+  max-height: 100px;
+  margin: 28px auto 8px auto;
+  display: block;
+}
+
+/* Desktop navigation (existing UL) */
+.desktop-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Mobile menu & hamburger — hidden on desktop */
+.hamburger-btn {
+  display: none;
+  position: absolute;
+  right: 18px;
+  top: 22px;
+  width: 34px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin-bottom: 5px;
+  background: #ffd700;
+  border-radius: 2px;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+/* X-state when menu is open */
+.hamburger-btn.is-open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.hamburger-btn.is-open span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-btn.is-open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Background overlay */
+.nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  z-index: 45;
+}
+
+.nav-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Mobile side panel */
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 260px;
+  background: #111;
+  box-shadow: -4px 0 24px rgba(0, 0, 0, 0.75);
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  z-index: 50;
+  padding-top: 70px;
+}
+
+.mobile-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mobile-nav a {
+  display: block;
+  padding: 8px 4px;
+  color: #ffd700;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.mobile-nav a:hover {
+  color: #fff;
+  text-shadow: 0 2px 12px #ffd70088;
+}
+
+/* Mobile open state */
+.mobile-nav.is-open {
+  transform: translateX(0);
+}
+
+/* Desktop only (mobile off) */
+.desktop-nav {
+  display: block;
+}
+.mobile-nav {
+  display: none;
+}
+
+/* --- Mobile breakpoint --- */
+@media (max-width: 860px) {
+  .header-inner {
+    max-width: 100%;
+    padding: 10px 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .logo-link {
+    margin-left: 4px;
+  }
+
+  .logo {
+    margin: 0;
+    max-height: 64px;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .hamburger-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-nav {
+    display: block;
+  }
+}
