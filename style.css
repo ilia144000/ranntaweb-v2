@@ -831,3 +831,57 @@ img {
     display: block;
   }
 }
+
+/* --- Responsive site footer (for .site-footer) --- */
+
+.site-footer {
+  background: #0a0a0a;
+  color: #ccc;
+  padding: 32px 16px 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 40px;
+}
+
+.footer-grid {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+}
+
+.footer-col h3 {
+  color: gold;
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+}
+
+.footer-col a {
+  color: #00aaff;
+  display: block;
+  text-decoration: none;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+}
+
+.footer-col a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  text-align: center;
+  margin-top: 28px;
+  color: #888;
+  font-size: 0.82rem;
+}
+
+/* Mobile tweaks for footer */
+@media (max-width: 700px) {
+  .footer-grid {
+    text-align: center;
+  }
+
+  .footer-col {
+    margin-bottom: 4px;
+  }
+}
