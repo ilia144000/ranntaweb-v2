@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>RANNTAverse — RANNTAverse</title>
+  <title>RANNTAverse — Multi-Chain NFT Marketplace</title>
 
   <!-- Perf: fonts preconnect -->
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -12,78 +12,27 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="/assets/brand/coin.png" type="image/png" />
+  <link rel="icon" href="assets/brand/coin.png" type="image/png" />
   <meta name="theme-color" content="#0a0a0f"/>
 
-  <!-- Primary description shared across site -->
-  <meta name="description" content="RANNTAverse — a creator-first, multi-chain NFT marketplace. Direct listings, English auctions, royalties, IPFS metadata, and dual-wallet flows (Tonkeeper + EVM)." />
-  <link rel="canonical" href="https://ranntaverse.art/ranntaverse.html" />
+  <meta name="description" content="RANNTAverse — a creator-first, multi-chain NFT marketplace. Direct listings, English auctions, royalties, IPFS metadata, and dual wallet flows." />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="RANNTAverse" />
-  <meta property="og:title" content="RANNTAverse — RANNTAverse" />
-  <meta property="og:description" content="Trade, mint, and launch across TON & EVM with a unified dark-gold UX. Direct listings, auctions, royalties, and IPFS metadata." />
-  <meta property="og:url" content="https://ranntaverse.art/ranntaverse.html" />
-  <meta property="og:image" content="https://ranntaverse.art/assets/rannta-logo.svg" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@ranntacoin" />
-  <meta name="twitter:title" content="RANNTAverse — RANNTAverse" />
-  <meta name="twitter:description" content="Each NFT is a pulse of awareness, minted on-chain, resonating at 130 Hz." />
-  <meta name="twitter:image" content="https://ranntaverse.art/assets/rannta-logo.svg" />
-
-  <!-- Page-local tweak: keep hero logo same size as header logo -->
   <style>
-    .hero .logo-small { width:160px; height:160px; display:block; margin:0 auto 14px; }
+    .hero .logo-small {
+      width:160px;
+      height:160px;
+      display:block;
+      margin:0 auto 14px;
+    }
   </style>
 </head>
 
 <body>
-  <header class="site-header pro-header">
-  <div class="header-inner">
-    <a href="index.html" class="logo-link">
-      <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
-    </a>
 
-    <!-- Desktop navigation -->
-    <nav class="main-nav desktop-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="whitepaper.html">Whitepaper</a></li>
-        <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="airdrop.html">Airdrop</a></li>
-        <li><a href="nft.html">NFT Sale</a></li>
-        <li><a href="symbolists.html">Symbolists</a></li>
-        <li><a href="ranntaverse.html">RANNTAverse</a></li>
-        <li><a href="rannta-story.html">About RANNTA</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="team.html">Team</a></li>
-      </ul>
-    </nav>
-
-    <!-- Hamburger (mobile only) -->
-    <button
-      class="hamburger-btn"
-      id="hamburgerBtn"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-      aria-controls="mobileNav"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-
-  <!-- Dark overlay behind mobile menu -->
-  <div class="nav-overlay" id="navOverlay"></div>
-
-  <!-- Mobile navigation panel -->
-  <nav class="main-nav mobile-nav" id="mobileNav">
+<!-- ========== SIMPLE GLOBAL HEADER ========== -->
+<header>
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160" />
+  <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="articles.html">Articles</a></li>
@@ -93,53 +42,68 @@
       <li><a href="airdrop.html">Airdrop</a></li>
       <li><a href="nft.html">NFT Sale</a></li>
       <li><a href="symbolists.html">Symbolists</a></li>
-      <li><a href="ranntaverse.html">RANNTAverse</a></li>
+      <li><a href="ranntaverse.html" class="active">RANNTAverse</a></li>
       <li><a href="rannta-story.html">About RANNTA</a></li>
       <li><a href="contact.html">Contact</a></li>
       <li><a href="team.html">Team</a></li>
     </ul>
   </nav>
 </header>
+<!-- ========================================= -->
 
-  <main>
-    <section class="hero" style="text-align:center;">
-      <img src="assets/rannta-logo.svg" alt="RANNTAverse Logo" class="logo-small" width="160" height="160">
-      <h1>Welcome to RANNTAverse</h1>
-      <p class="sub">
-        <strong>“RANNTAverse — where Art becomes Conscious.”</strong><br/>
-        Each NFT is a pulse of awareness, minted on-chain, resonating at <strong>130 Hz</strong>.
-      </p>
-      <p class="announcement">
-        🛠️ The RANNTAverse Marketplace is currently in development and will officially launch on <strong>November 13</strong> — Field Activation 130.
-      </p>
-      <div class="cta">
-        <a href="https://ranntaverse.art" target="_blank" rel="noopener">Explore on ranntaverse.art</a>
-        <a href="https://ranntaverse.app" target="_blank" rel="noopener">Open ranntaverse.app</a>
-      </div>
-    </section>
-  </main>
+<main>
+  <section class="hero" style="text-align:center;">
+    <img src="assets/rannta-logo.svg" alt="RANNTAverse Logo" class="logo-small" width="160" height="160">
 
-  <footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
-      <div>
-        <h3 style="color:gold;margin-bottom:10px;">About</h3>
-        <a href="rannta-story.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Our Story</a>
-        <a href="whitepaper.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Whitepaper</a>
-      </div>
-      <div>
-        <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
-        <a href="roadmap.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Roadmap</a>
-        <a href="nft.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">NFT Hub</a>
-        <a href="ranntaverse.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">RANNTAverse</a>
-      </div>
-      <div>
-        <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
-        <a href="https://x.com/ranntacoin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Twitter</a>
-        <a href="https://t.me/Rannta_coin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Telegram</a>
-        <a href="https://discord.gg/AFWUJEr6nx" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Discord</a>
-      </div>
+    <h1>Welcome to RANNTAverse</h1>
+
+    <p class="sub">
+      <strong>“Where Art becomes Conscious.”</strong><br>
+      Every NFT is a pulse of awareness, resonating at <strong>130 Hz</strong>.
+    </p>
+
+    <p class="announcement">
+      🛠️ The full RANNTAverse Marketplace is under construction and will officially launch soon.
+      Until then, explore the portals below.
+    </p>
+
+    <div class="cta">
+      <a href="https://ranntaverse.art" target="_blank" rel="noopener">Visit ranntaverse.art</a>
+      <a href="https://ranntaverse.app" target="_blank" rel="noopener">Open ranntaverse.app</a>
     </div>
-    <p style="text-align:center;margin-top:40px;color:#888;">© 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM</p>
-  </footer>
+  </section>
+</main>
+
+<!-- ========== CLEAN FOOTER ========== -->
+<footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
+
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">About</h3>
+      <a href="rannta-story.html" style="color:#00aaff;display:block;margin-bottom:6px;">Our Story</a>
+      <a href="whitepaper.html" style="color:#00aaff;display:block;margin-bottom:6px;">Whitepaper</a>
+    </div>
+
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
+      <a href="roadmap.html" style="color:#00aaff;display:block;margin-bottom:6px;">Roadmap</a>
+      <a href="nft.html" style="color:#00aaff;display:block;margin-bottom:6px;">NFT Hub</a>
+      <a href="ranntaverse.html" style="color:#00aaff;display:block;margin-bottom:6px;">RANNTAverse</a>
+    </div>
+
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
+      <a href="https://x.com/ranntacoin" target="_blank" style="color:#00aaff;display:block;margin-bottom:6px;">Twitter</a>
+      <a href="https://t.me/Rannta_coin" target="_blank" style="color:#00aaff;display:block;margin-bottom:6px;">Telegram</a>
+      <a href="https://discord.gg/AFWUJEr6nx" target="_blank" style="color:#00aaff;display:block;margin-bottom:6px;">Discord</a>
+    </div>
+
+  </div>
+
+  <p style="text-align:center;margin-top:40px;color:#888;">
+    © 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM
+  </p>
+</footer>
+
 </body>
 </html>
