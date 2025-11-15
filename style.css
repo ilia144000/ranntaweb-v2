@@ -527,3 +527,34 @@ img { max-width: 100%; height: auto; display: block; }
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
   display: inline-block;
 }
+.swap-link-card {
+  background: rgba(90, 180, 255, 0.10);      /* light blue glow */
+  border: 1px solid rgba(90, 180, 255, 0.55);
+  border-radius: 18px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.swap-link-text {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.swap-link-button {
+  align-self: flex-start;
+  text-align: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+@media (max-width: 640px) {
+  .swap-link-card {
+    padding: 12px 12px;
+  }
+  .swap-link-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
