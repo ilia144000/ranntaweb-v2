@@ -2,46 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>RANNTA Pre-Sale Admin Panel (Local)</title>
+  <title>RANNTA Pre-Sale Admin (Local Only)</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
       --bg: #050509;
       --card: #101018;
       --accent: #ffd84a;
-      --accent-soft: rgba(255, 216, 74, 0.2);
       --text: #f5f5f7;
       --muted: #888;
-      --danger: #ff4d4d;
       --border: rgba(255, 255, 255, 0.08);
       --radius: 16px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: radial-gradient(circle at top, #181828 0, #050509 55%);
       color: var(--text);
-      padding: 24px;
+      padding: 20px;
     }
 
     h1 {
-      margin-top: 0;
-      font-size: 1.8rem;
+      margin: 0 0 8px;
+      font-size: 1.6rem;
       letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
+    .subtitle {
+      margin: 0 0 18px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
     .layout {
-      max-width: 1200px;
+      max-width: 1100px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
-      gap: 24px;
+      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
+      gap: 20px;
       align-items: flex-start;
     }
 
@@ -49,41 +52,41 @@
       background: linear-gradient(145deg, #101018, #050509);
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      padding: 20px 20px 18px;
+      padding: 18px 18px 16px;
       box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75);
     }
 
     .card-title {
-      font-size: 1.05rem;
-      margin: 0 0 12px;
+      margin: 0 0 8px;
+      font-size: 1rem;
     }
 
     .card-sub {
-      font-size: 0.82rem;
+      margin: 0 0 14px;
+      font-size: 0.8rem;
       color: var(--muted);
-      margin: 0 0 16px;
       line-height: 1.4;
     }
 
     label {
       display: block;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       color: var(--muted);
     }
 
+    select,
     input[type="text"],
-    input[type="number"],
-    select {
+    input[type="number"] {
       width: 100%;
-      padding: 8px 10px;
+      padding: 7px 10px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: #07070d;
       color: var(--text);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       outline: none;
     }
 
@@ -91,26 +94,26 @@
       color: #555;
     }
 
+    .field {
+      margin-bottom: 9px;
+    }
+
     .row {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .field {
-      margin-bottom: 10px;
+      gap: 8px;
     }
 
     button {
       border: none;
       border-radius: 999px;
-      padding: 9px 18px;
-      font-size: 0.9rem;
+      padding: 8px 16px;
+      font-size: 0.85rem;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      background: var(--accent-soft);
+      background: rgba(255, 216, 74, 0.15);
       color: var(--accent);
     }
 
@@ -120,14 +123,14 @@
       font-weight: 600;
     }
 
-    button.danger {
-      background: rgba(255, 77, 77, 0.16);
-      color: var(--danger);
-    }
-
     button.small {
       padding: 6px 12px;
       font-size: 0.78rem;
+    }
+
+    button.danger {
+      background: rgba(255, 80, 80, 0.14);
+      color: #ff5f5f;
     }
 
     button:disabled {
@@ -135,45 +138,50 @@
       cursor: default;
     }
 
+    .status-bar {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .status-error {
+      color: #ff5f5f;
+    }
+
     .toolbar {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
+      gap: 8px;
+      align-items: flex-start;
       flex-wrap: wrap;
+      margin-bottom: 10px;
     }
 
     .toolbar-right {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       flex-wrap: wrap;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.8rem;
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    thead {
-      background: rgba(255, 255, 255, 0.02);
+      font-size: 0.78rem;
     }
 
     th, td {
-      padding: 7px 8px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 6px 7px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       vertical-align: top;
     }
 
     th {
       text-align: left;
       font-weight: 500;
-      color: var(--muted);
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      font-size: 0.74rem;
+      color: var(--muted);
       white-space: nowrap;
     }
 
@@ -181,54 +189,47 @@
       background: rgba(255, 255, 255, 0.01);
     }
 
+    .table-shell {
+      max-height: 420px;
+      overflow: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
     code {
       font-family: "JetBrains Mono", "Fira Code", monospace;
-      font-size: 0.76rem;
+      font-size: 0.73rem;
     }
 
     .pill {
       display: inline-flex;
       align-items: center;
-      padding: 2px 8px;
+      padding: 2px 7px;
       border-radius: 999px;
       font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
+      margin-right: 3px;
     }
 
     .pill-ton {
-      background: rgba(76, 201, 240, 0.08);
-      color: #4fc3ff;
+      background: rgba(79, 195, 255, 0.08);
+      color: #4ec5ff;
     }
 
     .pill-bnb {
-      background: rgba(255, 215, 0, 0.08);
+      background: rgba(255, 216, 74, 0.12);
       color: #ffd84a;
     }
 
     .pill-tron {
-      background: rgba(255, 99, 132, 0.08);
-      color: #ff6f91;
+      background: rgba(255, 120, 154, 0.12);
+      color: #ff7b9b;
     }
 
     .pill-token {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.08);
       color: #eee;
-      margin-left: 4px;
-    }
-
-    .status-bar {
-      margin-top: 6px;
-      font-size: 0.78rem;
-      color: var(--muted);
-    }
-
-    .status-bar strong {
-      color: var(--accent);
-    }
-
-    .status-error {
-      color: var(--danger);
     }
 
     .checkbox-center {
@@ -243,37 +244,29 @@
   </style>
 </head>
 <body>
-  <h1>RANNTA Pre-Sale · Local Admin Panel</h1>
-  <p style="max-width:800px;font-size:0.9rem;color:#bbb;margin-bottom:20px;">
-    Local-only tool for managing RANNTA pre-sale contributions across TON / BNB / TRON.
-    Data is stored in <strong>browser localStorage</strong> only. Use this on your own machine.
+  <h1>RANNTA Pre-Sale · Admin Panel</h1>
+  <p class="subtitle">
+    Local-only dashboard for managing RANNTA pre-sale contributions across TON / BNB / TRON.
+    Open this file directly on your own machine. Data is stored in this browser only.
   </p>
 
   <div class="layout">
-    <!-- Left: Form -->
+    <!-- LEFT: FORM -->
     <section class="card">
-      <h2 class="card-title">Add Contribution</h2>
+      <h2 class="card-title">Add contribution</h2>
       <p class="card-sub">
-        Paste the payment details (from TON explorer, BscScan, Tronscan, etc.) and the buyer’s
-        <strong>TON recipient address</strong>. RANNTA amount is calculated automatically.
+        Select where the payment came from, enter the amount and the buyer’s TON address.
+        RANNTA amount is calculated automatically using a fixed USD price.
       </p>
 
-      <div class="field row">
-        <div>
-          <label for="network">Network</label>
-          <select id="network">
-            <option value="TON">TON</option>
-            <option value="BNB">BNB</option>
-            <option value="TRON">TRON</option>
-          </select>
-        </div>
-        <div>
-          <label for="token">Payment token</label>
-          <select id="token">
-            <option value="TON">TON</option>
-            <option value="USDT">USDT</option>
-          </select>
-        </div>
+      <div class="field">
+        <label for="source">Payment source</label>
+        <select id="source">
+          <option value="TON:TON">TON · pay with TON</option>
+          <option value="TON:USDT">TON · pay with USDT</option>
+          <option value="BNB:USDT">BNB · pay with USDT</option>
+          <option value="TRON:USDT">TRON · pay with USDT</option>
+        </select>
       </div>
 
       <div class="field">
@@ -283,23 +276,23 @@
 
       <div class="field row">
         <div>
-          <label for="usdValue">USD value (auto if TON)</label>
-          <input id="usdValue" type="number" step="0.01" min="0" placeholder="Will be used to compute RANNTA" />
+          <label for="usdValue">USD value</label>
+          <input id="usdValue" type="number" step="0.01" min="0" placeholder="Auto for TON, manual allowed" />
         </div>
         <div>
-          <label for="rannAmount">RANNTA amount (auto)</label>
-          <input id="rannAmount" type="number" step="1" min="0" placeholder="Auto" readonly />
+          <label for="rannAmount">RANNTA (auto)</label>
+          <input id="rannAmount" type="number" step="1" min="0" readonly placeholder="Auto" />
         </div>
       </div>
 
       <div class="field">
         <label for="tonRecipient">TON recipient address</label>
-        <input id="tonRecipient" type="text" placeholder="User's TON wallet (Tonhub, Tonkeeper, MyTonWallet, ...)" />
+        <input id="tonRecipient" type="text" placeholder="User's TON wallet (Tonhub / Tonkeeper / MyTonWallet)" />
       </div>
 
       <div class="field">
         <label for="txHash">Tx hash / transaction ID</label>
-        <input id="txHash" type="text" placeholder="Paste the on-chain transaction hash here" />
+        <input id="txHash" type="text" placeholder="Paste the on-chain transaction hash" />
       </div>
 
       <div class="field row" style="align-items:center;">
@@ -308,7 +301,7 @@
             Fetch TON price (for TON payments)
           </button>
           <div class="status-bar" id="priceStatus">
-            TON price: <strong>unknown</strong>
+            TON price: unknown
           </div>
         </div>
         <div style="text-align:right;">
@@ -321,42 +314,37 @@
       <div class="status-bar" id="formStatus"></div>
     </section>
 
-    <!-- Right: Table -->
+    <!-- RIGHT: TABLE -->
     <section class="card">
       <div class="toolbar">
         <div>
           <h2 class="card-title" style="margin-bottom:4px;">Contributions</h2>
-          <div class="card-sub" style="margin-bottom:0;">
-            All entries are stored locally in this browser. You can export them as CSV for payments.
-          </div>
+          <p class="card-sub" style="margin-bottom:0;">
+            Mark rows as paid after sending RANNTA. Use CSV export for tracking or bulk payments.
+          </p>
         </div>
         <div class="toolbar-right">
-          <button type="button" id="btnExport" class="small primary">
-            Export CSV
-          </button>
-          <button type="button" id="btnClear" class="small danger">
-            Clear all
-          </button>
+          <button type="button" class="small" id="btnExport">Export CSV</button>
+          <button type="button" class="small danger" id="btnClear">Clear all</button>
         </div>
       </div>
 
-      <div style="max-height:420px;overflow:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-top:8px;">
+      <div class="table-shell">
         <table>
           <thead>
             <tr>
               <th>#</th>
               <th>Date</th>
-              <th>Network</th>
+              <th>Source</th>
               <th>Amount</th>
               <th>USD</th>
               <th>RANNTA</th>
               <th>TON recipient</th>
               <th>Tx hash</th>
-              <th>Paid?</th>
+              <th>Paid</th>
             </tr>
           </thead>
-          <tbody id="tableBody">
-          </tbody>
+          <tbody id="tableBody"></tbody>
         </table>
       </div>
     </section>
@@ -366,8 +354,7 @@
     const RANNTA_PRICE_USD = 0.0013;
 
     const els = {
-      network: document.getElementById("network"),
-      token: document.getElementById("token"),
+      source: document.getElementById("source"),
       amount: document.getElementById("amount"),
       usdValue: document.getElementById("usdValue"),
       rannAmount: document.getElementById("rannAmount"),
@@ -387,7 +374,7 @@
 
     function loadEntries() {
       try {
-        const raw = localStorage.getItem("rannta_presale_entries");
+        const raw = localStorage.getItem("rannta_presale_entries_v2");
         if (!raw) return;
         entries = JSON.parse(raw);
         renderTable();
@@ -397,11 +384,11 @@
     }
 
     function saveEntries() {
-      localStorage.setItem("rannta_presale_entries", JSON.stringify(entries));
+      localStorage.setItem("rannta_presale_entries_v2", JSON.stringify(entries));
     }
 
-    function formatDate(d) {
-      return new Date(d).toLocaleString();
+    function formatDate(iso) {
+      return new Date(iso).toLocaleString();
     }
 
     function renderTable() {
@@ -417,16 +404,22 @@
         tdDate.textContent = formatDate(e.createdAt);
         tr.appendChild(tdDate);
 
-        const tdNet = document.createElement("td");
-        const pill = document.createElement("span");
-        pill.className = "pill " + (e.network === "TON" ? "pill-ton" : e.network === "BNB" ? "pill-bnb" : "pill-tron");
-        pill.textContent = e.network;
+        const tdSource = document.createElement("td");
+        const pillNet = document.createElement("span");
+        pillNet.className =
+          "pill " +
+          (e.network === "TON"
+            ? "pill-ton"
+            : e.network === "BNB"
+            ? "pill-bnb"
+            : "pill-tron");
+        pillNet.textContent = e.network;
         const pillToken = document.createElement("span");
         pillToken.className = "pill pill-token";
         pillToken.textContent = e.token;
-        tdNet.appendChild(pill);
-        tdNet.appendChild(pillToken);
-        tr.appendChild(tdNet);
+        tdSource.appendChild(pillNet);
+        tdSource.appendChild(pillToken);
+        tr.appendChild(tdSource);
 
         const tdAmount = document.createElement("td");
         tdAmount.textContent = e.amount + " " + e.token;
@@ -473,7 +466,7 @@
       els.formStatus.className = "status-bar" + (isError ? " status-error" : "");
     }
 
-    function recalcRannFromUsd() {
+    function recalcFromUsd() {
       const usd = parseFloat(els.usdValue.value || "0");
       if (usd > 0) {
         const rann = usd / RANNTA_PRICE_USD;
@@ -483,25 +476,25 @@
       }
     }
 
-    function handleAmountOrTokenChange() {
-      const token = els.token.value;
+    function handleAmountChange() {
+      const source = els.source.value; // e.g. "TON:TON", "BNB:USDT"
+      const [network, token] = source.split(":");
       const amount = parseFloat(els.amount.value || "0");
 
       if (token === "USDT") {
-        // For USDT we treat amount as USD directly
         els.usdValue.value = amount > 0 ? amount.toFixed(2) : "";
-        recalcRannFromUsd();
+        recalcFromUsd();
       } else if (token === "TON") {
         if (!tonPriceUsd || amount <= 0) return;
         const usd = amount * tonPriceUsd;
         els.usdValue.value = usd.toFixed(2);
-        recalcRannFromUsd();
+        recalcFromUsd();
       }
     }
 
     async function fetchTonPrice() {
       try {
-        els.priceStatus.innerHTML = 'TON price: <strong>fetching…</strong>';
+        els.priceStatus.textContent = "TON price: fetching…";
         let price = null;
 
         // Try TONAPI
@@ -539,19 +532,17 @@
         }
 
         tonPriceUsd = price;
-        els.priceStatus.innerHTML =
-          'TON price: <strong>$' + tonPriceUsd.toFixed(4) + "</strong>";
-        handleAmountOrTokenChange();
+        els.priceStatus.textContent = "TON price: $" + tonPriceUsd.toFixed(4);
+        handleAmountChange();
       } catch (err) {
         console.error(err);
-        els.priceStatus.innerHTML =
-          'TON price: <span class="status-error">failed to fetch</span>';
+        els.priceStatus.textContent = "TON price: failed to fetch";
       }
     }
 
     function addEntry() {
-      const network = els.network.value;
-      const token = els.token.value;
+      const source = els.source.value;
+      const [network, token] = source.split(":");
       const amount = parseFloat(els.amount.value || "0");
       const usd = parseFloat(els.usdValue.value || "0");
       const rann = parseInt(els.rannAmount.value || "0", 10);
@@ -563,11 +554,11 @@
         return;
       }
       if (!usd || usd <= 0) {
-        setFormStatus("USD value is required (auto for TON or manual).", true);
+        setFormStatus("USD value is required.", true);
         return;
       }
       if (!rann || rann <= 0) {
-        setFormStatus("RANNTA amount is zero. Check RANNTA price.", true);
+        setFormStatus("RANNTA amount is zero. Check price.", true);
         return;
       }
       if (!tonRecipient) {
@@ -575,7 +566,7 @@
         return;
       }
       if (!txHash) {
-        setFormStatus("Transaction hash is required.", true);
+        setFormStatus("Tx hash is required.", true);
         return;
       }
 
@@ -596,7 +587,6 @@
       saveEntries();
       renderTable();
 
-      // Clear minimal fields
       els.amount.value = "";
       els.usdValue.value = "";
       els.rannAmount.value = "";
@@ -609,6 +599,7 @@
         setFormStatus("Nothing to export.", true);
         return;
       }
+
       const header = [
         "id",
         "createdAt",
@@ -621,7 +612,6 @@
         "txHash",
         "paid",
       ];
-
       const rows = [header.join(",")];
 
       entries.forEach((e) => {
@@ -649,11 +639,12 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+
       setFormStatus("CSV exported.");
     }
 
     function clearAll() {
-      if (!confirm("Clear all entries from this browser?")) return;
+      if (!confirm("Clear all entries in this browser?")) return;
       entries = [];
       saveEntries();
       renderTable();
@@ -661,16 +652,14 @@
     }
 
     // Events
+    els.amount.addEventListener("input", handleAmountChange);
+    els.usdValue.addEventListener("input", recalcFromUsd);
+    els.source.addEventListener("change", handleAmountChange);
     els.btnFetchTonPrice.addEventListener("click", fetchTonPrice);
     els.btnAdd.addEventListener("click", addEntry);
     els.btnExport.addEventListener("click", exportCsv);
     els.btnClear.addEventListener("click", clearAll);
 
-    els.amount.addEventListener("input", handleAmountOrTokenChange);
-    els.token.addEventListener("change", handleAmountOrTokenChange);
-    els.usdValue.addEventListener("input", recalcRannFromUsd);
-
-    // Init
     loadEntries();
   </script>
 </body>
