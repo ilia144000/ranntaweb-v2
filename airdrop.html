@@ -27,21 +27,17 @@
 </head>
 
 <body>
-<header class="site-header pro-header">
-  <div class="header-inner">
-    <a href="index.html" class="logo-link">
-      <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
-    </a>
-
-    <!-- Desktop navigation -->
-    <nav class="main-nav desktop-nav">
+  <!-- SIMPLE GLOBAL HEADER (NO DUPLICATION) -->
+  <header>
+    <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160" />
+    <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="articles.html">Articles</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="whitepaper.html">Whitepaper</a></li>
         <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="airdrop.html">Airdrop</a></li>
+        <li><a href="airdrop.html" class="active">Airdrop</a></li>
         <li><a href="nft.html">NFT Sale</a></li>
         <li><a href="symbolists.html">Symbolists</a></li>
         <li><a href="ranntaverse.html">RANNTAverse</a></li>
@@ -50,90 +46,58 @@
         <li><a href="team.html">Team</a></li>
       </ul>
     </nav>
+  </header>
 
-    <!-- Hamburger (mobile only) -->
-    <button
-      class="hamburger-btn"
-      id="hamburgerBtn"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-      aria-controls="mobileNav"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
+  <main>
+    <h1>🎁 RANNTA Airdrop</h1>
+    <p>Early community members and symbolic participants can claim their share of the RANNTA Airdrop, a celebration of rebirth and decentralized meaning.</p>
 
-  <!-- Dark overlay behind mobile menu -->
-  <div class="nav-overlay" id="navOverlay"></div>
+    <section class="nft-links">
+      <h2>Eligibility</h2>
+      <ul>
+        <li>Holders of early RANNTA NFTs</li>
+        <li>Community contributors</li>
+        <li>Symbolists and lore builders</li>
+      </ul>
+    </section>
 
-  <!-- Mobile navigation panel -->
-  <nav class="main-nav mobile-nav" id="mobileNav">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="articles.html">Articles</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="whitepaper.html">Whitepaper</a></li>
-      <li><a href="roadmap.html">Roadmap</a></li>
-      <li><a href="airdrop.html">Airdrop</a></li>
-      <li><a href="nft.html">NFT Sale</a></li>
-      <li><a href="symbolists.html">Symbolists</a></li>
-      <li><a href="ranntaverse.html">RANNTAverse</a></li>
-      <li><a href="rannta-story.html">About RANNTA</a></li>
-      <li><a href="contact.html">Contact</a></li>
-      <li><a href="team.html">Team</a></li>
-    </ul>
-  </nav>
-</header>
+    <section class="nft-links">
+      <h2>Distribution</h2>
+      <p>Airdrops are handled on <strong>TON</strong> for speed and low fees. Tokens will be distributed automatically to eligible addresses.</p>
+    </section>
 
-<main>
-  <h1>🎁 RANNTA Airdrop</h1>
-  <p>Early community members and symbolic participants can claim their share of the RANNTA Airdrop, a celebration of rebirth and decentralized meaning.</p>
+    <section class="nft-links">
+      <h2>How to Claim</h2>
+      <p>Connect your TON wallet during the claim window. Verify eligibility and receive RANNTA tokens instantly.</p>
+    </section>
+  </main>
 
-  <section class="nft-links">
-    <h2>Eligibility</h2>
-    <ul>
-      <li>Holders of early RANNTA NFTs</li>
-      <li>Community contributors</li>
-      <li>Symbolists and lore builders</li>
-    </ul>
-  </section>
-
-  <section class="nft-links">
-    <h2>Distribution</h2>
-    <p>Airdrops are handled on <strong>TON</strong> for speed and low fees. Tokens will be distributed automatically to eligible addresses.</p>
-  </section>
-
-  <section class="nft-links">
-    <h2>How to Claim</h2>
-    <p>Connect your TON wallet during the claim window. Verify eligibility and receive RANNTA tokens instantly.</p>
-  </section>
-</main>
-
-<!-- ✅ Updated Footer -->
-<footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">About</h3>
-      <a href="rannta-story.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Our Story</a>
-      <a href="whitepaper.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Whitepaper</a>
+  <!-- CLEAN RESPONSIVE FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>About</h3>
+        <a href="rannta-story.html">Our Story</a>
+        <a href="whitepaper.html">Whitepaper</a>
+      </div>
+      <div class="footer-col">
+        <h3>Explore</h3>
+        <a href="roadmap.html">Roadmap</a>
+        <a href="nft.html">NFT Hub</a>
+        <a href="ranntaverse.html">RANNTAverse</a>
+      </div>
+      <div class="footer-col">
+        <h3>Connect</h3>
+        <a href="https://x.com/ranntacoin" target="_blank">Twitter</a>
+        <a href="https://t.me/Rannta_coin" target="_blank">Telegram</a>
+        <a href="https://discord.com/invite/RrVvK79F" target="_blank">Discord</a>
+      </div>
     </div>
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
-      <a href="roadmap.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Roadmap</a>
-      <a href="nft.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">NFT Hub</a>
-      <a href="ranntaverse.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">RANNTAverse</a>
-    </div>
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
-      <a href="https://x.com/ranntacoin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Twitter</a>
-      <a href="https://t.me/Rannta_coin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Telegram</a>
-      <a href="https://discord.com/invite/RrVvK79F" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Discord</a>
-    </div>
-  </div>
-  <p style="text-align:center;margin-top:40px;color:#888;">© 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM</p>
-</footer>
+
+    <p class="footer-copy">
+      © 2025 <strong>RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON &amp; EVM
+    </p>
+  </footer>
 
 </body>
 </html>
