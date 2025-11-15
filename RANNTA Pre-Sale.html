@@ -1,519 +1,677 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <title>RANNTA Pre-Sale Admin Panel (Local)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #050509;
+      --card: #101018;
+      --accent: #ffd84a;
+      --accent-soft: rgba(255, 216, 74, 0.2);
+      --text: #f5f5f7;
+      --muted: #888;
+      --danger: #ff4d4d;
+      --border: rgba(255, 255, 255, 0.08);
+      --radius: 16px;
+    }
 
-  <title>Pre-Sale — RANNTA · TON</title>
+    * {
+      box-sizing: border-box;
+    }
 
-  <link rel="stylesheet" href="style.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500;600&display=swap"
-    rel="stylesheet"
-  />
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #181828 0, #050509 55%);
+      color: var(--text);
+      padding: 24px;
+    }
 
-  <meta
-    name="description"
-    content="Official RANNTA Pre-Sale on the TON blockchain — fixed-price allocation, per-wallet limits, and manual on-chain distribution for early supporters."
-  />
-  <link rel="canonical" href="https://rannta.com/presale.html"/>
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Pre-Sale — RANNTA · TON">
-  <meta
-    property="og:description"
-    content="Join the RANNTA Pre-Sale on TON. Fixed RANNTA price, limited allocation, and direct distribution to your TON wallet."
-  >
-  <meta property="og:image" content="assets/brand/og-rannta.png">
-  <meta property="og:url" content="https://rannta.com/presale.html">
+    .layout {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+      gap: 24px;
+      align-items: flex-start;
+    }
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Pre-Sale — RANNTA · TON">
-  <meta
-    name="twitter:description"
-    content="RANNTA Pre-Sale on the TON blockchain — symbolic, community-first allocation with fixed price."
-  >
-  <meta name="twitter:image" content="assets/brand/og-rannta.png">
+    .card {
+      background: linear-gradient(145deg, #101018, #050509);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 20px 20px 18px;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75);
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      margin: 0 0 12px;
+    }
+
+    .card-sub {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin: 0 0 16px;
+      line-height: 1.4;
+    }
+
+    label {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 4px;
+      color: var(--muted);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #07070d;
+      color: var(--text);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #555;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 9px 18px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #000;
+      font-weight: 600;
+    }
+
+    button.danger {
+      background: rgba(255, 77, 77, 0.16);
+      color: var(--danger);
+    }
+
+    button.small {
+      padding: 6px 12px;
+      font-size: 0.78rem;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-right {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    thead {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    th, td {
+      padding: 7px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      vertical-align: top;
+    }
+
+    th {
+      text-align: left;
+      font-weight: 500;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.74rem;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    code {
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 0.76rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .pill-ton {
+      background: rgba(76, 201, 240, 0.08);
+      color: #4fc3ff;
+    }
+
+    .pill-bnb {
+      background: rgba(255, 215, 0, 0.08);
+      color: #ffd84a;
+    }
+
+    .pill-tron {
+      background: rgba(255, 99, 132, 0.08);
+      color: #ff6f91;
+    }
+
+    .pill-token {
+      background: rgba(255, 255, 255, 0.06);
+      color: #eee;
+      margin-left: 4px;
+    }
+
+    .status-bar {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .status-bar strong {
+      color: var(--accent);
+    }
+
+    .status-error {
+      color: var(--danger);
+    }
+
+    .checkbox-center {
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
 </head>
-
 <body>
-<header class="site-header">
-  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160" />
-  <nav class="main-nav">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="articles.html">Articles</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="whitepaper.html">Whitepaper</a></li>
-      <li><a href="roadmap.html">Roadmap</a></li>
-      <li><a href="airdrop.html">Airdrop</a></li>
-      <li><a href="nft.html">NFT Sale</a></li>
-      <li><a href="symbolists.html">Symbolists</a></li>
-      <li><a href="ranntaverse.html">RANNTAverse</a></li>
-      <li><a href="rannta-story.html">About RANNTA</a></li>
-    </ul>
-  </nav>
-</header>
+  <h1>RANNTA Pre-Sale · Local Admin Panel</h1>
+  <p style="max-width:800px;font-size:0.9rem;color:#bbb;margin-bottom:20px;">
+    Local-only tool for managing RANNTA pre-sale contributions across TON / BNB / TRON.
+    Data is stored in <strong>browser localStorage</strong> only. Use this on your own machine.
+  </p>
 
-<main class="swap-page">
-  <section class="swap-panel">
-    <h1>RANNTA Pre-Sale · Phase I</h1>
-    <p class="swap-lead">
-      This is the official RANNTA Pre-Sale on the TON blockchain.
-      Allocation is limited and distribution is done manually, directly on-chain, to protect early supporters.
-    </p>
-
-    <!-- Price + allocation box -->
-    <div class="swap-row">
-      <label>Fixed Pre-Sale Price</label>
-      <div class="swap-token">
-        <span>1 RANNTA = <strong>$0.0013</strong> (USD)</span>
-      </div>
-    </div>
-
-    <div class="swap-row">
-      <label>Phase</label>
-      <div class="swap-token">
-        <span>Phase I — Early Supporters</span>
-      </div>
-    </div>
-
-    <div class="swap-row">
-      <label>Allocation</label>
-      <div class="swap-token">
-        <span>Limited pool reserved for pre-sale only. Main liquidity pool will be deployed later.</span>
-      </div>
-    </div>
-
-    <!-- How to participate -->
-    <h2 class="presale-subtitle">How to join the Pre-Sale</h2>
-    <ol class="presale-steps">
-      <li>
-        Use a TON wallet such as <strong>Tonhub</strong>, <strong>MyTonWallet</strong>, or any trusted self-custody TON wallet.
-      </li>
-      <li>
-        Send TON or USDT directly to the official payment addresses below. Only on-chain transfers from your own wallet are accepted.
-      </li>
-      <li>
-        Keep your transaction hash and make sure you control the private keys of the sending wallet.
-      </li>
-      <li>
-        RANNTA will be distributed manually to the same wallet address after on-chain confirmation.
-      </li>
-      <li>
-        For support or confirmation, contact the team via
-        <strong>@ranntacoin</strong> on X/Twitter or the official Telegram channel.
-      </li>
-    </ol>
-
-    <!-- TON payment address -->
-    <div class="presale-address-box">
-      <div class="presale-address-label">TON PAYMENT ADDRESS (FOR TON ONLY)</div>
-      <code class="presale-address">
-UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL
-      </code>
-    </div>
-
-    <!-- USDT payment addresses: TON / BNB / TRON -->
-    <div class="presale-address-box">
-      <div class="presale-address-label">USDT PAYMENT ADDRESSES</div>
-
-      <div class="presale-address-multi">
-        <div class="presale-address-line">
-          <span class="addr-tag">USDT on TON:</span>
-          <code class="presale-address">
-UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL
-          </code>
-        </div>
-
-        <div class="presale-address-line">
-          <span class="addr-tag">USDT on BNB (BEP-20):</span>
-          <code class="presale-address">
-0xB5310fA1034f6CE217bEC7e4735243F986a4f685
-          </code>
-        </div>
-
-        <div class="presale-address-line">
-          <span class="addr-tag">USDT on TRON (TRC-20):</span>
-          <code class="presale-address">
-TXQ1TxYkVVME61WazLRUS5ejfPrAj9dDMe
-          </code>
-        </div>
-      </div>
-    </div>
-
-    <div class="presale-notes">
-      <h3>Important notes</h3>
-      <ul>
-        <li>Do not send funds from centralized exchanges. Always use a self-custody TON wallet.</li>
-        <li>
-          Minimum allocation per wallet (per day): <strong>$7</strong> (≈ 1.3 TON).
-        </li>
-        <li>
-          Maximum allocation per wallet (per day): <strong>$130</strong> (≈ 49 TON). Please do not send more from a single wallet in 24 hours.
-        </li>
-        <li>
-          This is a symbolic, community-driven Pre-Sale. No guarantees of profit — only participation in the RANNTA Field.
-        </li>
-        <li>
-          The small existing liquidity pool on DEX is for testing and verification only. The main public pool will be deployed after the Pre-Sale.
-        </li>
-      </ul>
-    </div>
-
-    <p class="swap-footnote">
-      Always double-check links and addresses.
-      The only official links are published on <strong>rannta.com</strong>, the verified <strong>@ranntacoin</strong> X/Twitter account,
-      the official Telegram channel, and the RANNTA Community on X.
-    </p>
-  </section>
-
-  <!-- RANNTA Pre-Sale Helper -->
-  <section class="presale-helper">
-    <div class="swap-card">
-      <h2 class="presale-subtitle">RANNTA Pre-Sale Helper</h2>
-      <p class="swap-desc">
-        Use this helper to estimate how much RANNTA you will receive based on TON or USD.
+  <div class="layout">
+    <!-- Left: Form -->
+    <section class="card">
+      <h2 class="card-title">Add Contribution</h2>
+      <p class="card-sub">
+        Paste the payment details (from TON explorer, BscScan, Tronscan, etc.) and the buyer’s
+        <strong>TON recipient address</strong>. RANNTA amount is calculated automatically.
       </p>
 
-      <div class="swap-row">
-        <label for="ton-input">TON amount</label>
-        <input
-          id="ton-input"
-          type="number"
-          step="0.0001"
-          min="0"
-          placeholder="Enter TON amount"
-        />
-      </div>
-
-      <div class="swap-row">
-        <label for="usdt-input">USD amount (USDT)</label>
-        <input
-          id="usdt-input"
-          type="number"
-          step="0.01"
-          min="0"
-          placeholder="Enter USD amount"
-        />
-      </div>
-
-      <div class="swap-row">
-        <label for="rann-input">RANNTA amount</label>
-        <input
-          id="rann-input"
-          type="number"
-          step="1"
-          min="0"
-          placeholder="RANNTA amount"
-        />
-      </div>
-
-      <div class="swap-meta">
-        <div class="swap-meta-item">
-          <span id="ton-price-label">Live TON price</span>
-          <strong>$<span id="ton-usd-value">–</span></strong>
+      <div class="field row">
+        <div>
+          <label for="network">Network</label>
+          <select id="network">
+            <option value="TON">TON</option>
+            <option value="BNB">BNB</option>
+            <option value="TRON">TRON</option>
+          </select>
         </div>
-        <div class="swap-meta-item">
-          <span>Approx. RANNTA per 1 TON</span>
-          <strong><span id="rann-per-ton">–</span> RANNTA</strong>
+        <div>
+          <label for="token">Payment token</label>
+          <select id="token">
+            <option value="TON">TON</option>
+            <option value="USDT">USDT</option>
+          </select>
         </div>
       </div>
 
-      <p id="status-text" class="swap-status">
-        Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.
-      </p>
-    </div>
-  </section>
-</main>
+      <div class="field">
+        <label for="amount">Payment amount</label>
+        <input id="amount" type="number" step="0.00000001" min="0" placeholder="e.g. 10" />
+      </div>
 
-<footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
-  <div
-    style="
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:30px;
-      max-width:1000px;
-      margin:0 auto;
-      text-align:left;
-    "
-  >
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">About</h3>
-      <a
-        href="rannta-story.html"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        Our Story
-      </a>
-      <a
-        href="whitepaper.html"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        Whitepaper
-      </a>
-    </div>
+      <div class="field row">
+        <div>
+          <label for="usdValue">USD value (auto if TON)</label>
+          <input id="usdValue" type="number" step="0.01" min="0" placeholder="Will be used to compute RANNTA" />
+        </div>
+        <div>
+          <label for="rannAmount">RANNTA amount (auto)</label>
+          <input id="rannAmount" type="number" step="1" min="0" placeholder="Auto" readonly />
+        </div>
+      </div>
 
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
-      <a
-        href="roadmap.html"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        Roadmap
-      </a>
-      <a
-        href="nft.html"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        NFT Hub
-      </a>
-      <a
-        href="ranntaverse.html"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        RANNTAverse
-      </a>
-    </div>
+      <div class="field">
+        <label for="tonRecipient">TON recipient address</label>
+        <input id="tonRecipient" type="text" placeholder="User's TON wallet (Tonhub, Tonkeeper, MyTonWallet, ...)" />
+      </div>
 
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
-      <a
-        href="https://x.com/ranntacoin"
-        target="_blank"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        Twitter
-      </a>
-      <a
-        href="https://t.me/Rannta_coin"
-        target="_blank"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        Telegram
-      </a>
-      <a
-        href="https://discord.gg/AFWUJEr6nx"
-        target="_blank"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        Discord
-      </a>
-    </div>
+      <div class="field">
+        <label for="txHash">Tx hash / transaction ID</label>
+        <input id="txHash" type="text" placeholder="Paste the on-chain transaction hash here" />
+      </div>
+
+      <div class="field row" style="align-items:center;">
+        <div>
+          <button type="button" class="small" id="btnFetchTonPrice">
+            Fetch TON price (for TON payments)
+          </button>
+          <div class="status-bar" id="priceStatus">
+            TON price: <strong>unknown</strong>
+          </div>
+        </div>
+        <div style="text-align:right;">
+          <button type="button" class="primary" id="btnAdd">
+            Add contribution
+          </button>
+        </div>
+      </div>
+
+      <div class="status-bar" id="formStatus"></div>
+    </section>
+
+    <!-- Right: Table -->
+    <section class="card">
+      <div class="toolbar">
+        <div>
+          <h2 class="card-title" style="margin-bottom:4px;">Contributions</h2>
+          <div class="card-sub" style="margin-bottom:0;">
+            All entries are stored locally in this browser. You can export them as CSV for payments.
+          </div>
+        </div>
+        <div class="toolbar-right">
+          <button type="button" id="btnExport" class="small primary">
+            Export CSV
+          </button>
+          <button type="button" id="btnClear" class="small danger">
+            Clear all
+          </button>
+        </div>
+      </div>
+
+      <div style="max-height:420px;overflow:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.06);margin-top:8px;">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Network</th>
+              <th>Amount</th>
+              <th>USD</th>
+              <th>RANNTA</th>
+              <th>TON recipient</th>
+              <th>Tx hash</th>
+              <th>Paid?</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
 
-  <p style="text-align:center;margin-top:40px;color:#888;">
-    © 2025 <strong>RANNTA</strong> · <strong>RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON &amp; EVM
-  </p>
-</footer>
+  <script>
+    const RANNTA_PRICE_USD = 0.0013;
 
-<script>
-  let tonUsd = null;
-  let isUpdating = false;
+    const els = {
+      network: document.getElementById("network"),
+      token: document.getElementById("token"),
+      amount: document.getElementById("amount"),
+      usdValue: document.getElementById("usdValue"),
+      rannAmount: document.getElementById("rannAmount"),
+      tonRecipient: document.getElementById("tonRecipient"),
+      txHash: document.getElementById("txHash"),
+      priceStatus: document.getElementById("priceStatus"),
+      formStatus: document.getElementById("formStatus"),
+      btnFetchTonPrice: document.getElementById("btnFetchTonPrice"),
+      btnAdd: document.getElementById("btnAdd"),
+      btnExport: document.getElementById("btnExport"),
+      btnClear: document.getElementById("btnClear"),
+      tableBody: document.getElementById("tableBody"),
+    };
 
-  // RANNTA price in USD per token
-  const RANNTA_PRICE_USD = 0.0013;
-  const MIN_USDT = 7;
-  const MAX_USDT = 130;
-  const MIN_TON = 1.3;
-  const MAX_TON = 49;
+    let tonPriceUsd = null;
+    let entries = [];
 
-  const tonInput = document.getElementById("ton-input");
-  const usdtInput = document.getElementById("usdt-input");
-  const rannInput = document.getElementById("rann-input");
-  const tonUsdValueEl = document.getElementById("ton-usd-value");
-  const rannPerTonEl = document.getElementById("rann-per-ton");
-  const statusEl = document.getElementById("status-text");
-  const tonPriceLabel = document.getElementById("ton-price-label");
-
-  async function fetchTonPrice() {
-    try {
-      tonPriceLabel.textContent = "Fetching TON price…";
-
-      // Try TONAPI first
-      let price = null;
+    function loadEntries() {
       try {
-        const resTonApi = await fetch(
-          "https://tonapi.io/v2/rates?tokens=ton&currencies=usd"
-        );
-        if (resTonApi.ok) {
-          const dataTonApi = await resTonApi.json();
-          if (
-            dataTonApi &&
-            dataTonApi.rates &&
-            dataTonApi.rates.TON &&
-            typeof dataTonApi.rates.TON.prices.USD === "number"
-          ) {
-            price = dataTonApi.rates.TON.prices.USD;
+        const raw = localStorage.getItem("rannta_presale_entries");
+        if (!raw) return;
+        entries = JSON.parse(raw);
+        renderTable();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function saveEntries() {
+      localStorage.setItem("rannta_presale_entries", JSON.stringify(entries));
+    }
+
+    function formatDate(d) {
+      return new Date(d).toLocaleString();
+    }
+
+    function renderTable() {
+      els.tableBody.innerHTML = "";
+      entries.forEach((e, idx) => {
+        const tr = document.createElement("tr");
+
+        const tdIndex = document.createElement("td");
+        tdIndex.textContent = idx + 1;
+        tr.appendChild(tdIndex);
+
+        const tdDate = document.createElement("td");
+        tdDate.textContent = formatDate(e.createdAt);
+        tr.appendChild(tdDate);
+
+        const tdNet = document.createElement("td");
+        const pill = document.createElement("span");
+        pill.className = "pill " + (e.network === "TON" ? "pill-ton" : e.network === "BNB" ? "pill-bnb" : "pill-tron");
+        pill.textContent = e.network;
+        const pillToken = document.createElement("span");
+        pillToken.className = "pill pill-token";
+        pillToken.textContent = e.token;
+        tdNet.appendChild(pill);
+        tdNet.appendChild(pillToken);
+        tr.appendChild(tdNet);
+
+        const tdAmount = document.createElement("td");
+        tdAmount.textContent = e.amount + " " + e.token;
+        tr.appendChild(tdAmount);
+
+        const tdUsd = document.createElement("td");
+        tdUsd.textContent = e.usdValue.toFixed(2);
+        tr.appendChild(tdUsd);
+
+        const tdRann = document.createElement("td");
+        tdRann.textContent = e.rannAmount.toLocaleString();
+        tr.appendChild(tdRann);
+
+        const tdTon = document.createElement("td");
+        const c = document.createElement("code");
+        c.textContent = e.tonRecipient;
+        tdTon.appendChild(c);
+        tr.appendChild(tdTon);
+
+        const tdHash = document.createElement("td");
+        const ch = document.createElement("code");
+        ch.textContent = e.txHash;
+        tdHash.appendChild(ch);
+        tr.appendChild(tdHash);
+
+        const tdPaid = document.createElement("td");
+        tdPaid.className = "checkbox-center";
+        const cb = document.createElement("input");
+        cb.type = "checkbox";
+        cb.checked = !!e.paid;
+        cb.addEventListener("change", () => {
+          e.paid = cb.checked;
+          saveEntries();
+        });
+        tdPaid.appendChild(cb);
+        tr.appendChild(tdPaid);
+
+        els.tableBody.appendChild(tr);
+      });
+    }
+
+    function setFormStatus(msg, isError = false) {
+      els.formStatus.textContent = msg || "";
+      els.formStatus.className = "status-bar" + (isError ? " status-error" : "");
+    }
+
+    function recalcRannFromUsd() {
+      const usd = parseFloat(els.usdValue.value || "0");
+      if (usd > 0) {
+        const rann = usd / RANNTA_PRICE_USD;
+        els.rannAmount.value = Math.floor(rann);
+      } else {
+        els.rannAmount.value = "";
+      }
+    }
+
+    function handleAmountOrTokenChange() {
+      const token = els.token.value;
+      const amount = parseFloat(els.amount.value || "0");
+
+      if (token === "USDT") {
+        // For USDT we treat amount as USD directly
+        els.usdValue.value = amount > 0 ? amount.toFixed(2) : "";
+        recalcRannFromUsd();
+      } else if (token === "TON") {
+        if (!tonPriceUsd || amount <= 0) return;
+        const usd = amount * tonPriceUsd;
+        els.usdValue.value = usd.toFixed(2);
+        recalcRannFromUsd();
+      }
+    }
+
+    async function fetchTonPrice() {
+      try {
+        els.priceStatus.innerHTML = 'TON price: <strong>fetching…</strong>';
+        let price = null;
+
+        // Try TONAPI
+        try {
+          const resTonApi = await fetch(
+            "https://tonapi.io/v2/rates?tokens=ton&currencies=usd"
+          );
+          if (resTonApi.ok) {
+            const dataTonApi = await resTonApi.json();
+            if (
+              dataTonApi &&
+              dataTonApi.rates &&
+              dataTonApi.rates.TON &&
+              typeof dataTonApi.rates.TON.prices.USD === "number"
+            ) {
+              price = dataTonApi.rates.TON.prices.USD;
+            }
+          }
+        } catch (e) {
+          // ignore
+        }
+
+        if (price === null) {
+          const res = await fetch(
+            "https://api.coingecko.com/api/v3/simple/price?ids=toncoin&vs_currencies=usd"
+          );
+          const data = await res.json();
+          if (data && data.toncoin && typeof data.toncoin.usd === "number") {
+            price = data.toncoin.usd;
           }
         }
-      } catch (e) {
-        // ignore and fall back to CoinGecko
-      }
 
-      // Fallback to CoinGecko if TONAPI failed
-      if (price === null) {
-        const res = await fetch(
-          "https://api.coingecko.com/api/v3/simple/price?ids=toncoin&vs_currencies=usd"
-        );
-        const data = await res.json();
-        if (data && data.toncoin && typeof data.toncoin.usd === "number") {
-          price = data.toncoin.usd;
+        if (price === null) {
+          throw new Error("No price from any source");
         }
+
+        tonPriceUsd = price;
+        els.priceStatus.innerHTML =
+          'TON price: <strong>$' + tonPriceUsd.toFixed(4) + "</strong>";
+        handleAmountOrTokenChange();
+      } catch (err) {
+        console.error(err);
+        els.priceStatus.innerHTML =
+          'TON price: <span class="status-error">failed to fetch</span>';
       }
-
-      if (price === null) {
-        throw new Error("No price from any source");
-      }
-
-      tonUsd = price;
-      tonUsdValueEl.textContent = tonUsd.toFixed(4);
-
-      const perTon = tonUsd / RANNTA_PRICE_USD;
-      rannPerTonEl.textContent = Math.floor(perTon).toLocaleString();
-
-      tonPriceLabel.textContent = "Live TON price loaded";
-      statusEl.textContent =
-        "Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.";
-      statusEl.classList.remove("error");
-    } catch (err) {
-      tonPriceLabel.textContent = "Failed to fetch TON price";
-      tonUsdValueEl.textContent = "–";
-      rannPerTonEl.textContent = "–";
-      statusEl.textContent =
-        "Could not load live TON price. Please try again later or contact the team.";
-      statusEl.classList.add("error");
-    }
-  }
-
-  function updateFromTON() {
-    if (isUpdating) return;
-    isUpdating = true;
-
-    const tonVal = parseFloat(tonInput.value || "0");
-
-    if (!tonUsd || tonVal <= 0) {
-      isUpdating = false;
-      return;
     }
 
-    // Limits
-    if (tonVal < MIN_TON || tonVal > MAX_TON) {
-      statusEl.textContent =
-        "Per-wallet limit: between " + MIN_TON + " and " + MAX_TON + " TON per day.";
-      statusEl.classList.add("error");
-    } else {
-      statusEl.textContent =
-        "Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.";
-      statusEl.classList.remove("error");
-    }
+    function addEntry() {
+      const network = els.network.value;
+      const token = els.token.value;
+      const amount = parseFloat(els.amount.value || "0");
+      const usd = parseFloat(els.usdValue.value || "0");
+      const rann = parseInt(els.rannAmount.value || "0", 10);
+      const tonRecipient = els.tonRecipient.value.trim();
+      const txHash = els.txHash.value.trim();
 
-    const totalUsd = tonVal * tonUsd;
-    const rann = totalUsd / RANNTA_PRICE_USD;
-
-    usdtInput.value = totalUsd.toFixed(2);
-    rannInput.value = Math.floor(rann);
-
-    isUpdating = false;
-  }
-
-  function updateFromUSDT() {
-    if (isUpdating) return;
-    isUpdating = true;
-
-    const usdtVal = parseFloat(usdtInput.value || "0");
-
-    if (usdtVal <= 0 || !tonUsd) {
-      isUpdating = false;
-      return;
-    }
-
-    // Limits
-    if (usdtVal < MIN_USDT || usdtVal > MAX_USDT) {
-      statusEl.textContent =
-        "Per-wallet limit: between " + MIN_USDT + " and " + MAX_USDT + " USD per day.";
-      statusEl.classList.add("error");
-    } else {
-      statusEl.textContent =
-        "Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.";
-      statusEl.classList.remove("error");
-    }
-
-    const rann = usdtVal / RANNTA_PRICE_USD;
-    const tonVal = usdtVal / tonUsd;
-
-    rannInput.value = Math.floor(rann);
-    tonInput.value = tonVal.toFixed(4);
-
-    isUpdating = false;
-  }
-
-  function updateFromRANNTA() {
-    if (isUpdating) return;
-    isUpdating = true;
-
-    const rannVal = parseFloat(rannInput.value || "0");
-
-    if (rannVal <= 0 || !tonUsd) {
-      isUpdating = false;
-      return;
-    }
-
-    const usdtVal = rannVal * RANNTA_PRICE_USD;
-    const tonVal = usdtVal / tonUsd;
-
-    usdtInput.value = usdtVal.toFixed(2);
-    tonInput.value = tonVal.toFixed(4);
-
-    statusEl.textContent =
-      "Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.";
-    statusEl.classList.remove("error");
-
-    isUpdating = false;
-  }
-
-  if (tonInput && usdtInput && rannInput) {
-    tonInput.addEventListener("input", () => {
-      if (!tonInput.value) {
-        usdtInput.value = "";
-        rannInput.value = "";
-        statusEl.textContent =
-          "Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.";
-        statusEl.classList.remove("error");
+      if (!amount || amount <= 0) {
+        setFormStatus("Amount is required.", true);
         return;
       }
-      updateFromTON();
-    });
-
-    usdtInput.addEventListener("input", () => {
-      if (!usdtInput.value) {
-        tonInput.value = "";
-        rannInput.value = "";
-        statusEl.textContent =
-          "Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.";
-        statusEl.classList.remove("error");
+      if (!usd || usd <= 0) {
+        setFormStatus("USD value is required (auto for TON or manual).", true);
         return;
       }
-      updateFromUSDT();
-    });
-
-    rannInput.addEventListener("input", () => {
-      if (!rannInput.value) {
-        tonInput.value = "";
-        usdtInput.value = "";
-        statusEl.textContent =
-          "Values are indicative and based on live TON/USD price. Final distribution is calculated by the team.";
-        statusEl.classList.remove("error");
+      if (!rann || rann <= 0) {
+        setFormStatus("RANNTA amount is zero. Check RANNTA price.", true);
         return;
       }
-      updateFromRANNTA();
-    });
-  }
+      if (!tonRecipient) {
+        setFormStatus("TON recipient address is required.", true);
+        return;
+      }
+      if (!txHash) {
+        setFormStatus("Transaction hash is required.", true);
+        return;
+      }
 
-  fetchTonPrice();
-</script>
+      const entry = {
+        id: Date.now(),
+        createdAt: new Date().toISOString(),
+        network,
+        token,
+        amount,
+        usdValue: usd,
+        rannAmount: rann,
+        tonRecipient,
+        txHash,
+        paid: false,
+      };
 
+      entries.push(entry);
+      saveEntries();
+      renderTable();
+
+      // Clear minimal fields
+      els.amount.value = "";
+      els.usdValue.value = "";
+      els.rannAmount.value = "";
+      els.txHash.value = "";
+      setFormStatus("Entry added.");
+    }
+
+    function exportCsv() {
+      if (!entries.length) {
+        setFormStatus("Nothing to export.", true);
+        return;
+      }
+      const header = [
+        "id",
+        "createdAt",
+        "network",
+        "token",
+        "amount",
+        "usdValue",
+        "rannAmount",
+        "tonRecipient",
+        "txHash",
+        "paid",
+      ];
+
+      const rows = [header.join(",")];
+
+      entries.forEach((e) => {
+        const row = [
+          e.id,
+          e.createdAt,
+          e.network,
+          e.token,
+          e.amount,
+          e.usdValue,
+          e.rannAmount,
+          '"' + (e.tonRecipient || "").replace(/"/g, '""') + '"',
+          '"' + (e.txHash || "").replace(/"/g, '""') + '"',
+          e.paid ? "true" : "false",
+        ];
+        rows.push(row.join(","));
+      });
+
+      const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "rannta_presale_contributions.csv";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      setFormStatus("CSV exported.");
+    }
+
+    function clearAll() {
+      if (!confirm("Clear all entries from this browser?")) return;
+      entries = [];
+      saveEntries();
+      renderTable();
+      setFormStatus("All entries cleared.");
+    }
+
+    // Events
+    els.btnFetchTonPrice.addEventListener("click", fetchTonPrice);
+    els.btnAdd.addEventListener("click", addEntry);
+    els.btnExport.addEventListener("click", exportCsv);
+    els.btnClear.addEventListener("click", clearAll);
+
+    els.amount.addEventListener("input", handleAmountOrTokenChange);
+    els.token.addEventListener("change", handleAmountOrTokenChange);
+    els.usdValue.addEventListener("input", recalcRannFromUsd);
+
+    // Init
+    loadEntries();
+  </script>
 </body>
 </html>
