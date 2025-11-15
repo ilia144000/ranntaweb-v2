@@ -3,74 +3,37 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Whitepaper — RANNTAverse</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
-  <meta name="description" content="RANNTA — a symbolic, deflationary token powering the RANNTAverse multi-chain marketplace. Fully decentralized: admin removed, minting disabled.">
+  <meta name="description" content="RANNTA — a symbolic, deflationary token powering the RANNTAverse multi-chain marketplace. Fully decentralized and immutable on TON."/>
   <link rel="canonical" href="https://rannta.com/whitepaper.html"/>
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="RANNTA Whitepaper — Decentralized, Deflationary, TON-Powered">
-  <meta property="og:description" content="RANNTA is more than a token — it is a living memorial, a symbolic rebirth, and the core currency of the RANNTAverse.art marketplace.">
-  <meta property="og:url" content="https://rannta.com/whitepaper.html">
+  <meta property="og:description" content="RANNTA is a symbolic token, a memorial, and the utility core of RANNTAverse on TON.">
   <meta property="og:image" content="assets/rannta-logo.svg">
+  <meta property="og:url" content="https://rannta.com/whitepaper.html">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="RANNTA Official Whitepaper">
-  <meta name="twitter:description" content="Fully decentralized. Admin privileges removed. Marketplace launching soon on RANNTAverse.art.">
+  <meta name="twitter:description" content="Immutable, decentralized, community-first token powering the RANNTAverse marketplace.">
   <meta name="twitter:image" content="assets/rannta-logo.svg">
 </head>
 
 <body>
-<header class="site-header pro-header">
-  <div class="header-inner">
-    <a href="index.html" class="logo-link">
-      <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
-    </a>
 
-    <!-- Desktop navigation -->
-    <nav class="main-nav desktop-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="whitepaper.html">Whitepaper</a></li>
-        <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="airdrop.html">Airdrop</a></li>
-        <li><a href="nft.html">NFT Sale</a></li>
-        <li><a href="symbolists.html">Symbolists</a></li>
-        <li><a href="ranntaverse.html">RANNTAverse</a></li>
-        <li><a href="rannta-story.html">About RANNTA</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="team.html">Team</a></li>
-      </ul>
-    </nav>
-
-    <!-- Hamburger (mobile only) -->
-    <button
-      class="hamburger-btn"
-      id="hamburgerBtn"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-      aria-controls="mobileNav"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-
-  <!-- Dark overlay behind mobile menu -->
-  <div class="nav-overlay" id="navOverlay"></div>
-
-  <!-- Mobile navigation panel -->
-  <nav class="main-nav mobile-nav" id="mobileNav">
+<!-- SIMPLE CLEAN HEADER (NO DOUBLE HEADER, NO MOBILE OVERLAYS) -->
+<header>
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
+  <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="articles.html">Articles</a></li>
       <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="whitepaper.html">Whitepaper</a></li>
+      <li><a href="whitepaper.html" class="active">Whitepaper</a></li>
       <li><a href="roadmap.html">Roadmap</a></li>
       <li><a href="airdrop.html">Airdrop</a></li>
       <li><a href="nft.html">NFT Sale</a></li>
@@ -88,99 +51,126 @@
 
   <section class="nft-links">
     <h2>A Living Memorial — A Symbolic Rebirth</h2>
-    <p>In a crypto landscape overwhelmed by cartoon mascots, hype tokens, and low-effort meme coins, <strong>RANNTA</strong> stands apart as a living memorial, a mythic digital artifact, and a symbol of collective resilience and rebirth on the TON blockchain.</p>
+    <p>
+      RANNTA stands apart as a living memorial, a mythic digital artifact, and a symbol of collective resilience and rebirth on the TON blockchain.
+    </p>
   </section>
 
   <section class="nft-links">
     <h2>Origin & Purpose</h2>
-    <p>RANNTA is not merely a digital asset; it is a symbolic vessel combining three layers of meaning:</p>
+    <p>RANNTA merges three layers of meaning:</p>
     <ul>
-      <li><strong>Cultural Memory</strong> — honoring a real-life tragedy that reshaped an entire community.</li>
-      <li><strong>Mythosymbolic Art</strong> — an extension of the Mythosymbolic Fractalism (MSF) artistic movement.</li>
-      <li><strong>Utility & Governance</strong> — powering the upcoming multi-chain NFT marketplace <strong>RANNTAverse.art</strong>.</li>
+      <li><strong>Cultural Memory</strong> — honoring a real-life tragedy.</li>
+      <li><strong>Mythosymbolic Art</strong> — an extension of MSF (Mythosymbolic Fractalism).</li>
+      <li><strong>Utility & Governance</strong> — powering the multi-chain NFT marketplace RANNTAverse.art.</li>
     </ul>
-    <p>RANNTA invites creators, collectors, and thinkers into an ecosystem where art, meaning, and blockchain utility merge into one experience.</p>
   </section>
 
   <section class="nft-links">
     <h2>The Team — Mythology × Finance × Engineering</h2>
-    <p>RANNTA is developed by a multinational group of specialists across:</p>
     <ul>
-      <li><strong>Oman</strong> — Blockchain engineering & TON smart contracts</li>
+      <li><strong>Oman</strong> — TON engineering & smart contracts</li>
       <li><strong>Canada</strong> — Financial modeling & tokenomics</li>
-      <li><strong>Germany</strong> — Digital mythology & symbolic systems research</li>
+      <li><strong>Germany</strong> — Digital mythology & narrative systems</li>
     </ul>
-    <p>This combination builds a project rooted in transparency, cultural respect, and engineering precision.</p>
   </section>
 
   <section class="nft-links">
     <h2>Admin Removed — Full Decentralization</h2>
-    <p>All administrative privileges, minting rights, and master ownership have been permanently revoked. RANNTA is fully immutable and verifiable on-chain.</p>
-    <p><strong>Burn Address:</strong> <code>UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ</code></p>
+    <p>All admin rights and minting privileges permanently revoked.</p>
+    <p><strong>Burned Master Address:</strong> <code>UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ</code></p>
   </section>
 
   <section class="nft-links">
     <h2>Tokenomics</h2>
     <ul>
-      <li><strong>Initial Total Supply:</strong> 130,000,000,000 RANNTA</li>
-      <li><strong>Burned:</strong> 6,176,267,507.75 RANNTA (4.751%)</li>
-      <li><strong>Circulating Supply:</strong> 123,823,732,492.25 RANNTA</li>
+      <li><strong>Total Supply:</strong> 130,000,000,000 RANNTA</li>
+      <li><strong>Burned:</strong> 6,176,267,507.75</li>
+      <li><strong>Circulating:</strong> 123,823,732,492.25</li>
     </ul>
 
-    <h3>Distribution (Updated 30 November 2025)</h3>
+    <h3>Distribution</h3>
     <ul>
-      <li><strong>Community & Ecosystem:</strong> 33%</li>
-      <li><strong>Team & Founders:</strong> 25% — multi-year vesting</li>
-      <li><strong>Advisors & Strategic Partners:</strong> 15%</li>
-      <li><strong>Liquidity & Exchanges:</strong> 15%</li>
-      <li><strong>Reserve Fund:</strong> 12%</li>
+      <li>Community & Ecosystem — 33%</li>
+      <li>Team — 25% (multi-year vesting)</li>
+      <li>Advisors — 15%</li>
+      <li>Liquidity — 15%</li>
+      <li>Reserve — 12%</li>
     </ul>
   </section>
 
   <section class="nft-links">
-    <h2>Airdrop & Community Gifts</h2>
-    <p>To empower early adopters, over <strong>500 users</strong> will receive <strong>1,500 RANNTA</strong> each starting from 30 November 2025. This initiative supports organic growth and genuine community participation.</p>
+    <h2>Airdrop</h2>
+    <p>500 users will receive 1,500 RANNTA from November 30, 2025.</p>
   </section>
 
   <section class="nft-links">
     <h2>The First Great Liquidity Pool</h2>
-    <p>A major liquidity pool will launch in early December, providing:</p>
     <ul>
       <li>Fair price discovery</li>
-      <li>Stable trading conditions</li>
+      <li>Stable trading</li>
       <li>Staking opportunities</li>
       <li>Long-term ecosystem health</li>
     </ul>
   </section>
 
   <section class="nft-links">
-    <h2>RANNTAverse.art — Marketplace Launch</h2>
-    <p>The official multi-chain NFT marketplace <strong>RANNTAverse.art</strong> will launch between December 2025 and January 2026, supporting TON + EVM chains.</p>
-    <p>RANNTA is the core token for:</p>
+    <h2>RANNTAverse.art Launch</h2>
     <ul>
-      <li>Marketplace discounts</li>
+      <li>NFT marketplace (TON + EVM)</li>
+      <li>Discounts</li>
+      <li>Governance</li>
+      <li>Staking</li>
       <li>Creator incentives</li>
-      <li>Governance rights</li>
-      <li>Staking rewards</li>
     </ul>
-    <p><a href="https://www.ranntaverse.art" target="_blank">Visit RANNTAverse Marketplace</a></p>
   </section>
 
   <section class="nft-links">
     <h2>Why TON?</h2>
-    <p>The TON blockchain provides:</p>
     <ul>
-      <li>Ultra-fast transactions</li>
-      <li>Low fees for global accessibility</li>
-      <li>High scalability for NFTs & DeFi</li>
-      <li>A booming ecosystem ideal for multi-chain expansion</li>
+      <li>Fast</li>
+      <li>Low fees</li>
+      <li>Scalable</li>
+      <li>Growing ecosystem</li>
     </ul>
   </section>
 
   <section class="nft-links">
     <h2>Governance — Q2 2026</h2>
-    <p>RANNTA holders will vote on:</p>
     <ul>
-      <li>Marketplace features</li>
+      <li>Marketplace proposals</li>
       <li>Narrative expansions</li>
-      <li>Future token utility frameworks
+      <li>Future token utility modules</li>
+    </ul>
+  </section>
+</main>
+
+<!-- UNIFIED FOOTER -->
+<footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">About</h3>
+      <a href="rannta-story.html" style="color:#00aaff;display:block;margin-bottom:6px;">Our Story</a>
+      <a href="whitepaper.html" style="color:#00aaff;display:block;margin-bottom:6px;">Whitepaper</a>
+    </div>
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
+      <a href="roadmap.html" style="color:#00aaff;display:block;margin-bottom:6px;">Roadmap</a>
+      <a href="nft.html" style="color:#00aaff;display:block;margin-bottom:6px;">NFT Hub</a>
+      <a href="ranntaverse.html" style="color:#00aaff;display:block;margin-bottom:6px;">RANNTAverse</a>
+    </div>
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
+      <a href="https://x.com/ranntacoin" target="_blank" style="color:#00aaff;display:block;margin-bottom:6px;">Twitter</a>
+      <a href="https://t.me/Rannta_coin" target="_blank" style="color:#00aaff;display:block;margin-bottom:6px;">Telegram</a>
+      <a href="https://discord.gg/AFWUJEr6nx" target="_blank" style="color:#00aaff;display:block;margin-bottom:6px;">Discord</a>
+    </div>
+  </div>
+
+  <p style="text-align:center;margin-top:40px;color:#888;">
+    © 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM
+  </p>
+</footer>
+
+</body>
+</html>
