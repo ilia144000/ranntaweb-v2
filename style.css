@@ -514,3 +514,16 @@ img { max-width: 100%; height: auto; display: block; }
 .presale-notes li {
   margin-bottom: 5px;
 }
+.swap-visual {
+  margin: 18px 0 10px;
+  text-align: center;
+}
+
+.swap-visual img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
+  display: inline-block;
+}
