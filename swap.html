@@ -6,81 +6,18 @@
 
   <title>RANNTA Swap · TON</title>
   <link rel="stylesheet" href="style.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap"
-    rel="stylesheet"
-  >
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
-  <meta
-    name="description"
-    content="Official RANNTA Swap entry on TON. Use the verified STON.fi pool to swap TON and USDT into RANNTA."
-  />
+  <meta name="description" content="Official RANNTA Swap entry on TON. Use the verified STON.fi pool to swap TON and USDT into RANNTA."/>
   <link rel="canonical" href="https://rannta.com/swap.html"/>
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="RANNTA Swap · TON">
-  <meta
-    property="og:description"
-    content="Swap TON or USDT into RANNTA using the official STON.fi pool. This page only links to the verified DEX."
-  >
-  <meta property="og:url" content="https://rannta.com/swap.html">
-  <meta property="og:image" content="assets/rannta-logo.svg">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RANNTA Swap · TON">
-  <meta
-    name="twitter:description"
-    content="Use the official STON.fi pool to swap TON and USDT into RANNTA on the TON blockchain."
-  >
-  <meta name="twitter:image" content="assets/rannta-logo.svg">
 </head>
 
 <body>
-<header class="site-header pro-header">
-  <div class="header-inner">
-    <a href="index.html" class="logo-link">
-      <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160"/>
-    </a>
 
-    <!-- Desktop navigation -->
-    <nav class="main-nav desktop-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="whitepaper.html">Whitepaper</a></li>
-        <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="airdrop.html">Airdrop</a></li>
-        <li><a href="nft.html">NFT Sale</a></li>
-        <li><a href="symbolists.html">Symbolists</a></li>
-        <li><a href="ranntaverse.html">RANNTAverse</a></li>
-        <li><a href="rannta-story.html">About RANNTA</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="team.html">Team</a></li>
-      </ul>
-    </nav>
-
-    <!-- Hamburger (mobile only) -->
-    <button
-      class="hamburger-btn"
-      id="hamburgerBtn"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-      aria-controls="mobileNav"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-  </div>
-
-  <!-- Dark overlay behind mobile menu -->
-  <div class="nav-overlay" id="navOverlay"></div>
-
-  <!-- Mobile navigation panel -->
-  <nav class="main-nav mobile-nav" id="mobileNav">
+<!-- SIMPLE CLEAN HEADER (no mobile menu, no overlay) -->
+<header>
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="140" height="140" />
+  <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="articles.html">Articles</a></li>
@@ -98,6 +35,7 @@
   </nav>
 </header>
 
+<!-- MAIN CONTENT -->
 <main class="swap-page">
   <section class="swap-panel">
     <h1>RANNTA Swap · TON</h1>
@@ -105,7 +43,6 @@
     <p class="swap-lead">
       RANNTA is more than a token — it is a Signal, a field of intention shaped by every supporter.
       Each swap, no matter how small, strengthens the RANNTA flow and expands the network of holders.
-      Your participation today becomes part of the long-term mythos and energy of the project.
     </p>
 
     <p class="swap-lead" style="margin-top:16px;">
@@ -116,113 +53,82 @@
     <div class="swap-row">
       <label>Where does the swap happen?</label>
       <div class="swap-token">
-        <span>
-          Swaps are executed on <strong>STON.fi</strong>, a trusted DEX on the TON blockchain.
-          You connect your wallet (Tonkeeper, Tonhub, MyTonWallet, etc.) and trade directly on-chain.
-        </span>
+        Swaps occur on <strong>STON.fi</strong>, a trusted DEX on TON. Connect Tonkeeper / Tonhub / MyTonWallet and swap directly on-chain.
       </div>
     </div>
 
     <div class="swap-row">
       <label>Supported pairs</label>
       <div class="swap-token">
-        <span>
-          The official pool supports <strong>TON → RANNTA</strong> and <strong>USDT → RANNTA</strong>.
-          Prices and routing are determined by on-chain liquidity.
-        </span>
+        The official pool supports: <strong>TON → RANNTA</strong> and <strong>USDT → RANNTA</strong>.
       </div>
     </div>
 
     <div class="swap-row">
       <label>Recommended swap size</label>
       <div class="swap-token">
-        <span>
-          To help stabilize early liquidity and strengthen RANNTA’s price foundation, we encourage supporters
-          to keep each swap within <strong>0.1 TON to 0.5 TON</strong>.
-          Wallets that follow this guideline and show continuous support will be
-          <strong>rewarded with special gifts and recognition</strong> from the RANNTA team.
-        </span>
+        To help stabilize early liquidity, we suggest:
+        <strong>0.1 TON → 0.5 TON</strong> per swap.<br>
+        Supporters who follow this guideline will receive <strong>special gifts</strong> from the RANNTA team.
       </div>
     </div>
 
-    <!-- Visual hero image for the swap page -->
+    <!-- HERO VISUAL -->
     <div class="swap-visual">
       <img src="assets/field-swap-hero.png" alt="RANNTA Swap Field Hero">
     </div>
 
-    <!-- Official STON.fi Link block -->
+    <!-- OFFICIAL STON.FI LINK -->
     <div class="swap-row">
       <label>Official STON.fi Link</label>
       <div class="swap-link-card">
         <span class="swap-link-text">
-          This is the only official entry point to the RANNTA pool on STON.fi.
-          Always open the DEX from here or from our verified channels to avoid fake tokens or scam pools.
+          This is the only official entry point to the RANNTA pool. Avoid fake pools.
         </span>
+
         <a
-          href="https://app.ston.fi/swap?chartVisible=true&amp;chartInterval=1w&amp;ft=TON&amp;tt=EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR"
+          href="https://app.ston.fi/swap?chartVisible=true&chartInterval=1w&ft=TON&tt=EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR"
+          class="btnPrimary swap-link-button"
           target="_blank"
           rel="noopener noreferrer"
-          class="btnPrimary swap-link-button"
         >
           Open official RANNTA pool on STON.fi
         </a>
       </div>
     </div>
 
+    <!-- Safety -->
     <div class="presale-notes">
       <h3>Safety notes</h3>
       <ul>
-        <li>
-          Only trust the <strong>app.ston.fi</strong> domain and the official RANNTA Jetton published on rannta.com.
-        </li>
-        <li>
-          Avoid links sent in DMs or unknown groups. Always start from <strong>rannta.com</strong>.
-        </li>
-        <li>
-          RANNTA is a symbolic and community-driven protocol. Trade responsibly and with clear intention.
-        </li>
+        <li>Only trust <strong>app.ston.fi</strong> and the official Jetton listed on rannta.com.</li>
+        <li>Avoid DM links or unknown groups.</li>
+        <li>RANNTA is symbolic, community-driven. Trade with intention.</li>
       </ul>
     </div>
 
     <p class="swap-footnote">
-      As the ecosystem grows — including Tonkeeper verification, the main liquidity pool, and the launch of
-      RANNTAverse — this page will be upgraded with richer on-chain tools.
+      As Tonkeeper verification and full liquidity rollout completes, this page will upgrade with live charts.
     </p>
   </section>
 </main>
 
+<!-- FOOTER -->
 <footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
-  <div
-    style="
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:30px;
-      max-width:1000px;
-      margin:0 auto;
-      text-align:left;
-    "
-  >
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
     <div>
       <h3 style="color:gold;margin-bottom:10px;">About</h3>
-      <a
-        href="rannta-story.html"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        Our Story
-      </a>
-      <a
-        href="whitepaper.html"
-        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
-      >
-        Whitepaper
-      </a>
+      <a href="rannta-story.html" style="color:#00aaff;display:block;margin-bottom:6px;">Our Story</a>
+      <a href="whitepaper.html" style="color:#00aaff;display:block;margin-bottom:6px;">Whitepaper</a>
     </div>
+
     <div>
       <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
-      <a href="roadmap.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Roadmap</a>
-      <a href="nft.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">NFT Hub</a>
-      <a href="ranntaverse.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">RANNTAverse</a>
+      <a href="roadmap.html" style="color:#00aaff;display:block;margin-bottom:6px;">Roadmap</a>
+      <a href="nft.html" style="color:#00aaff;display:block;margin-bottom:6px;">NFT Hub</a>
+      <a href="ranntaverse.html" style="color:#00aaff;display:block;margin-bottom:6px;">RANNTAverse</a>
     </div>
+
     <div>
       <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
       <a href="https://x.com/ranntacoin" target="_blank" style="color:#00aaff;display:block;margin-bottom:6px;">Twitter</a>
@@ -232,59 +138,9 @@
   </div>
 
   <p style="text-align:center;margin-top:40px;color:#888;">
-    © 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON &amp; EVM
+    © 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM
   </p>
 </footer>
-
-<script>
-  (function () {
-    const hamburgerBtn = document.getElementById("hamburgerBtn");
-    const mobileNav = document.getElementById("mobileNav");
-    const navOverlay = document.getElementById("navOverlay");
-
-    if (!hamburgerBtn || !mobileNav || !navOverlay) return;
-
-    function openNav() {
-      hamburgerBtn.classList.add("is-open");
-      mobileNav.classList.add("is-open");
-      navOverlay.classList.add("is-visible");
-      hamburgerBtn.setAttribute("aria-expanded", "true");
-    }
-
-    function closeNav() {
-      hamburgerBtn.classList.remove("is-open");
-      mobileNav.classList.remove("is-open");
-      navOverlay.classList.remove("is-visible");
-      hamburgerBtn.setAttribute("aria-expanded", "false");
-    }
-
-    function toggleNav() {
-      if (mobileNav.classList.contains("is-open")) {
-        closeNav();
-      } else {
-        openNav();
-      }
-    }
-
-    hamburgerBtn.addEventListener("click", toggleNav);
-    navOverlay.addEventListener("click", closeNav);
-
-    mobileNav.addEventListener("click", function (event) {
-      const target = event.target;
-      if (target.tagName === "A") {
-        closeNav();
-      }
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" || event.key === "Esc") {
-        if (mobileNav.classList.contains("is-open")) {
-          closeNav();
-        }
-      }
-    });
-  })();
-</script>
 
 </body>
 </html>
