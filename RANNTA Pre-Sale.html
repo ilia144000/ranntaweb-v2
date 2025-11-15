@@ -1,666 +1,221 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <title>RANNTA Pre-Sale Admin (Local Only)</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    :root {
-      --bg: #050509;
-      --card: #101018;
-      --accent: #ffd84a;
-      --text: #f5f5f7;
-      --muted: #888;
-      --border: rgba(255, 255, 255, 0.08);
-      --radius: 16px;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    * { box-sizing: border-box; }
+  <title>RANNTA Swap · TON</title>
+  <link rel="stylesheet" href="style.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap"
+    rel="stylesheet"
+  >
 
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #181828 0, #050509 55%);
-      color: var(--text);
-      padding: 20px;
-    }
+  <meta
+    name="description"
+    content="Official RANNTA Swap entry on TON. Use the verified TonFi pool to swap TON and USDT into RANNTA."
+  />
+  <link rel="canonical" href="https://rannta.com/swap.html"/>
 
-    h1 {
-      margin: 0 0 8px;
-      font-size: 1.6rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RANNTA Swap · TON">
+  <meta
+    property="og:description"
+    content="Swap TON or USDT into RANNTA using the official TonFi pool. This page only links to the verified DEX."
+  >
+  <meta property="og:url" content="https://rannta.com/swap.html">
+  <meta property="og:image" content="assets/rannta-logo.svg">
 
-    .subtitle {
-      margin: 0 0 18px;
-      font-size: 0.9rem;
-      color: var(--muted);
-      max-width: 760px;
-    }
-
-    .layout {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 340px) minmax(0, 1fr);
-      gap: 20px;
-      align-items: flex-start;
-    }
-
-    .card {
-      background: linear-gradient(145deg, #101018, #050509);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 18px 18px 16px;
-      box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75);
-    }
-
-    .card-title {
-      margin: 0 0 8px;
-      font-size: 1rem;
-    }
-
-    .card-sub {
-      margin: 0 0 14px;
-      font-size: 0.8rem;
-      color: var(--muted);
-      line-height: 1.4;
-    }
-
-    label {
-      display: block;
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 3px;
-      color: var(--muted);
-    }
-
-    select,
-    input[type="text"],
-    input[type="number"] {
-      width: 100%;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: #07070d;
-      color: var(--text);
-      font-size: 0.88rem;
-      outline: none;
-    }
-
-    input::placeholder {
-      color: #555;
-    }
-
-    .field {
-      margin-bottom: 9px;
-    }
-
-    .row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
-    }
-
-    button {
-      border: none;
-      border-radius: 999px;
-      padding: 8px 16px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 216, 74, 0.15);
-      color: var(--accent);
-    }
-
-    button.primary {
-      background: var(--accent);
-      color: #000;
-      font-weight: 600;
-    }
-
-    button.small {
-      padding: 6px 12px;
-      font-size: 0.78rem;
-    }
-
-    button.danger {
-      background: rgba(255, 80, 80, 0.14);
-      color: #ff5f5f;
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: default;
-    }
-
-    .status-bar {
-      font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 4px;
-    }
-
-    .status-error {
-      color: #ff5f5f;
-    }
-
-    .toolbar {
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-    }
-
-    .toolbar-right {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.78rem;
-    }
-
-    th, td {
-      padding: 6px 7px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      vertical-align: top;
-    }
-
-    th {
-      text-align: left;
-      font-weight: 500;
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    tbody tr:nth-child(even) {
-      background: rgba(255, 255, 255, 0.01);
-    }
-
-    .table-shell {
-      max-height: 420px;
-      overflow: auto;
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    code {
-      font-family: "JetBrains Mono", "Fira Code", monospace;
-      font-size: 0.73rem;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 7px;
-      border-radius: 999px;
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-right: 3px;
-    }
-
-    .pill-ton {
-      background: rgba(79, 195, 255, 0.08);
-      color: #4ec5ff;
-    }
-
-    .pill-bnb {
-      background: rgba(255, 216, 74, 0.12);
-      color: #ffd84a;
-    }
-
-    .pill-tron {
-      background: rgba(255, 120, 154, 0.12);
-      color: #ff7b9b;
-    }
-
-    .pill-token {
-      background: rgba(255, 255, 255, 0.08);
-      color: #eee;
-    }
-
-    .checkbox-center {
-      text-align: center;
-    }
-
-    @media (max-width: 900px) {
-      .layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-  </style>
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RANNTA Swap · TON">
+  <meta
+    name="twitter:description"
+    content="Use the official TonFi pool to swap TON and USDT into RANNTA on the TON blockchain."
+  >
+  <meta name="twitter:image" content="assets/rannta-logo.svg">
 </head>
+
 <body>
-  <h1>RANNTA Pre-Sale · Admin Panel</h1>
-  <p class="subtitle">
-    Local-only dashboard for managing RANNTA pre-sale contributions across TON / BNB / TRON.
-    Open this file directly on your own machine. Data is stored in this browser only.
-  </p>
+<header>
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160"/>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="whitepaper.html">Whitepaper</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="airdrop.html">Airdrop</a></li>
+      <li><a href="nft.html">NFT Sale</a></li>
+      <li><a href="symbolists.html">Symbolists</a></li>
+      <li><a href="ranntaverse.html">RANNTAverse</a></li>
+      <li><a href="rannta-story.html">About RANNTA</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="team.html">Team</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <div class="layout">
-    <!-- LEFT: FORM -->
-    <section class="card">
-      <h2 class="card-title">Add contribution</h2>
-      <p class="card-sub">
-        Select where the payment came from, enter the amount and the buyer’s TON address.
-        RANNTA amount is calculated automatically using a fixed USD price.
-      </p>
+<main class="swap-page">
+  <section class="swap-panel">
+    <h1>RANNTA Swap · TON</h1>
+    <p class="swap-lead">
+      Until Tonkeeper verification is complete, all swaps for RANNTA are handled via the official TonFi pool.
+      This page is a clean entry point — you always start from the correct, verified link.
+    </p>
 
-      <div class="field">
-        <label for="source">Payment source</label>
-        <select id="source">
-          <option value="TON:TON">TON · pay with TON</option>
-          <option value="TON:USDT">TON · pay with USDT</option>
-          <option value="BNB:USDT">BNB · pay with USDT</option>
-          <option value="TRON:USDT">TRON · pay with USDT</option>
-        </select>
+    <div class="swap-row">
+      <label>Where does the swap happen?</label>
+      <div class="swap-token">
+        <span>
+          Swaps are executed on <strong>TonFi</strong>, a DEX on the TON blockchain.
+          You connect your wallet there (Tonkeeper, Tonhub, MyTonWallet, etc.) and trade directly on-chain.
+        </span>
       </div>
+    </div>
 
-      <div class="field">
-        <label for="amount">Payment amount</label>
-        <input id="amount" type="number" step="0.00000001" min="0" placeholder="e.g. 10" />
+    <div class="swap-row">
+      <label>Supported pairs</label>
+      <div class="swap-token">
+        <span>
+          The official pool supports swaps between <strong>TON / USDT</strong> and <strong>RANNTA</strong>.
+          Exact routes and prices are determined by on-chain liquidity.
+        </span>
       </div>
+    </div>
 
-      <div class="field row">
-        <div>
-          <label for="usdValue">USD value</label>
-          <input id="usdValue" type="number" step="0.01" min="0" placeholder="Auto for TON, manual allowed" />
-        </div>
-        <div>
-          <label for="rannAmount">RANNTA (auto)</label>
-          <input id="rannAmount" type="number" step="1" min="0" readonly placeholder="Auto" />
-        </div>
+    <div class="swap-row">
+      <label>Official DEX entry</label>
+      <div class="swap-token">
+        <span>
+          For your security, always reach the RANNTA pool via this page or links posted in our official channels.
+        </span>
       </div>
+    </div>
 
-      <div class="field">
-        <label for="tonRecipient">TON recipient address</label>
-        <input id="tonRecipient" type="text" placeholder="User's TON wallet (Tonhub / Tonkeeper / MyTonWallet)" />
+    <!-- Main CTA to TonFi -->
+    <div class="swap-row">
+      <label>Open RANNTA on TonFi</label>
+      <div class="swap-token">
+        <a
+          href="https://app.tonfi.io"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btnPrimary"
+        >
+          Open official RANNTA pool on TonFi
+        </a>
+        <!--
+          TODO:
+          Replace "https://app.tonfi.io" with your exact TonFi pool/swap URL
+          once you have the final, verified link for RANNTA.
+        -->
       </div>
+    </div>
 
-      <div class="field">
-        <label for="txHash">Tx hash / transaction ID</label>
-        <input id="txHash" type="text" placeholder="Paste the on-chain transaction hash" />
-      </div>
+    <div class="presale-notes">
+      <h3>Safety notes</h3>
+      <ul>
+        <li>
+          Always double-check that you are on the real TonFi domain and that the token you select is the
+          <strong>official RANNTA Jetton</strong> (as published on rannta.com and our official socials).
+        </li>
+        <li>
+          Do not follow random swap links sent via DMs or unknown groups. Always navigate from
+          <strong>rannta.com</strong> or the verified <strong>@ranntacoin</strong> account.
+        </li>
+        <li>
+          RANNTA is a symbolic, community-first protocol. Swaps involve market risk. Nothing here is financial advice.
+        </li>
+      </ul>
+    </div>
 
-      <div class="field row" style="align-items:center;">
-        <div>
-          <button type="button" class="small" id="btnFetchTonPrice">
-            Fetch TON price (for TON payments)
-          </button>
-          <div class="status-bar" id="priceStatus">
-            TON price: unknown
-          </div>
-        </div>
-        <div style="text-align:right;">
-          <button type="button" class="primary" id="btnAdd">
-            Add contribution
-          </button>
-        </div>
-      </div>
+    <p class="swap-footnote">
+      When Tonkeeper verification is complete, this page may be updated to integrate richer on-chain tools
+      (charts, limits, or a dedicated pre-sale module). For now, it serves as your safe gateway to the official RANNTA pool.
+    </p>
+  </section>
+</main>
 
-      <div class="status-bar" id="formStatus"></div>
-    </section>
-
-    <!-- RIGHT: TABLE -->
-    <section class="card">
-      <div class="toolbar">
-        <div>
-          <h2 class="card-title" style="margin-bottom:4px;">Contributions</h2>
-          <p class="card-sub" style="margin-bottom:0;">
-            Mark rows as paid after sending RANNTA. Use CSV export for tracking or bulk payments.
-          </p>
-        </div>
-        <div class="toolbar-right">
-          <button type="button" class="small" id="btnExport">Export CSV</button>
-          <button type="button" class="small danger" id="btnClear">Clear all</button>
-        </div>
-      </div>
-
-      <div class="table-shell">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Date</th>
-              <th>Source</th>
-              <th>Amount</th>
-              <th>USD</th>
-              <th>RANNTA</th>
-              <th>TON recipient</th>
-              <th>Tx hash</th>
-              <th>Paid</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody"></tbody>
-        </table>
-      </div>
-    </section>
+<footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
+  <div
+    style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:30px;
+      max-width:1000px;
+      margin:0 auto;
+      text-align:left;
+    "
+  >
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">About</h3>
+      <a
+        href="rannta-story.html"
+        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
+      >
+        Our Story
+      </a>
+      <a
+        href="whitepaper.html"
+        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
+      >
+        Whitepaper
+      </a>
+    </div>
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
+      <a
+        href="roadmap.html"
+        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
+      >
+        Roadmap
+      </a>
+      <a
+        href="nft.html"
+        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
+      >
+        NFT Hub
+      </a>
+      <a
+        href="ranntaverse.html"
+        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
+      >
+        RANNTAverse
+      </a>
+    </div>
+    <div>
+      <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
+      <a
+        href="https://x.com/ranntacoin"
+        target="_blank"
+        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
+      >
+        Twitter
+      </a>
+      <a
+        href="https://t.me/Rannta_coin"
+        target="_blank"
+        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
+      >
+        Telegram
+      </a>
+      <a
+        href="https://discord.gg/AFWUJEr6nx"
+        target="_blank"
+        style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;"
+      >
+        Discord
+      </a>
+    </div>
   </div>
 
-  <script>
-    const RANNTA_PRICE_USD = 0.0013;
+  <p style="text-align:center;margin-top:40px;color:#888;">
+    © 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON &amp; EVM
+  </p>
+</footer>
 
-    const els = {
-      source: document.getElementById("source"),
-      amount: document.getElementById("amount"),
-      usdValue: document.getElementById("usdValue"),
-      rannAmount: document.getElementById("rannAmount"),
-      tonRecipient: document.getElementById("tonRecipient"),
-      txHash: document.getElementById("txHash"),
-      priceStatus: document.getElementById("priceStatus"),
-      formStatus: document.getElementById("formStatus"),
-      btnFetchTonPrice: document.getElementById("btnFetchTonPrice"),
-      btnAdd: document.getElementById("btnAdd"),
-      btnExport: document.getElementById("btnExport"),
-      btnClear: document.getElementById("btnClear"),
-      tableBody: document.getElementById("tableBody"),
-    };
-
-    let tonPriceUsd = null;
-    let entries = [];
-
-    function loadEntries() {
-      try {
-        const raw = localStorage.getItem("rannta_presale_entries_v2");
-        if (!raw) return;
-        entries = JSON.parse(raw);
-        renderTable();
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    function saveEntries() {
-      localStorage.setItem("rannta_presale_entries_v2", JSON.stringify(entries));
-    }
-
-    function formatDate(iso) {
-      return new Date(iso).toLocaleString();
-    }
-
-    function renderTable() {
-      els.tableBody.innerHTML = "";
-      entries.forEach((e, idx) => {
-        const tr = document.createElement("tr");
-
-        const tdIndex = document.createElement("td");
-        tdIndex.textContent = idx + 1;
-        tr.appendChild(tdIndex);
-
-        const tdDate = document.createElement("td");
-        tdDate.textContent = formatDate(e.createdAt);
-        tr.appendChild(tdDate);
-
-        const tdSource = document.createElement("td");
-        const pillNet = document.createElement("span");
-        pillNet.className =
-          "pill " +
-          (e.network === "TON"
-            ? "pill-ton"
-            : e.network === "BNB"
-            ? "pill-bnb"
-            : "pill-tron");
-        pillNet.textContent = e.network;
-        const pillToken = document.createElement("span");
-        pillToken.className = "pill pill-token";
-        pillToken.textContent = e.token;
-        tdSource.appendChild(pillNet);
-        tdSource.appendChild(pillToken);
-        tr.appendChild(tdSource);
-
-        const tdAmount = document.createElement("td");
-        tdAmount.textContent = e.amount + " " + e.token;
-        tr.appendChild(tdAmount);
-
-        const tdUsd = document.createElement("td");
-        tdUsd.textContent = e.usdValue.toFixed(2);
-        tr.appendChild(tdUsd);
-
-        const tdRann = document.createElement("td");
-        tdRann.textContent = e.rannAmount.toLocaleString();
-        tr.appendChild(tdRann);
-
-        const tdTon = document.createElement("td");
-        const c = document.createElement("code");
-        c.textContent = e.tonRecipient;
-        tdTon.appendChild(c);
-        tr.appendChild(tdTon);
-
-        const tdHash = document.createElement("td");
-        const ch = document.createElement("code");
-        ch.textContent = e.txHash;
-        tdHash.appendChild(ch);
-        tr.appendChild(tdHash);
-
-        const tdPaid = document.createElement("td");
-        tdPaid.className = "checkbox-center";
-        const cb = document.createElement("input");
-        cb.type = "checkbox";
-        cb.checked = !!e.paid;
-        cb.addEventListener("change", () => {
-          e.paid = cb.checked;
-          saveEntries();
-        });
-        tdPaid.appendChild(cb);
-        tr.appendChild(tdPaid);
-
-        els.tableBody.appendChild(tr);
-      });
-    }
-
-    function setFormStatus(msg, isError = false) {
-      els.formStatus.textContent = msg || "";
-      els.formStatus.className = "status-bar" + (isError ? " status-error" : "");
-    }
-
-    function recalcFromUsd() {
-      const usd = parseFloat(els.usdValue.value || "0");
-      if (usd > 0) {
-        const rann = usd / RANNTA_PRICE_USD;
-        els.rannAmount.value = Math.floor(rann);
-      } else {
-        els.rannAmount.value = "";
-      }
-    }
-
-    function handleAmountChange() {
-      const source = els.source.value; // e.g. "TON:TON", "BNB:USDT"
-      const [network, token] = source.split(":");
-      const amount = parseFloat(els.amount.value || "0");
-
-      if (token === "USDT") {
-        els.usdValue.value = amount > 0 ? amount.toFixed(2) : "";
-        recalcFromUsd();
-      } else if (token === "TON") {
-        if (!tonPriceUsd || amount <= 0) return;
-        const usd = amount * tonPriceUsd;
-        els.usdValue.value = usd.toFixed(2);
-        recalcFromUsd();
-      }
-    }
-
-    async function fetchTonPrice() {
-      try {
-        els.priceStatus.textContent = "TON price: fetching…";
-        let price = null;
-
-        // Try TONAPI
-        try {
-          const resTonApi = await fetch(
-            "https://tonapi.io/v2/rates?tokens=ton&currencies=usd"
-          );
-          if (resTonApi.ok) {
-            const dataTonApi = await resTonApi.json();
-            if (
-              dataTonApi &&
-              dataTonApi.rates &&
-              dataTonApi.rates.TON &&
-              typeof dataTonApi.rates.TON.prices.USD === "number"
-            ) {
-              price = dataTonApi.rates.TON.prices.USD;
-            }
-          }
-        } catch (e) {
-          // ignore
-        }
-
-        if (price === null) {
-          const res = await fetch(
-            "https://api.coingecko.com/api/v3/simple/price?ids=toncoin&vs_currencies=usd"
-          );
-          const data = await res.json();
-          if (data && data.toncoin && typeof data.toncoin.usd === "number") {
-            price = data.toncoin.usd;
-          }
-        }
-
-        if (price === null) {
-          throw new Error("No price from any source");
-        }
-
-        tonPriceUsd = price;
-        els.priceStatus.textContent = "TON price: $" + tonPriceUsd.toFixed(4);
-        handleAmountChange();
-      } catch (err) {
-        console.error(err);
-        els.priceStatus.textContent = "TON price: failed to fetch";
-      }
-    }
-
-    function addEntry() {
-      const source = els.source.value;
-      const [network, token] = source.split(":");
-      const amount = parseFloat(els.amount.value || "0");
-      const usd = parseFloat(els.usdValue.value || "0");
-      const rann = parseInt(els.rannAmount.value || "0", 10);
-      const tonRecipient = els.tonRecipient.value.trim();
-      const txHash = els.txHash.value.trim();
-
-      if (!amount || amount <= 0) {
-        setFormStatus("Amount is required.", true);
-        return;
-      }
-      if (!usd || usd <= 0) {
-        setFormStatus("USD value is required.", true);
-        return;
-      }
-      if (!rann || rann <= 0) {
-        setFormStatus("RANNTA amount is zero. Check price.", true);
-        return;
-      }
-      if (!tonRecipient) {
-        setFormStatus("TON recipient address is required.", true);
-        return;
-      }
-      if (!txHash) {
-        setFormStatus("Tx hash is required.", true);
-        return;
-      }
-
-      const entry = {
-        id: Date.now(),
-        createdAt: new Date().toISOString(),
-        network,
-        token,
-        amount,
-        usdValue: usd,
-        rannAmount: rann,
-        tonRecipient,
-        txHash,
-        paid: false,
-      };
-
-      entries.push(entry);
-      saveEntries();
-      renderTable();
-
-      els.amount.value = "";
-      els.usdValue.value = "";
-      els.rannAmount.value = "";
-      els.txHash.value = "";
-      setFormStatus("Entry added.");
-    }
-
-    function exportCsv() {
-      if (!entries.length) {
-        setFormStatus("Nothing to export.", true);
-        return;
-      }
-
-      const header = [
-        "id",
-        "createdAt",
-        "network",
-        "token",
-        "amount",
-        "usdValue",
-        "rannAmount",
-        "tonRecipient",
-        "txHash",
-        "paid",
-      ];
-      const rows = [header.join(",")];
-
-      entries.forEach((e) => {
-        const row = [
-          e.id,
-          e.createdAt,
-          e.network,
-          e.token,
-          e.amount,
-          e.usdValue,
-          e.rannAmount,
-          '"' + (e.tonRecipient || "").replace(/"/g, '""') + '"',
-          '"' + (e.txHash || "").replace(/"/g, '""') + '"',
-          e.paid ? "true" : "false",
-        ];
-        rows.push(row.join(","));
-      });
-
-      const blob = new Blob([rows.join("\n")], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "rannta_presale_contributions.csv";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-
-      setFormStatus("CSV exported.");
-    }
-
-    function clearAll() {
-      if (!confirm("Clear all entries in this browser?")) return;
-      entries = [];
-      saveEntries();
-      renderTable();
-      setFormStatus("All entries cleared.");
-    }
-
-    // Events
-    els.amount.addEventListener("input", handleAmountChange);
-    els.usdValue.addEventListener("input", recalcFromUsd);
-    els.source.addEventListener("change", handleAmountChange);
-    els.btnFetchTonPrice.addEventListener("click", fetchTonPrice);
-    els.btnAdd.addEventListener("click", addEntry);
-    els.btnExport.addEventListener("click", exportCsv);
-    els.btnClear.addEventListener("click", clearAll);
-
-    loadEntries();
-  </script>
 </body>
 </html>
