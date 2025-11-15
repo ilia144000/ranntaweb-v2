@@ -8,36 +8,24 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Primary description shared across site -->
-  <meta name="description" content="RANNTAverse — a creator-first, multi-chain NFT marketplace. Direct listings, English auctions, royalties, IPFS metadata, and dual-wallet flows (Tonkeeper + EVM)."/>
-  <link rel="canonical" href="https://ranntavers.art/ranntaverse.html"/>
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Articles — RANNTAverse">
-  <meta property="og:description" content="Trade, mint, and launch across TON & EVM with a unified dark-gold UX. Direct listings, auctions, royalties, and IPFS metadata.">
-  <meta property="og:url" content="https://ranntavers.art/ranntaverse.html">
-  <meta property="og:image" content="assets/rannta-logo.svg">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Articles — RANNTAverse">
-  <meta name="twitter:description" content="Each NFT is a pulse of awareness, minted on-chain, resonating at 130 Hz.">
-  <meta name="twitter:image" content="assets/rannta-logo.svg">
+  <meta name="description" content="RANNTAverse — Multi-chain NFT marketplace on TON & EVM. Lore, protocol, articles and symbolic design philosophy."/>
 </head>
 
 <body>
+
+<!-- ========== GLOBAL CLEAN HEADER (no duplication) ========== -->
 <header class="site-header pro-header">
   <div class="header-inner">
+
     <a href="index.html" class="logo-link">
       <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
     </a>
 
-    <!-- Desktop navigation -->
-    <nav class="main-nav desktop-nav">
+    <!-- Desktop Navigation -->
+    <nav class="desktop-nav">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
+        <li><a href="articles.html" class="active">Articles</a></li>
         <li><a href="gallery.html">Gallery</a></li>
         <li><a href="whitepaper.html">Whitepaper</a></li>
         <li><a href="roadmap.html">Roadmap</a></li>
@@ -51,28 +39,23 @@
       </ul>
     </nav>
 
-    <!-- Hamburger (mobile only) -->
-    <button
-      class="hamburger-btn"
-      id="hamburgerBtn"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-      aria-controls="mobileNav"
-    >
+    <!-- Mobile Hamburger -->
+    <button class="hamburger-btn" id="hamburgerBtn">
       <span></span>
       <span></span>
       <span></span>
     </button>
+
   </div>
 
-  <!-- Dark overlay behind mobile menu -->
+  <!-- Overlay -->
   <div class="nav-overlay" id="navOverlay"></div>
 
-  <!-- Mobile navigation panel -->
-  <nav class="main-nav mobile-nav" id="mobileNav">
+  <!-- Mobile Navigation Drawer -->
+  <nav class="mobile-nav" id="mobileNav">
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="articles.html">Articles</a></li>
+      <li><a href="articles.html" class="active">Articles</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="whitepaper.html">Whitepaper</a></li>
       <li><a href="roadmap.html">Roadmap</a></li>
@@ -87,69 +70,94 @@
   </nav>
 </header>
 
+<!-- Mobile menu script -->
+<script>
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+const mobileNav = document.getElementById("mobileNav");
+const navOverlay = document.getElementById("navOverlay");
+
+hamburgerBtn.addEventListener("click", () => {
+  const isOpen = hamburgerBtn.classList.toggle("is-open");
+  mobileNav.classList.toggle("is-open");
+  navOverlay.classList.toggle("is-visible");
+});
+
+navOverlay.addEventListener("click", () => {
+  hamburgerBtn.classList.remove("is-open");
+  mobileNav.classList.remove("is-open");
+  navOverlay.classList.remove("is-visible");
+});
+</script>
+
+<!-- ========== PAGE CONTENT ========== -->
 <main>
   <h1>Articles</h1>
-  <p>Protocol, lore, and integrity for the MSF movement.</p>
+  <p>Protocol, lore, symbolism, and MSF integrity.</p>
 
   <section class="nft-links">
     <h2>Featured</h2>
     <ul>
       <li><a href="#why-ton">Why RANNTA Runs on TON</a></li>
       <li><a href="#mythogenia">Mythogenia: Fire, Memory, Return</a></li>
-      <li><a href="#stego-c2pa">Designing Stego & C2PA for NFTs</a></li>
-      <li><a href="#greek-persian-gods">Did the Greek Gods Come from Persia?</a></li>
-      <li><a href="#iranian-gods-nft">Twelve Iranian Gods — NFT Series</a></li>
+      <li><a href="#stego">Designing Stego & C2PA for NFTs</a></li>
+      <li><a href="#greek-persian">Did the Greek Gods Come from Persia?</a></li>
+      <li><a href="#iranian-gods">Twelve Iranian Gods — NFT Series</a></li>
     </ul>
   </section>
 
   <section id="why-ton" class="nft-links">
     <h2>Why RANNTA Runs on TON</h2>
-    <p>Speed, sovereignty, and symbolic state — the case for TON as the substrate of RANNTA.</p>
+    <p>Speed, sovereignty, and symbolic structure — TON provides the substrate for RANNTA’s living protocol.</p>
   </section>
 
   <section id="mythogenia" class="nft-links">
     <h2>Mythogenia: Fire, Memory, Return</h2>
-    <p>Each Mythogenia work is built on a triad—<strong>Fire × Sound × Symbol</strong>. Fire speaks of renewal, sound names the form, and symbol binds it to memory.</p>
+    <p>Each Mythogenia piece is built on a triad: Fire × Sound × Symbol. Memory encoded inside form.</p>
   </section>
 
-  <section id="stego-c2pa" class="nft-links">
-    <h2>Designing Stego &amp; C2PA for NFTs</h2>
-    <p>Collectors deserve provable origins. MSF pieces ship with layered proofs that make spoofing costly and remix verifiable.</p>
+  <section id="stego" class="nft-links">
+    <h2>Designing Stego & C2PA for NFTs</h2>
+    <p>Collectors deserve verifiable origins. MSF uses layered proofs that make spoofing costly and meaning traceable.</p>
   </section>
 
-  <section id="greek-persian-gods" class="nft-links">
+  <section id="greek-persian" class="nft-links">
     <h2>Did the Greek Gods Come from Persia?</h2>
-    <p>A comparative look at chronology, roles, and cultural exchange between the Iranian pantheon and the Greek Olympians.</p>
+    <p>A comparative symbolic and chronological study of pantheons.</p>
   </section>
 
-  <section id="iranian-gods-nft" class="nft-links">
+  <section id="iranian-gods" class="nft-links">
     <h2>Twelve Iranian Gods — NFT Series</h2>
-    <p>A 12-piece MSF collection inspired by the Iranian pantheon.</p>
+    <p>A 12-piece MSF collection inspired by the mythic Iranian pantheon.</p>
   </section>
 </main>
 
-<!-- ✅ Updated Footer -->
-<footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">About</h3>
-      <a href="rannta-story.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Our Story</a>
-      <a href="whitepaper.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Whitepaper</a>
+<!-- ========== CLEAN RESPONSIVE FOOTER ========== -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3>About</h3>
+      <a href="rannta-story.html">Our Story</a>
+      <a href="whitepaper.html">Whitepaper</a>
     </div>
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
-      <a href="roadmap.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Roadmap</a>
-      <a href="nft.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">NFT Hub</a>
-      <a href="ranntaverse.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">RANNTAverse</a>
+
+    <div class="footer-col">
+      <h3>Explore</h3>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="nft.html">NFT Hub</a>
+      <a href="ranntaverse.html">RANNTAverse</a>
     </div>
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
-      <a href="https://x.com/ranntacoin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Twitter</a>
-      <a href="https://t.me/Rannta_coin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Telegram</a>
-      <a href="https://discord.com/invite/RrVvK79F" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Discord</a>
+
+    <div class="footer-col">
+      <h3>Connect</h3>
+      <a href="https://x.com/ranntacoin" target="_blank">Twitter</a>
+      <a href="https://t.me/Rannta_coin" target="_blank">Telegram</a>
+      <a href="https://discord.com/invite/RrVvK79F" target="_blank">Discord</a>
     </div>
   </div>
-  <p style="text-align:center;margin-top:40px;color:#888;">© 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM</p>
+
+  <p class="footer-copy">
+    © 2025 <strong>RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM
+  </p>
 </footer>
 
 </body>
