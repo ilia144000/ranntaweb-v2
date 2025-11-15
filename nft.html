@@ -13,40 +13,10 @@
 
 <body>
 
-<!-- ========== GLOBAL HEADER (unified RANNTA header) ========== -->
-<header class="site-header pro-header">
-  <div class="header-inner">
-
-    <a href="index.html" class="logo-link">
-      <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
-    </a>
-
-    <nav class="desktop-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="whitepaper.html">Whitepaper</a></li>
-        <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="airdrop.html">Airdrop</a></li>
-        <li><a href="nft.html" class="active">NFT Sale</a></li>
-        <li><a href="symbolists.html">Symbolists</a></li>
-        <li><a href="ranntaverse.html">RANNTAverse</a></li>
-        <li><a href="rannta-story.html">About RANNTA</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="team.html">Team</a></li>
-      </ul>
-    </nav>
-
-    <button class="hamburger-btn" id="hamburgerBtn">
-      <span></span><span></span><span></span>
-    </button>
-
-  </div>
-
-  <div class="nav-overlay" id="navOverlay"></div>
-
-  <nav class="mobile-nav" id="mobileNav">
+<!-- ========== SIMPLE GLOBAL HEADER (no pro-header, no hamburger) ========== -->
+<header>
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
+  <nav>
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="articles.html">Articles</a></li>
@@ -63,23 +33,7 @@
     </ul>
   </nav>
 </header>
-
-<script>
-const hamburgerBtn = document.getElementById("hamburgerBtn");
-const mobileNav = document.getElementById("mobileNav");
-const navOverlay = document.getElementById("navOverlay");
-
-hamburgerBtn.addEventListener("click", () => {
-  hamburgerBtn.classList.toggle("is-open");
-  mobileNav.classList.toggle("is-open");
-  navOverlay.classList.toggle("is-visible");
-});
-navOverlay.addEventListener("click", () => {
-  hamburgerBtn.classList.remove("is-open");
-  mobileNav.classList.remove("is-open");
-  navOverlay.classList.remove("is-visible");
-});
-</script>
+<!-- =============================================================== -->
 
 <!-- ========== PAGE CONTENT ========== -->
 <main>
@@ -144,7 +98,7 @@ navOverlay.addEventListener("click", () => {
   </div>
 
   <p class="footer-copy">
-    © 2025 <strong>RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM
+    © 2025 <strong>RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON &amp; EVM
   </p>
 </footer>
 
