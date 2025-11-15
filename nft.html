@@ -8,32 +8,20 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
-  <!-- Primary description shared across site; may tweak per page -->
-  <meta name="description" content="RANNTAverse — a creator-first, multi-chain NFT marketplace. Direct listings, English auctions, royalties, IPFS metadata, and dual-wallet flows (Tonkeeper + EVM)."/>
-  <link rel="canonical" href="https://ranntavers.art/ranntaverse.html"/>
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="NFT Sale — RANNTAverse">
-  <meta property="og:description" content="Trade, mint, and launch across TON & EVM with a unified dark-gold UX. Direct listings, auctions, royalties, and IPFS metadata.">
-  <meta property="og:url" content="https://ranntavers.art/ranntaverse.html">
-  <meta property="og:image" content="assets/rannta-logo.svg">
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="NFT Sale — RANNTAverse">
-  <meta name="twitter:description" content="Each NFT is a pulse of awareness, minted on-chain, resonating at 130 Hz.">
-  <meta name="twitter:image" content="assets/rannta-logo.svg">
+  <meta name="description" content="RANNTAverse — Multi-chain NFT marketplace on TON & EVM. Explore symbolic MSF NFT collections across chains."/>
 </head>
+
 <body>
+
+<!-- ========== GLOBAL HEADER (unified RANNTA header) ========== -->
 <header class="site-header pro-header">
   <div class="header-inner">
+
     <a href="index.html" class="logo-link">
       <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
     </a>
 
-    <!-- Desktop navigation -->
-    <nav class="main-nav desktop-nav">
+    <nav class="desktop-nav">
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="articles.html">Articles</a></li>
@@ -41,7 +29,7 @@
         <li><a href="whitepaper.html">Whitepaper</a></li>
         <li><a href="roadmap.html">Roadmap</a></li>
         <li><a href="airdrop.html">Airdrop</a></li>
-        <li><a href="nft.html">NFT Sale</a></li>
+        <li><a href="nft.html" class="active">NFT Sale</a></li>
         <li><a href="symbolists.html">Symbolists</a></li>
         <li><a href="ranntaverse.html">RANNTAverse</a></li>
         <li><a href="rannta-story.html">About RANNTA</a></li>
@@ -50,25 +38,15 @@
       </ul>
     </nav>
 
-    <!-- Hamburger (mobile only) -->
-    <button
-      class="hamburger-btn"
-      id="hamburgerBtn"
-      aria-label="Toggle navigation"
-      aria-expanded="false"
-      aria-controls="mobileNav"
-    >
-      <span></span>
-      <span></span>
-      <span></span>
+    <button class="hamburger-btn" id="hamburgerBtn">
+      <span></span><span></span><span></span>
     </button>
+
   </div>
 
-  <!-- Dark overlay behind mobile menu -->
   <div class="nav-overlay" id="navOverlay"></div>
 
-  <!-- Mobile navigation panel -->
-  <nav class="main-nav mobile-nav" id="mobileNav">
+  <nav class="mobile-nav" id="mobileNav">
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="articles.html">Articles</a></li>
@@ -76,7 +54,7 @@
       <li><a href="whitepaper.html">Whitepaper</a></li>
       <li><a href="roadmap.html">Roadmap</a></li>
       <li><a href="airdrop.html">Airdrop</a></li>
-      <li><a href="nft.html">NFT Sale</a></li>
+      <li><a href="nft.html" class="active">NFT Sale</a></li>
       <li><a href="symbolists.html">Symbolists</a></li>
       <li><a href="ranntaverse.html">RANNTAverse</a></li>
       <li><a href="rannta-story.html">About RANNTA</a></li>
@@ -86,6 +64,24 @@
   </nav>
 </header>
 
+<script>
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+const mobileNav = document.getElementById("mobileNav");
+const navOverlay = document.getElementById("navOverlay");
+
+hamburgerBtn.addEventListener("click", () => {
+  hamburgerBtn.classList.toggle("is-open");
+  mobileNav.classList.toggle("is-open");
+  navOverlay.classList.toggle("is-visible");
+});
+navOverlay.addEventListener("click", () => {
+  hamburgerBtn.classList.remove("is-open");
+  mobileNav.classList.remove("is-open");
+  navOverlay.classList.remove("is-visible");
+});
+</script>
+
+<!-- ========== PAGE CONTENT ========== -->
 <main>
   <h1>🜚 RANNTA NFT Hub</h1>
   <p>Explore symbolic NFT collections — each piece forged with hidden codes, fractal logic, and mythic depth in the MSF style.</p>
@@ -93,17 +89,17 @@
   <section class="nft-links">
     <h2>Available Platforms</h2>
     <div class="platform-grid">
-      <a href="https://getgems.io/rannta" target="_blank" rel="noopener">Getgems Marketplace</a>
-      <a href="https://opensea.io/RANNTA" target="_blank" rel="noopener">OpenSea</a>
-      <a href="https://magiceden.io/marketplace/rannst" target="_blank" rel="noopener">Magic Eden</a>
-      <a href="https://objkt.com/@ilia144000" target="_blank" rel="noopener">objkt (Tezos)</a>
-      <a href="https://www.transient.xyz/@rannta" target="_blank" rel="noopener">Transient</a>
-      <a href="https://og.rarible.com/rannta" target="_blank" rel="noopener">Rarible</a>
-      <a href="https://foundation.app/@RANNTA" target="_blank" rel="noopener">Foundation</a>
-      <a href="https://zora.co/@rannta" target="_blank" rel="noopener">Zora</a>
-      <a href="https://exchange.art/rannta/nfts" target="_blank" rel="noopener">Exchange Art</a>
-      <a href="https://farcaster.xyz/ilia144000" target="_blank" rel="noopener">Farcaster</a>
-      <a href="https://superrare.com/ilia144000/collection" target="_blank" rel="noopener">SuperRare</a>
+      <a href="https://getgems.io/rannta" target="_blank">Getgems Marketplace</a>
+      <a href="https://opensea.io/RANNTA" target="_blank">OpenSea</a>
+      <a href="https://magiceden.io/marketplace/rannst" target="_blank">Magic Eden</a>
+      <a href="https://objkt.com/@ilia144000" target="_blank">objkt (Tezos)</a>
+      <a href="https://www.transient.xyz/@rannta" target="_blank">Transient</a>
+      <a href="https://og.rarible.com/rannta" target="_blank">Rarible</a>
+      <a href="https://foundation.app/@RANNTA" target="_blank">Foundation</a>
+      <a href="https://zora.co/@rannta" target="_blank">Zora</a>
+      <a href="https://exchange.art/rannta/nfts" target="_blank">Exchange Art</a>
+      <a href="https://farcaster.xyz/ilia144000" target="_blank">Farcaster</a>
+      <a href="https://superrare.com/ilia144000/collection" target="_blank">SuperRare</a>
     </div>
   </section>
 
@@ -123,28 +119,33 @@
   </section>
 </main>
 
-<!-- ✅ Updated Footer -->
-<footer style="background:#0a0a0a;color:#ccc;padding:40px 0;border-top:1px solid rgba(255,255,255,0.1);">
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;max-width:1000px;margin:0 auto;text-align:left;">
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">About</h3>
-      <a href="rannta-story.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Our Story</a>
-      <a href="whitepaper.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Whitepaper</a>
+<!-- ========== CLEAN FOOTER (unified) ========== -->
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h3>About</h3>
+      <a href="rannta-story.html">Our Story</a>
+      <a href="whitepaper.html">Whitepaper</a>
     </div>
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">Explore</h3>
-      <a href="roadmap.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Roadmap</a>
-      <a href="nft.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">NFT Hub</a>
-      <a href="ranntaverse.html" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">RANNTAverse</a>
+
+    <div class="footer-col">
+      <h3>Explore</h3>
+      <a href="roadmap.html">Roadmap</a>
+      <a href="nft.html" class="active">NFT Hub</a>
+      <a href="ranntaverse.html">RANNTAverse</a>
     </div>
-    <div>
-      <h3 style="color:gold;margin-bottom:10px;">Connect</h3>
-      <a href="https://x.com/ranntacoin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Twitter</a>
-      <a href="https://t.me/Rannta_coin" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Telegram</a>
-      <a href="https://discord.gg/AFWUJEr6nx" target="_blank" style="color:#00aaff;display:block;text-decoration:none;margin-bottom:6px;">Discord</a>
+
+    <div class="footer-col">
+      <h3>Connect</h3>
+      <a href="https://x.com/ranntacoin" target="_blank">Twitter</a>
+      <a href="https://t.me/Rannta_coin" target="_blank">Telegram</a>
+      <a href="https://discord.gg/AFWUJEr6nx" target="_blank">Discord</a>
     </div>
   </div>
-  <p style="text-align:center;margin-top:40px;color:#888;">© 2025 <strong style="color:gold;">RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM</p>
+
+  <p class="footer-copy">
+    © 2025 <strong>RANNTAverse</strong> — Multi-Chain NFT Marketplace • Powered by TON & EVM
+  </p>
 </footer>
 
 </body>
