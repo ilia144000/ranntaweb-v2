@@ -1,160 +1,189 @@
+/* === Base layout === */
+
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #111;
-    color: #fff;
-    margin: 0;
-    padding: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #111;
+  color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
+/* Global logo style */
 .logo {
-    max-height: 100px;
-    margin: 28px auto 8px auto;
-    display: block;
+  max-height: 100px;
+  margin: 28px auto 8px auto;
+  display: block;
 }
 
 header {
-    background: #181818;
-    padding-bottom: 12px;
+  background: #181818;
+  padding-bottom: 12px;
 }
 
+/* Legacy nav (for simple pages using <nav>) */
 nav ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 nav li {
-    margin: 8px 16px;
+  margin: 8px 16px;
 }
 
 nav a {
-    color: #FFD700;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.08em;
-    transition: color 0.18s;
-    letter-spacing: 0.02em;
+  color: #FFD700;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.08em;
+  transition: color 0.18s;
+  letter-spacing: 0.02em;
 }
 
 nav a:hover {
-    color: #fff;
-    text-shadow: 0 2px 12px #FFD70088;
+  color: #fff;
+  text-shadow: 0 2px 12px #FFD70088;
 }
 
 h1 {
-    font-size: 2em;
-    margin-bottom: 14px;
-    margin-top: 0.5em;
-    color: #FFD700;
+  font-size: 2em;
+  margin-bottom: 14px;
+  margin-top: 0.5em;
+  color: #FFD700;
 }
 
 h2 {
-    color: #FFD700;
-    margin-top: 2.2em;
-    margin-bottom: 0.9em;
+  color: #FFD700;
+  margin-top: 2.2em;
+  margin-bottom: 0.9em;
 }
 
 a {
-    color: #00BFFF;
-    transition: color 0.18s;
+  color: #00BFFF;
+  transition: color 0.18s;
 }
 
 a:hover {
-    color: #FFD700;
+  color: #FFD700;
 }
 
 ul {
-    margin: 0 0 1.4em 1.4em;
+  margin: 0 0 1.4em 1.4em;
 }
 
 li {
-    margin-bottom: 7px;
+  margin-bottom: 7px;
 }
 
 footer {
-    font-size: 13px;
-    color: #999;
-    text-align: center;
-    margin-top: 60px;
-    margin-bottom: 30px;
-    padding: 0 8px;
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  padding: 0 8px;
 }
 
+/* Basic responsive heading + logo */
 @media (max-width: 700px) {
-    .logo {
-        max-height: 64px;
-    }
-    h1 {
-        font-size: 1.18em;
-    }
-    h2 {
-        font-size: 1.02em;
-    }
+  .logo {
+    max-height: 64px;
+  }
+  h1 {
+    font-size: 1.18em;
+  }
+  h2 {
+    font-size: 1.02em;
+  }
 }
 
-/* Modern box style for main content */
+/* === Main content box === */
+
 main {
-    max-width: 700px;
-    margin: 40px auto 0 auto;
-    padding: 24px 16px 60px 16px;
-    background: #181818;
-    border-radius: 18px;
-    box-shadow: 0 6px 48px #0005;
-    font-size: 1.08em;
-    line-height: 1.7;
-}
-main h1, main h2 {
-    color: #FFD700;
-}
-main h2 {
-    margin-top: 1.8em;
-    margin-bottom: 0.6em;
-    font-size: 1.15em;
-}
-main ul {
-    margin: 0 0 1.2em 1.5em;
-    padding: 0;
-}
-main li {
-    margin-bottom: 0.4em;
+  max-width: 700px;
+  margin: 40px auto 0 auto;
+  padding: 24px 16px 60px 16px;
+  background: #181818;
+  border-radius: 18px;
+  box-shadow: 0 6px 48px #0005;
+  font-size: 1.08em;
+  line-height: 1.7;
 }
 
-/* Responsive team banner */
+main h1,
+main h2 {
+  color: #FFD700;
+}
+
+main h2 {
+  margin-top: 1.8em;
+  margin-bottom: 0.6em;
+  font-size: 1.15em;
+}
+
+main ul {
+  margin: 0 0 1.2em 1.5em;
+  padding: 0;
+}
+
+main li {
+  margin-bottom: 0.4em;
+}
+
+/* === Team banner image === */
+
 .team-banner {
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto 32px auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 36px #0007;
-    object-fit: cover;
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 32px auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 36px #0007;
+  object-fit: cover;
 }
 
 @media (max-width: 600px) {
-    .team-banner {
-        max-width: 98vw;
-        border-radius: 7px;
-        margin: 0 auto 20px auto;
-    }
-    main {
-        padding: 12px 2vw 40px 2vw;
-    }
+  .team-banner {
+    max-width: 98vw;
+    border-radius: 7px;
+    margin: 0 auto 20px auto;
+  }
+  main {
+    padding: 12px 2vw 40px 2vw;
+  }
 }
 
-/* --- Unified footer styling (RANNTA) --- */
-footer p { line-height: 1.8; }
-.footer-line { display: inline-block; margin-top: 6px; }
-.footer-label { color: #bbb; }
+/* === Unified footer styling (RANNTA) === */
+
+footer p {
+  line-height: 1.8;
+}
+
+.footer-line {
+  display: inline-block;
+  margin-top: 6px;
+}
+
+.footer-label {
+  color: #bbb;
+}
+
 .footer-link {
-  color: #FFD700; text-decoration: none; border-bottom: 1px dotted #FFD70033;
+  color: #FFD700;
+  text-decoration: none;
+  border-bottom: 1px dotted #FFD70033;
 }
+
 .footer-link:hover {
-  color: #fff; text-shadow: 0 2px 12px #FFD70088; border-bottom-color: transparent;
+  color: #fff;
+  text-shadow: 0 2px 12px #FFD70088;
+  border-bottom-color: transparent;
 }
+
 .platform-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -179,7 +208,7 @@ footer p { line-height: 1.8; }
   background: #FFD700;
   color: #111;
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(255,215,0,0.4);
+  box-shadow: 0 4px 16px rgba(255, 215, 0, 0.4);
 }
 
 @media (max-width: 700px) {
@@ -188,7 +217,8 @@ footer p { line-height: 1.8; }
   }
 }
 
-/* --- RANNTA Signal Hero (add-on) --- */
+/* === RANNTA Signal Hero === */
+
 .signal-hero {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -222,32 +252,41 @@ footer p { line-height: 1.8; }
   transition: all 0.25s;
   margin-right: 10px;
 }
+
 .btnHero:hover {
   background: #fff;
   color: #111;
-  box-shadow: 0 0 18px rgba(255,215,0,0.6);
+  box-shadow: 0 0 18px rgba(255, 215, 0, 0.6);
 }
+
 .btnHero.ghost {
   background: transparent;
-  border: 1px solid rgba(255,215,0,0.4);
+  border: 1px solid rgba(255, 215, 0, 0.4);
   color: #fff;
 }
 
 .glyph-figure {
   text-align: center;
 }
+
 .glyph-figure img {
   width: 100%;
   max-width: 520px;
   height: auto;
   border-radius: 12px;
-  box-shadow: 0 6px 36px rgba(0,0,0,.6);
-}
-.glyph-figure figcaption {
-  margin-top: 8px; color: #aaa; font-size: .92em;
+  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.6);
 }
 
-.architect .architect-lead { color: #ddd; }
+.glyph-figure figcaption {
+  margin-top: 8px;
+  color: #aaa;
+  font-size: 0.92em;
+}
+
+.architect .architect-lead {
+  color: #ddd;
+}
+
 .architect .architect-signature {
   margin: 14px 0 0 0;
   padding: 14px 16px;
@@ -258,60 +297,94 @@ footer p { line-height: 1.8; }
   line-height: 1.7;
 }
 
-/* responsive */
+/* Responsive Signal Hero / general tweaks */
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
 @media (max-width: 900px) {
-  .signal-hero { grid-template-columns: 1fr; padding: 56px 4vw 34px; }
-  .glyph-figure img { max-width: 360px; }
-  .signal-hero .hero-copy h1 { font-size: 1.8em; }
+  .signal-hero {
+    grid-template-columns: 1fr;
+    padding: 56px 4vw 34px;
+  }
+  .glyph-figure img {
+    max-width: 360px;
+  }
+  .signal-hero .hero-copy h1 {
+    font-size: 1.8em;
+  }
 }
 
-/* --- Mobile polish (append at end of style.css) --- */
-
-img { max-width: 100%; height: auto; display: block; }
-
+/* Consolidated mobile tweaks (480px) */
 @media (max-width: 480px) {
-  nav li { margin: 6px 10px; }
-  nav a { font-size: 0.98em; }
-}
+  nav li {
+    margin: 6px 10px;
+  }
 
-@media (max-width: 480px) {
-  .signal-hero { padding: 44px 4vw 28px; gap: 22px; }
-  .signal-hero .hero-copy h1 { font-size: 1.6em; }
-  main { margin: 24px auto 0; padding: 14px 12px 36px; }
-}
+  nav a {
+    font-size: 0.98em;
+  }
 
-@media (max-width: 480px) {
-  .btnHero { margin: 8px 8px 0 0; padding: 11px 18px; }
-}
+  .signal-hero {
+    padding: 44px 4vw 28px;
+    gap: 22px;
+  }
 
-@media (max-width: 480px) {
-  .platform-grid { gap: 10px; }
+  .signal-hero .hero-copy h1 {
+    font-size: 1.6em;
+  }
+
+  main {
+    margin: 24px auto 0;
+    padding: 14px 12px 36px;
+  }
+
+  .btnHero {
+    margin: 8px 8px 0 0;
+    padding: 11px 18px;
+  }
+
+  .platform-grid {
+    gap: 10px;
+  }
 }
 
 @media (max-width: 400px) {
-  h1 { font-size: 1.06em; }
-  h2 { font-size: 0.98em; }
+  h1 {
+    font-size: 1.06em;
+  }
+  h2 {
+    font-size: 0.98em;
+  }
 }
 
-/* --- RANNTA Swap hero card --- */
+/* === RANNTA Swap hero card === */
+
 .swap-hero-card {
   display: block;
   margin: 18px 0 10px;
   padding: 14px 16px;
   border-radius: 14px;
   background: radial-gradient(circle at top left, #222 0%, #121212 55%, #101010 100%);
-  border: 1px solid rgba(255,215,0,0.32);
+  border: 1px solid rgba(255, 215, 0, 0.32);
   text-decoration: none;
   color: #eee;
-  box-shadow: 0 8px 28px rgba(0,0,0,0.65);
-  transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.65);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    border-color 0.22s ease,
+    background 0.22s ease;
 }
 
 .swap-hero-label {
   font-size: 0.92em;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #ffd700;
+  color: #FFD700;
   margin-bottom: 6px;
 }
 
@@ -336,12 +409,13 @@ img { max-width: 100%; height: auto; display: block; }
 
 .swap-hero-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 34px rgba(0,0,0,0.85);
-  border-color: #ffd700;
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.85);
+  border-color: #FFD700;
   background: radial-gradient(circle at top left, #262015 0%, #151515 60%, #101010 100%);
 }
 
-/* --- Swap page layout --- */
+/* === Swap page layout === */
+
 .swap-page {
   max-width: 840px;
   margin: 40px auto 60px auto;
@@ -352,16 +426,16 @@ img { max-width: 100%; height: auto; display: block; }
   background: #181818;
   border-radius: 18px;
   padding: 26px 20px 30px;
-  box-shadow: 0 6px 42px rgba(0,0,0,0.7);
+  box-shadow: 0 6px 42px rgba(0, 0, 0, 0.7);
 }
 
 .swap-panel h1 {
   margin-top: 0;
   margin-bottom: 10px;
-  color: #ffd700;
+  color: #FFD700;
 }
 
-/* --- NEW hero image styles --- */
+/* Hero image on swap */
 .swap-hero-image {
   width: 100%;
   max-width: 640px;
@@ -373,7 +447,7 @@ img { max-width: 100%; height: auto; display: block; }
   width: 100%;
   border-radius: 16px;
   box-shadow: 0 0 25px rgba(0, 180, 255, 0.25);
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .swap-lead {
@@ -455,7 +529,7 @@ img { max-width: 100%; height: auto; display: block; }
 .swap-main-button:hover {
   background: #fff;
   color: #111;
-  box-shadow: 0 0 22px rgba(255,215,0,0.6);
+  box-shadow: 0 0 22px rgba(255, 215, 0, 0.6);
 }
 
 .swap-footnote {
@@ -464,14 +538,14 @@ img { max-width: 100%; height: auto; display: block; }
   color: #999;
 }
 
-/* Responsive tweaks */
 @media (max-width: 700px) {
   .swap-panel {
     padding: 20px 14px 24px;
   }
 }
 
-/* --- RANNTA Pre-Sale extra styles --- */
+/* === RANNTA Pre-Sale extras === */
+
 .presale-subtitle {
   margin-top: 28px;
   margin-bottom: 10px;
@@ -495,7 +569,7 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 14px 16px;
   border-radius: 12px;
   background: #141414;
-  border: 1px solid rgba(255,215,0,0.3);
+  border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .presale-address-label {
@@ -580,184 +654,8 @@ img { max-width: 100%; height: auto; display: block; }
     justify-content: center;
   }
 }
-/* --- PRO HEADER (desktop + mobile) --- */
-.site-header.pro-header {
-  background: #181818;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
 
-.header-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo-link .logo {
-  max-height: 72px;
-  margin: 0;
-}
-
-/* Desktop nav */
-.desktop-nav ul {
-  display: flex;
-  list-style: none;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-}
-
-.desktop-nav a {
-  color: #ffd700;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.04em;
-  letter-spacing: 0.02em;
-  transition: color 0.18s, text-shadow 0.18s;
-}
-
-.desktop-nav a:hover {
-  color: #ffffff;
-  text-shadow: 0 2px 12px rgba(255, 215, 0, 0.55);
-}
-
-/* Hamburger button */
-.hamburger-btn {
-  display: none; /* visible only on mobile */
-  flex-direction: column;
-  justify-content: center;
-  gap: 4px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 215, 0, 0.5);
-  background: #111;
-  cursor: pointer;
-  padding: 0;
-  outline: none;
-  transition: background 0.2s, box-shadow 0.2s, border-color 0.2s;
-}
-
-.hamburger-btn span {
-  width: 18px;
-  height: 2px;
-  background: #ffd700;
-  border-radius: 2px;
-  margin: 0 auto;
-  transition: transform 0.25s ease, opacity 0.25s ease, background 0.25s ease;
-}
-
-.hamburger-btn:hover {
-  background: #222;
-  box-shadow: 0 0 14px rgba(255, 215, 0, 0.4);
-}
-
-/* Cross animation when active */
-.hamburger-btn.is-active span:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-.hamburger-btn.is-active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger-btn.is-active span:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-/* Mobile nav panel + overlay */
-.nav-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  backdrop-filter: blur(4px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
-  z-index: 998;
-}
-
-.nav-overlay.is-visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.mobile-nav {
-  position: fixed;
-  top: 0;
-  right: 0;
-  height: 100vh;
-  width: 76%;
-  max-width: 320px;
-  background: radial-gradient(circle at top left, #252525 0%, #101010 55%, #060606 100%);
-  border-left: 1px solid rgba(255, 215, 0, 0.35);
-  box-shadow: -12px 0 35px rgba(0, 0, 0, 0.85);
-  padding: 80px 22px 22px;
-  transform: translateX(100%);
-  transition: transform 0.28s ease-out;
-  z-index: 999;
-}
-
-.mobile-nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.mobile-nav li + li {
-  margin-top: 12px;
-}
-
-.mobile-nav a {
-  display: block;
-  text-decoration: none;
-  color: #f5f5f5;
-  font-weight: 500;
-  font-size: 0.98em;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  padding: 8px 4px;
-  border-radius: 6px;
-  transition: background 0.2s, color 0.2s;
-}
-
-.mobile-nav a:hover {
-  background: rgba(255, 215, 0, 0.12);
-  color: #ffd700;
-}
-
-/* Open state */
-.mobile-nav.is-open {
-  transform: translateX(0);
-}
-
-/* Lock body scroll when menu open */
-body.nav-open {
-  overflow: hidden;
-}
-
-/* Responsive behavior */
-@media (max-width: 900px) {
-  .desktop-nav {
-    display: none;
-  }
-
-  .hamburger-btn {
-    display: flex;
-  }
-
-  .header-inner {
-    padding-inline: 14px;
-  }
-
-  .logo-link .logo {
-    max-height: 60px;
-  }
-}
-/* === PRO HEADER + MOBILE NAV === */
+/* === FINAL: PRO HEADER + MOBILE NAV (single source of truth) === */
 
 /* Header main structure */
 .site-header.pro-header {
@@ -781,14 +679,7 @@ body.nav-open {
   display: inline-block;
 }
 
-/* Exact same as original visual layout */
-.logo {
-  max-height: 100px;
-  margin: 28px auto 8px auto;
-  display: block;
-}
-
-/* Desktop navigation (existing UL) */
+/* Desktop navigation (existing UL inside .desktop-nav) */
 .desktop-nav ul {
   list-style: none;
   padding: 0;
@@ -817,23 +708,27 @@ body.nav-open {
   width: 100%;
   height: 3px;
   margin-bottom: 5px;
-  background: #ffd700;
+  background: #FFD700;
   border-radius: 2px;
-  transition: transform 0.22s ease, opacity 0.22s ease;
+  transition:
+    transform 0.22s ease,
+    opacity 0.22s ease;
 }
 
 /* X-state when menu is open */
 .hamburger-btn.is-open span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
+
 .hamburger-btn.is-open span:nth-child(2) {
   opacity: 0;
 }
+
 .hamburger-btn.is-open span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
 
-/* Background overlay */
+/* Background overlay for mobile nav */
 .nav-overlay {
   position: fixed;
   inset: 0;
@@ -876,14 +771,14 @@ body.nav-open {
 .mobile-nav a {
   display: block;
   padding: 8px 4px;
-  color: #ffd700;
+  color: #FFD700;
   text-decoration: none;
   font-weight: 600;
 }
 
 .mobile-nav a:hover {
   color: #fff;
-  text-shadow: 0 2px 12px #ffd70088;
+  text-shadow: 0 2px 12px #FFD70088;
 }
 
 /* Mobile open state */
@@ -895,11 +790,12 @@ body.nav-open {
 .desktop-nav {
   display: block;
 }
+
 .mobile-nav {
   display: none;
 }
 
-/* --- Mobile breakpoint --- */
+/* --- Mobile breakpoint for header --- */
 @media (max-width: 860px) {
   .header-inner {
     max-width: 100%;
