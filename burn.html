@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RANNTA Burn Dashboard</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" />
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="burn.html" class="active">Burn</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <h1>🔥 RANNTA Burn Dashboard</h1>
+  <p>This page shows all burned RANNTA tokens and updated circulating supply.</p>
+
+  <!-- Burn Stats -->
+  <section class="burn-stats-box">
+    <h2>Burn Summary</h2>
+
+    <div class="burn-grid">
+      <div class="burn-item">
+        <span class="label">Total Burned</span>
+        <span id="totalBurned" class="value">Loading...</span>
+      </div>
+
+      <div class="burn-item">
+        <span class="label">Latest Burn</span>
+        <span id="latestBurn" class="value">13,000,000 RANNTA</span>
+      </div>
+
+      <div class="burn-item">
+        <span class="label">Circulating Supply</span>
+        <span id="circSupply" class="value">Loading...</span>
+      </div>
+
+      <div class="burn-item">
+        <span class="label">Burn Address</span>
+        <span class="value small">UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ</span>
+      </div>
+    </div>
+
+    <button class="btnHero" onclick="loadBurns()" style="margin-top:20px;">Refresh</button>
+  </section>
+
+  <section>
+    <h2>Burn History</h2>
+    <ul id="burnHistory">
+      <li>13,000,000 RANNTA — Today</li>
+      <li>6,176,267,507.75 RANNTA — Previous Burn</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-copy">
+    © 2025 RANNTAverse • Powered by TON
+  </div>
+</footer>
+
+<script>
+async function loadBurns() {
+  const burnAddress = "UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ";
+  const master = "EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR";
+
+  const url = `https://tonapi.io/v2/blockchain/accounts/${burnAddress}/jettons`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const rannta = data.balances.find(b => b.jetton.address === master);
+    const burned = rannta ? Number(rannta.balance) / 1e9 : 0;
+
+    // Total Burned
+    document.getElementById("totalBurned").innerText =
+      burned.toLocaleString() + " RANNTA";
+
+    // Circulating Supply
+    const circ = 130_000_000_000 - burned;
+    document.getElementById("circSupply").innerText =
+      circ.toLocaleString() + " RANNTA";
+
+  } catch (err) {
+    console.error("Error loading burns", err);
+  }
+}
+
+loadBurns();
+</script>
+
+</body>
+</html>
