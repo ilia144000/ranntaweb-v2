@@ -747,3 +747,99 @@ img {
   font-size:0.75em;
   word-break: break-all;
 }
+/* === Burn Dashboard advanced layout === */
+
+.burn-header p {
+  color: #ddd;
+  margin-bottom: 18px;
+}
+
+.burn-chart-section,
+.burn-leaderboard-section,
+.burn-history-section {
+  margin-top: 34px;
+}
+
+.chart-sub {
+  font-size: 0.92em;
+  color: #bbb;
+  margin-bottom: 12px;
+}
+
+.burn-chart-wrapper {
+  background: #181818;
+  border-radius: 16px;
+  border: 1px solid #333;
+  padding: 16px;
+  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.7);
+}
+
+.table-wrapper {
+  background: #181818;
+  border-radius: 16px;
+  border: 1px solid #333;
+  padding: 16px;
+  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.7);
+  overflow-x: auto;
+}
+
+.burn-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.burn-table thead {
+  background: #111;
+}
+
+.burn-table th,
+.burn-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid #333;
+  text-align: left;
+}
+
+.burn-table th {
+  color: #ffd700;
+  font-weight: 600;
+}
+
+.burn-table tbody tr:nth-child(even) {
+  background: #151515;
+}
+
+.burn-table tbody tr:hover {
+  background: #202020;
+}
+
+.burn-table td:nth-child(1) {
+  width: 40px;
+}
+
+.burn-table td:nth-child(3),
+.burn-table td:nth-child(4) {
+  text-align: right;
+}
+
+.burn-history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.burn-history-list li {
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  background: #181818;
+  border-radius: 10px;
+  border: 1px solid #333;
+  font-size: 0.9rem;
+}
+
+/* Small screens */
+@media (max-width: 700px) {
+  .burn-grid {
+    grid-template-columns: 1fr;
+  }
+}
