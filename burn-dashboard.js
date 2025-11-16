@@ -28,7 +28,7 @@ async function tonApi(path) {
 // 1) Read total burned from burn address balances
 async function getTotalBurned() {
   const data = await tonApi(
-    `/v2/blockchain/accounts/${BURN_ADDRESS}/jettons`
+    `/v2/accounts/${BURN_ADDRESS}/jettons`
   );
 
   const balances = data.balances || [];
@@ -48,7 +48,7 @@ async function getTotalBurned() {
 // 2) Recent burn events from TonAPI
 async function getBurnEvents(limit = 120) {
   const eventsData = await tonApi(
-    `/v2/blockchain/accounts/${BURN_ADDRESS}/events?limit=${limit}`
+    `/v2/accounts/${BURN_ADDRESS}/events?limit=${limit}`
   );
 
   const items = eventsData.events || [];
@@ -274,9 +274,9 @@ async function bootstrapBurnDashboard() {
 
     let latestBurn = null;
     if (events.length > 0) {
-      const sorted = events.slice().sort(
-        (a, b) => b.timestamp - a.timestamp
-      );
+      const sorted = events
+        .slice()
+        .sort((a, b) => b.timestamp - a.timestamp);
       latestBurn = sorted[0];
     }
 
