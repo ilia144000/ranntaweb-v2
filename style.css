@@ -708,3 +708,42 @@ img {
     margin-bottom: 4px;
   }
 }
+.burn-stats-box {
+  background:#181818;
+  padding: 22px 20px;
+  border-radius: 16px;
+  border:1px solid #333;
+  margin-top: 24px;
+}
+
+.burn-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.burn-item {
+  background:#111;
+  border:1px solid #333;
+  padding:14px 12px;
+  border-radius:12px;
+  text-align:center;
+}
+
+.burn-item .label {
+  display:block;
+  font-size:0.85em;
+  color:#aaa;
+  margin-bottom:6px;
+}
+
+.burn-item .value {
+  font-size:1.2em;
+  color:#FFD700;
+  font-weight:bold;
+}
+
+.burn-item .small {
+  font-size:0.75em;
+  word-break: break-all;
+}
