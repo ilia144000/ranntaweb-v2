@@ -7,7 +7,17 @@ const TOTAL_SUPPLY = 130000000000; // 130B RANNTA
 const DECIMALS = 9;
 
 // Optional fallback snapshot in case TonAPI is blocked
-const FALLBACK_BURNED = 6189267507.75; // 6,176,267,507.75 + 13,000,000 (approx)
+const FALLBACK_BURNED = 6189267507.75; // 6,189,267,507.75 approx
+
+// Manual latest burn (used when TonAPI returns no events)
+// Update this object whenever you perform a new major burn.
+const MANUAL_LATEST_BURN = {
+  txHash: "6318c7bb522428f4ac50f232e7eb8c081709bfe04bddc3531d726b46f348d6d9",
+  // Approx timestamp (Unix seconds). Change when you do a new burn.
+  timestamp: 1731710000,
+  amount: 13000000, // 13,000,000 RANNTA
+  sender: ""
+};
 
 let burnChartInstance = null;
 
@@ -20,8 +30,8 @@ async function tonApi(path) {
   console.log("[TonAPI] GET", url);
   const res = await fetch(url, {
     headers: {
-      Accept: "application/json",
-    },
+      Accept: "application/json"
+    }
   });
   console.log("[TonAPI] status", res.status, "for", path);
   if (!res.ok) {
@@ -33,7 +43,6 @@ async function tonApi(path) {
 // 1) Read total burned from burn address balances
 async function getTotalBurned() {
   const data = await tonApi(`/v2/accounts/${BURN_ADDRESS}/jettons`);
-
   console.log("[TonAPI] jettons payload", data);
 
   const balances = data.balances || [];
@@ -56,7 +65,6 @@ async function getBurnEvents(limit = 120) {
   const eventsData = await tonApi(
     `/v2/accounts/${BURN_ADDRESS}/events?limit=${limit}`
   );
-
   console.log("[TonAPI] events payload", eventsData);
 
   const items = eventsData.events || [];
@@ -87,7 +95,7 @@ async function getBurnEvents(limit = 120) {
         txHash: eventId,
         timestamp: ts,
         amount,
-        sender,
+        sender
       });
     }
   }
@@ -186,24 +194,24 @@ function renderChart(events) {
       datasets: [
         {
           label: "Cumulative burned RANNTA",
-          data: values,
-        },
-      ],
+          data: values
+        }
+      ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
         y: {
-          beginAtZero: true,
-        },
+          beginAtZero: true
+        }
       },
       plugins: {
         legend: {
-          display: true,
-        },
-      },
-    },
+          display: true
+        }
+      }
+    }
   });
 }
 
@@ -282,7 +290,7 @@ async function bootstrapBurnDashboard() {
   try {
     const [totalBurnedReal, events] = await Promise.all([
       getTotalBurned(),
-      getBurnEvents(120),
+      getBurnEvents(120)
     ]);
 
     const totalBurned =
@@ -290,28 +298,38 @@ async function bootstrapBurnDashboard() {
         ? totalBurnedReal
         : FALLBACK_BURNED;
 
+    // If TonAPI returned no events, fall back to manual latest burn
+    let effectiveEvents = events;
+    if ((!effectiveEvents || effectiveEvents.length === 0) && MANUAL_LATEST_BURN) {
+      effectiveEvents = [MANUAL_LATEST_BURN];
+    }
+
+    // Compute latest burn
     let latestBurn = null;
-    if (events.length > 0) {
+    if (events && events.length > 0) {
       const sorted = events
         .slice()
         .sort((a, b) => b.timestamp - a.timestamp);
       latestBurn = sorted[0];
+    } else if (MANUAL_LATEST_BURN) {
+      latestBurn = MANUAL_LATEST_BURN;
     }
 
-    const leaderboard = buildLeaderboard(events);
+    const leaderboard = buildLeaderboard(effectiveEvents);
 
     renderSummary(totalBurned, latestBurn, TOTAL_SUPPLY);
-    renderChart(events);
+    renderChart(effectiveEvents);
     renderLeaderboard(leaderboard);
-    renderHistory(events);
+    renderHistory(effectiveEvents);
   } catch (err) {
     console.error("Burn dashboard error:", err);
 
     // Fallback UI so it does not stay stuck at "Loading..."
-    renderSummary(FALLBACK_BURNED, null, TOTAL_SUPPLY);
-    renderChart([]);
+    const events = MANUAL_LATEST_BURN ? [MANUAL_LATEST_BURN] : [];
+    renderSummary(FALLBACK_BURNED, MANUAL_LATEST_BURN, TOTAL_SUPPLY);
+    renderChart(events);
     renderLeaderboard([]);
-    renderHistory([]);
+    renderHistory(events);
   }
 }
 
