@@ -8,19 +8,89 @@
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
-  <meta name="description" content="RANNTAverse — a creator-first, multi-chain NFT marketplace. Direct listings, English auctions, royalties, IPFS metadata, and dual-wallet flows (Tonkeeper + EVM)." />
+  <!-- Meta / Social -->
+  <meta name="description" content="RANNTAverse — a creator-first, multi-chain NFT marketplace powered by the RANNTA Signal on TON. Direct listings, auctions, royalties, IPFS metadata, and dual-wallet flows (Tonkeeper + EVM)." />
   <link rel="canonical" href="https://rannta.com/index.html" />
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Home — RANNTAverse">
-  <meta property="og:description" content="Trade, mint, and launch across TON & EVM with a unified dark-gold UX. Direct listings, auctions, royalties, and IPFS metadata.">
+  <meta property="og:description" content="Trade, mint, and launch across TON & EVM with a unified dark-gold UX. RANNTA is not a token — it is a Signal.">
   <meta property="og:url" content="https://rannta.com/index.html">
   <meta property="og:image" content="assets/brand/coin.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Home — RANNTAverse">
-  <meta name="twitter:description" content="Each NFT is a pulse of awareness, minted on-chain, resonating at 130 Hz.">
+  <meta name="twitter:description" content="Each NFT is a neuron in the RANNTA Field. RANNTA is a symbolic utility token on TON, powering the RANNTAverse marketplace.">
   <meta name="twitter:image" content="assets/brand/coin.png">
+
+  <!-- JSON-LD: WebSite (Atlas / AI readable) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "RANNTAverse",
+    "url": "https://rannta.com/",
+    "description": "RANNTAverse is a multi-chain NFT marketplace powered by the RANNTA Signal on TON. RANNTA is a symbolic utility token, not a meme coin.",
+    "inLanguage": "en",
+    "creator": {
+      "@type": "Person",
+      "name": "ilia144000",
+      "url": "https://rannta.com/architect/code-il144k.html"
+    }
+  }
+  </script>
+
+  <!-- Local inline styles for the What is RANNTA card -->
+  <style>
+    .rannta-info-card {
+      background: #171717;
+      border: 1px solid #333;
+      padding: 24px;
+      margin: 40px auto;
+      max-width: 720px;
+      border-radius: 16px;
+      text-align: center;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.08);
+    }
+    .rannta-info-card h2 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: 1.8em;
+      margin-bottom: 12px;
+      color: #FFD700;
+    }
+    .rannta-info-card p {
+      font-size: 1.04em;
+      margin-bottom: 16px;
+      line-height: 1.6;
+      color: #eee;
+    }
+    .rannta-info-card .ric-btn {
+      display: inline-block;
+      padding: 10px 24px;
+      background: #FFD700;
+      color: #111;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: opacity 0.2s;
+    }
+    .rannta-info-card .ric-btn:hover {
+      opacity: 0.85;
+    }
+    @media (max-width: 600px) {
+      .rannta-info-card {
+        margin: 28px 12px;
+        padding: 18px 14px;
+      }
+      .rannta-info-card h2 {
+        font-size: 1.5em;
+      }
+      .rannta-info-card p {
+        font-size: 0.96em;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -64,7 +134,7 @@
       </a>
       <!-- /RANNTA Swap Hero Card -->
 
-      <!-- 🔥 Burn Dashboard button (new) -->
+      <!-- 🔥 Burn Dashboard button -->
       <a href="burn.html" class="btnHero ghost" style="margin-top:10px;">🔥 Burn Dashboard</a>
 
       <h1>RANNTA is not a token. It is a Signal.</h1>
@@ -87,6 +157,17 @@
   </section>
 
   <main>
+
+    <!-- WHAT IS RANNTA — Info Card (click → what-is-rannta.html) -->
+    <section class="rannta-info-card">
+      <h2>What is RANNTA?</h2>
+      <p>
+        RANNTA is a symbolic utility token on TON — a Signal, not a meme coin.  
+        It powers the RANNTAverse multi-chain NFT marketplace and encodes the Mythosymbolic Fractalism (MSF) art protocol.
+      </p>
+      <a href="what-is-rannta.html" class="ric-btn">Learn More →</a>
+    </section>
+
     <section class="nft-links">
       <h2>Why RANNTA Runs on TON — and Why It Matters</h2>
       <p>RANNTA isn’t just a token — it’s a symbol of speed, truth, and sovereignty in a decentralized future.</p>
