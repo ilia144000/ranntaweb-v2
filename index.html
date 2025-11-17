@@ -40,7 +40,7 @@
   }
   </script>
 
-  <!-- Local inline styles for the What is RANNTA card -->
+  <!-- Local inline styles for the What is RANNTA card + Signal-13 tag -->
   <style>
     .rannta-info-card {
       background: #171717;
@@ -78,6 +78,36 @@
     .rannta-info-card .ric-btn:hover {
       opacity: 0.85;
     }
+
+    /* Signal-13 tag inside hero (top-left under menu) */
+    .signal13-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 215, 0, 0.7);
+      background: rgba(0, 0, 0, 0.65);
+      color: #FFD700;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      margin-bottom: 10px;
+    }
+    .signal13-tag span.dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #FFD700;
+      display: inline-block;
+    }
+    .signal13-tag:hover {
+      background: rgba(255, 215, 0, 0.08);
+      color: #ffffff;
+      border-color: #FFD700;
+    }
+
     @media (max-width: 600px) {
       .rannta-info-card {
         margin: 28px 12px;
@@ -88,6 +118,10 @@
       }
       .rannta-info-card p {
         font-size: 0.96em;
+      }
+      .signal13-tag {
+        font-size: 0.7rem;
+        padding: 5px 12px;
       }
     }
   </style>
@@ -118,6 +152,12 @@
   <!-- HERO -->
   <section class="signal-hero">
     <div class="hero-copy">
+
+      <!-- 🔹 NEW: Signal-13 tag exactly in the empty area -->
+      <a href="signal-13.html" class="signal13-tag">
+        <span class="dot"></span>
+        SIGNAL-13 PROTOCOL
+      </a>
 
       <!-- RANNTA Swap Hero Card -->
       <a href="swap.html" class="swap-hero-card">
