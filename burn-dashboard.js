@@ -6,7 +6,7 @@ const TOTAL_SUPPLY = 130000000000; // 130B RANNTA
 const DECIMALS = 9;
 
 // TODO: put your main wallet address here (the one you use to burn RANNTA)
-const OFFICIAL_BURNER = "REPLACE_WITH_YOUR_MAIN_WALLET_ADDRESS";
+const OFFICIAL_BURNER = "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL";
 
 const FALLBACK_BURNED = 6189267507.75;
 
