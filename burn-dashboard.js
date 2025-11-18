@@ -1,13 +1,11 @@
-// RANNTA Burn Dashboard — Automatic "Latest Burn" based on your wallet events
+// RANNTA Burn Dashboard — Hybrid mode (Jetton Master first, Burn address fallback)
 
 const RANNTA_MASTER = "EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR";
 const BURN_ADDRESS = "UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ";
 const TOTAL_SUPPLY = 130000000000; // 130B RANNTA
 const DECIMALS = 9;
 
-// TODO: put your main wallet address here (the one you use to burn RANNTA)
-const OFFICIAL_BURNER = "UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL";
-
+// Only used if TonAPI is not reachable
 const FALLBACK_BURNED = 6189267507.75;
 
 let burnChartInstance = null;
@@ -20,7 +18,7 @@ async function tonApi(path) {
   const url = "https://tonapi.io" + path;
   console.log("[TonAPI] GET", url);
   const res = await fetch(url, {
-    headers: { Accept: "application/json" },
+    headers: { Accept: "application/json" }
   });
   console.log("[TonAPI] status", res.status, "for", path);
   if (!res.ok) {
@@ -49,17 +47,12 @@ async function getTotalBurned() {
   return amount;
 }
 
-// 2) Official burn events = jetton transfers from your wallet into burn address
-async function getOfficialBurnEvents(limit = 200) {
-  if (!OFFICIAL_BURNER || OFFICIAL_BURNER.startsWith("REPLACE_")) {
-    console.warn("OFFICIAL_BURNER is not set");
-    return [];
-  }
-
+// 2) Burn events from Jetton Master (preferred)
+async function getBurnEventsFromMaster(limit = 200) {
   const eventsData = await tonApi(
-    `/v2/accounts/${OFFICIAL_BURNER}/events?limit=${limit}`
+    `/v2/accounts/${RANNTA_MASTER}/events?limit=${limit}`
   );
-  console.log("[TonAPI] burner wallet events payload", eventsData);
+  console.log("[TonAPI] master events payload", eventsData);
 
   const items = eventsData.events || [];
   const burns = [];
@@ -82,13 +75,15 @@ async function getOfficialBurnEvents(limit = 200) {
       const sender = jt.sender?.address || "";
       const receiver = jt.recipient?.address || "";
 
+      // We only care about transfers into the burn address
       if (receiver !== BURN_ADDRESS) continue;
 
       burns.push({
+        source: "master",
         txHash: eventId,
         timestamp: ts,
         amount,
-        sender,
+        sender
       });
     }
   }
@@ -96,7 +91,51 @@ async function getOfficialBurnEvents(limit = 200) {
   return burns;
 }
 
-// 3) Leaderboard
+// 3) Burn events from burn address (fallback)
+async function getBurnEventsFromBurnAddress(limit = 200) {
+  const eventsData = await tonApi(
+    `/v2/accounts/${BURN_ADDRESS}/events?limit=${limit}`
+  );
+  console.log("[TonAPI] burn address events payload", eventsData);
+
+  const items = eventsData.events || [];
+  const burns = [];
+
+  for (const ev of items) {
+    const ts = ev.timestamp;
+    const eventId = ev.event_id;
+    const actions = ev.actions || [];
+
+    for (const act of actions) {
+      if (!act.jetton_transfer) continue;
+      const jt = act.jetton_transfer;
+
+      if (!jt.jetton || jt.jetton.address !== RANNTA_MASTER) continue;
+      if (!jt.amount) continue;
+
+      const raw = BigInt(jt.amount);
+      const amount = Number(raw) / Math.pow(10, DECIMALS);
+
+      const sender = jt.sender?.address || "";
+      const receiver = jt.recipient?.address || "";
+
+      // Again: only transfers into the burn address
+      if (receiver !== BURN_ADDRESS) continue;
+
+      burns.push({
+        source: "burnAddress",
+        txHash: eventId,
+        timestamp: ts,
+        amount,
+        sender
+      });
+    }
+  }
+
+  return burns;
+}
+
+// 4) Leaderboard aggregation
 function buildLeaderboard(events) {
   const map = new Map();
 
@@ -114,7 +153,7 @@ function buildLeaderboard(events) {
   return arr.slice(0, 20);
 }
 
-// 4) Summary cards (includes Latest Burn)
+// 5) Summary cards
 function renderSummary(totalBurned, latestBurn, totalSupply) {
   const totalBurnedEl = document.getElementById("totalBurned");
   const totalBurnedPercentEl = document.getElementById("totalBurnedPercent");
@@ -153,7 +192,7 @@ function renderSummary(totalBurned, latestBurn, totalSupply) {
   }
 }
 
-// 5) Chart
+// 6) Burn chart
 function renderChart(events) {
   const ctx = document.getElementById("burnChart");
   if (!ctx) return;
@@ -186,21 +225,21 @@ function renderChart(events) {
       labels,
       datasets: [
         {
-          label: "Cumulative burned RANNTA (official burns)",
-          data: values,
-        },
-      ],
+          label: "Cumulative burned RANNTA",
+          data: values
+        }
+      ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
       scales: { y: { beginAtZero: true } },
-      plugins: { legend: { display: true } },
-    },
+      plugins: { legend: { display: true } }
+    }
   });
 }
 
-// 6) Leaderboard
+// 7) Leaderboard
 function renderLeaderboard(leaderboard) {
   const tbody = document.getElementById("burnLeaderboard");
   if (!tbody) return;
@@ -239,7 +278,7 @@ function renderLeaderboard(leaderboard) {
   });
 }
 
-// 7) Recent burns
+// 8) Recent burns list
 function renderHistory(events) {
   const ul = document.getElementById("burnHistory");
   if (!ul) return;
@@ -265,17 +304,18 @@ function renderHistory(events) {
         " — " +
         formatNumber(ev.amount) +
         " RANNTA from " +
-        senderShort;
+        senderShort +
+        (ev.source ? " (" + ev.source + ")" : "");
       ul.appendChild(li);
     });
 }
 
-// 8) Bootstrap
+// 9) Bootstrap logic: master first, then burn address fallback
 async function bootstrapBurnDashboard() {
   try {
-    const [totalBurnedReal, officialEvents] = await Promise.all([
+    const [totalBurnedReal, masterEvents] = await Promise.all([
       getTotalBurned(),
-      getOfficialBurnEvents(200),
+      getBurnEventsFromMaster(200)
     ]);
 
     const totalBurned =
@@ -283,19 +323,30 @@ async function bootstrapBurnDashboard() {
         ? totalBurnedReal
         : FALLBACK_BURNED;
 
+    let effectiveEvents = masterEvents || [];
+
+    // If master events are empty, fall back to burn address events
+    if (!effectiveEvents || effectiveEvents.length === 0) {
+      console.warn(
+        "[Burn] No master events detected, falling back to burn address events"
+      );
+      const burnAddrEvents = await getBurnEventsFromBurnAddress(200);
+      effectiveEvents = burnAddrEvents || [];
+    }
+
     let latestBurn = null;
-    if (officialEvents && officialEvents.length > 0) {
-      latestBurn = officialEvents.reduce((latest, ev) =>
+    if (effectiveEvents && effectiveEvents.length > 0) {
+      latestBurn = effectiveEvents.reduce((latest, ev) =>
         !latest || ev.timestamp > latest.timestamp ? ev : latest
       , null);
     }
 
-    const leaderboard = buildLeaderboard(officialEvents);
+    const leaderboard = buildLeaderboard(effectiveEvents);
 
     renderSummary(totalBurned, latestBurn, TOTAL_SUPPLY);
-    renderChart(officialEvents);
+    renderChart(effectiveEvents);
     renderLeaderboard(leaderboard);
-    renderHistory(officialEvents);
+    renderHistory(effectiveEvents);
   } catch (err) {
     console.error("Burn dashboard error:", err);
     renderSummary(FALLBACK_BURNED, null, TOTAL_SUPPLY);
