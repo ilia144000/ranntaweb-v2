@@ -2,7 +2,7 @@
 
 const RANNTA_MASTER = "EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR";
 const BURN_ADDRESS = "UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ";
-const TOTAL_SUPPLY = 130000000000; // 130B RANNTA
+const TOTAL_SUPPLY = 33000000000; // 33B RANNTA
 const DECIMALS = 9;
 
 // Only used if TonAPI is not reachable
@@ -346,9 +346,11 @@ async function bootstrapBurnDashboard() {
 
     let latestBurn = null;
     if (events && events.length > 0) {
-      latestBurn = events.reduce((latest, ev) =>
-        !latest || ev.timestamp > latest.timestamp ? ev : latest
-      , null);
+      latestBurn = events.reduce(
+        (latest, ev) =>
+          !latest || ev.timestamp > latest.timestamp ? ev : latest,
+        null
+      );
     }
 
     const leaderboard = buildLeaderboard(events);
