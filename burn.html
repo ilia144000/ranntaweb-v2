@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>RANNTA Burn Dashboard</title>
-  <meta name="description" content="Live RANNTA burn statistics on TON: total burned, circulating supply, and holder leaderboard updated via on-chain data." />
+  <meta name="description" content="Live RANNTA burn statistics — total burned supply, circulating supply, and holder leaderboard updated via on-chain data." />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Favicon -->
@@ -11,10 +11,9 @@
 
   <!-- Open Graph -->
   <meta property="og:title" content="RANNTA Burn Dashboard" />
-  <meta property="og:description" content="Live burn metrics for the RANNTA protocol on TON – total burned supply, circulating supply, and community burns." />
+  <meta property="og:description" content="Live burn metrics for RANNTA on TON — total burned supply, circulating supply, and community burns." />
   <meta property="og:image" content="assets/rannta-burn-og.png" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://rannta.com/burn.html" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="style.css" />
@@ -29,95 +28,162 @@
     .page-wrapper {
       max-width: 960px;
       margin: 0 auto;
-      padding: 40px 16px 64px;
+      padding: 40px 16px 80px;
+    }
+
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 32px;
     }
 
     .title-row {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 8px;
+      flex-wrap: wrap;
     }
 
     .title-row h1 {
-      margin: 0;
       font-size: 32px;
-      color: #ffd400;
+      margin: 0;
+      color: #ffd32a;
     }
 
-    .flame-icon {
-      font-size: 30px;
+    .fire-emoji {
+      font-size: 32px;
     }
 
     .subtitle {
-      margin: 0 0 32px;
-      font-size: 15px;
+      font-size: 14px;
       line-height: 1.6;
+      max-width: 700px;
       color: #d0d0d0;
     }
 
-    .burn-grid {
+    .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 18px;
-      margin-bottom: 32px;
-    }
-
-    .burn-item {
-      background: radial-gradient(circle at top, #1a1a1f, #050608);
-      border-radius: 18px;
-      padding: 18px 20px;
-      border: 1px solid rgba(255, 212, 0, 0.12);
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.55);
-    }
-
-    .burn-item .label {
-      display: block;
-      font-size: 13px;
-      color: #bbbbbb;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-
-    .burn-item .value {
-      font-size: 18px;
-      font-weight: 600;
-      color: #ffd400;
-    }
-
-    .burn-item .value.small {
-      font-size: 14px;
-      color: #f0f0f0;
-      word-break: break-all;
-    }
-
-    .burn-item .highlight {
-      color: #ff7a1a;
-      font-weight: 600;
-    }
-
-    .leaderboard-card {
-      background: linear-gradient(145deg, #111119, #050608);
-      border-radius: 18px;
-      padding: 20px 20px 18px;
-      border: 1px solid rgba(255, 212, 0, 0.15);
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
       margin-bottom: 24px;
     }
 
-    .leaderboard-title {
-      font-size: 15px;
-      margin: 0 0 12px;
-      color: #ffd400;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    @media (max-width: 800px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
     }
 
-    .leaderboard-subtitle {
-      margin: 0 0 10px;
+    @media (max-width: 600px) {
+      .cards-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: #11121a;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 0 1px rgba(255, 211, 42, 0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 96px;
+    }
+
+    .card-label {
       font-size: 13px;
-      color: #c0c0c0;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a0a4b8;
+      margin-bottom: 8px;
+    }
+
+    .card-value {
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffe66d;
+    }
+
+    .card-note {
+      font-size: 12px;
+      margin-top: 4px;
+      color: #b0b3c3;
+    }
+
+    .highlight {
+      color: #ffe66d;
+      font-weight: 600;
+    }
+
+    .burn-address {
+      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      word-break: break-all;
+      color: #f1f1f1;
+    }
+
+    .refresh-row {
+      margin: 24px 0 32px;
+      display: flex;
+      justify-content: flex-start;
+    }
+
+    .btn-refresh {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffd32a;
+      color: #10111a;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 22px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: default;
+      box-shadow: 0 8px 18px rgba(255, 211, 42, 0.25);
+      transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.08s ease;
+    }
+
+    .btn-refresh span.icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      background: #10111a;
+      color: #ffd32a;
+      font-size: 11px;
+    }
+
+    .btn-refresh:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 10px rgba(255, 211, 42, 0.2);
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 6px;
+      color: #f5f5f5;
+    }
+
+    .section-subtitle {
+      font-size: 13px;
+      margin: 0 0 16px;
+      color: #b0b3c3;
+      max-width: 720px;
+    }
+
+    .table-wrapper {
+      background: #0a0b10;
+      border-radius: 18px;
+      padding: 18px 18px 10px;
+      box-shadow: 0 0 0 1px rgba(255, 211, 42, 0.06);
+      overflow-x: auto;
+      margin-bottom: 24px;
     }
 
     table {
@@ -126,179 +192,336 @@
       font-size: 13px;
     }
 
-    th, td {
-      padding: 8px 6px;
+    th,
+    td {
+      padding: 8px 10px;
       text-align: left;
+      white-space: nowrap;
     }
 
     th {
-      color: #f0f0f0;
-      font-weight: 500;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
       font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #a0a4b8;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     td {
-      color: #dedede;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      color: #e0e2ee;
     }
 
-    tbody tr:last-child td {
+    tr:last-child td {
       border-bottom: none;
     }
 
+    .col-rank {
+      width: 40px;
+    }
+
+    .col-amount {
+      text-align: right;
+    }
+
+    .col-count {
+      text-align: center;
+    }
+
     .addr {
-      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-family: "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
-      color: #a5c3ff;
-      word-break: break-all;
     }
 
     .footer-note {
-      margin-top: 24px;
+      font-size: 11px;
+      color: #8c92a8;
+      margin-top: 6px;
+    }
+
+    .history-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
       font-size: 12px;
-      color: #888;
-      line-height: 1.5;
+      color: #d0d3e1;
     }
 
-    .refresh-wrapper {
-      margin-top: 12px;
+    .history-list li {
+      padding: 4px 0;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+    }
+
+    .history-list li:last-child {
+      border-bottom: none;
+    }
+
+    .two-column {
+      display: grid;
+      grid-template-columns: 2fr 1.3fr;
+      gap: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .two-column {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .chart-placeholder {
+      height: 220px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, rgba(255, 211, 42, 0.12), transparent 55%),
+        #050608;
+      border: 1px dashed rgba(255, 211, 42, 0.28);
       display: flex;
-      justify-content: flex-start;
-    }
-
-    .refresh-btn {
-      border: none;
-      outline: none;
-      border-radius: 999px;
-      padding: 8px 20px;
-      background: #ffd400;
-      color: #000;
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(255, 212, 0, 0.4);
-      display: inline-flex;
       align-items: center;
-      gap: 6px;
+      justify-content: center;
+      font-size: 12px;
+      color: #a0a4b8;
+      text-align: center;
+      padding: 0 12px;
     }
 
-    .refresh-btn:hover {
-      background: #ffe357;
+    .chart-placeholder strong {
+      color: #ffe66d;
     }
 
-    .refresh-btn span.icon {
-      font-size: 16px;
+    .mobile-only {
+      display: none;
     }
 
-    @media (max-width: 600px) {
-      .page-wrapper {
-        padding-top: 28px;
+    .desktop-only {
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .mobile-only {
+        display: block;
       }
 
-      .title-row h1 {
-        font-size: 26px;
-      }
-
-      .burn-item .value {
-        font-size: 16px;
+      .desktop-only {
+        display: none;
       }
     }
   </style>
 </head>
 <body>
   <div class="page-wrapper">
-    <div class="title-row">
-      <div class="flame-icon">🔥</div>
-      <h1>RANNTA Burn Dashboard</h1>
-    </div>
-
-    <p class="subtitle">
-      Transparent, live metrics for the RANNTA burn process on TON.
-      Total burned supply, circulating supply and community burn leaderboard — updated via on-chain data.
-    </p>
-
-    <div class="burn-grid">
-      <div class="burn-item">
-        <span class="label">Total Burned</span>
-        <span id="totalBurned" class="value">6,189,267,507.75 RANNTA</span>
+    <header class="header">
+      <div class="title-row">
+        <span class="fire-emoji">🔥</span>
+        <h1>RANNTA Burn Dashboard</h1>
       </div>
-
-      <div class="burn-item">
-        <span class="label">Total Burned (%)</span>
-        <span id="totalBurnedPercent" class="value">4.761 %</span>
-      </div>
-
-      <div class="burn-item">
-        <span class="label">Circulating Supply</span>
-        <span id="circulatingSupply" class="value">123,810,732,492.25 RANNTA</span>
-      </div>
-
-      <div class="burn-item">
-        <span class="label">Total Supply</span>
-        <span id="totalSupply" class="value">33,000,000,000 RANNTA</span>
-      </div>
-
-      <div class="burn-item">
-        <span class="label">Latest Burn</span>
-        <span id="latestBurn" class="value">No burns detected yet</span>
-      </div>
-
-      <div class="burn-item">
-        <span class="label">Burn Address</span>
-        <span class="value small">UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ</span>
-      </div>
-    </div>
-
-    <div class="refresh-wrapper">
-      <button class="refresh-btn" onclick="window.location.reload()">
-        <span class="icon">⟳</span>
-        <span>Refresh data</span>
-      </button>
-    </div>
-
-    <div class="leaderboard-card">
-      <h2 class="leaderboard-title">Community Burn Leaderboard</h2>
-      <p class="leaderboard-subtitle">
-        Addresses that contribute the most to the RANNTA Phoenix burn. Data below is an example — live integration can be wired to TON APIs.
+      <p class="subtitle">
+        Transparent, live metrics for the RANNTA burn process on TON. Total burned supply, circulating supply and community burn leaderboard —
+        updated via on-chain data.
       </p>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Address</th>
-            <th>Burned (RANNTA)</th>
-          </tr>
-        </thead>
-        <tbody>
+    </header>
+
+    <!-- Summary cards -->
+    <section aria-label="RANNTA burn summary">
+      <div class="cards-grid">
+        <!-- Total burned -->
+        <article class="card">
+          <div class="card-label">Total Burned</div>
+          <div class="card-value">
+            <span id="totalBurned">76,253,036,713.52 RANNTA</span>
+          </div>
+          <div class="card-note">
+            Based on DYOR.io — includes all completed Phoenix burn phases to date.
+          </div>
+        </article>
+
+        <!-- Total burned (%) -->
+        <article class="card">
+          <div class="card-label">Total Burned (%)</div>
+          <div class="card-value">
+            <span id="totalBurnedPercent">58.66 %</span>
+          </div>
+          <div class="card-note">
+            Percentage of the original 130B RANNTA supply that has been sent to the null wallet.
+          </div>
+        </article>
+
+        <!-- Circulating supply -->
+        <article class="card">
+          <div class="card-label">Circulating Supply</div>
+          <div class="card-value">
+            <span id="circSupply">53,746,963,286.48 RANNTA</span>
+          </div>
+          <div class="card-note">
+            Remaining supply in circulation after Phoenix burn phases.
+          </div>
+        </article>
+
+        <!-- Total supply -->
+        <article class="card">
+          <div class="card-label">Total Supply</div>
+          <div class="card-value">
+            <span id="totalSupply">130,000,000,000 RANNTA</span>
+          </div>
+          <div class="card-note">
+            Original minted supply of RANNTA on TON.
+          </div>
+        </article>
+
+        <!-- Latest burn -->
+        <article class="card">
+          <div class="card-label">Latest Burn</div>
+          <div class="card-value">
+            <span id="latestBurn">Synced with DYOR.io — Phoenix Burn Phase 1 (manual update)</span>
+          </div>
+          <div class="card-note">
+            Future phases can be added here or wired live to TonAPI.
+          </div>
+        </article>
+
+        <!-- Burn address -->
+        <article class="card">
+          <div class="card-label">Burn Address</div>
+          <div class="card-value burn-address">
+            UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ
+          </div>
+          <div class="card-note">
+            All burned RANNTA are permanently locked at this null wallet.
+          </div>
+        </article>
+      </div>
+
+      <div class="refresh-row">
+        <button class="btn-refresh" type="button">
+          <span class="icon">↻</span>
+          <span>Refresh data</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Leaderboard + history -->
+    <section aria-label="Community burn leaderboard and history">
+      <div class="two-column">
+        <!-- Leaderboard -->
+        <div>
+          <h2 class="section-title">COMMUNITY BURN LEADERBOARD</h2>
+          <p class="section-subtitle">
+            Addresses that contribute the most to the RANNTA Phoenix burn. Data below is currently a manual snapshot — live integration can later be wired to TON APIs.
+          </p>
+
+          <!-- Desktop table -->
+          <div class="table-wrapper desktop-only">
+            <table>
+              <thead>
+                <tr>
+                  <th class="col-rank">#</th>
+                  <th>Address</th>
+                  <th class="col-amount">Burned (RANNTA)</th>
+                  <th class="col-count">Tx count</th>
+                </tr>
+              </thead>
+              <tbody id="burnLeaderboard">
           <tr>
             <td>1</td>
-            <td class="addr">UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ</td>
-            <td>6,189,267,507.75</td>
+            <td title="Burn address (null wallet)">UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ</td>
+            <td class="col-amount">76,253,036,713.52</td>
+            <td class="col-count">All phases</td>
           </tr>
           <tr>
             <td>2</td>
-            <td class="addr">UQCPqTBwvAIPq8Ztc8KFfZghhL-mubxvql5ySqblKxm49dhl</td>
-            <td>1,300,000,000</td>
+            <td title="Community & Ecosystem wallet">UQCPqTBwvAIPq8Ztc8KFfZghhL-mubxvql5ySqblKxm49dhl</td>
+            <td class="col-amount">32,010,000,000</td>
+            <td class="col-count">Multiple</td>
           </tr>
           <tr>
             <td>3</td>
-            <td class="addr">UQBNleQBEsVxNxxMhdSvp1SUSS4amSGEJJNtHHJZCTxYYvS-</td>
-            <td>750,000,000</td>
+            <td title="Team & Long-term contributors">UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL</td>
+            <td class="col-amount">24,250,000,000</td>
+            <td class="col-count">Multiple</td>
           </tr>
-        </tbody>
-      </table>
-    </div>
+          <tr>
+            <td>4</td>
+            <td title="Advisors & Strategic partners">UQDVV9MNrvhLJ0UMFBWxYvXt3PuRaqxjbdHa0MBg112joTW9</td>
+            <td class="col-amount">14,550,000,000</td>
+            <td class="col-count">Multiple</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td title="Reserve vault">UQCZhxOIkQHw3SrCMtcdQ0LTyoEeySKMFxNUyu4Kztt-5R6v</td>
+            <td class="col-amount">11,640,000,000</td>
+            <td class="col-count">Multiple</td>
+          </tr>
+              </tbody>
+            </table>
+            <p class="footer-note">
+              Note: values above follow the original distribution pools (Community, Team, Advisors, Reserve). If you update any burn, just edit this table manually.
+            </p>
+          </div>
 
-    <p class="footer-note">
-      RANNTA is a memorial token and a living protocol on TON. The burn mechanism is designed to gradually reduce supply,
-      increase scarcity and symbolically represent cycles of destruction and rebirth. This dashboard is for informational purposes only and
-      does not constitute financial advice.
-    </p>
+          <!-- Mobile table -->
+          <div class="table-wrapper mobile-only">
+            <table>
+              <thead>
+                <tr>
+                  <th class="col-rank">#</th>
+                  <th>Address</th>
+                  <th class="col-amount">Burned (RANNTA)</th>
+                </tr>
+              </thead>
+              <tbody id="burnLeaderboardMobile">
+          <tr>
+            <td>1</td>
+            <td class="addr" title="Burn address (null wallet)">UQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJKZ</td>
+            <td class="col-amount">76,253,036,713.52</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td class="addr" title="Community & Ecosystem wallet">UQCPqTBwvAIPq8Ztc8KFfZghhL-mubxvql5ySqblKxm49dhl</td>
+            <td class="col-amount">32,010,000,000</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td class="addr" title="Team & Long-term contributors">UQDKJfVh5jnM0eGlOanDXWl6d8fleIZjoc7SHakWuxS6m4bL</td>
+            <td class="col-amount">24,250,000,000</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td class="addr" title="Advisors & Strategic partners">UQDVV9MNrvhLJ0UMFBWxYvXt3PuRaqxjbdHa0MBg112joTW9</td>
+            <td class="col-amount">14,550,000,000</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td class="addr" title="Reserve vault">UQCZhxOIkQHw3SrCMtcdQ0LTyoEeySKMFxNUyu4Kztt-5R6v</td>
+            <td class="col-amount">11,640,000,000</td>
+          </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- History / chart -->
+        <div>
+          <h2 class="section-title">BURN HISTORY</h2>
+          <p class="section-subtitle">
+            Visual overview of the Phoenix burn process. You can keep this as a static explanation or later connect it to live TonAPI / DYOR data.
+          </p>
+
+          <div class="chart-placeholder">
+            <div>
+              <strong>Phoenix curve coming soon.</strong><br />
+              For now, DYOR.io is the canonical source for detailed charts:
+              <br />burned supply, price and liquidity over time.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer-note" style="margin-top: 32px;">
+      This dashboard is an informational mirror of the RANNTA Phoenix burn on TON. For canonical numbers always cross-check with
+      DYOR.io and Tonviewer.
+    </footer>
   </div>
 
-  <script src="burn-dashboard.js"></script>
+  <!-- Scripts (if you later connect real on-chain data, plug here) -->
+  <!-- For now everything is static and fully controlled from this HTML file. -->
 </body>
 </html>
