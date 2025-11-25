@@ -6,36 +6,72 @@
       <stop offset="0%" stop-color="#e6c980"/>
       <stop offset="100%" stop-color="#d1a85a"/>
     </radialGradient>
+
+    <!-- Soft glow around rings -->
+    <filter id="ringGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
   </defs>
 
   <!-- Background -->
   <rect width="512" height="580" fill="#0b0b0f"/>
 
-  <!-- Circles -->
-  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
-    <animate attributeName="r" from="0" to="30" dur="3s" begin="0s" fill="freeze"/>
-  </circle>
-  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
-    <animate attributeName="r" from="0" to="55" dur="3s" begin="0.2s" fill="freeze"/>
-  </circle>
-  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
-    <animate attributeName="r" from="0" to="80" dur="3s" begin="0.4s" fill="freeze"/>
-  </circle>
-  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
-    <animate attributeName="r" from="0" to="105" dur="3s" begin="0.6s" fill="freeze"/>
-  </circle>
-  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
-    <animate attributeName="r" from="0" to="130" dur="3s" begin="0.8s" fill="freeze"/>
-  </circle>
-  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
-    <animate attributeName="r" from="0" to="155" dur="3s" begin="1s" fill="freeze"/>
-  </circle>
-  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
-    <animate attributeName="r" from="0" to="180" dur="3s" begin="1.2s" fill="freeze"/>
-  </circle>
-  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
-    <animate attributeName="r" from="0" to="205" dur="3s" begin="1.4s" fill="freeze"/>
-  </circle>
+  <!-- Rings group with glow -->
+  <g filter="url(#ringGlow)">
+    <!-- Circles (same animation as before) -->
+    <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+      <animate attributeName="r" from="0" to="30" dur="3s" begin="0s" fill="freeze"/>
+      <!-- Soft pulse of stroke width -->
+      <animate attributeName="stroke-width" values="1.6;2.4;1.6"
+               keyTimes="0;0.5;1" dur="0.6s" begin="5s" fill="freeze"/>
+    </circle>
+
+    <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+      <animate attributeName="r" from="0" to="55" dur="3s" begin="0.2s" fill="freeze"/>
+      <animate attributeName="stroke-width" values="1.6;2.4;1.6"
+               keyTimes="0;0.5;1" dur="0.6s" begin="5s" fill="freeze"/>
+    </circle>
+
+    <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+      <animate attributeName="r" from="0" to="80" dur="3s" begin="0.4s" fill="freeze"/>
+      <animate attributeName="stroke-width" values="1.6;2.4;1.6"
+               keyTimes="0;0.5;1" dur="0.6s" begin="5s" fill="freeze"/>
+    </circle>
+
+    <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+      <animate attributeName="r" from="0" to="105" dur="3s" begin="0.6s" fill="freeze"/>
+      <animate attributeName="stroke-width" values="1.6;2.4;1.6"
+               keyTimes="0;0.5;1" dur="0.6s" begin="5s" fill="freeze"/>
+    </circle>
+
+    <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+      <animate attributeName="r" from="0" to="130" dur="3s" begin="0.8s" fill="freeze"/>
+      <animate attributeName="stroke-width" values="1.6;2.4;1.6"
+               keyTimes="0;0.5;1" dur="0.6s" begin="5s" fill="freeze"/>
+    </circle>
+
+    <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+      <animate attributeName="r" from="0" to="155" dur="3s" begin="1s" fill="freeze"/>
+      <animate attributeName="stroke-width" values="1.6;2.4;1.6"
+               keyTimes="0;0.5;1" dur="0.6s" begin="5s" fill="freeze"/>
+    </circle>
+
+    <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+      <animate attributeName="r" from="0" to="180" dur="3s" begin="1.2s" fill="freeze"/>
+      <animate attributeName="stroke-width" values="1.6;2.4;1.6"
+               keyTimes="0;0.5;1" dur="0.6s" begin="5s" fill="freeze"/>
+    </circle>
+
+    <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+      <animate attributeName="r" from="0" to="205" dur="3s" begin="1.4s" fill="freeze"/>
+      <animate attributeName="stroke-width" values="1.6;2.4;1.6"
+               keyTimes="0;0.5;1" dur="0.6s" begin="5s" fill="freeze"/>
+    </circle>
+  </g>
 
   <!-- Phoenician letters -->
   <text x="256" y="256" text-anchor="middle"
@@ -48,11 +84,10 @@
     <animate attributeName="opacity" from="0" to="1" dur="2s" begin="3s" fill="freeze"/>
   </text>
 
-  <!-- RANNTA Arc Wallet (UNDER the circle) -->
+  <!-- RANNTA Arc Wallet (under the circle) -->
   <text x="256" y="540" text-anchor="middle"
         font-size="38" font-weight="600"
         opacity="0">
-
     <tspan fill="red">R</tspan>
     <tspan fill="orange">A</tspan>
     <tspan fill="yellow">N</tspan>
