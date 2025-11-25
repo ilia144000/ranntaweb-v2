@@ -1,73 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>RANNTA Animated Banner</title>
-<style>
-  body {
-    background: #0b0b0f;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
+<svg width="512" height="580" viewBox="0 0 512 580"
+     xmlns="http://www.w3.org/2000/svg">
 
-  svg {
-    width: 450px;
-    height: 450px;
-  }
-
-  .circle {
-    stroke: url(#goldFade);
-    fill: none;
-    stroke-width: 1.5;
-    transform-origin: 50% 50%;
-    opacity: 0;
-    animation: draw 3s linear forwards;
-  }
-
-  /* Appearance animation for circles */
-  @keyframes draw {
-    0% {
-      opacity: 0;
-      r: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
-  /* Phoenician letters animation (steam-like emergence) */
-  .letters {
-    opacity: 0;
-    filter: blur(12px);
-    animation: reveal 2s ease-out forwards;
-    animation-delay: 3s; /* starts after circles finish */
-  }
-
-  @keyframes reveal {
-    0% {
-      opacity: 0;
-      transform: scale(0.8);
-      filter: blur(12px);
-    }
-    70% {
-      opacity: 1;
-      filter: blur(3px);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-      filter: blur(0px);
-    }
-  }
-</style>
-</head>
-
-<body>
-
-<svg viewBox="0 0 512 512">
   <defs>
     <radialGradient id="goldFade" cx="50%" cy="50%" r="50%">
       <stop offset="0%" stop-color="#e6c980"/>
@@ -75,28 +8,60 @@
     </radialGradient>
   </defs>
 
-  <!-- Circles with staggered delay -->
-  <circle class="circle" style="animation-delay:0s"    cx="256" cy="256" r="30"/>
-  <circle class="circle" style="animation-delay:0.25s" cx="256" cy="256" r="55"/>
-  <circle class="circle" style="animation-delay:0.50s" cx="256" cy="256" r="80"/>
-  <circle class="circle" style="animation-delay:0.75s" cx="256" cy="256" r="105"/>
-  <circle class="circle" style="animation-delay:1.00s" cx="256" cy="256" r="130"/>
-  <circle class="circle" style="animation-delay:1.25s" cx="256" cy="256" r="155"/>
-  <circle class="circle" style="animation-delay:1.50s" cx="256" cy="256" r="180"/>
-  <circle class="circle" style="animation-delay:1.75s" cx="256" cy="256" r="205"/>
+  <!-- Background -->
+  <rect width="512" height="580" fill="#0b0b0f"/>
 
-  <!-- Phoenician Letters 𐤀𐤓 -->
-  <text
-    class="letters"
-    x="50%" y="50%"
-    font-size="120"
-    text-anchor="middle"
-    dominant-baseline="central"
-    fill="url(#goldFade)"
-    style="font-family: 'Segoe UI Symbol','Noto Sans Phoenician', sans-serif;"
-  >𐤀𐤓</text>
+  <!-- Circles -->
+  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+    <animate attributeName="r" from="0" to="30" dur="3s" begin="0s" fill="freeze"/>
+  </circle>
+  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+    <animate attributeName="r" from="0" to="55" dur="3s" begin="0.2s" fill="freeze"/>
+  </circle>
+  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+    <animate attributeName="r" from="0" to="80" dur="3s" begin="0.4s" fill="freeze"/>
+  </circle>
+  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+    <animate attributeName="r" from="0" to="105" dur="3s" begin="0.6s" fill="freeze"/>
+  </circle>
+  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+    <animate attributeName="r" from="0" to="130" dur="3s" begin="0.8s" fill="freeze"/>
+  </circle>
+  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+    <animate attributeName="r" from="0" to="155" dur="3s" begin="1s" fill="freeze"/>
+  </circle>
+  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+    <animate attributeName="r" from="0" to="180" dur="3s" begin="1.2s" fill="freeze"/>
+  </circle>
+  <circle cx="256" cy="256" r="0" stroke="url(#goldFade)" stroke-width="1.6" fill="none">
+    <animate attributeName="r" from="0" to="205" dur="3s" begin="1.4s" fill="freeze"/>
+  </circle>
+
+  <!-- Phoenician letters -->
+  <text x="256" y="256" text-anchor="middle"
+        dominant-baseline="central"
+        font-size="120"
+        fill="url(#goldFade)"
+        opacity="0"
+        style="font-family: 'Segoe UI Symbol','Noto Sans Phoenician', sans-serif;">
+    𐤀𐤓
+    <animate attributeName="opacity" from="0" to="1" dur="2s" begin="3s" fill="freeze"/>
+  </text>
+
+  <!-- RANNTA Arc Wallet (UNDER the circle) -->
+  <text x="256" y="540" text-anchor="middle"
+        font-size="38" font-weight="600"
+        opacity="0">
+
+    <tspan fill="red">R</tspan>
+    <tspan fill="orange">A</tspan>
+    <tspan fill="yellow">N</tspan>
+    <tspan fill="green">N</tspan>
+    <tspan fill="blue">T</tspan>
+    <tspan fill="violet">A</tspan>
+    <tspan fill="url(#goldFade)"> Arc Wallet</tspan>
+
+    <animate attributeName="opacity" from="0" to="1" dur="1.5s" begin="5s" fill="freeze"/>
+  </text>
 
 </svg>
-
-</body>
-</html>
