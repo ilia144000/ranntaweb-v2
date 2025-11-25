@@ -1,166 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <title>NexusBridge Banner Test</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      background: #000000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1000px;
-      padding: 16px;
-    }
-
-    svg {
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 18px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<title>ARC Logo Test</title>
+<style>
+  body {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <!-- Inline animated SVG banner -->
-    <svg viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <!-- Background gradient -->
-        <linearGradient id="bgGradient" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#050505" />
-          <stop offset="50%" stop-color="#151515" />
-          <stop offset="100%" stop-color="#050505" />
-        </linearGradient>
 
-        <!-- Glow gradient for the orb -->
-        <radialGradient id="orbGlow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stop-color="#ffe27a" />
-          <stop offset="40%" stop-color="#ffc93c" />
-          <stop offset="100%" stop-color="#a66b00" />
-        </radialGradient>
+<img src="https://raw.githubusercontent.com/ilia144000/ranntaweb-v2/main/assets/arc-logo.svg"
+     width="300"
+     alt="ARC Logo"/>
 
-        <!-- Subtle scanline overlay -->
-        <pattern id="scanlines" width="4" height="4" patternUnits="userSpaceOnUse">
-          <rect x="0" y="0" width="4" height="2" fill="rgba(255,255,255,0.04)" />
-        </pattern>
-
-        <!-- Neon stroke for underline -->
-        <linearGradient id="underlineGradient" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="#ffe27a" />
-          <stop offset="50%" stop-color="#ffdd55" />
-          <stop offset="100%" stop-color="#f3b73e" />
-        </linearGradient>
-      </defs>
-
-      <!-- Background panel -->
-      <rect x="0" y="0" width="1200" height="300" rx="24" ry="24" fill="url(#bgGradient)" />
-      <rect x="0" y="0" width="1200" height="300" rx="24" ry="24" fill="url(#scanlines)" />
-
-      <!-- Soft outer glow  -->
-      <rect x="12" y="12" width="1176" height="276" rx="22" ry="22"
-            fill="none" stroke="#ffe27a" stroke-opacity="0.25" stroke-width="2">
-        <animate attributeName="stroke-opacity"
-                 values="0.12;0.4;0.12"
-                 dur="4s"
-                 repeatCount="indefinite" />
-      </rect>
-
-      <!-- Golden orb (left) -->
-      <g transform="translate(180,150)">
-        <!-- Outer glow -->
-        <circle r="70" fill="#ffc93c" fill-opacity="0.18">
-          <animate attributeName="r"
-                   values="70;78;70"
-                   dur="3.2s"
-                   repeatCount="indefinite" />
-          <animate attributeName="fill-opacity"
-                   values="0.15;0.35;0.15"
-                   dur="3.2s"
-                   repeatCount="indefinite" />
-        </circle>
-
-        <!-- Main orb -->
-        <circle r="52" fill="url(#orbGlow)">
-          <animate attributeName="r"
-                   values="50;54;50"
-                   dur="2.8s"
-                   repeatCount="indefinite" />
-        </circle>
-
-        <!-- Small pulse ring -->
-        <circle r="58" fill="none" stroke="#ffe27a" stroke-width="2" stroke-opacity="0.8">
-          <animate attributeName="r"
-                   values="58;80;58"
-                   dur="3.4s"
-                   repeatCount="indefinite" />
-          <animate attributeName="stroke-opacity"
-                   values="0.8;0;0.8"
-                   dur="3.4s"
-                   repeatCount="indefinite" />
-        </circle>
-      </g>
-
-      <!-- Main title -->
-      <text x="340" y="135"
-            fill="#ffe27a"
-            font-size="40"
-            font-weight="700"
-            letter-spacing="1.5">
-        NexusBridge — Coherence Commit Layer
-      </text>
-
-      <!-- Subtitle -->
-      <text x="340" y="175"
-            fill="#f4f4f4"
-            font-size="18"
-            opacity="0.92">
-        TON Mainnet · FunC Legacy Contract · Field State Anchor
-        <animate attributeName="opacity"
-                 values="0.7;1;0.7"
-                 dur="5s"
-                 repeatCount="indefinite" />
-      </text>
-
-      <!-- Underline highlight -->
-      <path d="M340 190 H1040"
-            stroke="url(#underlineGradient)"
-            stroke-width="3"
-            stroke-linecap="round">
-        <animate attributeName="stroke-dasharray"
-                 from="0,800"
-                 to="800,0"
-                 dur="3s"
-                 repeatCount="indefinite" />
-      </path>
-
-      <!-- Small status chips on the bottom-right -->
-      <g font-size="12" font-weight="500">
-        <!-- TON -->
-        <rect x="770" y="220" rx="9" ry="9" width="70" height="24" fill="#111827" stroke="#38bdf8" stroke-width="1" />
-        <text x="785" y="237" fill="#e5f6ff">TON Mainnet</text>
-
-        <!-- FunC -->
-        <rect x="850" y="220" rx="9" ry="9" width="80" height="24" fill="#111827" stroke="#4ade80" stroke-width="1" />
-        <text x="865" y="237" fill="#eafff3">FunC Legacy</text>
-
-        <!-- Status -->
-        <rect x="940" y="220" rx="9" ry="9" width="96" height="24" fill="#111827" stroke="#fb923c" stroke-width="1" />
-        <text x="955" y="237" fill="#fff7ed">Experimental</text>
-      </g>
-    </svg>
-  </div>
 </body>
 </html>
