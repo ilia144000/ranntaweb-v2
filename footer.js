@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   footer.innerHTML = `
     <p>
       © 2025 RANNTA. All rights reserved.<br/>
-      Forged in fire. Built for the future. — Powered by TON.<br/>
+      <strong>RANNTA — The Song of Creation.</strong><br/>
+      Forged in fire. Built for the future — Powered by TON.<br/>
       <span class="footer-line">
         <span class="footer-label">📧 Support:</span>
         <a class="footer-link" href="mailto:support@rannta.com">support@rannta.com</a>
