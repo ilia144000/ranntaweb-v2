@@ -1,0 +1,11 @@
+{
+  "name": "RANNTA — Rannaverse Genesis #1",
+  "description": "The first NFT of the RANNTA Rannaverse Genesis collection. A symbolic initiation token within the Mythosymbolic Fractalism (MSF) universe.",
+  "image": "https://rannta.com/nft/rannaverse-genesis/images/1.png",
+  "attributes": [
+    { "trait_type": "Collection", "value": "Rannaverse Genesis" },
+    { "trait_type": "Edition", "value": "1 of 133" },
+    { "trait_type": "Artist", "value": "RANNTA MSF Lab" },
+    { "trait_type": "Symbolic Code", "value": "ORIGIN-13" }
+  ]
+}
