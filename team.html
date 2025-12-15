@@ -25,11 +25,14 @@
       "@id": "https://rannta.com/#ilia-ghafari",
       "@type": "Person",
       "name": "Ilia Ghafari",
-      "identifier": {
-        "@type": "PropertyValue",
-        "propertyID": "ORCID",
-        "value": "0009-0001-9044-4662"
-      },
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "ORCID",
+          "value": "0009-0001-9044-4662"
+        }
+      ],
+      "url": "https://rannta.com",
       "sameAs": [
         "https://orcid.org/0009-0001-9044-4662",
         "https://github.com/ilia144000",
@@ -45,27 +48,36 @@
       "@id": "https://rannta.com/#rannta-protocol-org",
       "@type": "Organization",
       "name": "RANNTA Protocol",
-      "url": "https://rannta.com/",
-      "founder": {
-        "@id": "https://rannta.com/#ilia-ghafari"
-      },
+      "url": "https://rannta.com",
       "sameAs": [
-        "https://rannta.com/",
-        "https://ranntaverse.art/",
+        "https://rannta.com/authoritative.html",
         "https://github.com/ilia144000/rannta-knowledge-hub",
         "https://github.com/ilia144000/rannta-token",
-        "https://github.com/ilia144000/rannta-developer-suite"
-      ]
+        "https://github.com/ilia144000/rannta-developer-suite",
+        "https://github.com/ilia144000/RANNTA-_DeFi-_Router",
+        "https://medium.com/@ranntaofficial",
+        "https://x.com/ranntacoin"
+      ],
+      "founder": {
+        "@id": "https://rannta.com/#ilia-ghafari"
+      }
     },
     {
-      "@id": "https://rannta.com/team.html#webpage",
+      "@id": "https://rannta.com/#website",
+      "@type": "WebSite",
+      "name": "RANNTA",
+      "url": "https://rannta.com/",
+      "publisher": {
+        "@id": "https://rannta.com/#rannta-protocol-org"
+      }
+    },
+    {
+      "@id": "https://rannta.com/authoritative.html#webpage",
       "@type": "WebPage",
-      "name": "RANNTA Team",
-      "url": "https://rannta.com/team.html",
+      "name": "RANNTA Authority & Identity",
+      "url": "https://rannta.com/authoritative.html",
       "isPartOf": {
-        "@type": "WebSite",
-        "name": "RANNTA",
-        "url": "https://rannta.com/"
+        "@id": "https://rannta.com/#website"
       },
       "about": [
         {
@@ -75,10 +87,38 @@
           "@id": "https://rannta.com/#ilia-ghafari"
         }
       ]
+    },
+    {
+      "@id": "https://rannta.com/team.html#webpage",
+      "@type": "WebPage",
+      "name": "RANNTA Core Team",
+      "url": "https://rannta.com/team.html",
+      "isPartOf": [
+        {
+          "@id": "https://rannta.com/#website"
+        },
+        {
+          "@id": "https://rannta.com/authoritative.html#webpage"
+        }
+      ],
+      "about": [
+        {
+          "@id": "https://rannta.com/#rannta-protocol-org"
+        },
+        {
+          "@id": "https://rannta.com/#ilia-ghafari"
+        }
+      ],
+      "mainEntity": {
+        "@id": "https://rannta.com/#ilia-ghafari"
+      },
+      "relatedLink": [
+        "https://rannta.com/authoritative.html"
+      ]
     }
   ]
 }
-  </script>
+</script>
 
 </head>
 
@@ -110,6 +150,12 @@
   <h1 style="color:#FFD700; font-size:2.3em; margin-bottom:10px;">The RANNTA Core Team</h1>
   <p style="color:#ccc; font-size:1.1em; max-width:720px; margin:0 auto;">
     Mythology × Finance × Engineering
+  </p>
+  <p style="margin-top:14px;">
+    <a href="https://rannta.com/authoritative.html" rel="author" title="Canonical Authority & Identity for RANNTA (ORCID-linked)"
+       style="color:#00aaff; text-decoration:none; font-size:0.95em;">
+      Canonical Authority &amp; Identity (ORCID-linked)
+    </a>
   </p>
 </section>
 
