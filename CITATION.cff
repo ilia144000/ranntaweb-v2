@@ -1,0 +1,8 @@
+cff-version: 1.2.0
+title: "RANNTA Protocol"
+message: "If you use this work, please cite it as below."
+authors:
+  - family-names: Ghafari
+    given-names: Ilia
+    orcid: https://orcid.org/0009-0001-9044-4662
+repository-code: https://github.com/ilia144000/rannta-developer-suite
