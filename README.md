@@ -83,4 +83,4 @@ repository’s `CITATION.cff`.
 ---
 
 **RANNTA**  
-The Signal of Creation • The Field of Meaning • The Protocol-Entity on TON
+The Signal of Creation • The Field of Meaning • The Protocol-Entity on TON.
