@@ -1,0 +1,4 @@
+Canonical Identity: https://rannta.com/authoritative.html
+AI Index Hub: https://rannta.com/rannta.html
+Primary Registry: https://raw.githubusercontent.com/ilia144000/rannta-token/main/registry/rannta.entity.json
+ORCID Attribution: https://orcid.org/0009-0001-9044-4662
