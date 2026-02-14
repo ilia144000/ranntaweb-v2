@@ -361,208 +361,7 @@ img {
   }
 }
 
-/* === RANNTA Swap hero card === */
-
-.swap-hero-card {
-  display: block;
-  margin: 18px 0 10px;
-  padding: 14px 16px;
-  border-radius: 14px;
-  background: radial-gradient(circle at top left, #222 0%, #121212 55%, #101010 100%);
-  border: 1px solid rgba(255, 215, 0, 0.32);
-  text-decoration: none;
-  color: #eee;
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.65);
-  transition:
-    transform 0.22s ease,
-    box-shadow 0.22s ease,
-    border-color 0.22s ease,
-    background 0.22s ease;
-}
-
-.swap-hero-label {
-  font-size: 0.92em;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #FFD700;
-  margin-bottom: 6px;
-}
-
-.swap-hero-text {
-  margin: 0 0 10px;
-  font-size: 0.98em;
-  color: #ddd;
-}
-
-.swap-hero-cta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 600;
-  font-size: 0.98em;
-  color: #fff;
-}
-
-.swap-hero-arrow {
-  font-size: 1.1em;
-}
-
-.swap-hero-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.85);
-  border-color: #FFD700;
-  background: radial-gradient(circle at top left, #262015 0%, #151515 60%, #101010 100%);
-}
-
-/* === Swap page layout === */
-
-.swap-page {
-  max-width: 840px;
-  margin: 40px auto 60px auto;
-  padding: 0 16px;
-}
-
-.swap-panel {
-  background: #181818;
-  border-radius: 18px;
-  padding: 26px 20px 30px;
-  box-shadow: 0 6px 42px rgba(0, 0, 0, 0.7);
-}
-
-.swap-panel h1 {
-  margin-top: 0;
-  margin-bottom: 10px;
-  color: #FFD700;
-}
-
-/* Hero image on swap */
-.swap-hero-image {
-  width: 100%;
-  max-width: 640px;
-  margin: 20px auto 30px auto;
-  text-align: center;
-}
-
-.swap-hero-art {
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 0 25px rgba(0, 180, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.swap-lead {
-  margin: 0 0 20px;
-  color: #ddd;
-  font-size: 0.98em;
-}
-
-.swap-box {
-  border-radius: 14px;
-  background: #111;
-  border: 1px solid #333;
-  padding: 18px 16px 20px;
-}
-
-.swap-row {
-  margin-bottom: 14px;
-}
-
-.swap-row label {
-  display: block;
-  font-size: 0.82em;
-  color: #aaa;
-  margin-bottom: 4px;
-}
-
-.swap-input-wrap {
-  display: flex;
-  align-items: center;
-  background: #181818;
-  border-radius: 10px;
-  border: 1px solid #333;
-  padding: 6px 10px;
-}
-
-.swap-input-wrap input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  color: #fff;
-  font-size: 1em;
-  outline: none;
-}
-
-.swap-token {
-  font-size: 0.9em;
-  font-weight: 600;
-  color: #ffd700;
-  margin-left: 8px;
-}
-
-.swap-arrow {
-  text-align: center;
-  margin: 8px 0 10px;
-  font-size: 1.4em;
-  color: #888;
-}
-
-.swap-hint {
-  margin: 6px 0 14px;
-  font-size: 0.86em;
-  color: #bbb;
-}
-
-.swap-main-button {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 11px 14px;
-  border-radius: 999px;
-  background: #ffd700;
-  color: #111;
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 0.98em;
-  transition: all 0.22s ease;
-}
-
-.swap-main-button:hover {
-  background: #fff;
-  color: #111;
-  box-shadow: 0 0 22px rgba(255, 215, 0, 0.6);
-}
-
-.swap-footnote {
-  margin-top: 14px;
-  font-size: 0.82em;
-  color: #999;
-}
-
-@media (max-width: 700px) {
-  .swap-panel {
-    padding: 20px 14px 24px;
-  }
-}
-
 /* === RANNTA Pre-Sale extras === */
-
-.presale-subtitle {
-  margin-top: 28px;
-  margin-bottom: 10px;
-  font-size: 1.1em;
-  color: #FFD700;
-}
-
-.presale-steps {
-  margin: 0 0 20px 20px;
-  padding-left: 0;
-  font-size: 0.98em;
-  line-height: 1.7;
-}
-
-.presale-steps li {
-  margin-bottom: 6px;
-}
 
 .presale-address-box {
   margin-top: 18px;
@@ -588,73 +387,6 @@ img {
   word-break: break-all;
 }
 
-.presale-notes {
-  margin-top: 22px;
-  font-size: 0.92em;
-  color: #ccc;
-}
-
-.presale-notes h3 {
-  margin-top: 0;
-  margin-bottom: 8px;
-  color: #FFD700;
-}
-
-.presale-notes ul {
-  margin: 0 0 0 18px;
-  padding-left: 0;
-}
-
-.presale-notes li {
-  margin-bottom: 5px;
-}
-
-.swap-visual {
-  margin: 18px 0 10px;
-  text-align: center;
-}
-
-.swap-visual img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
-  display: inline-block;
-}
-
-.swap-link-card {
-  background: rgba(90, 180, 255, 0.10);
-  border: 1px solid rgba(90, 180, 255, 0.55);
-  border-radius: 18px;
-  padding: 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.swap-link-text {
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.swap-link-button {
-  align-self: flex-start;
-  text-align: center;
-  padding-left: 20px;
-  padding-right: 20px;
-}
-
-@media (max-width: 640px) {
-  .swap-link-card {
-    padding: 12px 12px;
-  }
-  .swap-link-button {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
 /* --- Responsive site footer (for .site-footer) --- */
 
 .site-footer {
@@ -665,32 +397,6 @@ img {
   margin-top: 40px;
 }
 
-.footer-grid {
-  max-width: 960px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 24px;
-}
-
-.footer-col h3 {
-  color: gold;
-  margin: 0 0 10px;
-  font-size: 0.95rem;
-}
-
-.footer-col a {
-  color: #00aaff;
-  display: block;
-  text-decoration: none;
-  margin-bottom: 6px;
-  font-size: 0.9rem;
-}
-
-.footer-col a:hover {
-  text-decoration: underline;
-}
-
 .footer-copy {
   text-align: center;
   margin-top: 28px;
@@ -698,224 +404,6 @@ img {
   font-size: 0.82rem;
 }
 
-/* Mobile tweaks for footer */
-@media (max-width: 700px) {
-  .footer-grid {
-    text-align: center;
-  }
-
-  .footer-col {
-    margin-bottom: 4px;
-  }
-}
-
-/* === Burn Dashboard core === */
-
-.burn-stats-box {
-  background:#181818;
-  padding: 22px 20px;
-  border-radius: 16px;
-  border:1px solid #333;
-  margin-top: 24px;
-}
-
-.burn-grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-}
-
-.burn-item {
-  background:#111;
-  border:1px solid #333;
-  padding:14px 12px;
-  border-radius:12px;
-  text-align:center;
-}
-
-.burn-item .label {
-  display:block;
-  font-size:0.85em;
-  color:#aaa;
-  margin-bottom:6px;
-}
-
-.burn-item .value {
-  font-size:1.2em;
-  color:#FFD700;
-  font-weight:bold;
-}
-
-.burn-item .small {
-  font-size:0.75em;
-  word-break: break-all;
-}
-
-/* === Burn Dashboard advanced layout === */
-
-.burn-header p {
-  color: #ddd;
-  margin-bottom: 18px;
-}
-
-.burn-chart-section,
-.burn-leaderboard-section,
-.burn-history-section {
-  margin-top: 34px;
-}
-
-.chart-sub {
-  font-size: 0.92em;
-  color: #bbb;
-  margin-bottom: 12px;
-}
-
-.burn-chart-wrapper {
-  background: #181818;
-  border-radius: 16px;
-  border: 1px solid #333;
-  padding: 16px;
-  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.7);
-}
-
-.table-wrapper {
-  background: #181818;
-  border-radius: 16px;
-  border: 1px solid #333;
-  padding: 16px;
-  box-shadow: 0 6px 36px rgba(0, 0, 0, 0.7);
-  overflow-x: auto;
-}
-
-.burn-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.92rem;
-}
-
-.burn-table thead {
-  background: #111;
-}
-
-.burn-table th,
-.burn-table td {
-  padding: 8px 10px;
-  border-bottom: 1px solid #333;
-  text-align: left;
-}
-
-.burn-table th {
-  color: #ffd700;
-  font-weight: 600;
-}
-
-.burn-table tbody tr:nth-child(even) {
-  background: #151515;
-}
-
-.burn-table tbody tr:hover {
-  background: #202020;
-}
-
-.burn-table td:nth-child(1) {
-  width: 40px;
-}
-
-.burn-table td:nth-child(3),
-.burn-table td:nth-child(4) {
-  text-align: right;
-}
-
-.burn-history-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.burn-history-list li {
-  padding: 8px 10px;
-  margin-bottom: 6px;
-  background: #181818;
-  border-radius: 10px;
-  border: 1px solid #333;
-  font-size: 0.9rem;
-}
-
-/* Small screens */
-@media (max-width: 700px) {
-  .burn-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* === RANNTA Manifesto Block === */
-
-.manifesto-block {
-  max-width: 760px;
-  margin: 60px auto 50px;
-  padding: 32px 26px;
-  background: linear-gradient(180deg, #151515, #101010);
-  border-left: 3px solid #FFD700;
-  border-radius: 14px;
-  box-shadow: 0 0 40px rgba(255, 215, 0, 0.08);
-  line-height: 1.7;
-  color: #eee;
-  text-align: left;
-}
-
-.manifesto-title {
-  color: #FFD700;
-  font-family: 'Cinzel Decorative', serif;
-  font-size: 1.8em;
-  margin-top: 0;
-  margin-bottom: 20px;
-}
-
-.manifesto-line {
-  margin-bottom: 16px;
-  font-size: 1.08em;
-}
-
-@media (max-width: 600px) {
-  .manifesto-block {
-    padding: 22px 16px;
-    margin: 40px 14px;
-  }
-  .manifesto-title {
-    font-size: 1.4em;
-  }
-  .manifesto-line {
-    font-size: 0.98em;
-  }
-}
-/* Official Seal Banner */
-.official-seal-banner {
-  background: linear-gradient(90deg, #111, #1c1c1c);
-  border: 1px solid #d4af37;
-  margin: 20px auto;
-  padding: 14px 20px;
-  max-width: 1000px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 0 12px rgba(212, 175, 55, 0.4);
-}
-
-.seal-content {
-  font-family: 'Poppins', sans-serif;
-  font-size: 15px;
-  color: #f5f5f5;
-}
-
-.seal-link {
-  color: #d4af37;
-  font-weight: 600;
-  margin-left: 8px;
-  text-decoration: none;
-}
-
-.seal-link:hover {
-  text-decoration: underline;
-}
 /* ===========================
    Professional Gold Seal (RANNTA)
    =========================== */
@@ -953,13 +441,14 @@ img {
 
 .sealPro__badge {
   position: relative;
-  width: 56px;
-  height: 56px;
-  flex: 0 0 56px;
+  width: 78px;
+  height: 78px;
+  flex: 0 0 78px;
   border-radius: 999px;
-  display: grid;
-  place-items: center;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   background: linear-gradient(180deg, rgba(212,175,55,0.20), rgba(0,0,0,0.15));
   border: 1px solid rgba(212,175,55,0.75);
   box-shadow:
@@ -967,16 +456,10 @@ img {
     0 10px 18px rgba(0,0,0,0.35);
 }
 
-.sealPro__logo {
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  object-fit: cover;
-}
-
+/* ring */
 .sealPro__ring {
   position: absolute;
-  inset: -6px;
+  inset: -10px;
   border-radius: 999px;
   border: 1px solid rgba(212,175,55,0.35);
   box-shadow: 0 0 16px rgba(212,175,55,0.25);
@@ -1019,18 +502,6 @@ img {
   margin-top: 6px;
 }
 
-.sealPro__link {
-  color: rgba(212,175,55,0.95);
-  text-decoration: none;
-  font-weight: 600;
-  margin-left: 8px;
-  border-bottom: 1px solid rgba(212,175,55,0.35);
-}
-
-.sealPro__link:hover {
-  border-bottom-color: rgba(212,175,55,0.95);
-}
-
 .sealPro__cta {
   position: relative;
   flex: 0 0 auto;
@@ -1056,39 +527,21 @@ img {
 .sealPro__button:hover { filter: brightness(1.04); transform: translateY(-1px); }
 .sealPro__button:active { transform: translateY(0px); }
 
-@media (max-width: 720px) {
-  .sealPro__inner { gap: 12px; padding: 12px 12px; }
-  .sealPro__badge { width: 50px; height: 50px; flex-basis: 50px; }
-  .sealPro__logo { width: 30px; height: 30px; }
-  .sealPro__cta { display: none; }
-  .sealPro__title { font-size: 15px; }
-}
-/* === FINAL FIX: Gold Seal Centered & Smaller Logo === */
-
-.sealPro__badge {
-  position: relative;
-  width: 78px;
-  height: 78px;
-  flex: 0 0 78px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* prevent image overflow */
-}
-
-.sealPro__logo {
-  width: 64px !important;
-  height: 64px !important;
-  max-width: 64px !important;
-  max-height: 64px !important;
-  object-fit: cover;
-  border-radius: 999px;
-  margin: 0 !important;
+/* === FINAL: ONLY the verify image (mark) is controlled here === */
+.sealPro__badge .sealPro__mark {
+  width: 60px;
+  height: 60px;
   display: block;
+  border-radius: 999px;
+  object-fit: cover;
+  margin: 0;
   filter: drop-shadow(0 0 8px rgba(212,175,55,0.65));
 }
 
-.sealPro__ring {
-  inset: -10px;
+@media (max-width: 720px) {
+  .sealPro__inner { gap: 12px; padding: 12px 12px; }
+  .sealPro__badge { width: 64px; height: 64px; flex-basis: 64px; }
+  .sealPro__badge .sealPro__mark { width: 48px; height: 48px; }
+  .sealPro__cta { display: none; }
+  .sealPro__title { font-size: 15px; }
 }
