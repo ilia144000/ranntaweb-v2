@@ -15,12 +15,12 @@
   <meta property="og:title" content="Official Contracts — RANNTA">
   <meta property="og:description" content="Verify the official TON Jetton Master address. No other chains are authorized.">
   <meta property="og:url" content="https://rannta.com/contracts.html">
-  <meta property="og:image" content="https://rannta.com/assets/brand/coin.png">
+  <meta property="og:image" content="https://rannta.com/assets/brand/rannta-logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Official Contracts — RANNTA">
   <meta name="twitter:description" content="Verify the official TON Jetton Master address. RANNTA exists exclusively on TON.">
-  <meta name="twitter:image" content="https://rannta.com/assets/brand/coin.png">
+  <meta name="twitter:image" content="https://rannta.com/assets/brand/rannta-logo.png">
 
   <script type="application/ld+json">
   {
@@ -43,7 +43,7 @@
 
 <body>
   <header>
-    <img src="assets/brand/coin.png" alt="RANNTA Logo" class="logo" width="160" height="160" />
+    <img src="assets/brand/logo-rect.svg" alt="RANNTA" class="logo" />
     <nav>
       <ul>
         <li><a href="/">Home</a></li>
@@ -67,10 +67,12 @@
   <main>
     <h1>RANNTA Official Contracts</h1>
 
-    <div class="sealPro sealPro--page">
+    <!-- Professional Seal (ONE link only) -->
+    <div class="sealPro" role="note" aria-label="RANNTA official verification notice">
       <div class="sealPro__inner">
         <div class="sealPro__badge" aria-hidden="true">
-          <img src="assets/brand/coin.png" alt="" class="sealPro__logo" />
+          <!-- cache-bust param to avoid old image -->
+          <img src="assets/brand/rannta-logo.png?v=2" alt="" class="sealPro__mark" />
           <span class="sealPro__ring"></span>
         </div>
 
@@ -78,7 +80,6 @@
           <div class="sealPro__title">Official Verification</div>
           <div class="sealPro__line">
             RANNTA exists exclusively on TON.
-            <a class="sealPro__link" href="#master">Verify Official Contract</a>
           </div>
           <div class="sealPro__sub">
             Always verify the TON Jetton Master address before interacting.
