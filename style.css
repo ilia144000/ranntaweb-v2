@@ -573,3 +573,52 @@ header img.logo {
 }
 /* === /RANNTA: GLOBAL HEADER LOGO NORMALIZATION (AUTO) === */
 
+/* === RANNTA: BACK TO HOME (AUTO) === */
+.backHomeBtn{
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 9999;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  background: rgba(10,10,10,0.78);
+  border: 1px solid rgba(255,215,0,0.38);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.55);
+
+  color: #FFD700;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(6px);
+}
+
+.backHomeBtn:hover{
+  background: rgba(255,215,0,0.92);
+  color: #111;
+  border-color: rgba(255,215,0,0.92);
+}
+
+.backHomeBtn .arrow{
+  font-size: 18px;
+  line-height: 1;
+}
+
+@media (max-width: 700px){
+  .backHomeBtn{
+    left: 12px;
+    bottom: 12px;
+    padding: 9px 12px;
+    gap: 8px;
+  }
+  .backHomeBtn .label{
+    font-size: 0.95em;
+  }
+}
+/* === /RANNTA: BACK TO HOME (AUTO) === */
+
