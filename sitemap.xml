@@ -1,66 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <url>
-    <loc>https://rannta.com/</loc>
-    <lastmod>2026-02-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/index.html</loc>
-    <lastmod>2025-10-28</lastmod>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/contracts.html</loc>
-    <lastmod>2026-02-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
-  <!-- ⭐ NEW: Signal-13 Protocol page -->
-  <url>
-    <loc>https://rannta.com/signal-13.html</loc>
-    <lastmod>2025-11-18</lastmod>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/what-is-rannta.html</loc>
-    <lastmod>2025-10-28</lastmod>
-    <priority>0.90</priority>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/architect/code-il144k.html</loc>
-    <lastmod>2025-10-28</lastmod>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/architect/declaration-il144k.html</loc>
-    <lastmod>2025-10-28</lastmod>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/nft.html</loc>
-    <lastmod>2025-10-28</lastmod>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/gallery.html</loc>
-    <lastmod>2025-10-28</lastmod>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/oracle.html</loc>
-    <lastmod>2025-10-28</lastmod>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/rannta-story.html</loc>
-    <lastmod>2025-10-28</lastmod>
-  </url>
-
+  <url><loc>https://rannta.com/404.html</loc></url>
+  <url><loc>https://rannta.com/airdrop.html</loc></url>
+  <url><loc>https://rannta.com/articles.html</loc></url>
+  <url><loc>https://rannta.com/authoritative.html</loc></url>
+  <url><loc>https://rannta.com/burn.html</loc></url>
+  <url><loc>https://rannta.com/contact.html</loc></url>
+  <url><loc>https://rannta.com/contracts.html</loc></url>
+  <url><loc>https://rannta.com/gallery.html</loc></url>
+  <url><loc>https://rannta.com/</loc></url>
+  <url><loc>https://rannta.com/kyc.html</loc></url>
+  <url><loc>https://rannta.com/manifesto.html</loc></url>
+  <url><loc>https://rannta.com/nft.html</loc></url>
+  <url><loc>https://rannta.com/rannta-story.html</loc></url>
+  <url><loc>https://rannta.com/rannta.html</loc></url>
+  <url><loc>https://rannta.com/ranntaverse.html</loc></url>
+  <url><loc>https://rannta.com/roadmap.html</loc></url>
+  <url><loc>https://rannta.com/signal-13.html</loc></url>
+  <url><loc>https://rannta.com/swap.html</loc></url>
+  <url><loc>https://rannta.com/symbolists.html</loc></url>
+  <url><loc>https://rannta.com/team.html</loc></url>
+  <url><loc>https://rannta.com/what-is-rannta.html</loc></url>
+  <url><loc>https://rannta.com/whitepaper.html</loc></url>
 </urlset>

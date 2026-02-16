@@ -1,2 +1,6 @@
 *.png
 *.jpg
+_bak_*
+*.bak_*
+*.bak
+*.tmp
