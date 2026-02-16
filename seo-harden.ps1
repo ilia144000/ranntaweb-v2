@@ -47,6 +47,12 @@ function Guess-Description([string]$fileName, [string]$html) {
   return ("Learn about {0}: {1}. Official pages, documentation, and ecosystem resources." -f $SiteName, $p)
 }
 
+function Remove-SeoHardenBlock([string]$html) {
+  # Remove ANY previous injected harden blocks (even if duplicated)
+  $p = '(?is)\s*<!--\s*RANNTA:\s*SEO\s*HARDEN\s*\(AUTO\)\s*-->\s*[\s\S]*?<!--\s*/RANNTA:\s*SEO\s*HARDEN\s*\(AUTO\)\s*-->\s*'
+  return [regex]::Replace($html, $p, "`r`n")
+}
+
 function Ensure-InHead([string]$html, [string]$block, [string]$markerStart, [string]$markerEnd) {
   $pattern = '(?is)\s*<!--\s*' + [regex]::Escape($markerStart) + '\s*-->\s*[\s\S]*?<!--\s*' + [regex]::Escape($markerEnd) + '\s*-->\s*'
   if ([regex]::IsMatch($html, $pattern)) {
@@ -67,6 +73,22 @@ function Remove-Duplicate-JsonLd([string]$html) {
 
   # Remove all JSON-LD scripts; caller will re-inject exactly one (or two for key pages)
   return [regex]::Replace($html, '(?is)<script\s+type=["'']application/ld\+json["'']\s*>[\s\S]*?</script>\s*', '')
+}
+
+function Clean-HeadSeo([string]$html) {
+  # JSON-LD
+  $html = [regex]::Replace($html, '(?is)<script\s+type=["'']application/ld\+json["'']\s*>[\s\S]*?</script>\s*', '')
+  # Canonical
+  $html = [regex]::Replace($html, '(?is)<link\s+rel=["'']canonical["''][^>]*>\s*', '')
+  # Meta description
+  $html = [regex]::Replace($html, '(?is)<meta\s+name=["'']description["''][^>]*>\s*', '')
+  # Title
+  $html = [regex]::Replace($html, '(?is)<title>[\s\S]*?</title>\s*', '')
+  # OG
+  $html = [regex]::Replace($html, '(?is)<meta\s+property=["'']og:[^"'']+["''][^>]*>\s*', '')
+  # Twitter
+  $html = [regex]::Replace($html, '(?is)<meta\s+name=["'']twitter:[^"'']+["''][^>]*>\s*', '')
+  return $html
 }
 
 function Build-JsonLd([string]$BaseUrl, [string]$SiteName, [string]$fileName, [string]$title, [string]$desc) {
@@ -145,6 +167,77 @@ $jsonld
 "@
 }
 
+function Keep-FirstSeoTags([string]$html) {
+  # Keep ONLY the first canonical
+  $m = [regex]::Match($html, '(?is)<link\s+rel=["'']canonical["''][^>]*>\s*')
+  if ($m.Success) {
+    $first = $m.Value
+    $html = [regex]::Replace($html, '(?is)<link\s+rel=["'']canonical["''][^>]*>\s*', '', 0)
+    $html = [regex]::Replace($html, '(?is)(<head[^>]*>)', "`$1`r`n$first", 1)
+  }
+
+  # Keep ONLY the first meta description
+  $m = [regex]::Match($html, '(?is)<meta\s+name=["'']description["''][^>]*>\s*')
+  if ($m.Success) {
+    $first = $m.Value
+    $html = [regex]::Replace($html, '(?is)<meta\s+name=["'']description["''][^>]*>\s*', '', 0)
+    $html = [regex]::Replace($html, '(?is)(<head[^>]*>)', "`$1`r`n$first", 1)
+  }
+
+  # Keep ONLY first title
+  $m = [regex]::Match($html, '(?is)<title>[\s\S]*?</title>\s*')
+  if ($m.Success) {
+    $first = $m.Value
+    $html = [regex]::Replace($html, '(?is)<title>[\s\S]*?</title>\s*', '', 0)
+    $html = [regex]::Replace($html, '(?is)(<head[^>]*>)', "`$1`r`n$first", 1)
+  }
+
+  # Keep ONLY the first 2 JSON-LD blocks (key pages need 2; others will naturally have 1)
+  $all = [regex]::Matches($html, '(?is)<script\s+type=["'']application/ld\+json["'']\s*>[\s\S]*?</script>\s*')
+  if ($all.Count -gt 2) {
+    $keep = $all[0].Value + $all[1].Value
+    $html = [regex]::Replace($html, '(?is)<script\s+type=["'']application/ld\+json["'']\s*>[\s\S]*?</script>\s*', '')
+    $html = [regex]::Replace($html, '(?is)(</head>)', "$keep`r`n`$1", 1)
+  }
+
+  return $html
+}
+
+function Force-SingleCanonicalAndDescription([string]$html, [string]$url, [string]$desc) {
+  # Remove ALL canonicals and meta descriptions
+  $html = [regex]::Replace($html, '(?is)<link\s+rel=["'']canonical["''][^>]*>\s*', '')
+  $html = [regex]::Replace($html, '(?is)<meta\s+name=["'']description["''][^>]*>\s*', '')
+
+  $canonical = "<link rel=""canonical"" href=""$url"" />"
+  $metaDesc  = "<meta name=""description"" content=""$desc"" />"
+
+  # Re-insert once right after <head ...>
+  $html = [regex]::Replace($html, '(?is)(<head[^>]*>)', "`$1`r`n$metaDesc`r`n$canonical", 1)
+
+  return $html
+}
+
+# --- Added (requested): keep first match only, delete duplicates, reinsert first into <head> ---
+function Keep-FirstMatchOnly([string]$html, [string]$pattern) {
+  $matches = [regex]::Matches($html, $pattern)
+  if ($matches.Count -le 1) { return $html }
+
+  $first = $matches[0].Value
+  $html  = [regex]::Replace($html, $pattern, '')
+  return [regex]::Replace($html, '(?is)(<head[^>]*>)', "`$1`r`n$first", 1)
+}
+
+function Remove-AllButFirstMatch([string]$html, [string]$pattern) {
+  $rx = [regex]::new($pattern, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $m  = $rx.Matches($html)
+  if ($m.Count -le 1) { return $html }
+
+  for ($i = $m.Count - 1; $i -ge 1; $i--) {
+    $html = $html.Remove($m[$i].Index, $m[$i].Length)
+  }
+  return $html
+}
+
 # ---------- Main ----------
 $root = (Get-Location).Path
 if (-not (Test-Path (Join-Path $root ".git"))) {
@@ -174,13 +267,28 @@ foreach ($f in $files) {
   $raw = Get-Content $f.FullName -Raw
 
   # remove duplicates, then inject one controlled SEO block
-  $raw2 = Remove-Duplicate-JsonLd $raw
+  $raw2 = Clean-HeadSeo $raw
+  $raw2 = Remove-Duplicate-JsonLd $raw2
 
   $title = Guess-Title $f.Name $raw2
   $desc  = Guess-Description $f.Name $raw2
   $seo   = Build-SeoBlock $BaseUrl $SiteName $f.Name $title $desc
 
+  $raw2 = Remove-SeoHardenBlock $raw2
   $raw2 = Ensure-InHead $raw2 $seo "RANNTA: SEO HARDEN (AUTO)" "/RANNTA: SEO HARDEN (AUTO)"
+
+  $raw2 = Remove-AllButFirstMatch $raw2 '(?is)<link\b[^>]*\brel\s*=\s*["'']canonical["''][^>]*>\s*'
+  $raw2 = Remove-AllButFirstMatch $raw2 '(?is)<meta\b[^>]*\bname\s*=\s*["'']description["''][\s\S]*?>\s*'
+
+  # --- Added (requested): keep only the first canonical/description immediately after injection ---
+  $raw2 = Keep-FirstMatchOnly $raw2 '(?is)<link\s+rel=["'']canonical["''][^>]*>\s*'
+  $raw2 = Keep-FirstMatchOnly $raw2 '(?is)<meta\s+name=["'']description["''][^>]*>\s*'
+
+  $slug2 = Get-PageSlug $f.Name
+  $url2  = if ($slug2 -eq "") { "$BaseUrl/" } else { "$BaseUrl/$slug2.html" }
+  $raw2  = Force-SingleCanonicalAndDescription $raw2 $url2 $desc
+
+  $raw2 = Keep-FirstSeoTags $raw2
 
   # normalize excessive blank lines
   $raw2 = [regex]::Replace($raw2, "(\r?\n){4,}", "`r`n`r`n`r`n")
@@ -233,6 +341,36 @@ foreach ($line in $want) {
 }
 Write-Utf8NoBom $giPath $gi
 
+# ---------- POST-PASS: DEDUP canonical + description (idempotent) ----------
+function Remove-AllButFirstMatch([string]$html, [string]$pattern) {
+  $rx = [regex]::new($pattern, [System.Text.RegularExpressions.RegexOptions]::IgnoreCase)
+  $m  = $rx.Matches($html)
+  if ($m.Count -le 1) { return $html }
+
+  for ($i = $m.Count - 1; $i -ge 1; $i--) {
+    $html = $html.Remove($m[$i].Index, $m[$i].Length)
+  }
+  return $html
+}
+
+$dedupeFiles = Get-ChildItem -Recurse -File -Filter "*.html" |
+  Where-Object {
+    $_.FullName -notmatch "\\_bak_" -and
+    $_.FullName -notmatch "\\node_modules\\" -and
+    $_.FullName -notmatch "\\\.git\\"
+  }
+
+foreach ($df in $dedupeFiles) {
+  $h = Get-Content $df.FullName -Raw
+
+  $h = Remove-AllButFirstMatch $h '(?is)<link\b[^>]*\brel\s*=\s*["'']canonical["''][^>]*>\s*'
+  $h = Remove-AllButFirstMatch $h '(?is)<meta\b[^>]*\bname\s*=\s*["'']description["''][\s\S]*?>\s*'
+
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  [System.IO.File]::WriteAllText($df.FullName, $h, $utf8NoBom)
+}
+# ---------- /POST-PASS: DEDUP ----------
+
 # report
 $report = foreach ($f in (Get-ChildItem -Recurse -File -Filter "*.html" | Where-Object { $_.FullName -notmatch "\\_bak_" -and $_.FullName -notmatch "\\node_modules\\" -and $_.FullName -notmatch "\\\.git\\" })) {
   $r = Get-Content $f.FullName -Raw
@@ -248,3 +386,5 @@ Write-Host ""
 Write-Host "SEO hardening completed." -ForegroundColor Green
 Write-Host ("Backup saved to: {0}" -f $backupDir) -ForegroundColor DarkGreen
 $report | Sort-Object File | Format-Table -AutoSize
+
+
