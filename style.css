@@ -1054,3 +1054,11 @@ header img.logo {
 }
 /* === /RANNTA: MOBILE SOCIAL SPACING FIX v1 (SAFE) === */
 
+
+/* === RANNTA: Accessibility contrast fix === */
+.siteFooter__copy{
+  opacity: 1 !important;
+  color: #e5e5e5 !important;
+}
+/* === /RANNTA: Accessibility contrast fix === */
+
