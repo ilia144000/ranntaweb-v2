@@ -414,7 +414,82 @@
       <!--  Burn Dashboard button -->
       <a href="burn.html" class="btnHero ghost" style="margin-top:10px;"> Burn Dashboard</a>
 
-      <h1>RANNTA is not a token. It is a Signal.</h1>
+      <!-- === RANNTA: HERO CONVERSION STRIP (HYBRID) === -->
+<div class="conversion-strip" role="region" aria-label="RANNTA quick actions">
+  <div class="conversion-strip__top">
+    <div class="conversion-strip__brand">
+      <div class="conversion-strip__title">RANNTA on TON</div>
+      <div class="conversion-strip__meta">Official Jetton Master</div>
+    </div>
+
+    <div class="conversion-strip__actions">
+      <a class="btnConv primary" href="https://app.ston.fi/swap?ft=TON&tt=EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR&chartInterval=1w" target="_blank" rel="noopener noreferrer">
+        Buy on STON.fi
+      </a>
+      <a class="btnConv ghost" href="contracts.html">
+        Verify
+      </a>
+    </div>
+  </div>
+
+  <div class="contract-box" data-ca-full="EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR">
+    <div class="contract-box__label">Contract</div>
+    <div class="contract-box__value" aria-label="RANNTA contract address">
+      <span class="ca-short">EQBCY5Yj9G6...BYbeR</span>
+      <span class="ca-full sr-only">EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</span>
+    </div>
+
+    <button type="button" class="btnCopy" data-copy-ca aria-label="Copy contract address">
+      Copy
+    </button>
+  </div>
+
+  <div class="conversion-strip__links" aria-label="Explorer links">
+    <a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer">TON Viewer</a>
+    <a href="https://tonscan.org/jetton/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer">TON Scan</a>
+    <a href="https://dyor.io/token/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer">DYOR</a>
+    <a href="https://www.geckoterminal.com/ton/pools/EQABEUPHJixGRBEHRbl3RfXYLA2lKuZsXGad_F65edDWB8cM?utm_source=coingecko&utm_medium=referral&utm_campaign=searchresults" target="_blank" rel="noopener noreferrer">GeckoTerminal</a>
+  </div>
+</div>
+
+<script>
+  (function () {
+    try {
+      var btn = document.querySelector('[data-copy-ca]');
+      if (!btn) return;
+
+      btn.addEventListener('click', async function () {
+        var box = btn.closest('.contract-box');
+        var full = (box && box.getAttribute('data-ca-full')) ? box.getAttribute('data-ca-full') : '';
+        if (!full) return;
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(full);
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = full;
+          ta.setAttribute('readonly', 'readonly');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+
+        var prev = btn.textContent;
+        btn.textContent = 'Copied';
+        btn.classList.add('copied');
+        setTimeout(function () {
+          btn.textContent = prev || 'Copy';
+          btn.classList.remove('copied');
+        }, 1200);
+      });
+    } catch (e) {}
+  })();
+</script>
+<!-- === /RANNTA: HERO CONVERSION STRIP (HYBRID) === -->
+<h1>RANNTA is not a token. It is a Signal.</h1>
       <p class="sub">
         Every NFT is a neuron. Every holder is a co-creator.<br>
         We do not follow reality - we generate it. Code: <strong>13</strong>.
