@@ -959,3 +959,23 @@ header img.logo {
   }
 }
 /* === /RANNTA: FOOTER CONNECT LINKS v2 (AUTO) === */
+
+/* === RANNTA: FOOTER SPACING FALLBACK v1 (AUTO) === */
+/* Works even if flex/gap is killed by other CSS */
+.siteFooter .siteFooter__social a,
+.siteFooter .ranntaSocial a,
+.siteFooter .ranntaSocial__link,
+.siteFooter .socialLink{
+  display:inline-block !important;
+  margin-right:18px !important;
+  margin-bottom:10px !important;
+  white-space:nowrap !important;
+}
+
+/* keep last item from adding extra right margin if it wraps */
+.siteFooter .siteFooter__social a:last-child,
+.siteFooter .ranntaSocial a:last-child{
+  margin-right:0 !important;
+}
+/* === /RANNTA: FOOTER SPACING FALLBACK v1 (AUTO) === */
+
