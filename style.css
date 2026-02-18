@@ -979,3 +979,62 @@ header img.logo {
 }
 /* === /RANNTA: FOOTER SPACING FALLBACK v1 (AUTO) === */
 
+
+/* === RANNTA: FOOTER SOCIAL FIX v2 (SAFE) === */
+/* Scope: only footer social row */
+.siteFooter__social{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:12px 16px !important;
+}
+
+/* Each social link becomes a stable pill (prevents "TelegramX" sticking) */
+.siteFooter__social .socialLink{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:10px !important;
+
+  padding:9px 12px !important;
+  width:auto !important;
+  height:auto !important;
+
+  white-space:nowrap !important;
+  line-height:1 !important;
+  text-decoration:none !important;
+}
+
+/* Icon wrapper: fixed box so label never collides */
+.siteFooter__social .socialSvg{
+  display:inline-flex !important;
+  width:34px !important;
+  height:34px !important;
+  flex:0 0 34px !important;
+  align-items:center !important;
+  justify-content:center !important;
+}
+
+/* Label: always its own inline block */
+.siteFooter__social .socialLabel{
+  display:inline-block !important;
+}
+/* === /RANNTA: FOOTER SOCIAL FIX v2 (SAFE) === */
+
+
+/* === RANNTA: HARD SOCIAL SPACING FIX === */
+.siteFooter__social {
+  display:flex !important;
+  flex-wrap:wrap !important;
+  gap:14px 18px !important;
+}
+
+.siteFooter__social .socialLink {
+  display:inline-flex !important;
+  padding:10px 14px !important;
+  margin:0 !important;
+  white-space:nowrap !important;
+  line-height:1 !important;
+}
+/* === /RANNTA: HARD SOCIAL SPACING FIX === */
+
