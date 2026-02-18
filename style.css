@@ -882,91 +882,80 @@ header img.logo {
 }
 /* === /RANNTA: HERO CONVERSION STRIP (HYBRID) === */
 
-/* === RANNTA: FOOTER CONNECT LINKS v1 (AUTO) === */
+/* === RANNTA: FOOTER CONNECT LINKS v2 (AUTO) === */
+.siteFooter{
+  padding: 50px 20px 30px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.siteFooter__inner{
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.siteFooter__cols{
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:40px;
+  margin-bottom:28px;
+}
+.siteFooter__col{
+  min-width:180px;
+}
+.siteFooter__title{
+  color:gold;
+  font-weight:700;
+  margin-bottom:12px;
+}
+.siteFooter__link{
+  display:block;
+  margin-bottom:8px;
+  font-size:14px;
+}
+
 .siteFooter__social{
   display:flex;
   flex-wrap:wrap;
-  gap:16px 22px;
-  justify-content:center;
+  gap:14px 18px;
+  justify-content:flex-start;
   align-items:center;
-  margin-top:12px;
+  margin-top:10px;
 }
-
 .socialLink{
-  display:flex;
+  display:inline-flex;
   align-items:center;
-  gap:10px;
-  text-decoration:none;
+  gap:8px;
   color:#cfcfcf;
+  text-decoration:none;
   font-size:14px;
-  line-height:1;
-  transition:0.2s ease;
+  line-height:1.2;
+  white-space:nowrap;
 }
-
-.socialLink:hover{
-  color:gold;
-}
-
-.socialIcon{
-  width:34px;
-  height:34px;
-  display:flex;
+.socialLink:hover{ color:gold; }
+.socialSvg{
+  width:18px;
+  height:18px;
+  display:inline-flex;
   align-items:center;
   justify-content:center;
-  border:1px solid rgba(255,255,255,0.18);
-  border-radius:50%;
-  font-weight:700;
-  letter-spacing:0.5px;
+}
+.socialLabel{ display:inline-block; }
+
+.siteFooter__copy{
+  text-align:center;
+  font-size:14px;
+  opacity:0.7;
+  padding-top:12px;
 }
 
-.socialLink:hover .socialIcon{
-  border-color:rgba(255,215,0,0.55);
-}
-
-.socialLabel{
-  display:inline-block;
-}
-
-@media (max-width:768px){
+/* Mobile */
+@media (max-width: 768px){
+  .siteFooter__cols{
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+  }
   .siteFooter__social{
-    gap:12px 16px;
-  }
-  .socialIcon{
-    width:36px;
-    height:36px;
+    justify-content:center;
   }
 }
-/* === /RANNTA: FOOTER CONNECT LINKS v1 (AUTO) === */
-
-/* === RANNTA: FOOTER LAYOUT FORCE v1 (AUTO) === */
-/* Force layout regardless of older CSS */
-.siteFooter.ranntaFooterBar .ranntaSocial{
-  display:flex !important;
-  flex-wrap:wrap !important;
-  gap:14px 18px !important;
-  justify-content:center !important;
-  align-items:center !important;
-  margin-top:12px !important;
-}
-
-.siteFooter.ranntaFooterBar .ranntaSocial__link{
-  display:inline-block !important;
-  padding:7px 12px !important;
-  border:1px solid rgba(255,255,255,0.16) !important;
-  border-radius:999px !important;
-  text-decoration:none !important;
-  line-height:1 !important;
-  white-space:nowrap !important;
-}
-
-.siteFooter.ranntaFooterBar .ranntaSocial__link:hover{
-  border-color:rgba(255,215,0,0.6) !important;
-}
-
-@media (max-width:768px){
-  .siteFooter.ranntaFooterBar .ranntaSocial{
-    gap:10px 12px !important;
-  }
-}
-/* === /RANNTA: FOOTER LAYOUT FORCE v1 (AUTO) === */
-
+/* === /RANNTA: FOOTER CONNECT LINKS v2 (AUTO) === */
