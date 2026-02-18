@@ -885,30 +885,37 @@ header img.logo {
 /* === RANNTA: FOOTER CONNECT LINKS v1 (AUTO) === */
 .siteFooter__social{
   display:flex;
-  flex-wrap:wrap;
-  gap:14px;
+  gap:16px;
   justify-content:center;
   align-items:center;
-  margin-top:10px;
+  margin-top:12px;
 }
+
 .siteFooter__social .socialLink{
-  display:inline-block;
-  padding:6px 10px;
-  border:1px solid rgba(255,255,255,0.14);
-  border-radius:999px;
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid rgba(255,255,255,0.15);
+  border-radius:50%;
+  transition:0.25s ease;
   text-decoration:none;
-  line-height:1;
 }
+
 .siteFooter__social .socialLink:hover{
-  border-color:rgba(255,215,0,0.55);
+  border-color:gold;
+  transform:translateY(-3px);
 }
+
+.siteFooter__social .socialLink svg{
+  width:18px;
+  height:18px;
+}
+
 @media (max-width:768px){
   .siteFooter__social{
-    gap:10px;
-  }
-  .siteFooter__social .socialLink{
-    padding:8px 12px;
+    gap:14px;
   }
 }
 /* === /RANNTA: FOOTER CONNECT LINKS v1 (AUTO) === */
-
