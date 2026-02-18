@@ -881,3 +881,34 @@ header img.logo {
   }
 }
 /* === /RANNTA: HERO CONVERSION STRIP (HYBRID) === */
+
+/* === RANNTA: FOOTER CONNECT LINKS v1 (AUTO) === */
+.siteFooter__social{
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  justify-content:center;
+  align-items:center;
+  margin-top:10px;
+}
+.siteFooter__social .socialLink{
+  display:inline-block;
+  padding:6px 10px;
+  border:1px solid rgba(255,255,255,0.14);
+  border-radius:999px;
+  text-decoration:none;
+  line-height:1;
+}
+.siteFooter__social .socialLink:hover{
+  border-color:rgba(255,215,0,0.55);
+}
+@media (max-width:768px){
+  .siteFooter__social{
+    gap:10px;
+  }
+  .siteFooter__social .socialLink{
+    padding:8px 12px;
+  }
+}
+/* === /RANNTA: FOOTER CONNECT LINKS v1 (AUTO) === */
+
