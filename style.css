@@ -1038,3 +1038,19 @@ header img.logo {
 }
 /* === /RANNTA: HARD SOCIAL SPACING FIX === */
 
+
+/* === RANNTA: MOBILE SOCIAL SPACING FIX v1 (SAFE) === */
+@media (max-width: 520px){
+  /* gap can be flaky on some mobile browsers -> use margins */
+  .siteFooter__social{
+    gap: 0 !important;
+  }
+  .siteFooter__social .socialLink{
+    margin: 8px 10px !important;
+    max-width: calc(100% - 20px) !important;
+    white-space: normal !important;   /* allow wrap inside pill if needed */
+    line-height: 1.15 !important;
+  }
+}
+/* === /RANNTA: MOBILE SOCIAL SPACING FIX v1 (SAFE) === */
+
