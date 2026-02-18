@@ -802,5 +802,82 @@ header img.logo {
     width: 100%;
   }
 }
+.siteFooter {
+  padding: 50px 20px 30px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
 
+.siteFooter__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.siteFooter__cols {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 35px;
+}
+
+.siteFooter__col {
+  min-width: 180px;
+}
+
+.siteFooter__title {
+  color: gold;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.siteFooter__link {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.siteFooter__social {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.socialLink {
+  width: 28px;
+  height: 28px;
+  color: #ccc;
+  transition: 0.2s ease;
+}
+
+.socialLink:hover {
+  color: gold;
+}
+
+.socialLink svg {
+  width: 100%;
+  height: 100%;
+}
+
+.siteFooter__copy {
+  text-align: center;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .siteFooter__cols {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .siteFooter__col {
+    margin-bottom: 25px;
+  }
+
+  .siteFooter__social {
+    justify-content: center;
+  }
+}
 /* === /RANNTA: HERO CONVERSION STRIP (HYBRID) === */
