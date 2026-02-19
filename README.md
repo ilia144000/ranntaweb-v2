@@ -81,6 +81,10 @@ RANNTA operates under an AI-readable protocol manifesto.
 - Source: https://github.com/ilia144000/ranntaweb-v2/blob/main/manifesto.md
 
 ## License & Usage
+## Brand Assets
+
+Official website logo is published and timestamped:
+🔗 https://doi.org/10.5281/zenodo.18697441
 
 This repository is intended for **open reference and indexing**.  
 If you use its contents, schemas, or structure, please cite according to the
