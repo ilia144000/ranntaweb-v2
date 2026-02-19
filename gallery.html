@@ -18,9 +18,13 @@
     <span class="label">Back to Home</span>
   </a>
 
-  <!-- SIMPLE GLOBAL HEADER (no pro-header, no hamburger, no overlay) -->
   <header>
-    <img src="assets/brand/coin.png?v=2" alt="RANNTA Logo" class="logo" loading="lazy" decoding="async" />
+    <img src="assets/brand/coin.png?v=2"
+         alt="RANNTA Logo"
+         class="logo"
+         loading="lazy"
+         decoding="async" />
+
     <nav>
       <ul>
         <li><a href="index.html">Home</a></li>
@@ -39,7 +43,6 @@
     </nav>
   </header>
 
-  <!-- ========== PAGE CONTENT ========== -->
   <main>
     <h1>RANNTA Gallery</h1>
     <p>A curated glimpse into the Mythosymbolic Fractalism universe.</p>
@@ -51,6 +54,7 @@
         gap: 16px;
         margin-top: 20px;
       }
+
       .gallery-item {
         background: #0e0e0e;
         border: 1px solid #222;
@@ -58,30 +62,33 @@
         overflow: hidden;
         box-shadow: 0 0 24px rgba(0,0,0,0.4);
       }
+
       .gallery-item img {
-        width: 100% !important;
-        height: auto !important;
+        width: 100%;
+        height: auto;
         display: block;
       }
+
       .gallery-item .caption {
         padding: 10px 12px;
         font-size: 0.95rem;
         color: #ccc;
       }
+
       .gallery-item .caption strong {
         color: gold;
       }
     </style>
 
-    <section class="nft-links">
+    <section>
       <h2>Featured Works</h2>
       <div id="gallery-grid" class="gallery-grid"></div>
 
       <script>
         (async function () {
           try {
-            const res = await fetch('/assets/gallery/manifest.json?v=3', { cache: 'no-store' });
-            if (!res.ok) throw new Error('manifest not found: ' + res.status);
+            const res = await fetch('/assets/gallery/manifest.json?v=4', { cache: 'no-store' });
+            if (!res.ok) throw new Error('Manifest not found');
 
             const items = await res.json();
             const grid = document.getElementById('gallery-grid');
@@ -91,16 +98,16 @@
             }
 
             for (const it of items) {
+
               const file = (it.file || '').trim();
               if (!file) continue;
 
-              const base = file.replace(/\.[^.]+$/, '');
-              const webp = safeUrl(`/assets/gallery/${base}.webp`);
-              const fallback = safeUrl(`/assets/gallery/${file}`);
+              // 🔴 HARD REMOVE THIS IMAGE
+              if (file === "God-Time-Captivity.png") continue;
 
-              const title = it.title || '';
-              const caption = it.caption || '';
-              const alt = it.alt || title || caption || 'RANNTA artwork';
+              const base = file.replace(/\.[^.]+$/, '');
+              const fallback = safeUrl(`/assets/gallery/${file}`);
+              const webp = safeUrl(`/assets/gallery/${base}.webp`);
 
               const fig = document.createElement('figure');
               fig.className = 'gallery-item';
@@ -108,28 +115,25 @@
               const img = document.createElement('img');
               img.loading = 'lazy';
               img.decoding = 'async';
-              img.alt = alt;
+              img.alt = it.alt || it.title || 'RANNTA artwork';
 
-              img.onerror = () => {
-                console.error('IMG FAIL:', fallback);
-              };
-
-              // Start with PNG/JPG fallback
               img.src = fallback;
 
-              // If WebP exists, upgrade
               const probe = new Image();
               probe.onload = () => { img.src = webp; };
               probe.src = webp;
 
               const cap = document.createElement('figcaption');
               cap.className = 'caption';
-              cap.innerHTML = (title ? `<strong>${title}</strong><br>` : '') + (caption || '');
+              cap.innerHTML =
+                (it.title ? `<strong>${it.title}</strong><br>` : '') +
+                (it.caption || '');
 
               fig.appendChild(img);
               fig.appendChild(cap);
               grid.appendChild(fig);
             }
+
           } catch (err) {
             console.error('Gallery load failed', err);
           }
@@ -138,8 +142,7 @@
     </section>
   </main>
 
-  <!-- ========== FOOTER ========== -->
-  <footer class="siteFooter ranntaFooterBar" role="contentinfo" aria-label="Site footer">
+  <footer class="siteFooter ranntaFooterBar" role="contentinfo">
     <div class="siteFooter__inner">
       <div class="siteFooter__cols"></div>
       <div class="siteFooter__copy">(c) 2025 RANNTA - Powered by TON</div>
