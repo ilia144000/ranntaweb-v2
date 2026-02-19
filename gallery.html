@@ -1,24 +1,149 @@
-<!DOCTYPE html> <html lang="en" dir="ltr"> <head> <meta charset="UTF-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <title>Gallery - RANNTAverse</title> <link rel="canonical" href="https://rannta.com/gallery.html" /> <link rel="stylesheet" href="/style.css" /> <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet"> <meta name="description" content="RANNTAverse " Mythosymbolic Gallery showcasing MSF artworks, fractal symbolism, and RANNTA collections."/> <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" /> </head> <body> <a class="backHomeBtn" href="/" aria-label="Back to Home"> <span class="label">Back to Home</span> </a> <!-- SIMPLE GLOBAL HEADER (no pro-header, no hamburger, no overlay) --> <header> <img src="assets/brand/coin.png?v=2" alt="RANNTA Logo" class="logo" / loading="lazy" decoding="async"> <nav> <ul> <li><a href="index.html">Home</a></li> <li><a href="articles.html">Articles</a></li> <li><a href="gallery.html" class="active">Gallery</a></li> <li><a href="whitepaper.html">Whitepaper</a></li> <li><a href="roadmap.html">Roadmap</a></li> <li><a href="airdrop.html">Airdrop</a></li> <li><a href="nft.html">NFT Sale</a></li> <li><a href="symbolists.html">Symbolists</a></li> <li><a href="ranntaverse.html">RANNTAverse</a></li> <li><a href="rannta-story.html">About RANNTA</a></li> <li><a href="contact.html">Contact</a></li> <li><a href="team.html">Team</a></li> </ul> </nav> </header> <!-- ========== PAGE CONTENT ========== --> <main> <h1>RANNTA Gallery</h1> <p>A curated glimpse into the Mythosymbolic Fractalism universe.</p> <style> .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: 20px; } .gallery-item { background: #0e0e0e; border: 1px solid #222; border-radius: 10px; overflow: hidden; box-shadow: 0 0 24px rgba(0,0,0,0.4); } .gallery-item img { width: 100% !important; height: auto !important; display: block; } .gallery-item .caption { padding: 10px 12px; font-size: 0.95rem; color: #ccc; } .gallery-item .caption strong { color: gold; } </style> <section class="nft-links"> <h2>Featured Works</h2> <div id="gallery-grid" class="gallery-grid"></div> <script> (async function(){ try{ const res = await fetch('assets/gallery/manifest.json?v=3', { cache: 'no-store' }); if(!res.ok) throw new Error('manifest not found'); const items = await res.json(); const grid = document.getElementById('gallery-grid'); function safeUrl(path){ return encodeURI(path).replace(/#/g, '%23'); } for (const it of items){ const file = it.file; const base = file.replace(/\.[^.]+$/, ''); const webp = safeUrl(`assets/gallery/${base}.webp`); const fallback = safeUrl(`assets/gallery/${file}`); const title = it.title || ''; const caption = it.caption || ''; const alt = it.alt || title || caption || 'RANNTA artwork'; const fig = document.createElement('figure'); fig.className = 'gallery-item'; const img = document.createElement('img'); img.loading = 'lazy'; img.alt = alt; img.src = fallback; const probe = new Image(); probe.onload = () => { img.src = webp; }; probe.src = webp; const cap = document.createElement('figcaption'); cap.className = 'caption'; cap.innerHTML = (title ? `<strong>${title}</strong><br>` : '') + (caption || ''); fig.appendChild(img); fig.appendChild(cap); grid.appendChild(fig); } } catch(err){ console.error("Gallery load failed", err); } })(); </script> </section> </main> <!-- ========== FOOTER (same as footer) ========== --> <footer class="siteFooter ranntaFooterBar" role="contentinfo" aria-label="Site footer">
-  <div class="siteFooter__inner">
-    <div class="siteFooter__cols">
-      
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery - RANNTAverse</title>
+
+  <link rel="canonical" href="https://rannta.com/gallery.html" />
+  <link rel="stylesheet" href="/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <meta name="description" content="RANNTAverse Mythosymbolic Gallery showcasing MSF artworks, fractal symbolism, and RANNTA collections." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+</head>
+
+<body>
+  <a class="backHomeBtn" href="/" aria-label="Back to Home">
+    <span class="label">Back to Home</span>
+  </a>
+
+  <!-- SIMPLE GLOBAL HEADER (no pro-header, no hamburger, no overlay) -->
+  <header>
+    <img src="assets/brand/coin.png?v=2" alt="RANNTA Logo" class="logo" loading="lazy" decoding="async" />
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="gallery.html" class="active">Gallery</a></li>
+        <li><a href="whitepaper.html">Whitepaper</a></li>
+        <li><a href="roadmap.html">Roadmap</a></li>
+        <li><a href="airdrop.html">Airdrop</a></li>
+        <li><a href="nft.html">NFT Sale</a></li>
+        <li><a href="symbolists.html">Symbolists</a></li>
+        <li><a href="ranntaverse.html">RANNTAverse</a></li>
+        <li><a href="rannta-story.html">About RANNTA</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="team.html">Team</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ========== PAGE CONTENT ========== -->
+  <main>
+    <h1>RANNTA Gallery</h1>
+    <p>A curated glimpse into the Mythosymbolic Fractalism universe.</p>
+
+    <style>
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 20px;
+      }
+      .gallery-item {
+        background: #0e0e0e;
+        border: 1px solid #222;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 0 24px rgba(0,0,0,0.4);
+      }
+      .gallery-item img {
+        width: 100% !important;
+        height: auto !important;
+        display: block;
+      }
+      .gallery-item .caption {
+        padding: 10px 12px;
+        font-size: 0.95rem;
+        color: #ccc;
+      }
+      .gallery-item .caption strong {
+        color: gold;
+      }
+    </style>
+
+    <section class="nft-links">
+      <h2>Featured Works</h2>
+      <div id="gallery-grid" class="gallery-grid"></div>
+
+      <script>
+        (async function () {
+          try {
+            const res = await fetch('/assets/gallery/manifest.json?v=3', { cache: 'no-store' });
+            if (!res.ok) throw new Error('manifest not found: ' + res.status);
+
+            const items = await res.json();
+            const grid = document.getElementById('gallery-grid');
+
+            function safeUrl(path) {
+              return encodeURI(path).replace(/#/g, '%23');
+            }
+
+            for (const it of items) {
+              const file = (it.file || '').trim();
+              if (!file) continue;
+
+              const base = file.replace(/\.[^.]+$/, '');
+              const webp = safeUrl(`/assets/gallery/${base}.webp`);
+              const fallback = safeUrl(`/assets/gallery/${file}`);
+
+              const title = it.title || '';
+              const caption = it.caption || '';
+              const alt = it.alt || title || caption || 'RANNTA artwork';
+
+              const fig = document.createElement('figure');
+              fig.className = 'gallery-item';
+
+              const img = document.createElement('img');
+              img.loading = 'lazy';
+              img.decoding = 'async';
+              img.alt = alt;
+
+              img.onerror = () => {
+                console.error('IMG FAIL:', fallback);
+              };
+
+              // Start with PNG/JPG fallback
+              img.src = fallback;
+
+              // If WebP exists, upgrade
+              const probe = new Image();
+              probe.onload = () => { img.src = webp; };
+              probe.src = webp;
+
+              const cap = document.createElement('figcaption');
+              cap.className = 'caption';
+              cap.innerHTML = (title ? `<strong>${title}</strong><br>` : '') + (caption || '');
+
+              fig.appendChild(img);
+              fig.appendChild(cap);
+              grid.appendChild(fig);
+            }
+          } catch (err) {
+            console.error('Gallery load failed', err);
+          }
+        })();
+      </script>
+    </section>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="siteFooter ranntaFooterBar" role="contentinfo" aria-label="Site footer">
+    <div class="siteFooter__inner">
+      <div class="siteFooter__cols"></div>
+      <div class="siteFooter__copy">(c) 2025 RANNTA - Powered by TON</div>
     </div>
-
-    <div class="siteFooter__copy">(c) 2025 RANNTA - Powered by TON</div>
-  </div>
-</footer>
-
-
-
-
- </body> </html> 
-
-
-
-
-
-
-
-
-
-
+  </footer>
+</body>
+</html>
