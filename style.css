@@ -1165,3 +1165,12 @@ header img.logo {
 }
 
 .siteFooter__dot { margin: 0 10px; opacity: 0.7; }
+
+/* Footer icons (scoped) */
+.siteFooter__quickLinks img {
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+  vertical-align: -3px;
+  opacity: 0.95;
+}
