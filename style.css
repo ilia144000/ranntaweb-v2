@@ -1174,3 +1174,10 @@ header img.logo {
   vertical-align: -3px;
   opacity: 0.95;
 }
+
+/* Footer store/hub links (AUTO) */
+.siteFooter__quickLinks { display:flex; gap:14px; justify-content:center; align-items:center; flex-wrap:wrap; }
+.siteFooter__quickLinks a { display:inline-flex; align-items:center; gap:8px; line-height:1; }
+.siteFooter__quickLinks a img { width:18px; height:18px; margin:0; vertical-align:middle; opacity:0.95; }
+/* /Footer store/hub links (AUTO) */
+
