@@ -4,3 +4,6 @@ _bak_*
 *.bak_*
 *.bak
 *.tmp
+
+_header.ref.html
+
