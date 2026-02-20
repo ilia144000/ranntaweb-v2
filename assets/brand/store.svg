@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 1024 1024"
+     role="img"
+     aria-label="RANNTA">
+
+  <defs>
+    <!-- Gold depth -->
+    <radialGradient id="goldCoin" cx="50%" cy="36%" r="66%">
+      <stop offset="0%"  stop-color="#FFF8DD"/>
+      <stop offset="28%" stop-color="#F6DC9A"/>
+      <stop offset="55%" stop-color="#D8B04A"/>
+      <stop offset="78%" stop-color="#B8892E"/>
+      <stop offset="100%" stop-color="#6F4E1A"/>
+    </radialGradient>
+
+    <!-- Soft light sheen -->
+    <radialGradient id="goldSheen" cx="38%" cy="26%" r="48%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.65)"/>
+      <stop offset="40%" stop-color="rgba(255,255,255,0.22)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </radialGradient>
+
+    <!-- Coin shadow -->
+    <filter id="coinShadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="rgba(0,0,0,0.55)"/>
+      <feDropShadow dx="0" dy="0"  stdDeviation="10" flood-color="rgba(255,215,120,0.35)"/>
+    </filter>
+
+    <!-- Glyph engraving -->
+    <filter id="glyphShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.65)"/>
+    </filter>
+  </defs>
+
+  <!-- Gold coin -->
+  <circle cx="512" cy="512" r="460"
+          fill="url(#goldCoin)"
+          filter="url(#coinShadow)" />
+
+  <!-- Light sheen -->
+  <circle cx="512" cy="512" r="440"
+          fill="url(#goldSheen)"
+          opacity="0.9" />
+
+  <!-- Engraved glyph (original, unchanged) -->
+  <text x="50%" y="58%"
+        text-anchor="middle"
+        fill="#0B0B0B"
+        font-size="360"
+        font-family="serif"
+        font-weight="900"
+        filter="url(#glyphShadow)">
+    𐤀𐤓
+  </text>
+
+</svg>
