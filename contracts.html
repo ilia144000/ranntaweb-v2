@@ -54,6 +54,21 @@
     "publisher": { "@type": "Organization", "name": "RANNTA", "url": "https://rannta.com" }
   }
   </script>
+
+<style>
+  .presale-address-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+  .presale-copy-btn{
+    padding:10px 12px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.18);
+    background:rgba(255,255,255,.08);
+    color:inherit;
+    cursor:pointer
+  }
+  .presale-copy-btn:hover{background:rgba(255,255,255,.12)}
+  .presale-address-hint{margin-top:10px;font-size:13px;color:#cfcfcf;line-height:1.5}
+</style>
+
 </head>
 
 <body>
@@ -110,7 +125,7 @@
         </div>
 
         <div class="sealPro__cta">
-          <a class="sealPro__button" href="#master">Verify →</a>
+          <a class="sealPro__button" href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener">Verify on Tonviewer →</a>
         </div>
       </div>
     </div>
@@ -128,7 +143,11 @@
     <h2>Official TON Jetton Master</h2>
     <div class="presale-address-box">
       <div class="presale-address-label">Master Address</div>
-      <code class="presale-address">EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</code>
+      <div class="presale-address-row">
+        <code id="ranntaMasterAddress" class="presale-address">EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</code>
+        <button type="button" class="presale-copy-btn" id="copyMasterBtn" aria-label="Copy master address">Copy</button>
+      </div>
+      <div class="presale-address-hint">Copy the address and verify it in your wallet and in TON explorers before interacting.</div>
     </div>
 
     <h2>Important Notice</h2>
@@ -149,7 +168,7 @@
       <li>Website: <a href="https://rannta.com">https://rannta.com</a></li>
       <li>X: <a href="https://x.com/ranntacoin" target="_blank" rel="noopener">https://x.com/ranntacoin</a></li>
       <li>Medium: <a href="https://medium.com/@ranntaofficial" target="_blank" rel="noopener">https://medium.com/@ranntaofficial</a></li>
-      <li>TON Explorer: <a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener">tonviewer.com</a></li>
+      <li>TON Explorer (Master): <a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener">https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</a></li>
       <li>Contact: <a href="https://rannta.com/contact.html">https://rannta.com/contact.html</a></li>
     </ul>
   </main>
@@ -216,6 +235,48 @@ RANNTA Ecosystem Hub
 
 
 
+
+
+<script>
+(function () {
+  var btn = document.getElementById("copyMasterBtn");
+  var code = document.getElementById("ranntaMasterAddress");
+  if (!btn || !code) return;
+
+  btn.addEventListener("click", async function () {
+    var text = (code.textContent || "").trim();
+    if (!text) return;
+
+    function flash() {
+      var old = btn.textContent;
+      btn.textContent = "Copied";
+      setTimeout(function () { btn.textContent = old; }, 900);
+    }
+
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(text);
+        flash();
+        return;
+      }
+    } catch (e) {}
+
+    // Fallback
+    try {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "absolute";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+      flash();
+    } catch (e2) {}
+  });
+})();
+</script>
 
 </body>
 </html>
