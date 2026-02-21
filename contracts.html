@@ -152,6 +152,39 @@
       <li>TON Explorer: <a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener">tonviewer.com</a></li>
       <li>Contact: <a href="https://rannta.com/contact.html">https://rannta.com/contact.html</a></li>
     </ul>
+  
+    <!-- RANNTA Field Resonance Monitor -->
+    <section class="nft-links" style="border-top: 1px solid rgba(255, 215, 0, 0.3); margin-top: 40px;">
+        <h2 style="color: #FFD700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);">
+            Current Field Resonance: <span id="resonance-level">13.00</span>%
+        </h2>
+        <p style="font-style: italic; color: #aaa;">
+            Tracking the proximity to the <strong>Liquidity Meltdown Point</strong>. 
+            As the resonance approaches 100%, the Griffin prepares for the first high-altitude flight.
+        </p>
+        
+        <div style="width: 100%; background: #1a1a1a; border: 1px solid #333; height: 10px; border-radius: 5px; margin: 20px 0; overflow: hidden;">
+            <div id="resonance-bar" style="width: 13%; background: linear-gradient(90deg, #FFD700, #ff8c00); height: 100%; transition: width 2s ease-in-out;"></div>
+        </div>
+
+        <p id="system-status" style="font-family: 'Courier New', Courier, monospace; font-size: 0.9em; color: #00FF00;">
+            > Signal: STABLE | Nodes: ACTIVE | Current Phase: 2/13
+        </p>
+    </section>
+
+    <script>
+        function updateResonance() {
+            const baseResonance = 13.00;
+            const randomFluc = (Math.random() * 0.13).toFixed(2);
+            const currentResonance = (parseFloat(baseResonance) + parseFloat(randomFluc)).toFixed(2);
+
+            document.getElementById('resonance-level').innerText = currentResonance;
+            document.getElementById('resonance-bar').style.width = currentResonance + "%";
+        }
+
+        setInterval(updateResonance, 3000);
+    </script>
+
   </main>
 
   <footer class="siteFooter ranntaFooterBar" role="contentinfo" aria-label="Site footer">
