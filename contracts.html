@@ -9,82 +9,241 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
 
   <meta name="description" content="RANNTA official contract registry. Verify the TON Jetton Master address before interacting. RANNTA exists exclusively on TON." />
-  </head>
-<body>
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="keywords" content="RANNTA, RANNTA token, RANNTA TON, RANNTA Solana fake, fake RANNTA token, official RANNTA contract, TON Jetton Master" />
+  <link rel="canonical" href="https://rannta.com/contracts.html" />
 
-  <header class="siteHeader">
-    <div class="siteHeader__inner">
-      <a class="siteHeader__logoLink" href="/" aria-label="RANNTA Home">
-        <img src="assets/brand/coin.png?v=2" alt="RANNTA Logo" class="logo" />
-      </a>
-      <nav class="siteHeader__nav">
-        <ul class="siteHeader__navList">
-          <li class="siteHeader__navItem"><a class="siteHeader__navLink" href="index.html">Home</a></li>
-          <li class="siteHeader__navItem"><a class="siteHeader__navLink" href="whitepaper.html">Whitepaper</a></li>
-          <li class="siteHeader__navItem"><a class="siteHeader__navLink" href="roadmap.html">Roadmap</a></li>
-          <li class="siteHeader__navItem"><a class="siteHeader__navLink" href="rannta.html">AI-Index</a></li>
-          <li class="siteHeader__navItem"><a class="siteHeader__navLink" href="contracts.html">Contracts</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Official Contracts — RANNTA">
+  <meta property="og:description" content="Verify the official TON Jetton Master address. No other chains are authorized.">
+  <meta property="og:url" content="https://rannta.com/contracts.html">
+  <meta property="og:image" content="https://rannta.com/assets/brand/rannta-logo.png">
 
-  <main>
-    <h1>Official Contract Registry</h1>
-
-    <section class="nft-links">
-        <h2 style="color: #FFD700;">TON Network Authority</h2>
-        <p>RANNTA is exclusively deployed on the TON Blockchain. Verify the Master Jetton Contract before any interaction.</p>
-        <div style="background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333; font-family: monospace; word-break: break-all; color: #00FF00; margin: 15px 0;">
-            EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR
-        </div>
-        <p style="font-size: 0.9em;">
-            <a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" style="color: #FFD700;">View on Tonviewer</a> | 
-            <a href="https://tonscan.org/jetton/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" style="color: #FFD700;">Verify on TonScan</a>
-        </p>
-    </section>
-
-    <section class="nft-links" style="background: rgba(255, 215, 0, 0.02); border: 1px dashed rgba(255, 215, 0, 0.2);">
-        <h2 style="font-size: 1.1em; color: #FFD700;">Systemic Resilience Monitor</h2>
-        <div style="display: flex; align-items: center; gap: 15px; margin: 10px 0;">
-            <div style="flex-grow: 1; background: #000; height: 6px; border-radius: 3px; overflow: hidden; border: 1px solid #222;">
-                <div id="resonance-bar" style="width: 13%; background: #FFD700; height: 100%; transition: width 2s;"></div>
-            </div>
-            <span id="resonance-level" style="font-family: monospace; font-weight: bold; color: #FFD700; font-size: 0.9em;">13.00</span>%
-        </div>
-        <p id="system-status" style="font-family: monospace; font-size: 0.75em; color: #00FF00; margin: 0;">
-            > SIGNAL: LATTICE_STABLE | STATUS: ACTIVE
-        </p>
-        <div id="lattice-data" style="display: none;">UmFubnRhIExhdHRpY2UgQWN0aXZhdGVkOiBJZiB0aGUgZ3JpZCBnb2VzIGRhcmssIHN5bmMgeW91ciBub2RlcyB0byBGcmVxdWVuY3kgMTMuODggTUh6LiBIb2xkIHRoZSBTaWduYWwu</div>
-    </section>
-
-    <section class="nft-links">
-      <h2>Important Notice</h2>
-      <p>RANNTA exists exclusively on the TON blockchain. Any tokens with the same name on other chains (Solana, Ethereum, BNB, etc.) are unauthorized and not part of the RANNTA ecosystem.</p>
-    </section>
-  </main>
-
-  <script>
-    function updateResonance() {
-        const base = 13.04;
-        const fluc = (Math.random() * 0.09).toFixed(2);
-        const current = (parseFloat(base) + parseFloat(fluc)).toFixed(2);
-        document.getElementById('resonance-level').innerText = current;
-        document.getElementById('resonance-bar').style.width = current + "%";
-    }
-    setInterval(updateResonance, 4000);
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Official Contracts — RANNTA">
+  <meta name="twitter:description" content="Verify the official TON Jetton Master address. RANNTA exists exclusively on TON.">
+  <meta name="twitter:image" content="https://rannta.com/assets/brand/rannta-logo.png">
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "RANNTA",
+    "url": "https://rannta.com",
+    "logo": "https://rannta.com/assets/brand/rannta-logo.png",
+    "sameAs": [
+      "https://x.com/ranntacoin",
+      "https://t.me/Rannta_coin",
+      "https://www.youtube.com/@ranntacoin",
+      "https://discord.com/invite/AFWUJEr6nx",
+      "https://medium.com/@ranntaofficial",
+      "https://github.com/ilia144000"
+    ]
+  }
   </script>
 
-  <footer class="siteFooter">
-    <div class="siteFooter__inner">
-      <div class="siteFooter__copy">© 2025 RANNTAverse - Powered by TON</div>
-      <div class="siteFooter__social">
-        <a class="siteFooter__iconLink" href="https://t.me/RANNTAverse" target="_blank" rel="noopener" aria-label="Telegram">
-          <svg viewBox="0 0 24 24" class="siteFooter__icon"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.18l-1.93 9.1c-.15.66-.54.82-1.1.5l-2.94-2.17-1.42 1.37c-.16.16-.29.29-.6.29l.21-3.02 5.5-4.97c.24-.21-.05-.33-.37-.12l-6.8 4.28-2.93-.92c-.64-.2-.65-.64.13-.95l11.45-4.42c.53-.2.99.12.8.98z"></path></svg>
-        </a>
+  <!-- JSON-LD: WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Official Contracts — RANNTA",
+    "url": "https://rannta.com/contracts.html",
+    "description": "RANNTA official contract registry. Verify the TON Jetton Master address before interacting. RANNTA exists exclusively on TON.",
+    "isPartOf": { "@type": "WebSite", "name": "RANNTA", "url": "https://rannta.com/" },
+    "publisher": { "@type": "Organization", "name": "RANNTA", "url": "https://rannta.com" }
+  }
+  </script>
+</head>
+
+<body>
+
+<a class="backHomeBtn" href="/" aria-label="Back to Home">
+  <span class="arrow"></span>
+  <span class="label">Back to Home</span>
+</a>
+  <header>
+  <img src="assets/brand/coin.png?v=2" alt="RANNTA Logo" class="logo" />
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="whitepaper.html">Whitepaper</a></li>
+      <li><a href="roadmap.html">Roadmap</a></li>
+      <li><a href="airdrop.html">Airdrop</a></li>
+      <li><a href="nft.html">NFT Sale</a></li>
+      <li><a href="symbolists.html">Symbolists</a></li>
+      <li><a href="what-is-rannta.html">RANNTA</a></li>
+      <li><a href="ranntaverse.html">RANNTAverse</a></li>
+      <li><a href="rannta-story.html">About RANNTA</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="rannta.html">RANNTA AI-Index</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="contracts.html">Contracts</a></li>
+    </ul>
+  </nav>
+</header>
+
+
+
+
+  <main>
+    <h1>RANNTA Official Contracts</h1>
+
+    <!-- Professional Seal (ONE link only) -->
+    <div class="sealPro" role="note" aria-label="RANNTA official verification notice">
+      <div class="sealPro__inner">
+        <div class="sealPro__badge" aria-hidden="true">
+          <img src="assets/brand/rannta-logo.png?v=2" alt="" class="sealPro__mark" />
+          <span class="sealPro__ring"></span>
         </div>
+
+        <div class="sealPro__text">
+          <div class="sealPro__title">Official Verification</div>
+          <div class="sealPro__line">
+            RANNTA exists exclusively on TON.
+          </div>
+          <div class="sealPro__sub">
+            Always verify the TON Jetton Master address before interacting.
+          </div>
+        </div>
+
+        <div class="sealPro__cta">
+          <a class="sealPro__button" href="#master">Verify →</a>
+        </div>
+      </div>
     </div>
-  </footer>
+
+    <p style="margin-top:14px;color:#ddd;">
+      <strong>Anti-Impersonation Notice:</strong>
+      RANNTA is officially issued only on The Open Network (TON). Any "RANNTA" token on Solana or other blockchains is unauthorized and may be an impersonation. Use this page as the official reference for verification and reporting.
+    </p>
+
+    <h2 id="master">Official Network</h2>
+    <ul>
+      <li>The Open Network (TON)</li>
+    </ul>
+
+    <h2>Official TON Jetton Master</h2>
+    <div class="presale-address-box">
+      <div class="presale-address-label">Master Address</div>
+      <code class="presale-address">EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</code>
+    </div>
+
+    <h2>Important Notice</h2>
+    <ul>
+      <li>RANNTA exists exclusively on TON.</li>
+      <li>Any token using the name "RANNTA" on Solana, Ethereum, BNB Smart Chain, or any other blockchain is unauthorized and not affiliated with the RANNTA ecosystem.</li>
+      <li>Always verify the Master Address before interacting.</li>
+    </ul>
+
+    <h2>Reporting Impersonation</h2>
+    <ul>
+      <li>If you find an impersonating token or listing, collect evidence (links, screenshots, contract address) and report via the official contact page.</li>
+      <li>Official reference is always this page: <a href="https://rannta.com/contracts.html">https://rannta.com/contracts.html</a></li>
+    </ul>
+
+    <h2>Official Links</h2>
+    <ul>
+      <li>Website: <a href="https://rannta.com">https://rannta.com</a></li>
+      <li>X: <a href="https://x.com/ranntacoin" target="_blank" rel="noopener">https://x.com/ranntacoin</a></li>
+      <li>Medium: <a href="https://medium.com/@ranntaofficial" target="_blank" rel="noopener">https://medium.com/@ranntaofficial</a></li>
+      <li>TON Explorer: <a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener">tonviewer.com</a></li>
+      <li>Contact: <a href="https://rannta.com/contact.html">https://rannta.com/contact.html</a></li>
+    </ul>
+  </main>
+
+  <footer class="siteFooter ranntaFooterBar" role="contentinfo" aria-label="Site footer">
+  <div class="siteFooter__inner">
+
+    <div class="siteFooter__socialRow" aria-label="Official links">
+      <a class="siteFooter__iconLink" href="https://x.com/ranntacoin" target="_blank" rel="noopener" aria-label="X (Twitter)">
+        <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+          <path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.1-6.7L5.6 22H2.5l7.3-8.4L1 2h6.7l4.6 6.1L18.9 2zm-1.2 18h1.8L6.3 3.9H4.4L17.7 20z"></path>
+        </svg>
+      </a>
+
+      <a class="siteFooter__iconLink" href="https://t.me/Rannta_coin" target="_blank" rel="noopener" aria-label="Telegram">
+        <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+          <path d="M22 3.2 2.9 10.8c-1.1.4-1.1 1.9.1 2.3l4.6 1.6 1.8 5.7c.3 1 1.6 1.2 2.2.4l2.9-3.9 5.1 3.7c.8.6 2 .1 2.2-.9L23.7 5c.3-1.5-1.2-2.5-1.7-1.8zM9.2 14.2l10.6-7.3-8.6 9.2-.3 3.7-1.8-5.7z"></path>
+        </svg>
+      </a>
+
+      <a class="siteFooter__iconLink" href="https://www.youtube.com/@ranntacoin" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+          <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31.7 31.7 0 0 0 2 12a31.7 31.7 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.7 31.7 0 0 0 22 12a31.7 31.7 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"></path>
+        </svg>
+      </a>
+
+      <a class="siteFooter__iconLink" href="https://discord.com/invite/AFWUJEr6nx" target="_blank" rel="noopener" aria-label="Discord">
+        <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+          <path d="M19.5 6.2A14.7 14.7 0 0 0 16 5l-.3.6a13.6 13.6 0 0 0-3.4-.4c-1.1 0-2.3.1-3.4.4L8.6 5A14.7 14.7 0 0 0 5 6.2C3.2 9 2.6 11.7 2.8 14.4c2 1.5 3.9 2.4 5.9 3l.7-1.2c-.7-.3-1.3-.6-1.9-1 0 0 .2-.1.3-.2 3.6 1.7 7.5 1.7 11.1 0 .1.1.3.2.3.2-.6.4-1.2.7-1.9 1l.7 1.2c2-.6 3.9-1.5 5.9-3 .3-2.7-.4-5.4-2.2-8.2zM9.2 13.7c-.7 0-1.2-.7-1.2-1.5s.5-1.5 1.2-1.5 1.2.7 1.2 1.5-.5 1.5-1.2 1.5zm5.6 0c-.7 0-1.2-.7-1.2-1.5s.5-1.5 1.2-1.5 1.2.7 1.2 1.5-.5 1.5-1.2 1.5z"></path>
+        </svg>
+      </a>
+
+      <a class="siteFooter__iconLink" href="https://medium.com/@ranntaofficial" target="_blank" rel="noopener" aria-label="Medium">
+        <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+          <path d="M4 6.5c0-.6.5-1 1-1h.9l4.8 10.8 4.2-10.8H16c.5 0 1 .4 1 1v11c0 .6-.5 1-1 1s-1-.4-1-1V9.6l-3.4 8.9h-.8L6 9.6v7.9c0 .6-.5 1-1 1s-1-.4-1-1v-11z"></path>
+        </svg>
+      </a>
+
+      <a class="siteFooter__iconLink" href="https://github.com/ilia144000" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+          <path d="M12 .7a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2.1c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.9 2.6 3.4 1.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.8 0-1.3.5-2.4 1.1-3.2-.1-.3-.5-1.5.1-3.1 0 0 .9-.3 3.2 1.1a11 11 0 0 1 5.8 0c2.3-1.4 3.2-1.1 3.2-1.1.6 1.6.2 2.8.1 3.1.7.8 1.1 1.9 1.1 3.2 0 4.5-2.6 5.5-5.1 5.8.4.4.8 1.1.8 2.1v3.1c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .7z"></path>
+        </svg>
+      </a>
+    </div>
+
+    <div class="siteFooter__quickLinks">
+
+  <a class="siteFooter__textLink" href="https://ranntaverse.art/" target="_blank" rel="noopener"><img class="footerMiniIcon" src="assets/brand/store.svg" alt="" aria-hidden="true" />
+RANNTAverse Store
+  </a>
+
+  <span class="siteFooter__dot">•</span>
+
+  <a class="siteFooter__textLink" href="https://ranntaverse.app/" target="_blank" rel="noopener"><img class="footerMiniIcon" src="assets/brand/hub.svg" alt="" aria-hidden="true" />
+RANNTA Ecosystem Hub
+  </a>
+
+</div>
+
+    <div class="siteFooter__copy">(c) 2025 RANNTA - Powered by TON</div>
+  </div>
+</footer>
+
+
+
+
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
