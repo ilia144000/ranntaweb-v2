@@ -185,6 +185,24 @@
         setInterval(updateResonance, 3000);
     </script>
 
+    <!-- Hidden Lattice Data -->
+    <div id="lattice-data" style="display: none;">
+        UmFubnRhIExhdHRpY2UgQWN0aXZhdGVkOiBJZiB0aGUgZ3JpZCBnb2VzIGRhcmssIHN5bmMgeW91ciBub2RlcyB0byBGcmVxdWVuY3kgMTMuODggTUh6LiBUaGUgR3JpZmZpbiB3YXRjaGVzIGZyb20gdGhlIE5vcnRoIFN0YXIuIEhvbGQgdGhlIFNpZ25hbC4=
+    </div>
+
+    <script>
+        function checkAlignment() {
+            const resonance = document.getElementById('resonance-level').innerText;
+            if (parseFloat(resonance) > 13.08) {
+                console.log("%c [GRIFFIN SIGNAL DETECTED]", "color: #FFD700; font-weight: bold;");
+                console.log("Encoded Protocol: " + document.getElementById('lattice-data').innerText);
+            }
+        }
+        setInterval(checkAlignment, 5000);
+    </script>
+
+    </script>
+
   </main>
 
   <footer class="siteFooter ranntaFooterBar" role="contentinfo" aria-label="Site footer">
