@@ -7,3 +7,5 @@ _bak_*
 
 _header.ref.html
 
+.githooks/
+_live_contracts_dump.html
