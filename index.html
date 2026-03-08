@@ -271,6 +271,47 @@
 }
   </script>
 
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@id": "https://rannta.com/#organization",
+        "@type": "Organization",
+        "name": "RANNTA Protocol",
+        "url": "https://rannta.com/",
+        "logo": "https://rannta.com/assets/brand/coin.png?v=2",
+        "description": "RANNTA Protocol is a decentralized digital asset framework built on The Open Network (TON) with a creator-first architecture, official contract verification, NFT marketplace access, and symbolic on-chain identity.",
+        "founder": {
+          "@id": "https://rannta.com/#ilia-ghafari"
+        },
+        "sameAs": [
+          "https://x.com/ranntacoin",
+          "https://github.com/ilia144000",
+          "https://medium.com/@ranntaofficial",
+          "https://ranntaverse.app/",
+          "https://RANNTA.art/"
+        ]
+      },
+      {
+        "@id": "https://rannta.com/#product",
+        "@type": "Product",
+        "name": "RANNTA",
+        "brand": {
+          "@type": "Brand",
+          "name": "RANNTA"
+        },
+        "description": "RANNTA is a TON-based digital asset and protocol entity designed for decentralized liquidity infrastructure, NFT utility, symbolic creator economy, and official marketplace expansion.",
+        "url": "https://rannta.com/",
+        "category": "Cryptocurrency",
+        "manufacturer": {
+          "@id": "https://rannta.com/#organization"
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Local inline styles for the What is RANNTA card + Signal-13 tag -->
   <style>
     .rannta-info-card {
@@ -357,7 +398,6 @@
     }
   </style>
 
-<link rel="preload" as="image" href="/assets/brand/coin.png?v=2" fetchpriority="high">
 </head>
 <body>
 
@@ -720,25 +760,3 @@ RANNTA Ecosystem Hub
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
