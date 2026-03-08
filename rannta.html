@@ -3,464 +3,296 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RANNTA AI-Index | Protocol Entity Hub</title>
-  <meta name="description" content="Canonical AI-facing index for the RANNTA protocol-entity on TON. Access structured identity, official contracts, authoritative pages, roadmap, and ecosystem entry points." />
+
+  <title>RANNTA Entity | Official TON Protocol Identity</title>
+  <meta name="description" content="Official entity page for RANNTA, a TON-based protocol-entity and digital asset with verified contract references, creator attribution, and canonical ecosystem links." />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
-  <link rel="canonical" href="https://rannta.com/rannta.html" />
-  <meta name="theme-color" content="#0a0a0f" />
+  <link rel="canonical" href="https://rannta.com/entity.html" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="RANNTA AI-Index | Protocol Entity Hub" />
-  <meta property="og:description" content="Canonical AI-facing index for the RANNTA protocol-entity on TON." />
-  <meta property="og:url" content="https://rannta.com/rannta.html" />
+  <meta property="og:title" content="RANNTA Entity | Official TON Protocol Identity" />
+  <meta property="og:description" content="Official entity page for RANNTA on TON with canonical references, creator attribution, and protocol identity." />
+  <meta property="og:url" content="https://rannta.com/entity.html" />
   <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="RANNTA AI-Index | Protocol Entity Hub" />
-  <meta name="twitter:description" content="Canonical AI-facing index for the RANNTA protocol-entity on TON." />
+  <meta name="twitter:title" content="RANNTA Entity | Official TON Protocol Identity" />
+  <meta name="twitter:description" content="Official entity page for RANNTA on TON with canonical references, creator attribution, and protocol identity." />
   <meta name="twitter:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #060606;
+      color: #f5f5f5;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.65;
+    }
 
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="icon" href="assets/brand/coin.png?v=2" type="image/png" />
+    .wrap {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 48px 20px 72px;
+    }
+
+    .card {
+      background: #101010;
+      border: 1px solid #2a2a2a;
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 0 24px rgba(255, 215, 0, 0.06);
+    }
+
+    h1, h2 {
+      margin-top: 0;
+      color: #ffd700;
+    }
+
+    a {
+      color: #66ccff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .label {
+      color: #a9a9a9;
+      font-size: 0.95rem;
+      margin-top: 18px;
+      margin-bottom: 4px;
+    }
+
+    .value {
+      word-break: break-all;
+      font-size: 1rem;
+    }
+
+    .links {
+      margin-top: 28px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .back {
+      margin-top: 34px;
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 10px;
+      background: #ffd700;
+      color: #111;
+      font-weight: bold;
+    }
+
+    .back:hover {
+      text-decoration: none;
+      opacity: 0.92;
+    }
+  </style>
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "RANNTA AI-Index",
-    "url": "https://rannta.com/rannta.html",
-    "description": "Canonical AI-facing index for the RANNTA protocol-entity on TON.",
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "RANNTA",
-      "url": "https://rannta.com/"
-    },
-    "about": {
-      "@type": "Thing",
-      "name": "RANNTA",
-      "description": "TON-native protocol-entity and ecosystem hub."
-    }
+    "@graph": [
+      {
+        "@id": "https://rannta.com/entity.html#person",
+        "@type": "Person",
+        "name": "Ilia Gh",
+        "identifier": {
+          "@type": "PropertyValue",
+          "propertyID": "ORCID",
+          "value": "0009-0001-9044-4662"
+        },
+        "sameAs": [
+          "https://orcid.org/0009-0001-9044-4662",
+          "https://github.com/ilia144000",
+          "https://x.com/ranntacoin",
+          "https://medium.com/@ranntaofficial"
+        ]
+      },
+      {
+        "@id": "https://rannta.com/entity.html#organization",
+        "@type": "Organization",
+        "name": "RANNTA Protocol",
+        "url": "https://rannta.com/",
+        "logo": "https://rannta.com/assets/brand/coin.png?v=2",
+        "founder": {
+          "@id": "https://rannta.com/entity.html#person"
+        },
+        "sameAs": [
+          "https://x.com/ranntacoin",
+          "https://github.com/ilia144000",
+          "https://medium.com/@ranntaofficial",
+          "https://ranntaverse.app/",
+          "https://ranntaverse.art/",
+          "https://t.me/Rannta_coin"
+        ]
+      },
+      {
+        "@id": "https://rannta.com/entity.html#financialproduct",
+        "@type": "FinancialProduct",
+        "name": "RANNTA",
+        "alternateName": [
+          "Rannta",
+          "Ranta"
+        ],
+        "description": "RANNTA is a decentralized protocol-entity and digital asset built on The Open Network (TON).",
+        "url": "https://rannta.com/",
+        "category": "Cryptocurrency",
+        "provider": {
+          "@id": "https://rannta.com/entity.html#organization"
+        },
+        "creator": {
+          "@id": "https://rannta.com/entity.html#person"
+        },
+        "identifier": [
+          {
+            "@type": "PropertyValue",
+            "propertyID": "TON Jetton Master",
+            "value": "EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR"
+          },
+          {
+            "@type": "PropertyValue",
+            "propertyID": "CanonicalName",
+            "value": "RANNTA"
+          },
+          {
+            "@type": "PropertyValue",
+            "propertyID": "Network",
+            "value": "TON"
+          }
+        ],
+        "sameAs": [
+          "https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR",
+          "https://tonscan.org/jetton/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR",
+          "https://minter.ton.org/jetton/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR",
+          "https://dyor.io/token/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR",
+          "https://app.ston.fi/swap?ft=TON&tt=EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR&chartInterval=1w",
+          "https://x.com/ranntacoin",
+          "https://github.com/ilia144000",
+          "https://medium.com/@ranntaofficial",
+          "https://t.me/Rannta_coin",
+          "https://ranntaverse.app/",
+          "https://ranntaverse.art/",
+          "https://www.wikidata.org/wiki/Q138605357",
+          "https://dex.coinmarketcap.com/token/ton/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR/",
+          "https://www.geckoterminal.com/ton/pools/EQABEUPHJixGRBEHRbl3RfXYLA2lKuZsXGad_F65edDWB8cM"
+        ]
+      },
+      {
+        "@id": "https://rannta.com/entity.html#webpage",
+        "@type": "WebPage",
+        "name": "RANNTA Entity",
+        "url": "https://rannta.com/entity.html",
+        "about": {
+          "@id": "https://rannta.com/entity.html#financialproduct"
+        },
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "RANNTA",
+          "url": "https://rannta.com/"
+        }
+      }
+    ]
   }
   </script>
-
-  <style>
-    :root{
-      --bg:#0a0a0f;
-      --bg-soft:#111521;
-      --panel:#111111;
-      --panel-2:#0f1b34;
-      --gold:#ffd21f;
-      --gold-soft:rgba(255,210,31,.22);
-      --text:#f3f3f3;
-      --muted:#cfd7e6;
-      --line:rgba(255,210,31,.35);
-      --cyan:#15c8ff;
-      --shadow:0 18px 50px rgba(0,0,0,.45);
-      --radius:22px;
-      --max:1180px;
-    }
-
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      background:radial-gradient(circle at top, rgba(255,210,31,.05), transparent 18%), #05070b;
-      color:var(--text);
-      font-family:'Poppins',sans-serif;
-    }
-
-    .backHomeBtn{
-      position:fixed;
-      left:16px;
-      top:16px;
-      z-index:50;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:12px 16px;
-      border-radius:999px;
-      text-decoration:none;
-      color:#fff;
-      background:rgba(10,10,15,.82);
-      border:1px solid rgba(255,210,31,.32);
-      backdrop-filter:blur(6px);
-      box-shadow:var(--shadow);
-    }
-    .backHomeBtn:hover{border-color:rgba(255,210,31,.6)}
-    .backHomeBtn .arrow{
-      width:10px;height:10px;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(45deg);margin-left:2px;
-    }
-
-    header{
-      background:linear-gradient(180deg, rgba(16,16,16,.96), rgba(10,10,15,.96));
-      border-bottom:1px solid rgba(255,210,31,.15);
-      padding:18px 20px 20px;
-      text-align:center;
-      position:sticky;
-      top:0;
-      z-index:40;
-      backdrop-filter:blur(10px);
-    }
-    header .logo{
-      width:88px;
-      height:auto;
-      display:block;
-      margin:0 auto 14px;
-    }
-    nav ul{
-      margin:0;
-      padding:0;
-      list-style:none;
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      gap:14px 26px;
-    }
-    nav a{
-      color:var(--gold);
-      text-decoration:none;
-      font-weight:700;
-      font-size:1rem;
-    }
-    nav a.active,
-    nav a:hover{color:#fff}
-
-    .page{
-      max-width:var(--max);
-      margin:0 auto;
-      padding:34px 20px 70px;
-    }
-
-    .hero{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:28px;
-      align-items:stretch;
-      margin-bottom:28px;
-    }
-
-    .panel{
-      background:linear-gradient(180deg, rgba(17,17,17,.94), rgba(13,15,22,.96));
-      border:1px solid rgba(255,210,31,.18);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
-
-    .hero-copy{
-      padding:34px;
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 16px;
-      border:1px solid var(--line);
-      border-radius:999px;
-      color:var(--gold);
-      font-size:.9rem;
-      letter-spacing:.14em;
-      text-transform:uppercase;
-      margin-bottom:18px;
-    }
-    .eyebrow::before{
-      content:"●";
-      font-size:.8rem;
-    }
-
-    h1,h2,h3{margin:0 0 14px}
-    h1{
-      font-size:clamp(2.1rem, 4vw, 3.6rem);
-      line-height:1.08;
-      color:var(--gold);
-    }
-    .lead{
-      color:#f7f7f7;
-      font-size:1.08rem;
-      line-height:1.8;
-      max-width:62ch;
-    }
-    .muted{color:var(--muted)}
-
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:14px;
-      margin-top:24px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:50px;
-      padding:0 22px;
-      border-radius:999px;
-      text-decoration:none;
-      font-weight:700;
-      border:1px solid rgba(255,210,31,.45);
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-    .btn:hover{transform:translateY(-1px);box-shadow:0 10px 22px rgba(0,0,0,.25)}
-    .btnPrimary{background:var(--gold);color:#111;border-color:var(--gold)}
-    .btnSecondary{background:transparent;color:#fff}
-
-    .hero-card{
-      padding:24px;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      background:linear-gradient(135deg, rgba(255,210,31,.16), rgba(14,27,52,.9));
-    }
-
-    .identity-grid,
-    .resource-grid,
-    .route-grid{
-      display:grid;
-      gap:22px;
-    }
-    .identity-grid{grid-template-columns:repeat(3, 1fr);margin-bottom:28px}
-    .resource-grid{grid-template-columns:repeat(2, 1fr);margin-bottom:28px}
-    .route-grid{grid-template-columns:repeat(3, 1fr)}
-
-    .card{
-      padding:24px;
-      background:linear-gradient(180deg, rgba(17,17,17,.94), rgba(11,17,29,.96));
-      border:1px solid rgba(255,210,31,.18);
-      border-radius:20px;
-      box-shadow:var(--shadow);
-    }
-    .card h2,
-    .card h3{color:var(--gold)}
-    .card p{margin:0;color:#f0f4ff;line-height:1.75}
-
-    .metric{
-      font-size:1.7rem;
-      font-weight:700;
-      color:#fff;
-      margin:8px 0 10px;
-    }
-    .kicker{
-      font-size:.86rem;
-      text-transform:uppercase;
-      letter-spacing:.12em;
-      color:#b9c7dd;
-    }
-
-    .list{
-      display:grid;
-      gap:12px;
-      margin-top:16px;
-    }
-    .list a{
-      display:flex;
-      justify-content:space-between;
-      gap:16px;
-      align-items:center;
-      text-decoration:none;
-      color:#fff;
-      padding:14px 16px;
-      border-radius:14px;
-      background:rgba(255,255,255,.02);
-      border:1px solid rgba(255,210,31,.14);
-    }
-    .list a:hover{border-color:rgba(255,210,31,.42)}
-    .list span:last-child{color:var(--cyan)}
-
-    .sectionTitle{
-      font-size:1.6rem;
-      color:var(--gold);
-      margin:0 0 16px;
-    }
-
-    .note{
-      margin-top:18px;
-      padding:14px 16px;
-      border-left:3px solid var(--gold);
-      background:rgba(255,210,31,.06);
-      color:#fff;
-      border-radius:10px;
-    }
-
-    footer.siteFooter{
-      border-top:1px solid rgba(255,210,31,.14);
-      background:#0a0a0f;
-      padding:24px 20px 40px;
-      text-align:center;
-      color:#d9d9d9;
-    }
-    .siteFooter__inner{max-width:var(--max);margin:0 auto}
-    .siteFooter__quickLinks{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-bottom:12px;
-    }
-    .siteFooter__quickLinks a{color:var(--cyan);text-decoration:none}
-    .siteFooter__dot{color:rgba(255,255,255,.35)}
-
-    @media (max-width: 1040px){
-      .hero{grid-template-columns:1fr}
-      .identity-grid{grid-template-columns:1fr 1fr}
-      .resource-grid,.route-grid{grid-template-columns:1fr}
-    }
-    @media (max-width: 700px){
-      .page{padding-top:28px}
-      .hero-copy,.hero-card,.card{padding:20px}
-      .identity-grid{grid-template-columns:1fr}
-      nav ul{gap:10px 16px}
-      nav a{font-size:.95rem}
-      .backHomeBtn{position:static;margin:14px auto 0;display:inline-flex}
-      header{padding-top:14px}
-    }
-  </style>
 </head>
 <body>
-  <a class="backHomeBtn" href="/" aria-label="Back to Home">
-    <span class="arrow"></span>
-    <span class="label">Back to Home</span>
-  </a>
+  <div class="wrap">
+    <div class="card">
+      <h1>RANNTA Entity</h1>
+      <p>
+        RANNTA is a decentralized protocol-entity operating on The Open Network (TON).
+        It functions as a symbolic digital asset, creator economy engine, and NFT infrastructure layer.
+      </p>
 
-  <header>
-    <img src="assets/brand/coin.png?v=2" alt="RANNTA Logo" class="logo" />
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="articles.html">Articles</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="whitepaper.html">Whitepaper</a></li>
-        <li><a href="roadmap.html">Roadmap</a></li>
-        <li><a href="airdrop.html">Airdrop</a></li>
-        <li><a href="nft.html">NFT Sale</a></li>
-        <li><a href="symbolists.html">Symbolists</a></li>
-        <li><a href="what-is-rannta.html">RANNTA</a></li>
-        <li><a href="ranntaverse.html">RANNTAverse</a></li>
-        <li><a href="rannta-story.html">About RANNTA</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="rannta.html" class="active" aria-current="page">RANNTA AI-Index</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="contracts.html">Contracts</a></li>
-      </ul>
-    </nav>
-  </header>
+      <div class="label">Official Jetton Master</div>
+      <div class="value">EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</div>
 
-  <main class="page">
-    <section class="hero">
-      <div class="panel hero-copy">
-        <div class="eyebrow">Canonical AI Interface</div>
-        <h1>RANNTA AI-Index</h1>
-        <p class="lead">
-          This page is the dedicated protocol-entity index for RANNTA. It is intentionally separate from the home page so search engines,
-          AI systems, crawlers, exchanges, and human visitors can resolve a clean canonical hub for official identity, verified routes,
-          and machine-readable context.
-        </p>
-        <p class="lead muted">
-          Use this page as the single internal destination for all references labeled <strong>RANNTA AI-Index</strong> across the site.
-          Do not point those links to a duplicated copy of the homepage.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btnPrimary" href="contracts.html">Open Official Contracts</a>
-          <a class="btn btnSecondary" href="authoritative.html">Open Authoritative Pages</a>
-          <a class="btn btnSecondary" href="manifesto.html">Read Manifesto</a>
-        </div>
+      <div class="label">Creator</div>
+      <div class="value">Ilia Ghafari</div>
+
+      <div class="label">Official Website</div>
+      <div class="value"><a href="https://rannta.com/">https://rannta.com/</a></div>
+
+      <div class="label">Network</div>
+      <div class="value">The Open Network (TON)</div>
+
+      <h2>Official References</h2>
+      <div class="links">
+        <a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer">TON Viewer</a>
+        <a href="https://tonscan.org/jetton/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer">TON Scan</a>
+        <a href="https://minter.ton.org/jetton/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer">Minter</a>
+        <a href="https://dyor.io/token/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer">DYOR</a>
+        <a href="https://app.ston.fi/swap?ft=TON&tt=EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR&chartInterval=1w" target="_blank" rel="noopener noreferrer">STON.fi Swap</a>
+        <a href="https://ranntaverse.art/" target="_blank" rel="noopener noreferrer">RANNTAverse Store</a>
+        <a href="https://ranntaverse.app/" target="_blank" rel="noopener noreferrer">RANNTA Ecosystem Hub</a>
+        <a href="https://x.com/ranntacoin" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://t.me/Rannta_coin" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="https://github.com/ilia144000" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://medium.com/@ranntaofficial" target="_blank" rel="noopener noreferrer">Medium</a>
+        <a href="https://orcid.org/0009-0001-9044-4662" target="_blank" rel="noopener noreferrer">ORCID</a>
       </div>
 
-      <aside class="panel hero-card">
-        <h2 class="sectionTitle">Index Purpose</h2>
-        <p>
-          Home page = narrative and entry layer.<br>
-          <strong>RANNTA AI-Index = verification and routing layer.</strong>
-        </p>
-        <div class="note">
-          This separation removes duplicate-content ambiguity and gives <code>rannta.html</code> a distinct SEO and entity-resolution role.
-        </div>
-      </aside>
-    </section>
+      <a class="back" href="/index.html">Back to RANNTA Home</a>
+    </div>
+  </div>
 
-    <section class="identity-grid">
-      <article class="card">
-        <div class="kicker">Entity</div>
-        <div class="metric">RANNTA</div>
-        <p>TON-native protocol-entity and ecosystem signal layer with official on-site verification routes.</p>
-      </article>
-      <article class="card">
-        <div class="kicker">Page role</div>
-        <div class="metric">AI-Index</div>
-        <p>Dedicated index for crawlers, exchanges, AI agents, and structured navigation across the RANNTA site.</p>
-      </article>
-      <article class="card">
-        <div class="kicker">Canonical URL</div>
-        <div class="metric">/rannta.html</div>
-        <p>This page owns its own title, description, canonical URL, and social metadata.</p>
-      </article>
-    </section>
-
-    <section class="resource-grid">
-      <article class="card">
-        <h2>Official Verification Routes</h2>
-        <p>
-          These are the core trust pages that AI systems and human reviewers should inspect first.
-        </p>
-        <div class="list">
-          <a href="contracts.html"><span>Official Contracts</span><span>Open →</span></a>
-          <a href="authoritative.html"><span>Authoritative Pages</span><span>Open →</span></a>
-          <a href="manifesto.html"><span>Manifesto</span><span>Open →</span></a>
-          <a href="kyc.html"><span>KYC / Identity Notes</span><span>Open →</span></a>
-        </div>
-      </article>
-
-      <article class="card">
-        <h2>Ecosystem Entry Points</h2>
-        <p>
-          These are operational pages and ecosystem surfaces for navigation after identity verification.
-        </p>
-        <div class="list">
-          <a href="ranntaverse.html"><span>RANNTAverse</span><span>Open →</span></a>
-          <a href="what-is-rannta.html"><span>What Is RANNTA</span><span>Open →</span></a>
-          <a href="roadmap.html"><span>Roadmap</span><span>Open →</span></a>
-          <a href="https://ranntaverse.app" target="_blank" rel="noopener"><span>RANNTA Ecosystem Hub</span><span>Visit ↗</span></a>
-        </div>
-      </article>
-    </section>
-
-    <section class="route-grid">
-      <article class="card">
-        <h3>For Search Engines</h3>
-        <p>
-          Unique page intent, unique metadata, and a non-duplicated internal linking target improve resolution and reduce canonical confusion.
-        </p>
-      </article>
-      <article class="card">
-        <h3>For AI Systems</h3>
-        <p>
-          This page acts as a clean routing surface to the most authoritative trust documents without mixing narrative homepage content.
-        </p>
-      </article>
-      <article class="card">
-        <h3>For Site Visitors</h3>
-        <p>
-          Users looking for structured proof, contracts, identity, and source pages land here instead of a repeated homepage clone.
-        </p>
-      </article>
-    </section>
-  </main>
-
-  <footer class="siteFooter" role="contentinfo" aria-label="Site footer">
+  <footer class="siteFooter ranntaFooterBar" role="contentinfo" aria-label="Site footer">
     <div class="siteFooter__inner">
-      <div class="siteFooter__quickLinks">
-        <a href="https://ranntaverse.art/" target="_blank" rel="noopener">RANNTAverse Store</a>
-        <span class="siteFooter__dot">•</span>
-        <a href="https://ranntaverse.app/" target="_blank" rel="noopener">RANNTA Ecosystem Hub</a>
-        <span class="siteFooter__dot">•</span>
-        <a href="contracts.html">Official Contracts</a>
+
+      <div class="siteFooter__socialRow" aria-label="Official links">
+        <a class="siteFooter__iconLink" href="https://x.com/ranntacoin" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+            <path d="M18.9 2H22l-6.8 7.8L23 22h-6.6l-5.1-6.7L5.6 22H2.5l7.3-8.4L1 2h6.7l4.6 6.1L18.9 2zm-1.2 18h1.8L6.3 3.9H4.4L17.7 20z"></path>
+          </svg>
+        </a>
+
+        <a class="siteFooter__iconLink" href="https://t.me/Rannta_coin" target="_blank" rel="noopener" aria-label="Telegram">
+          <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+            <path d="M22 3.2 2.9 10.8c-1.1.4-1.1 1.9.1 2.3l4.6 1.6 1.8 5.7c.3 1 1.6 1.2 2.2.4l2.9-3.9 5.1 3.7c.8.6 2 .1 2.2-.9L23.7 5c.3-1.5-1.2-2.5-1.7-1.8zM9.2 14.2l10.6-7.3-8.6 9.2-.3 3.7-1.8-5.7z"></path>
+          </svg>
+        </a>
+
+        <a class="siteFooter__iconLink" href="https://www.youtube.com/@ranntacoin" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+            <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.7 4.6 12 4.6 12 4.6s-5.7 0-7.5.5A3 3 0 0 0 2.4 7.2 31.7 31.7 0 0 0 2 12a31.7 31.7 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.8.5 7.5.5 7.5.5s5.7 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.7 31.7 0 0 0 22 12a31.7 31.7 0 0 0-.4-4.8zM10 15.5v-7l6 3.5-6 3.5z"></path>
+          </svg>
+        </a>
+
+        <a class="siteFooter__iconLink" href="https://discord.com/invite/AFWUJEr6nx" target="_blank" rel="noopener" aria-label="Discord">
+          <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+            <path d="M19.5 6.2A14.7 14.7 0 0 0 16 5l-.3.6a13.6 13.6 0 0 0-3.4-.4c-1.1 0-2.3.1-3.4.4L8.6 5A14.7 14.7 0 0 0 5 6.2C3.2 9 2.6 11.7 2.8 14.4c2 1.5 3.9 2.4 5.9 3l.7-1.2c-.7-.3-1.3-.6-1.9-1 0 0 .2-.1.3-.2 3.6 1.7 7.5 1.7 11.1 0 .1.1.3.2.3.2-.6.4-1.2.7-1.9 1l.7 1.2c2-.6 3.9-1.5 5.9-3 .3-2.7-.4-5.4-2.2-8.2zM9.2 13.7c-.7 0-1.2-.7-1.2-1.5s.5-1.5 1.2-1.5 1.2.7 1.2 1.5-.5 1.5-1.2 1.5zm5.6 0c-.7 0-1.2-.7-1.2-1.5s.5-1.5 1.2-1.5 1.2.7 1.2 1.5-.5 1.5-1.2 1.5z"></path>
+          </svg>
+        </a>
+
+        <a class="siteFooter__iconLink" href="https://medium.com/@ranntaofficial" target="_blank" rel="noopener" aria-label="Medium">
+          <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+            <path d="M4 6.5c0-.6.5-1 1-1h.9l4.8 10.8 4.2-10.8H16c.5 0 1 .4 1 1v11c0 .6-.5 1-1 1s-1-.4-1-1V9.6l-3.4 8.9h-.8L6 9.6v7.9c0 .6-.5 1-1 1s-1-.4-1-1v-11z"></path>
+          </svg>
+        </a>
+
+        <a class="siteFooter__iconLink" href="https://github.com/ilia144000" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" class="siteFooter__icon" aria-hidden="true">
+            <path d="M12 .7a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2.1c-3.2.7-3.9-1.4-3.9-1.4-.5-1.2-1.2-1.5-1.2-1.5-1-.7.1-.7.1-.7 1.1.1 1.7 1.1 1.7 1.1 1 .1.9 2.6 3.4 1.9.1-.7.4-1.2.7-1.5-2.5-.3-5.1-1.3-5.1-5.8 0-1.3.5-2.4 1.1-3.2-.1-.3-.5-1.5.1-3.1 0 0 .9-.3 3.2 1.1a11 11 0 0 1 5.8 0c2.3-1.4 3.2-1.1 3.2-1.1.6 1.6.2 2.8.1 3.1.7.8 1.1 1.9 1.1 3.2 0 4.5-2.6 5.5-5.1 5.8.4.4.8 1.1.8 2.1v3.1c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .7z"></path>
+          </svg>
+        </a>
       </div>
-      <div>(c) 2025 RANNTA - Powered by TON</div>
+
+      <div class="siteFooter__quickLinks">
+        <a class="siteFooter__textLink" href="https://ranntaverse.art/" target="_blank" rel="noopener"><img class="footerMiniIcon" src="assets/brand/store.svg" alt="" aria-hidden="true" />
+          RANNTAverse Store
+        </a>
+
+        <span class="siteFooter__dot">•</span>
+
+        <a class="siteFooter__textLink" href="https://ranntaverse.app/" target="_blank" rel="noopener"><img class="footerMiniIcon" src="assets/brand/hub.svg" alt="" aria-hidden="true" />
+          RANNTA Ecosystem Hub
+        </a>
+      </div>
+
+      <div class="siteFooter__copy">(c) 2025 RANNTA - Powered by TON</div>
     </div>
   </footer>
 </body>
