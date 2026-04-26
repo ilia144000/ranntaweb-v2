@@ -1241,3 +1241,35 @@ header img.logo {
 }
 /* === /RANNTA: HOME HERO BALANCE v1 === */
 
+
+/* === RANNTA: HOME HERO CTA ROW v1 === */
+.signal-hero .cta {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  flex-wrap: nowrap !important;
+  gap: 12px !important;
+  margin-top: 22px !important;
+}
+
+.signal-hero .cta .btnHero {
+  margin: 0 !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+}
+
+.signal-hero .cta .btnHero.ghost {
+  min-width: 178px !important;
+}
+
+@media (max-width: 760px) {
+  .signal-hero .cta {
+    flex-wrap: wrap !important;
+  }
+
+  .signal-hero .cta .btnHero {
+    flex: 1 1 auto !important;
+    min-width: 180px !important;
+  }
+}
+/* === /RANNTA: HOME HERO CTA ROW v1 === */
