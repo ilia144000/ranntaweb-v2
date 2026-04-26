@@ -22,6 +22,7 @@
 <url><loc>https://rannta.com/rannta.html</loc></url>
 <url><loc>https://rannta.com/ranntaverse.html</loc></url>
 <url><loc>https://rannta.com/roadmap.html</loc></url>
+<url><loc>https://rannta.com/rannta-network.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
 <url><loc>https://rannta.com/signal-13.html</loc></url>
 <url><loc>https://rannta.com/swap.html</loc></url>
 <url><loc>https://rannta.com/symbolists.html</loc></url>
@@ -30,3 +31,4 @@
 <url><loc>https://rannta.com/whitepaper.html</loc></url>
 
 </urlset>
+
