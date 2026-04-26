@@ -1273,3 +1273,27 @@ header img.logo {
   }
 }
 /* === /RANNTA: HOME HERO CTA ROW v1 === */
+
+
+/* === RANNTA: BURN DASHBOARD ADDRESS WRAP v1 === */
+body:has([href="/assets/js/site-shell.js"]) .card-value,
+.card-value {
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+  max-width: 100% !important;
+}
+
+.card .card-value {
+  line-height: 1.45 !important;
+}
+
+.card .card-value + .card-caption {
+  margin-top: 6px !important;
+}
+
+@media (min-width: 901px) {
+  .cards-grid .card {
+    min-width: 0 !important;
+  }
+}
+/* === /RANNTA: BURN DASHBOARD ADDRESS WRAP v1 === */
