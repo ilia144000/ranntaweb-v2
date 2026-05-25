@@ -95,6 +95,45 @@
         link.setAttribute("aria-current", "page");
       }
     });
+
+    var moreDetails = document.querySelector(".siteNav__more details");
+
+    if (moreDetails) {
+      var moreSummary = moreDetails.querySelector("summary");
+
+      function closeMoreMenu() {
+        moreDetails.removeAttribute("open");
+        if (moreSummary) {
+          moreSummary.setAttribute("aria-expanded", "false");
+        }
+      }
+
+      function syncMoreState() {
+        if (moreSummary) {
+          moreSummary.setAttribute("aria-expanded", moreDetails.open ? "true" : "false");
+        }
+      }
+
+      syncMoreState();
+
+      moreDetails.addEventListener("toggle", syncMoreState);
+
+      document.addEventListener("click", function (event) {
+        if (!moreDetails.contains(event.target)) {
+          closeMoreMenu();
+        }
+      });
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          closeMoreMenu();
+        }
+      });
+
+      moreDetails.querySelectorAll("a").forEach(function (link) {
+        link.addEventListener("click", closeMoreMenu);
+      });
+    }
   }
 
   if (document.readyState === "loading") {
@@ -103,3 +142,4 @@
     setShell();
   }
 })();
+
