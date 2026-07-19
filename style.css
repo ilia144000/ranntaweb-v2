@@ -1502,7 +1502,32 @@ body:has([href="/assets/js/site-shell.js"]) .card-value,
   height: 78px !important;
   max-height: 78px !important;
   width: auto !important;
-  margin: 0 auto 14px !important;
+  margin: 0 auto 8px !important;
+}
+
+.siteHeader__brand {
+  max-width: 900px;
+  margin: 0 auto 14px;
+  padding: 0 12px;
+  text-align: center;
+}
+
+.site-brand-title {
+  font-family: 'Cinzel Decorative', serif;
+  color: #FFD700;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: 0;
+}
+
+.site-brand-subtitle {
+  margin-top: 4px;
+  color: #cfc4a4;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  letter-spacing: 0;
 }
 
 .siteNav {
@@ -1613,6 +1638,21 @@ body:has([href="/assets/js/site-shell.js"]) .card-value,
   .siteHeader .logo {
     height: 58px !important;
     max-height: 58px !important;
+  }
+
+  .siteHeader__brand {
+    margin-bottom: 12px;
+    padding: 0 8px;
+  }
+
+  .site-brand-title {
+    font-size: 18px;
+    line-height: 1.24;
+  }
+
+  .site-brand-subtitle {
+    font-size: 12px;
+    line-height: 1.4;
   }
 
   .siteNav__list {
@@ -1783,6 +1823,21 @@ body:has([href="/assets/js/site-shell.js"]) .card-value,
 /* === /RANNTA: HEADER NAV GLASS BUTTONS v3 === */
 
 @media (max-width: 520px) {
+  .siteHeader__brand {
+    max-width: calc(100vw - 12px);
+    padding: 0;
+  }
+
+  .site-brand-title {
+    font-size: 13px;
+    line-height: 1.24;
+  }
+
+  .site-brand-subtitle {
+    font-size: 11.5px;
+    line-height: 1.4;
+  }
+
   .siteNav__list > li.siteNav__more {
     position: static !important;
   }
