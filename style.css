@@ -219,6 +219,169 @@ footer p {
 
 /* === RANNTA Signal Hero === */
 
+.home-identity {
+  max-width: 1120px;
+  margin: 28px auto 10px;
+  padding: 20px 36px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 22px;
+  align-items: stretch;
+  border: 1px solid rgba(255, 215, 0, 0.14);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(18, 18, 18, 0.96), rgba(10, 10, 10, 0.96));
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.24);
+}
+
+.home-identity h1 {
+  font-family: 'Cinzel Decorative', serif;
+  color: #FFD700;
+  font-size: clamp(1.55rem, 2.7vw, 2.22rem);
+  line-height: 1.18;
+  margin: 0 0 10px;
+  letter-spacing: 0;
+}
+
+.home-identity p {
+  color: #e5e5e5;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.home-identity__actions,
+.launch-news-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.home-identity__actions .btnHero {
+  margin: 0;
+}
+
+.launch-news-card {
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 215, 0, 0.24);
+}
+
+.launch-news-card__label {
+  color: #FFD700;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+}
+
+.launch-news-card h2 {
+  font-family: 'Cinzel Decorative', serif;
+  color: #fff;
+  font-size: 1.12rem;
+  margin: 0 0 4px;
+  letter-spacing: 0;
+}
+
+.launch-news-card time {
+  display: block;
+  color: rgba(255, 215, 0, 0.82);
+  font-size: 0.88rem;
+  margin-bottom: 8px;
+}
+
+.launch-news-card p {
+  font-size: 0.94rem;
+  color: #d8d8d8;
+}
+
+.launch-news-card__links a {
+  color: #FFD700;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px dotted rgba(255, 215, 0, 0.45);
+}
+
+.launch-news-card__links a:hover {
+  color: #fff;
+  border-bottom-color: transparent;
+}
+
+.article-page {
+  max-width: 860px;
+}
+
+.article-kicker {
+  color: #FFD700;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.article-subtitle {
+  color: #e2e2e2;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-top: -2px;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  color: #bbb;
+  font-size: 0.92rem;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.16);
+  margin-bottom: 18px;
+}
+
+.article-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.article-cta .btnHero {
+  margin: 0;
+}
+
+.announcement-list {
+  display: grid;
+  gap: 14px;
+}
+
+.announcement-card {
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.24);
+  background: #141414;
+}
+
+.announcement-card h3 {
+  color: #FFD700;
+  margin: 0 0 6px;
+}
+
+.announcement-card time {
+  display: block;
+  color: #bbb;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.announcement-card p {
+  margin-top: 0;
+}
+
+.announcement-card a {
+  font-weight: 700;
+}
+
 .signal-hero {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -228,10 +391,12 @@ footer p {
   background: linear-gradient(180deg, #111 0%, #181818 100%);
 }
 
-.signal-hero .hero-copy h1 {
+.signal-hero .hero-copy h1,
+.signal-hero .hero-copy h2 {
   font-size: 2.4em;
   color: #FFD700;
   margin: 0 0 12px;
+  letter-spacing: 0;
 }
 
 .signal-hero .hero-copy .sub {
@@ -313,7 +478,8 @@ img {
   .glyph-figure img {
     max-width: 360px;
   }
-  .signal-hero .hero-copy h1 {
+  .signal-hero .hero-copy h1,
+  .signal-hero .hero-copy h2 {
     font-size: 1.8em;
   }
 }
@@ -333,7 +499,8 @@ img {
     gap: 22px;
   }
 
-  .signal-hero .hero-copy h1 {
+  .signal-hero .hero-copy h1,
+  .signal-hero .hero-copy h2 {
     font-size: 1.6em;
   }
 
@@ -358,6 +525,23 @@ img {
   }
   h2 {
     font-size: 0.98em;
+  }
+}
+
+@media (max-width: 760px) {
+  .home-identity {
+    grid-template-columns: 1fr;
+    max-width: calc(100% - 18px);
+    margin-top: 18px;
+    padding: 18px 16px;
+    gap: 16px;
+  }
+
+  .home-identity__actions .btnHero {
+    flex: 1 1 100%;
+    text-align: center;
+    padding-left: 12px;
+    padding-right: 12px;
   }
 }
 
@@ -1199,7 +1383,8 @@ header img.logo {
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28) !important;
 }
 
-.signal-hero .hero-copy h1 {
+.signal-hero .hero-copy h1,
+.signal-hero .hero-copy h2 {
   font-size: clamp(2rem, 3.2vw, 2.55rem) !important;
 }
 
@@ -1587,11 +1772,31 @@ body:has([href="/assets/js/site-shell.js"]) .card-value,
   }
 
   .siteNav__dropdown {
+    box-sizing: border-box !important;
     right: auto !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
-    width: min(88vw, 260px) !important;
+    width: min(calc(100vw - 24px), 260px) !important;
+    max-width: calc(100vw - 24px) !important;
   }
 }
 /* === /RANNTA: HEADER NAV GLASS BUTTONS v3 === */
+
+@media (max-width: 520px) {
+  .siteNav__list > li.siteNav__more {
+    position: static !important;
+  }
+
+  .siteNav__list > li.siteNav__more details {
+    position: static !important;
+  }
+
+  .siteNav__dropdown {
+    left: 12px !important;
+    right: 12px !important;
+    transform: none !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+}
 

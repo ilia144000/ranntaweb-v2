@@ -19,6 +19,7 @@
     + '          <summary>More</summary>'
     + '          <div class="siteNav__dropdown">'
     + '            <a href="/gallery.html">Gallery</a>'
+    + '            <a href="https://ranntaexchange.com/" target="_blank" rel="noopener noreferrer">RANNTA X-Change</a>'
     + '            <a href="/whitepaper.html">Whitepaper</a>'
     + '            <a href="/roadmap.html">Roadmap</a>'
     + '            <a href="/airdrop.html">Airdrop</a>'
