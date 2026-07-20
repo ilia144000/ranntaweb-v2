@@ -16,8 +16,9 @@
     (function () {
       var p = (location.pathname || "").toLowerCase();
 
-      if (p === "/rannta.html" || p === "/rannta.html") {
-        location.replace("/rannta.html");
+      if (p === "/rannta.html") {
+        // rannta.html still exists as the ecosystem page - no redirect needed
+        // If someone specifically navigated here, let them see it
         return;
       }
 

@@ -30,7 +30,7 @@
     + '            <a href="/nft.html">NFT Sale</a>'
     + '            <a href="/symbolists.html">Symbolists</a>'
     + '            <a href="/rannta-story.html">About RANNTA</a>'
-    + '            <a href="/rannta.html">RANNTA AI-Index</a>'
+      + '            <a href="/ai-index.html">RANNTA AI-Index</a>'
     + '            <a href="/team.html">Team</a>'
     + '            <a href="/contracts.html">Contracts</a>'
     + '          </div>'

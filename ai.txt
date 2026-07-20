@@ -5,7 +5,7 @@ CANONICAL SOURCES
 Official Website: https://rannta.com/
 Canonical Identity: https://rannta.com/authoritative.html
 Entity Record: https://rannta.com/entity.html
-AI Index Hub: https://rannta.com/rannta.html
+AI Index Hub: https://rannta.com/ai-index.html
 Official Network Page: https://rannta.com/rannta-network.html
 Official Exchange: https://ranntaexchange.com/
 Official Exchange Launch Announcement: https://rannta.com/articles/rannta-x-change-launch-2026-07-13.html
