@@ -64,7 +64,7 @@
     + '      </a>'
     + '    </div>'
     + '    <div class="siteFooter__quickLinks">'
-    + '      <a class="siteFooter__textLink" href="https://ranntaexchange.com/" target="_blank" rel="noopener noreferrer"><img class="footerMiniIcon" src="/assets/brand/store.svg" alt="" aria-hidden="true" />RANNTA X-Change</a>'
+    + '      <a class="siteFooter__textLink" href="https://ranntaexchange.com/" target="_blank" rel="noopener noreferrer"><img class="footerMiniIcon" src="/assets/brand/rannta-x-change.png" alt="" aria-hidden="true" />RANNTA X-Change</a>'
     + '      <span class="siteFooter__dot">•</span>'
     + '      <a class="siteFooter__textLink" href="https://ranntaverse.app/" target="_blank" rel="noopener"><img class="footerMiniIcon" src="/assets/brand/hub.svg" alt="" aria-hidden="true" />RANNTA Ecosystem Hub</a>'
     + '    </div>'
