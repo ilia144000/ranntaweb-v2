@@ -8,21 +8,49 @@
 
   <link rel="canonical" href="https://rannta.com/whitepaper.html" />
   <link rel="stylesheet" href="/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
 
-  <meta name="description" content="Official RANNTA whitepaper overview covering the verified TON token, RANNTA X-Chain, RouteX interoperability engine, the live RANNTA X-Change, and RANNTAverse ecosystem services." />
-  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <meta
+    name="description"
+    content="Official RANNTA whitepaper covering the verified TON token, the live RANNTA X-Chain, RouteX interoperability infrastructure, RANNTA X-Change, and RANNTAverse ecosystem services."
+  />
 
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="RANNTA Whitepaper | TON Token, X-Chain, RouteX and X-Change">
-  <meta property="og:description" content="Official technical and ecosystem overview for the RANNTA TON token, RANNTA X-Chain, RouteX Engine and the live RANNTA X-Change.">
-  <meta property="og:url" content="https://rannta.com/whitepaper.html">
-  <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2">
+  <meta
+    name="robots"
+    content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1"
+  />
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RANNTA Whitepaper | TON Token, X-Chain, RouteX and X-Change">
-  <meta name="twitter:description" content="Official technical and ecosystem overview for the RANNTA TON token, RANNTA X-Chain, RouteX Engine and the live RANNTA X-Change.">
-  <meta name="twitter:image" content="https://rannta.com/assets/brand/coin.png?v=2">
+  <meta property="og:type" content="article" />
+  <meta
+    property="og:title"
+    content="RANNTA Whitepaper | TON Token, X-Chain, RouteX and X-Change"
+  />
+  <meta
+    property="og:description"
+    content="Official technical and ecosystem overview for the RANNTA TON token, the live RANNTA X-Chain, RouteX Engine and RANNTA X-Change."
+  />
+  <meta property="og:url" content="https://rannta.com/whitepaper.html" />
+  <meta
+    property="og:image"
+    content="https://rannta.com/assets/brand/coin.png?v=2"
+  />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    content="RANNTA Whitepaper | TON Token, X-Chain, RouteX and X-Change"
+  />
+  <meta
+    name="twitter:description"
+    content="Official technical and ecosystem overview for the RANNTA TON token, the live RANNTA X-Chain, RouteX Engine and RANNTA X-Change."
+  />
+  <meta
+    name="twitter:image"
+    content="https://rannta.com/assets/brand/coin.png?v=2"
+  />
 
   <script type="application/ld+json">
   {
@@ -36,14 +64,21 @@
         "logo": {
           "@type": "ImageObject",
           "url": "https://rannta.com/assets/brand/coin.png?v=2"
-        }
+        },
+        "sameAs": [
+          "https://x.com/ranntacoin",
+          "https://t.me/Rannta_coin",
+          "https://medium.com/@ranntaofficial",
+          "https://github.com/ilia144000",
+          "https://ranntaverse.app/"
+        ]
       },
       {
         "@type": "TechArticle",
         "@id": "https://rannta.com/whitepaper.html#whitepaper",
         "headline": "RANNTA Whitepaper",
         "name": "RANNTA Whitepaper",
-        "description": "Official technical and ecosystem overview covering the RANNTA TON token, RANNTA X-Chain, RouteX interoperability engine and RANNTA X-Change.",
+        "description": "Official technical and ecosystem overview covering the verified RANNTA TON token, the live RANNTA X-Chain, RouteX interoperability infrastructure and the live RANNTA X-Change.",
         "url": "https://rannta.com/whitepaper.html",
         "dateModified": "2026-07-20",
         "author": {
@@ -65,15 +100,53 @@
           {
             "@type": "SoftwareApplication",
             "name": "RANNTA X-Change",
-            "url": "https://ranntaexchange.com/"
+            "url": "https://ranntaexchange.com/",
+            "applicationCategory": "FinanceApplication",
+            "operatingSystem": "Web"
           },
           {
             "@type": "Thing",
-            "name": "RANNTA X-Chain"
+            "name": "RANNTA X-Chain",
+            "identifier": [
+              {
+                "@type": "PropertyValue",
+                "propertyID": "Chain ID",
+                "value": "13113"
+              },
+              {
+                "@type": "PropertyValue",
+                "propertyID": "Hex Chain ID",
+                "value": "0x3339"
+              },
+              {
+                "@type": "PropertyValue",
+                "propertyID": "Native Asset",
+                "value": "RNTX"
+              }
+            ]
           },
           {
             "@type": "SoftwareApplication",
-            "name": "RouteX Engine"
+            "name": "RouteX Engine",
+            "applicationCategory": "Blockchain routing and execution infrastructure"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://rannta.com/whitepaper.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://rannta.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "RANNTA Whitepaper",
+            "item": "https://rannta.com/whitepaper.html"
           }
         ]
       }
@@ -92,17 +165,29 @@
     <h2>1. Executive Definition</h2>
 
     <p>
-      RANNTA is a layered blockchain ecosystem containing three distinct but related foundations:
+      RANNTA is a layered blockchain ecosystem containing three distinct but
+      connected foundations:
     </p>
 
     <ul>
-      <li>The official RANNTA token issued as a Jetton on The Open Network.</li>
-      <li>RANNTA X-Change, the live non-custodial cross-chain exchange.</li>
-      <li>RANNTA Network / RANNTA X-Chain, the separate blockchain and interoperability architecture.</li>
+      <li>
+        The official RANNTA token issued as a Jetton on The Open Network.
+      </li>
+      <li>
+        RANNTA X-Change, the live non-custodial cross-chain exchange of the
+        RANNTA ecosystem.
+      </li>
+      <li>
+        RANNTA Network / RANNTA X-Chain, the independent and operational
+        blockchain and interoperability layer.
+      </li>
     </ul>
 
     <p>
-      RouteX is the independent routing and execution-planning engine being developed as a common language between blockchain networks, assets, execution environments and cross-family settlement paths.
+      RouteX is the independent routing and execution-planning engine being
+      developed as a common language between blockchain networks, assets,
+      liquidity environments, execution systems and cross-family settlement
+      paths.
     </p>
   </section>
 
@@ -110,19 +195,62 @@
     <h2>2. Official RANNTA Token on TON</h2>
 
     <p>
-      The official RANNTA token is currently issued only as a Jetton on The Open Network. It is the first public ecosystem asset and remains an identity, marketplace, liquidity and participation asset within the wider RANNTA ecosystem.
+      The official RANNTA token is currently issued as a Jetton on The Open
+      Network. It is the first public RANNTA ecosystem asset and remains an
+      identity, marketplace, liquidity and participation asset within the
+      wider ecosystem.
     </p>
 
     <ul>
-      <li><strong>Network:</strong> The Open Network (TON)</li>
-      <li><strong>Token standard:</strong> TON Jetton</li>
-      <li><strong>Official Jetton Master:</strong> EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</li>
-      <li><strong>Verification:</strong> <a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer">TON Viewer</a></li>
-      <li><strong>Boundary:</strong> the TON token is not the native network layer of RANNTA X-Chain.</li>
+      <li>
+        <strong>Official token name:</strong>
+        RANNTA
+      </li>
+
+      <li>
+        <strong>Network:</strong>
+        The Open Network (TON)
+      </li>
+
+      <li>
+        <strong>Token standard:</strong>
+        TON Jetton
+      </li>
+
+      <li>
+        <strong>Official Jetton Master:</strong>
+        EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR
+      </li>
+
+      <li>
+        <strong>Official verification:</strong>
+        <a
+          href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          TON Viewer
+        </a>
+      </li>
+
+      <li>
+        <strong>Identity boundary:</strong>
+        the TON-issued RANNTA token is separate from the native network layer
+        of RANNTA X-Chain.
+      </li>
     </ul>
 
     <p>
-      A token using the RANNTA name or ticker on another blockchain is not an official RANNTA asset unless its deployment and contract address are explicitly announced through official RANNTA sources.
+      A token using the RANNTA name, ticker, logo, website, description or
+      branding on another blockchain is not an official RANNTA asset unless
+      its deployment and contract address are explicitly announced through
+      official RANNTA sources.
+    </p>
+
+    <p>
+      Matching names or tickers displayed by a DEX, wallet index, price page,
+      blockchain explorer or third-party data provider do not establish
+      official RANNTA status.
     </p>
   </section>
 
@@ -130,23 +258,107 @@
     <h2>3. RANNTA Network / RANNTA X-Chain</h2>
 
     <p>
-      RANNTA X-Chain is the independent blockchain and interoperability direction of the RANNTA ecosystem. It is separate from the TON-issued RANNTA token and must not be classified as a TON application, middleware layer or Jetton extension.
+      RANNTA X-Chain is the independent blockchain and interoperability layer
+      of the RANNTA ecosystem. It is separate from the TON-issued RANNTA token
+      and must not be classified as a TON application, TON middleware layer or
+      Jetton extension.
     </p>
 
     <ul>
-      <li><strong>Chain identity:</strong> RANNTA X-Chain</li>
-      <li><strong>Chain ID:</strong> 13113</li>
-      <li><strong>Native currency:</strong> RANNTA Core X (RNTX)</li>
-      <li><strong>Primary purpose:</strong> interoperability, verifiable coordination, routing, state handoffs and cross-chain communication</li>
-      <li><strong>Public surfaces:</strong> RPC, compatibility proxy, explorer and network status infrastructure</li>
+      <li>
+        <strong>Official chain name:</strong>
+        RANNTA X-Chain
+      </li>
+
+      <li>
+        <strong>Chain ID:</strong>
+        13113
+      </li>
+
+      <li>
+        <strong>Hex chain ID:</strong>
+        0x3339
+      </li>
+
+      <li>
+        <strong>Native currency:</strong>
+        RANNTA Core X
+      </li>
+
+      <li>
+        <strong>Native symbol:</strong>
+        RNTX
+      </li>
+
+      <li>
+        <strong>Public RPC:</strong>
+        <a
+          href="https://rpc.rannta.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://rpc.rannta.com/
+        </a>
+      </li>
+
+      <li>
+        <strong>Public Explorer:</strong>
+        <a
+          href="https://explorer.rannta.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://explorer.rannta.com/
+        </a>
+      </li>
+
+      <li>
+        <strong>Multichain Explorer:</strong>
+        <a
+          href="https://explorer.rannta.com/activity"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://explorer.rannta.com/activity
+        </a>
+      </li>
+
+      <li>
+        <strong>Network status:</strong>
+        Live and operational
+      </li>
     </ul>
 
     <p>
-      The network architecture is being evolved through controlled deployment, validation, node coordination, diagnostic contracts, compatibility layers and staged production activation.
+      The RANNTA X-Chain public JSON-RPC endpoint, compatibility layer,
+      explorer, transaction indexing, block records, receipt visibility,
+      activity surfaces and RNTX fee settlement are active.
     </p>
 
     <p>
-      Public RPC and explorer availability do not automatically imply that every planned validator, consensus, staking, bridge, liquidity or network-native service is already active. Each capability is announced separately after verification.
+      The RANNTA Explorer provides live access to blocks, transaction hashes,
+      wallet transfers, receipts, fees, treasury records and indexed network
+      activity.
+    </p>
+
+    <p>
+      The RANNTA Multichain Explorer provides network-specific activity,
+      verification records and native evidence across RANNTA X-Chain and
+      connected blockchain ecosystems.
+    </p>
+
+    <p>
+      RANNTA X-Chain is designed for interoperability, verifiable
+      coordination, routing, state handoffs, proof transport, cross-chain
+      communication and decentralized trust between isolated blockchain
+      environments.
+    </p>
+
+    <p>
+      Additional network capabilities such as expanded validator
+      decentralization, staking, slashing, bridge-native settlement,
+      network-native liquidity and broader node participation are published
+      independently as their production deployments are completed.
     </p>
   </section>
 
@@ -154,21 +366,59 @@
     <h2>4. RouteX Universal Routing Engine</h2>
 
     <p>
-      RouteX is RANNTA's independent multi-network routing and execution-planning engine. Its objective is to provide a permanent and extensible language for networks, assets, liquidity venues, execution plans and cross-family communication.
+      RouteX is RANNTA's independent multi-network routing and
+      execution-planning engine. Its objective is to provide a permanent,
+      extensible and provider-independent language for networks, assets,
+      liquidity venues, execution plans and cross-family communication.
     </p>
 
     <ul>
-      <li>Independent runtime architecture without mandatory production dependency on Rango or Squid.</li>
-      <li>Permanent local network and asset registries.</li>
-      <li>Multi-network EVM quote and execution infrastructure.</li>
-      <li>Real-fork verification across supported EVM networks.</li>
-      <li>Solana detection, quote and unsigned execution-plan support.</li>
-      <li>Staged adapters for TON, Sui, Bitcoin and additional blockchain families.</li>
-      <li>Operator and safety gates before public signing or settlement activation.</li>
+      <li>
+        Independent runtime architecture without mandatory production
+        dependency on Rango or Squid.
+      </li>
+
+      <li>
+        Permanent local blockchain, network and asset registries.
+      </li>
+
+      <li>
+        Multi-network EVM quote and execution infrastructure.
+      </li>
+
+      <li>
+        Real-fork verification across supported EVM networks.
+      </li>
+
+      <li>
+        Solana asset detection, quote generation and unsigned execution-plan
+        infrastructure.
+      </li>
+
+      <li>
+        TON, Sui, Bitcoin and additional blockchain-family adapters under
+        active staged development.
+      </li>
+
+      <li>
+        Extensible architecture for newly created networks, assets, routers,
+        liquidity systems and execution models.
+      </li>
+
+      <li>
+        Explicit execution controls for signing, settlement and
+        fund-moving actions.
+      </li>
     </ul>
 
     <p>
-      RouteX is designed so newly created networks, assets, routers and execution models can be incorporated without restructuring the entire engine.
+      RouteX is designed so that newly created blockchain networks and routing
+      structures can be integrated without restructuring the entire engine.
+    </p>
+
+    <p>
+      Its long-term role is to act as a shared communication and execution
+      language between heterogeneous blockchain families.
     </p>
   </section>
 
@@ -176,23 +426,74 @@
     <h2>5. RANNTA X-Change</h2>
 
     <p>
-      RANNTA X-Change officially launched on 13 July 2026 as the live non-custodial cross-chain exchange of the RANNTA ecosystem.
+      RANNTA X-Change officially launched on 13 July 2026 as the live
+      non-custodial cross-chain exchange of the RANNTA ecosystem.
     </p>
 
     <ul>
-      <li><strong>Official URL:</strong> <a href="https://ranntaexchange.com/" target="_blank" rel="noopener noreferrer">https://ranntaexchange.com/</a></li>
-      <li><strong>Operating model:</strong> non-custodial and wallet-controlled</li>
-      <li><strong>Routing surfaces:</strong> RouteX, OneRoute and OmniRoute</li>
-      <li><strong>External routing providers:</strong> Squid and Rango where integrated</li>
-      <li><strong>Public surfaces:</strong> swap, warp, activity, portfolio, markets, networks, security, trust and developer information</li>
+      <li>
+        <strong>Official name:</strong>
+        RANNTA X-Change
+      </li>
+
+      <li>
+        <strong>Official URL:</strong>
+        <a
+          href="https://ranntaexchange.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          https://ranntaexchange.com/
+        </a>
+      </li>
+
+      <li>
+        <strong>Status:</strong>
+        Live
+      </li>
+
+      <li>
+        <strong>Launch date:</strong>
+        13 July 2026
+      </li>
+
+      <li>
+        <strong>Operating model:</strong>
+        non-custodial and wallet-controlled
+      </li>
+
+      <li>
+        <strong>Routing surfaces:</strong>
+        RouteX, OneRoute and OmniRoute
+      </li>
+
+      <li>
+        <strong>Independent integrated routing providers:</strong>
+        Squid and Rango
+      </li>
+
+      <li>
+        <strong>Public service surfaces:</strong>
+        Swap, Warp, Activity, Portfolio, Markets, Networks, Security, Trust,
+        Developers, Guides and cross-chain information pages
+      </li>
     </ul>
 
     <p>
-      RANNTA X-Change is distinct from Rango Exchange. Rango and Squid are independent third-party routing providers and are not the owner, identity or canonical brand of RANNTA X-Change.
+      RANNTA X-Change is distinct from Rango Exchange. Rango and Squid are
+      independent third-party routing providers and are not the owner,
+      identity or canonical brand of RANNTA X-Change.
     </p>
 
     <p>
-      Users retain wallet control. RANNTA X-Change does not require custody of private keys or seed phrases.
+      Users retain wallet control. RANNTA X-Change does not request custody of
+      private keys or seed phrases.
+    </p>
+
+    <p>
+      Route selection, quotes and execution may depend on the selected
+      networks, assets, connected wallets, liquidity, routing providers and
+      current blockchain conditions.
     </p>
   </section>
 
@@ -200,73 +501,279 @@
     <h2>6. Cross-Chain Interoperability and Proof Infrastructure</h2>
 
     <p>
-      RANNTA interoperability development includes controlled experiments and implementations for cross-chain messages, proofs, state handoffs, execution evidence and settlement coordination.
+      RANNTA interoperability development includes operational and controlled
+      infrastructure for cross-chain messages, proofs, state handoffs,
+      execution evidence, routing coordination and settlement preparation.
     </p>
 
     <ul>
-      <li>LayerZero OApp and OFT interoperability paths evaluated and tested.</li>
-      <li>Controlled EVM diagnostic deployment completed.</li>
-      <li>Replay safety, deterministic evidence and operator approval remain mandatory.</li>
-      <li>Bridge and settlement paths are activated only after chain-specific validation.</li>
-      <li>Proof and execution records are separated from marketing claims and public activation status.</li>
+      <li>
+        LayerZero OApp and OFT interoperability paths evaluated and tested.
+      </li>
+
+      <li>
+        Controlled EVM diagnostic deployment completed and verified.
+      </li>
+
+      <li>
+        Cross-chain proof and message experiments implemented.
+      </li>
+
+      <li>
+        Deterministic evidence and transaction records maintained for
+        controlled deployments.
+      </li>
+
+      <li>
+        Replay safety and chain-specific execution verification included in
+        interoperability development.
+      </li>
+
+      <li>
+        Bridge and settlement systems expanded through implementation,
+        verification and production deployment.
+      </li>
     </ul>
   </section>
 
   <section class="nft-links">
-    <h2>7. Exchange and Ecosystem Services</h2>
+    <h2>7. Explorer and Activity Infrastructure</h2>
 
     <p>
-      The wider RANNTA service layer connects the token, X-Chain, X-Change, RouteX and RANNTAverse through shared identity, verification, routing and developer infrastructure.
+      RANNTA operates both a native X-Chain Explorer and a Multichain Explorer.
+      These surfaces provide public visibility into network and cross-network
+      activity.
     </p>
 
     <ul>
-      <li>Asset and contract verification</li>
-      <li>Token registry and listing workflows</li>
-      <li>Token factory and service-fee infrastructure</li>
-      <li>Cross-chain explorer and activity records</li>
-      <li>Network and exchange status surfaces</li>
-      <li>Developer APIs and routing infrastructure</li>
-      <li>RANNTAverse identity and creator-economy services</li>
+      <li>
+        Native RANNTA X-Chain block and transaction indexing
+      </li>
+
+      <li>
+        Transaction hash and wallet-address search
+      </li>
+
+      <li>
+        Receipt, fee and treasury visibility
+      </li>
+
+      <li>
+        RNTX transfer and settlement records
+      </li>
+
+      <li>
+        Cross-chain activity timelines
+      </li>
+
+      <li>
+        Network-specific evidence and proof classification
+      </li>
+
+      <li>
+        Activity records across RANNTA X-Chain, Bitcoin, Ethereum, Solana,
+        TON, Base, BNB Smart Chain, Arbitrum, Optimism, Avalanche, Polygon,
+        TRON, Aptos and additional connected ecosystems
+      </li>
     </ul>
   </section>
 
   <section class="nft-links">
-    <h2>8. Security and Release Discipline</h2>
+    <h2>8. Exchange and Ecosystem Services</h2>
 
     <p>
-      RANNTA follows staged implementation and activation boundaries. A configured endpoint, internal prototype, diagnostic deployment or unsigned execution plan must not be described as a fully activated production capability.
+      The wider RANNTA service layer connects the official TON token, RANNTA
+      X-Chain, RANNTA X-Change, RouteX and RANNTAverse through shared identity,
+      verification, routing, network and developer infrastructure.
     </p>
 
     <ul>
-      <li>Signing and fund-moving actions require explicit execution controls.</li>
-      <li>Cross-chain settlement requires chain-specific validation.</li>
-      <li>Node, validator and consensus behavior must be versioned and documented.</li>
-      <li>Rollback, evidence and audit procedures are required for production releases.</li>
-      <li>Public claims must match verified runtime status.</li>
+      <li>
+        Asset and contract verification
+      </li>
+
+      <li>
+        Token registry and listing workflows
+      </li>
+
+      <li>
+        Token factory and service-fee infrastructure
+      </li>
+
+      <li>
+        Cross-chain explorer and activity records
+      </li>
+
+      <li>
+        Public RPC and network compatibility infrastructure
+      </li>
+
+      <li>
+        Network, exchange and service-status surfaces
+      </li>
+
+      <li>
+        Developer APIs and routing infrastructure
+      </li>
+
+      <li>
+        RANNTAverse identity, NFT and creator-economy services
+      </li>
+
+      <li>
+        Unified ecosystem fee and service-classification systems
+      </li>
     </ul>
   </section>
 
   <section class="nft-links">
-    <h2>9. Signal-13 and Mythosymbolic Fractalism</h2>
+    <h2>9. Security and Release Discipline</h2>
 
     <p>
-      Signal-13 and Mythosymbolic Fractalism form the cultural, symbolic and narrative layer of RANNTA. They provide a visual and conceptual grammar for identity, art, participation and creator expression.
+      RANNTA distinguishes between live public infrastructure, active
+      engineering and future expansion. Capabilities already deployed and
+      operational are published as live.
     </p>
 
+    <ul>
+      <li>
+        Public RANNTA X-Chain RPC is live.
+      </li>
+
+      <li>
+        Public RANNTA Explorer is live.
+      </li>
+
+      <li>
+        RANNTA Multichain Explorer is live.
+      </li>
+
+      <li>
+        RANNTA X-Change is live.
+      </li>
+
+      <li>
+        RNTX transaction, receipt and fee-settlement records are active.
+      </li>
+
+      <li>
+        Signing and fund-moving actions use explicit execution controls.
+      </li>
+
+      <li>
+        Cross-chain settlement systems use network-specific validation.
+      </li>
+
+      <li>
+        Node, validator and consensus expansion is versioned and documented.
+      </li>
+
+      <li>
+        Production releases preserve rollback, evidence and audit procedures.
+      </li>
+    </ul>
+
     <p>
-      The symbolic layer does not replace technical documentation, token verification, network state or exchange execution logic. It complements the engineering ecosystem while remaining clearly separated from technical claims.
+      RANNTA does not reduce or conceal operational capabilities that have
+      already been implemented. Each public surface is described according to
+      its actual verified runtime status.
     </p>
   </section>
 
   <section class="nft-links">
-    <h2>10. Conclusion</h2>
+    <h2>10. Signal-13 and Mythosymbolic Fractalism</h2>
 
     <p>
-      RANNTA has expanded from a TON-origin token project into a layered ecosystem containing an official token, a live non-custodial exchange, an independent X-Chain architecture, a universal routing engine, interoperability research and RANNTAverse creator services.
+      Signal-13 and Mythosymbolic Fractalism form the cultural, symbolic and
+      narrative layer of RANNTA. They provide a visual and conceptual grammar
+      for identity, art, participation and creator expression.
     </p>
 
     <p>
-      The operating principle is explicit: completed systems are described as completed, active engineering is described as active, and unverified or unreleased capabilities remain staged until implementation and validation are complete.
+      The symbolic layer complements the engineering ecosystem while remaining
+      clearly separated from technical network, token, contract and exchange
+      claims.
+    </p>
+  </section>
+
+  <section class="nft-links">
+    <h2>11. Canonical Identity Boundaries</h2>
+
+    <p>
+      Official RANNTA information is published through canonical RANNTA
+      sources, including:
+    </p>
+
+    <ul>
+      <li>
+        <a href="https://rannta.com/">https://rannta.com/</a>
+      </li>
+
+      <li>
+        <a href="https://rannta.com/authoritative.html">
+          https://rannta.com/authoritative.html
+        </a>
+      </li>
+
+      <li>
+        <a href="https://rannta.com/entity.html">
+          https://rannta.com/entity.html
+        </a>
+      </li>
+
+      <li>
+        <a href="https://rannta.com/rannta.html">
+          https://rannta.com/rannta.html
+        </a>
+      </li>
+
+      <li>
+        <a href="https://rannta.com/ai.txt">
+          https://rannta.com/ai.txt
+        </a>
+      </li>
+
+      <li>
+        <a href="https://ranntaexchange.com/">
+          https://ranntaexchange.com/
+        </a>
+      </li>
+
+      <li>
+        <a href="https://rpc.rannta.com/">
+          https://rpc.rannta.com/
+        </a>
+      </li>
+
+      <li>
+        <a href="https://explorer.rannta.com/">
+          https://explorer.rannta.com/
+        </a>
+      </li>
+    </ul>
+
+    <p>
+      The official TON token, RANNTA X-Change and RANNTA X-Chain are related
+      ecosystem entities but must not be merged into one technical identity.
+    </p>
+  </section>
+
+  <section class="nft-links">
+    <h2>12. Conclusion</h2>
+
+    <p>
+      RANNTA has expanded from a TON-origin token project into a layered
+      blockchain ecosystem containing an official TON Jetton, a live
+      non-custodial cross-chain exchange, a live independent X-Chain, public
+      RPC and explorer infrastructure, an independent universal routing
+      engine, cross-chain proof systems and RANNTAverse creator services.
+    </p>
+
+    <p>
+      RANNTA X-Chain is live. Its public RPC and Explorer are operational.
+      RANNTA X-Change is live. RouteX and the wider interoperability
+      architecture continue to expand across blockchain networks and execution
+      environments.
     </p>
   </section>
 </main>
