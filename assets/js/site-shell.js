@@ -15,6 +15,7 @@
     + '      <li><a href="/">Home</a></li>'
     + '      <li><a href="/rannta-network.html">RANNTA Network</a></li>'
     + '      <li><a href="/what-is-rannta.html">RANNTA</a></li>'
+    + '      <li><a href="/swap.html">Swap RANNTA</a></li>'
     + '      <li><a href="/ranntaverse.html">RANNTAverse</a></li>'
     + '      <li><a href="/articles.html">Articles</a></li>'
     + '      <li><a href="/contact.html">Contact</a></li>'
@@ -30,7 +31,7 @@
     + '            <a href="/nft.html">NFT Sale</a>'
     + '            <a href="/symbolists.html">Symbolists</a>'
     + '            <a href="/rannta-story.html">About RANNTA</a>'
-      + '            <a href="/ai-index.html">RANNTA AI-Index</a>'
+    + '            <a href="/ai-index.html">RANNTA AI-Index</a>'
     + '            <a href="/team.html">Team</a>'
     + '            <a href="/contracts.html">Contracts</a>'
     + '          </div>'
@@ -147,4 +148,3 @@
     setShell();
   }
 })();
-
