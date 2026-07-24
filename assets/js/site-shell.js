@@ -1,1 +1,1 @@
-(function(){"use strict";var core=document.createElement("script");core.src="/assets/js/site-shell-core.js?v=20260724-3";document.head.appendChild(core);})();
+(function(){"use strict";var core=document.createElement("script");core.src="/assets/js/site-shell-core.js?v=20260724-4";core.onload=function(){var title=document.querySelector(".site-brand-title");if(!title)return;title.innerHTML='<span style="font-size:1.18em">RANNTA</span> Blockchain Network, Exchange, Encyclopedia &amp; Digital Ecosystem';};document.head.appendChild(core);})();
