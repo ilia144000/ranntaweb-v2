@@ -1,1 +1,1 @@
-(function(){"use strict";var core=document.createElement("script");core.src="/assets/js/site-shell-core.js?v=20260724-2";core.onload=function(){var fix=document.createElement("script");fix.src="/assets/js/routex-image-fix.js?v=20260724-2";document.head.appendChild(fix);};document.head.appendChild(core);})();
+(function(){"use strict";var core=document.createElement("script");core.src="/assets/js/site-shell-core.js?v=20260724-3";document.head.appendChild(core);})();
