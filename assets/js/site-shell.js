@@ -22,13 +22,13 @@
     if(!document.getElementById("rannta-header-title-fix")){
       var style=document.createElement("style");
       style.id="rannta-header-title-fix";
-      style.textContent='.site-brand-rannta{font-size:1.16em;display:inline-block;margin-right:.18em;line-height:.9}';
+      style.textContent='.site-brand-title{line-height:1.2}.site-brand-rannta{font-size:1.38em!important;display:inline-block;margin-right:.22em;line-height:.82;vertical-align:baseline}';
       document.head.appendChild(style);
     }
   }
 
   var core=document.createElement("script");
-  core.src="/assets/js/site-shell-core.js?v=20260724-5";
+  core.src="/assets/js/site-shell-core.js?v=20260724-6";
   core.onload=function(){
     normalizeRanntaTitles();
     setTimeout(normalizeRanntaTitles,50);
