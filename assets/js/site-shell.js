@@ -14,6 +14,7 @@
     + '    <ul class="siteNav__list">'
     + '      <li><a href="/">Home</a></li>'
     + '      <li><a href="/rannta-network.html">RANNTA Network</a></li>'
+    + '      <li><a href="/routex.html">RouteX</a></li>'
     + '      <li><a href="/what-is-rannta.html">RANNTA</a></li>'
     + '      <li><a href="/swap.html">Swap RANNTA</a></li>'
     + '      <li><a href="/ranntaverse.html">RANNTAverse</a></li>'
@@ -67,11 +68,60 @@
     + '    <div class="siteFooter__quickLinks">'
     + '      <a class="siteFooter__textLink" href="https://ranntaexchange.com/" target="_blank" rel="noopener noreferrer"><img class="footerMiniIcon" src="/assets/brand/rannta-x-change.png" alt="" aria-hidden="true" />RANNTA X-Change</a>'
     + '      <span class="siteFooter__dot">•</span>'
+    + '      <a class="siteFooter__textLink" href="/routex.html"><img class="footerMiniIcon" src="/assets/brand/routex-gando.webp" alt="" aria-hidden="true" />RouteX</a>'
+    + '      <span class="siteFooter__dot">•</span>'
     + '      <a class="siteFooter__textLink" href="https://ranntaverse.app/" target="_blank" rel="noopener"><img class="footerMiniIcon" src="/assets/brand/hub.svg" alt="" aria-hidden="true" />RANNTA Ecosystem Hub</a>'
     + '    </div>'
     + '    <div class="siteFooter__copy">&copy; 2025 RANNTA Network. All rights reserved. Powering the Internet of Blockchains.</div>'
     + '  </div>'
     + '</footer>';
+
+  function addRouteXHomeCard() {
+    var currentPath = window.location.pathname || "/";
+    if (currentPath !== "/" && currentPath !== "/index.html") return;
+    if (document.querySelector("[data-routex-home-card]")) return;
+
+    var anchor = document.querySelector(".home-identity");
+    if (!anchor) return;
+
+    var style = document.createElement("style");
+    style.textContent = ''
+      + '.routexHomeCard{max-width:1180px;margin:28px auto 54px;padding:0 20px;}'
+      + '.routexHomeCard__inner{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);overflow:hidden;border:1px solid #26384b;border-radius:22px;background:linear-gradient(145deg,#081019,#101925);box-shadow:0 22px 70px rgba(0,0,0,.28);}'
+      + '.routexHomeCard__media{background:#fff;display:flex;align-items:center;justify-content:center;min-height:280px;}'
+      + '.routexHomeCard__media img{display:block;width:100%;height:100%;object-fit:contain;}'
+      + '.routexHomeCard__copy{padding:34px;display:flex;flex-direction:column;justify-content:center;color:#eef5ff;}'
+      + '.routexHomeCard__label{font-size:.75rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#28dfb4;margin-bottom:10px;}'
+      + '.routexHomeCard__copy h2{margin:0 0 14px;font-size:clamp(1.8rem,4vw,3rem);}'
+      + '.routexHomeCard__copy p{margin:0 0 22px;color:#b9c6d7;line-height:1.75;}'
+      + '.routexHomeCard__links{display:flex;flex-wrap:wrap;gap:10px;}'
+      + '.routexHomeCard__links a{display:inline-flex;padding:10px 17px;border-radius:10px;text-decoration:none;font-weight:700;background:linear-gradient(135deg,#1bd9aa,#2867e8 58%,#7047e8);color:#fff;}'
+      + '.routexHomeCard__links a:last-child{background:transparent;border:1px solid #40536a;color:#dce8f7;}'
+      + '@media(max-width:760px){.routexHomeCard__inner{grid-template-columns:1fr}.routexHomeCard__media{min-height:210px}.routexHomeCard__copy{padding:24px}}';
+    document.head.appendChild(style);
+
+    var section = document.createElement("section");
+    section.className = "routexHomeCard";
+    section.setAttribute("data-routex-home-card", "");
+    section.setAttribute("aria-labelledby", "routex-home-title");
+    section.innerHTML = ''
+      + '<div class="routexHomeCard__inner">'
+      + '  <a class="routexHomeCard__media" href="/routex.html" aria-label="Discover RouteX">'
+      + '    <img src="/assets/brand/routex-gando.webp" width="1280" height="853" alt="RouteX Gando symbol" loading="lazy" />'
+      + '  </a>'
+      + '  <div class="routexHomeCard__copy">'
+      + '    <div class="routexHomeCard__label">RANNTA Native Routing Engine</div>'
+      + '    <h2 id="routex-home-title">RouteX</h2>'
+      + '    <p>Meet RouteX, the independent cross-chain routing engine being developed by RANNTA for RANNTA X-Change and the RANNTA X-Chain ecosystem. Its Gando symbol represents patience, resilience, precision and protection across every route.</p>'
+      + '    <div class="routexHomeCard__links">'
+      + '      <a href="/routex.html">Discover RouteX</a>'
+      + '      <a href="https://ranntaexchange.com/" target="_blank" rel="noopener noreferrer">Open X-Change</a>'
+      + '    </div>'
+      + '  </div>'
+      + '</div>';
+
+    anchor.insertAdjacentElement("afterend", section);
+  }
 
   function setShell() {
     var headerSlot = document.querySelector("[data-site-header]");
@@ -91,6 +141,7 @@
 
     headerSlot.outerHTML = HEADER_HTML;
     footerSlot.outerHTML = FOOTER_HTML;
+    addRouteXHomeCard();
 
     var currentPath = window.location.pathname || "/";
     var links = document.querySelectorAll("header nav a");
@@ -121,19 +172,14 @@
       }
 
       syncMoreState();
-
       moreDetails.addEventListener("toggle", syncMoreState);
 
       document.addEventListener("click", function (event) {
-        if (!moreDetails.contains(event.target)) {
-          closeMoreMenu();
-        }
+        if (!moreDetails.contains(event.target)) closeMoreMenu();
       });
 
       document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          closeMoreMenu();
-        }
+        if (event.key === "Escape") closeMoreMenu();
       });
 
       moreDetails.querySelectorAll("a").forEach(function (link) {
