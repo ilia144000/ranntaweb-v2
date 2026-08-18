@@ -5,3 +5,9 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
   Content-Security-Policy: default-src 'self'; img-src 'self' https://app.ston.fi https://x.com https://t.me https://discord.com data:; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; frame-ancestors 'none';
+
+/ai.txt
+  X-Robots-Tag: noindex
+
+/.well-known/ai.txt
+  X-Robots-Tag: noindex
