@@ -49,7 +49,7 @@
       + '<a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:12px;border:1px solid rgba(255,213,74,.46);color:#fff;font-weight:800;text-decoration:none">Verify RANNTA Jetton</a>'
       + '</div>'
       + '<div style="margin-top:15px;color:#c6ccd5;font-size:.8rem;font-weight:700;word-break:break-all">Jetton Master: EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</div>'
-      + '<div style="max-width:960px;margin:16px auto 0;padding:11px 14px;border:1px solid rgba(255,86,86,.48);border-radius:12px;background:rgba(110,0,0,.16);color:#ffd1d1;font-size:.82rem;font-weight:700;line-height:1.6"><strong style="color:#ff8585">Security Notice:</strong> RANNTA Coin exists only on The Open Network (TON). Any token using the RANNTA name on Solana, Ethereum, BNB Chain, Base, or any other blockchain is not issued, authorized, or endorsed by RANNTA and should be treated as unofficial.</div>'
+      + '<div style="max-width:960px;margin:16px auto 0;padding:13px 15px;border:1px solid rgba(255,64,64,.58);border-radius:12px;background:rgba(120,0,0,.20);color:#ffd4d4;font-size:.9rem;font-weight:700;line-height:1.65"><strong style="color:#ff3b3b;font-size:1.06rem;font-weight:900">Warning:</strong> The only official RANNTA Coin is on TON. Any RANNTA token on Solana, Ethereum, BNB Chain, Base, or any other network is fake and not affiliated with the official RANNTA project.</div>'
       + '</div>';
 
     anchor.parentNode.insertBefore(section,anchor);
