@@ -27,6 +27,33 @@
     }
   }
 
+  function surfacePresale(){
+    var path=window.location.pathname||"/";
+    if(path!=="/"&&path!=="/index.html") return;
+    if(document.querySelector('[data-rannta-presale-home]')) return;
+
+    var anchor=document.querySelector('.home-identity');
+    if(!anchor) return;
+
+    var section=document.createElement('section');
+    section.setAttribute('data-rannta-presale-home','');
+    section.style.cssText='max-width:1180px;margin:22px auto 8px;padding:0 20px;box-sizing:border-box';
+    section.innerHTML=''
+      + '<div style="position:relative;overflow:hidden;border:1px solid rgba(255,213,74,.52);border-radius:22px;padding:24px 26px;background:linear-gradient(135deg,rgba(34,26,5,.98),rgba(10,12,18,.99));box-shadow:0 18px 55px rgba(0,0,0,.32);text-align:center">'
+      + '<div style="font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:#FFD54A;font-weight:900;margin-bottom:8px">OFFICIAL RANNTA SALE · TON MAINNET</div>'
+      + '<h2 style="margin:0 0 10px;color:#fff;font-size:clamp(1.55rem,4vw,2.35rem)">Official RANNTA Token Sale Is Open</h2>'
+      + '<p style="max-width:860px;margin:0 auto 15px;color:#e9edf3;line-height:1.72">Purchase the existing official RANNTA Jetton through the dedicated presale contract. This sale does not create a new token.</p>'
+      + '<div style="display:flex;justify-content:center;gap:8px 16px;flex-wrap:wrap;margin:0 0 18px;color:#cfd5de;font-size:.9rem"><span>Existing TON Jetton</span><span>•</span><span>Active liquidity</span><span>•</span><span>On-chain delivery</span></div>'
+      + '<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">'
+      + '<a href="https://presale.rannta.com/buyer.html?campaign=ps_81f533c4a7ce4170" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:12px;background:#FFD54A;color:#111;font-weight:900;text-decoration:none">Open Official Sale</a>'
+      + '<a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:12px;border:1px solid rgba(255,213,74,.46);color:#fff;font-weight:800;text-decoration:none">Verify RANNTA Jetton</a>'
+      + '</div>'
+      + '<div style="margin-top:15px;color:#9fa8b6;font-size:.78rem;word-break:break-all">Jetton Master: EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</div>'
+      + '</div>';
+
+    anchor.parentNode.insertBefore(section,anchor);
+  }
+
   function surfaceRanntaCore(){
     var navList=document.querySelector(".siteNav__list");
     if(navList&&!navList.querySelector('[data-rannta-core-nav]')){
@@ -66,8 +93,9 @@
   core.src="/assets/js/site-shell-core.js?v=20260901-1";
   core.onload=function(){
     normalizeRanntaTitles();
+    surfacePresale();
     surfaceRanntaCore();
-    setTimeout(function(){normalizeRanntaTitles();surfaceRanntaCore();},50);
+    setTimeout(function(){normalizeRanntaTitles();surfacePresale();surfaceRanntaCore();},50);
   };
   document.head.appendChild(core);
 })();
