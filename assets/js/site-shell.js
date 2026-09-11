@@ -27,6 +27,26 @@
     }
   }
 
+  function surfaceRanntaPQNav(){
+    var navList=document.querySelector(".siteNav__list");
+    if(!navList||navList.querySelector('[data-rannta-pq-nav]')) return;
+
+    var li=document.createElement("li");
+    li.setAttribute("data-rannta-pq-nav","");
+    li.innerHTML='<a href="https://pq.rannta.com/" target="_blank" rel="noopener noreferrer">PQ Cloud</a>';
+
+    var coreLink=navList.querySelector('a[href="/rannta-core.html"]');
+    var networkLink=navList.querySelector('a[href="/rannta-network.html"]');
+    var reference=(coreLink&&coreLink.parentElement)?coreLink.parentElement:(networkLink&&networkLink.parentElement)?networkLink.parentElement:null;
+    if(reference&&reference.nextSibling){
+      navList.insertBefore(li,reference.nextSibling);
+    }else if(reference){
+      navList.appendChild(li);
+    }else{
+      navList.appendChild(li);
+    }
+  }
+
   function surfaceRanntaPQ(){
     var path=window.location.pathname||"/";
     if(path!=="/"&&path!=="/index.html") return;
@@ -37,18 +57,30 @@
 
     var section=document.createElement('section');
     section.setAttribute('data-rannta-pq-home','');
-    section.style.cssText='max-width:1180px;margin:24px auto 10px;padding:0 20px;box-sizing:border-box';
+    section.setAttribute('aria-labelledby','rannta-pq-home-title');
+    section.style.cssText='max-width:1180px;margin:28px auto 0;padding:0 20px;box-sizing:border-box';
     section.innerHTML=''
-      + '<div style="position:relative;overflow:hidden;border:1px solid rgba(82,216,255,.42);border-radius:22px;padding:26px 26px 24px;background:radial-gradient(circle at 10% 0%,rgba(22,94,120,.24),transparent 35%),linear-gradient(135deg,rgba(7,16,24,.99),rgba(8,11,17,.99));box-shadow:0 18px 60px rgba(0,0,0,.34);text-align:center">'
-      + '<div style="font-size:.76rem;letter-spacing:.17em;text-transform:uppercase;color:#75E6FF;font-weight:900;margin-bottom:8px">RANNTA PQ • POST-QUANTUM SECURITY INFRASTRUCTURE</div>'
-      + '<h2 style="margin:0 0 10px;color:#fff;font-size:clamp(1.6rem,4vw,2.45rem)">Hybrid Post-Quantum Verification for Production Systems</h2>'
-      + '<p style="max-width:930px;margin:0 auto 16px;color:#e6edf4;line-height:1.75">RANNTA PQ provides API-based ML-DSA-65 verification infrastructure for blockchains, exchanges, validators, wallets and digital-asset systems. Add post-quantum verification to real authorization paths while preserving existing classical security controls.</p>'
-      + '<div style="display:flex;justify-content:center;gap:8px 16px;flex-wrap:wrap;margin:0 0 19px;color:#c7d5df;font-size:.9rem;font-weight:700"><span>ML-DSA-65</span><span>•</span><span>Hybrid authorization</span><span>•</span><span>Verification API</span><span>•</span><span>Fail-closed policies</span><span>•</span><span>Production integration</span></div>'
-      + '<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">'
-      + '<a href="https://pq.rannta.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 21px;border-radius:12px;background:#75E6FF;color:#061018;font-weight:900;text-decoration:none;box-shadow:0 0 28px rgba(117,230,255,.16)">Open RANNTA PQ</a>'
-      + '<span style="display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:12px;border:1px solid rgba(117,230,255,.32);color:#eefaff;font-weight:800">Start Free • 10,000 verifications / 30 days</span>'
+      + '<div style="position:relative;overflow:hidden;border:1px solid rgba(82,216,255,.42);border-radius:22px;padding:30px 30px 26px;background:radial-gradient(circle at 8% 0%,rgba(22,94,120,.24),transparent 34%),linear-gradient(135deg,rgba(7,16,24,.99),rgba(8,11,17,.99));box-shadow:0 18px 60px rgba(0,0,0,.34);text-align:left">'
+      + '<div style="font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:#75E6FF;font-weight:900;margin-bottom:10px">RANNTA PQ Cloud · Post-quantum verification API</div>'
+      + '<h2 id="rannta-pq-home-title" style="margin:0 0 14px;color:#fff;font-size:clamp(1.7rem,4vw,2.55rem);line-height:1.15">Hybrid Post-Quantum Verification for Production Authorization Paths</h2>'
+      + '<p style="max-width:970px;margin:0 0 10px;color:#e6edf4;line-height:1.75">Private keys stay with you. RANNTA PQ Cloud verifies ML-DSA-65 signatures over a canonical payload against the registered public key and a fail-closed HybridRequired policy, then returns Valid or Rejected.</p>'
+      + '<p style="max-width:970px;margin:0 0 20px;color:#cbd7e0;line-height:1.7">Your withdrawal stack does not get replaced. Existing classical controls remain in place, and your backend keeps the final allow/deny decision. PQ Cloud is available for integration as a verification and policy layer.</p>'
+      + '<div style="display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px">'
+      + '<span style="padding:7px 10px;border:1px solid rgba(117,230,255,.22);border-radius:999px;color:#d8e7ef;font-size:.82rem;font-weight:800">ML-DSA-65</span>'
+      + '<span style="padding:7px 10px;border:1px solid rgba(117,230,255,.22);border-radius:999px;color:#d8e7ef;font-size:.82rem;font-weight:800">HybridRequired</span>'
+      + '<span style="padding:7px 10px;border:1px solid rgba(117,230,255,.22);border-radius:999px;color:#d8e7ef;font-size:.82rem;font-weight:800">Fail-closed</span>'
+      + '<span style="padding:7px 10px;border:1px solid rgba(117,230,255,.22);border-radius:999px;color:#d8e7ef;font-size:.82rem;font-weight:800">Customer-held keys</span>'
+      + '<span style="padding:7px 10px;border:1px solid rgba(117,230,255,.22);border-radius:999px;color:#d8e7ef;font-size:.82rem;font-weight:800">Canonical payload</span>'
+      + '<span style="padding:7px 10px;border:1px solid rgba(117,230,255,.22);border-radius:999px;color:#d8e7ef;font-size:.82rem;font-weight:800">Valid / Rejected</span>'
       + '</div>'
-      + '<div style="max-width:980px;margin:17px auto 0;padding:13px 15px;border:1px solid rgba(117,230,255,.20);border-radius:12px;background:rgba(20,77,96,.12);color:#c9d9e3;font-size:.84rem;font-weight:700;line-height:1.65">One Free project includes 10,000 verification requests for 30 days. Developer, Startup and Business are prepaid 30-day USDT plans. No automatic card charge, no hidden overage, and additional API keys do not multiply plan quota.</div>'
+      + '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">'
+      + '<a href="https://pq.rannta.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:10px;background:#75E6FF;color:#061018;font-weight:900;text-decoration:none">Open PQ Cloud</a>'
+      + '<a href="https://pq.rannta.com/docs" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:10px;border:1px solid rgba(117,230,255,.42);color:#eefaff;font-weight:850;text-decoration:none;background:rgba(117,230,255,.05)">Read docs</a>'
+      + '<a href="https://pq.rannta.com/sandbox" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:10px;color:#bfeef8;font-weight:800;text-decoration:none">Run reject test →</a>'
+      + '</div>'
+      + '<div style="margin-top:18px;color:#9fb2bf;font-size:.78rem;line-height:1.55">Free: one project, 10,000 verification requests for 30 days. Paid plans are prepaid in USDT. No automatic card charge and no hidden overage.</div>'
+      + '<div style="margin-top:11px;color:#8fa5b2;font-size:.77rem;line-height:1.55">Security reference: <a href="https://pq.rannta.com/docs" target="_blank" rel="noopener noreferrer" style="color:#9feeff;text-decoration:underline;text-underline-offset:3px">ML-DSA-65 verification docs</a>.</div>'
+      + '<div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(117,230,255,.18);color:#d5e0e6;font-size:.84rem;font-weight:800">PQ Cloud is separate from the RANNTA token sale.</div>'
       + '</div>';
 
     anchor.parentNode.insertBefore(section,anchor);
@@ -64,8 +96,9 @@
 
     var section=document.createElement('section');
     section.setAttribute('data-rannta-presale-home','');
-    section.style.cssText='max-width:1180px;margin:22px auto 8px;padding:0 20px;box-sizing:border-box';
+    section.style.cssText='max-width:1180px;margin:54px auto 8px;padding:0 20px;box-sizing:border-box';
     section.innerHTML=''
+      + '<div aria-hidden="true" style="display:flex;align-items:center;gap:14px;margin:0 0 18px;color:#b89a39;font-size:.72rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase"><span style="height:1px;background:rgba(255,213,74,.24);flex:1"></span><span>Token sale · TON Mainnet</span><span style="height:1px;background:rgba(255,213,74,.24);flex:1"></span></div>'
       + '<div style="position:relative;overflow:hidden;border:1px solid rgba(255,213,74,.52);border-radius:22px;padding:24px 26px;background:linear-gradient(135deg,rgba(34,26,5,.98),rgba(10,12,18,.99));box-shadow:0 18px 55px rgba(0,0,0,.32);text-align:center">'
       + '<div style="font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:#FFD54A;font-weight:900;margin-bottom:8px">OFFICIAL RANNTA SALE - TON MAINNET</div>'
       + '<h2 style="margin:0 0 10px;color:#fff;font-size:clamp(1.55rem,4vw,2.35rem)">Official RANNTA Presale V2 on TON Mainnet Is Live</h2>'
@@ -121,10 +154,11 @@
   core.src="/assets/js/site-shell-core.js?v=20260901-1";
   core.onload=function(){
     normalizeRanntaTitles();
+    surfaceRanntaCore();
+    surfaceRanntaPQNav();
     surfaceRanntaPQ();
     surfacePresale();
-    surfaceRanntaCore();
-    setTimeout(function(){normalizeRanntaTitles();surfaceRanntaPQ();surfacePresale();surfaceRanntaCore();},50);
+    setTimeout(function(){normalizeRanntaTitles();surfaceRanntaCore();surfaceRanntaPQNav();surfaceRanntaPQ();surfacePresale();},50);
   };
   document.head.appendChild(core);
 })();
