@@ -27,6 +27,33 @@
     }
   }
 
+  function surfaceRanntaPQ(){
+    var path=window.location.pathname||"/";
+    if(path!=="/"&&path!=="/index.html") return;
+    if(document.querySelector('[data-rannta-pq-home]')) return;
+
+    var anchor=document.querySelector('.home-identity');
+    if(!anchor) return;
+
+    var section=document.createElement('section');
+    section.setAttribute('data-rannta-pq-home','');
+    section.style.cssText='max-width:1180px;margin:24px auto 10px;padding:0 20px;box-sizing:border-box';
+    section.innerHTML=''
+      + '<div style="position:relative;overflow:hidden;border:1px solid rgba(82,216,255,.42);border-radius:22px;padding:26px 26px 24px;background:radial-gradient(circle at 10% 0%,rgba(22,94,120,.24),transparent 35%),linear-gradient(135deg,rgba(7,16,24,.99),rgba(8,11,17,.99));box-shadow:0 18px 60px rgba(0,0,0,.34);text-align:center">'
+      + '<div style="font-size:.76rem;letter-spacing:.17em;text-transform:uppercase;color:#75E6FF;font-weight:900;margin-bottom:8px">RANNTA PQ • POST-QUANTUM SECURITY INFRASTRUCTURE</div>'
+      + '<h2 style="margin:0 0 10px;color:#fff;font-size:clamp(1.6rem,4vw,2.45rem)">Hybrid Post-Quantum Verification for Production Systems</h2>'
+      + '<p style="max-width:930px;margin:0 auto 16px;color:#e6edf4;line-height:1.75">RANNTA PQ provides API-based ML-DSA-65 verification infrastructure for blockchains, exchanges, validators, wallets and digital-asset systems. Add post-quantum verification to real authorization paths while preserving existing classical security controls.</p>'
+      + '<div style="display:flex;justify-content:center;gap:8px 16px;flex-wrap:wrap;margin:0 0 19px;color:#c7d5df;font-size:.9rem;font-weight:700"><span>ML-DSA-65</span><span>•</span><span>Hybrid authorization</span><span>•</span><span>Verification API</span><span>•</span><span>Fail-closed policies</span><span>•</span><span>Production integration</span></div>'
+      + '<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">'
+      + '<a href="https://pq.rannta.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 21px;border-radius:12px;background:#75E6FF;color:#061018;font-weight:900;text-decoration:none;box-shadow:0 0 28px rgba(117,230,255,.16)">Open RANNTA PQ</a>'
+      + '<span style="display:inline-flex;align-items:center;justify-content:center;padding:12px 18px;border-radius:12px;border:1px solid rgba(117,230,255,.32);color:#eefaff;font-weight:800">Start Free • 10,000 verifications / 30 days</span>'
+      + '</div>'
+      + '<div style="max-width:980px;margin:17px auto 0;padding:13px 15px;border:1px solid rgba(117,230,255,.20);border-radius:12px;background:rgba(20,77,96,.12);color:#c9d9e3;font-size:.84rem;font-weight:700;line-height:1.65">One Free project includes 10,000 verification requests for 30 days. Developer, Startup and Business are prepaid 30-day USDT plans. No automatic card charge, no hidden overage, and additional API keys do not multiply plan quota.</div>'
+      + '</div>';
+
+    anchor.parentNode.insertBefore(section,anchor);
+  }
+
   function surfacePresale(){
     var path=window.location.pathname||"/";
     if(path!=="/"&&path!=="/index.html") return;
@@ -94,9 +121,10 @@
   core.src="/assets/js/site-shell-core.js?v=20260901-1";
   core.onload=function(){
     normalizeRanntaTitles();
+    surfaceRanntaPQ();
     surfacePresale();
     surfaceRanntaCore();
-    setTimeout(function(){normalizeRanntaTitles();surfacePresale();surfaceRanntaCore();},50);
+    setTimeout(function(){normalizeRanntaTitles();surfaceRanntaPQ();surfacePresale();surfaceRanntaCore();},50);
   };
   document.head.appendChild(core);
 })();
