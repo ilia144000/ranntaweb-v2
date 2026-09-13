@@ -1,0 +1,175 @@
+/* Preview-only consistency pass. Production pages/content are untouched. */
+
+/* Header typography must be identical on every page, including RouteX. */
+.site-brand-title,.site-brand-title *,.site-brand-rannta{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  font-style:normal!important;
+  text-transform:none!important;
+  letter-spacing:-.015em!important;
+}
+.site-brand-title{font-weight:800!important;color:var(--dark)!important}
+.site-brand-rannta{font-weight:900!important}
+
+/* HOME - make every PQ Cloud micro-label, chip and note readable. */
+body.pq-home [data-rannta-pq-home]>div{
+  background:linear-gradient(135deg,#ffffff 0%,#f3f9f7 100%)!important;
+  border:1px solid var(--line2)!important;
+}
+body.pq-home [data-rannta-pq-home] *{opacity:1!important;text-shadow:none!important}
+body.pq-home [data-rannta-pq-home] h2{color:var(--ink)!important}
+body.pq-home [data-rannta-pq-home] p{color:#53665f!important}
+body.pq-home [data-rannta-pq-home] strong{color:#24463d!important}
+body.pq-home [data-rannta-pq-home] span{
+  color:#31594f!important;
+  border-color:var(--line2)!important;
+}
+body.pq-home [data-rannta-pq-home] a,
+body.pq-home [data-rannta-pq-home] a span{color:#fff!important}
+body.pq-home [data-rannta-pq-home]>div>div:first-child{color:var(--brand2)!important}
+body.pq-home [data-rannta-pq-home]>div>div:not(:first-child){color:#64766f!important}
+body.pq-home [data-rannta-pq-home] hr{border-top-color:var(--line)!important}
+
+/* RANNTA NETWORK - center the page identity, not just generic section headings. */
+body.pq-page-network main>.manifesto-block:first-of-type h1.manifesto-title{
+  text-align:center!important;
+  max-width:880px!important;
+  margin:0 auto 18px!important;
+  padding:0 18px 18px!important;
+  border-bottom:1px solid var(--line)!important;
+}
+body.pq-page-network main>.manifesto-block:first-of-type .manifesto-line{
+  max-width:900px!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+
+/* ROADMAP - explicit centering because the hidden legacy banner remains the first DOM child. */
+body.pq-page-roadmap main>h1{
+  text-align:center!important;
+  max-width:880px!important;
+  margin:0 auto 14px!important;
+  padding:0 18px 18px!important;
+  border-bottom:1px solid var(--line)!important;
+}
+body.pq-page-roadmap main>h1+p{
+  max-width:900px!important;
+  margin:0 auto 30px!important;
+  text-align:center!important;
+}
+
+/* ROUTEX - remove the old dark/blue visual system completely in preview. */
+body.pq-page-routex,body.pq-page-routex .routexPage{
+  background:linear-gradient(180deg,#f9fcfb,#f3f8f6)!important;
+  color:var(--text)!important;
+}
+body.pq-page-routex main{
+  width:min(1080px,calc(100% - 44px))!important;
+  max-width:1080px!important;
+  margin:34px auto 58px!important;
+  padding:34px 34px 42px!important;
+  background:#fff!important;
+  border:1px solid var(--line)!important;
+  border-radius:22px!important;
+  box-shadow:0 18px 48px rgba(16,36,31,.09)!important;
+  overflow:hidden!important;
+}
+body.pq-page-routex .routexHero{
+  max-width:100%!important;
+  margin:0 auto!important;
+  padding:10px 0 34px!important;
+  text-align:center!important;
+  background:#fff!important;
+  color:var(--text)!important;
+}
+body.pq-page-routex .routexHero img{
+  max-width:920px!important;
+  margin:0 auto!important;
+  border-radius:18px!important;
+  background:#fff!important;
+  box-shadow:0 14px 36px rgba(16,36,31,.08)!important;
+}
+body.pq-page-routex .routexEyebrow{color:var(--brand2)!important;font-family:Inter,ui-sans-serif,system-ui!important}
+body.pq-page-routex .routexHero h1{
+  color:var(--ink)!important;
+  font-family:Inter,ui-sans-serif,system-ui!important;
+  font-size:clamp(42px,6vw,68px)!important;
+  letter-spacing:-.045em!important;
+}
+body.pq-page-routex .routexLead,body.pq-page-routex .routexMotto{color:var(--muted)!important;font-family:Inter,ui-sans-serif,system-ui!important}
+body.pq-page-routex .routexBtn{
+  background:var(--brand)!important;
+  color:#fff!important;
+  border:1px solid var(--brand)!important;
+  border-radius:9px!important;
+  box-shadow:none!important;
+  font-family:Inter,ui-sans-serif,system-ui!important;
+}
+body.pq-page-routex .routexBtn.secondary{background:#e8f2ef!important;color:#173f36!important;border-color:var(--line2)!important}
+body.pq-page-routex .routexGrid{
+  max-width:100%!important;
+  margin:0!important;
+  padding:22px 0!important;
+  gap:16px!important;
+}
+body.pq-page-routex .routexCard{
+  background:linear-gradient(145deg,#fff,#f6faf8)!important;
+  border:1px solid var(--line)!important;
+  border-radius:16px!important;
+  padding:28px!important;
+  box-shadow:none!important;
+  color:var(--text)!important;
+}
+body.pq-page-routex .routexCard h2{
+  color:var(--ink)!important;
+  font-family:Inter,ui-sans-serif,system-ui!important;
+  margin:0 0 12px!important;
+  padding-bottom:12px!important;
+  border-bottom:1px solid var(--line)!important;
+}
+body.pq-page-routex .routexCard p{color:var(--muted)!important;font-family:Inter,ui-sans-serif,system-ui!important}
+body.pq-page-routex .routexStory{max-width:100%!important;margin:0!important;padding:22px 0 0!important}
+body.pq-page-routex .routexStory article{
+  background:linear-gradient(145deg,#fff,#f5faf8)!important;
+  border:1px solid var(--line)!important;
+  border-radius:18px!important;
+  padding:34px 38px!important;
+  box-shadow:none!important;
+  color:var(--text)!important;
+}
+body.pq-page-routex .routexStory h2{
+  color:var(--ink)!important;
+  font-family:Inter,ui-sans-serif,system-ui!important;
+  border-bottom:1px solid var(--line)!important;
+  padding-bottom:14px!important;
+}
+body.pq-page-routex .routexStory p{color:var(--muted)!important;font-family:Inter,ui-sans-serif,system-ui!important}
+body.pq-page-routex .routexQuote{
+  color:#24483f!important;
+  background:#eef7f4!important;
+  border-left:4px solid #34b99b!important;
+  border-radius:0 10px 10px 0!important;
+  padding:16px 18px!important;
+}
+body.pq-page-routex .routexStory strong{color:var(--ink)!important}
+
+/* ARTICLES - Latest Product News must use the same light card language as every other section. */
+body.pq-page-articles .announcement-list{display:grid!important;gap:16px!important}
+body.pq-page-articles .announcement-card{
+  background:linear-gradient(145deg,#fff,#f6faf8)!important;
+  border:1px solid var(--line)!important;
+  border-left:4px solid #89b9aa!important;
+  border-radius:14px!important;
+  padding:24px 26px!important;
+  box-shadow:none!important;
+  color:var(--text)!important;
+}
+body.pq-page-articles .announcement-card h3{color:var(--ink)!important;margin:0 0 8px!important;font-family:Inter,ui-sans-serif,system-ui!important}
+body.pq-page-articles .announcement-card time{color:#7a8c86!important}
+body.pq-page-articles .announcement-card p{color:var(--muted)!important}
+body.pq-page-articles .announcement-card a{color:var(--brand)!important;font-weight:800!important}
+
+@media(max-width:820px){
+  body.pq-page-routex main{width:min(100% - 20px,1080px)!important;padding:24px 18px 30px!important}
+  body.pq-page-routex .routexGrid{grid-template-columns:1fr!important}
+  body.pq-page-routex .routexStory article{padding:26px 22px!important}
+}
