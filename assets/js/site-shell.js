@@ -9,9 +9,18 @@
 
     nodes.forEach(function(textNode){
       if(textNode.parentElement&&textNode.parentElement.closest("script,style,textarea,code,pre")) return;
-      if(textNode.nodeValue&&textNode.nodeValue.indexOf("RANNTA")!==-1){
-        textNode.nodeValue=textNode.nodeValue.replace(/RANNTA\s*—\s*/g,"RANNTA ");
+      if(textNode.nodeValue){
+        textNode.nodeValue=textNode.nodeValue.replace(/[—–]/g,"-");
       }
+    });
+
+    if(document.title){
+      document.title=document.title.replace(/[—–]/g,"-");
+    }
+
+    document.querySelectorAll('meta[content]').forEach(function(meta){
+      var value=meta.getAttribute('content');
+      if(value&&/[—–]/.test(value)) meta.setAttribute('content',value.replace(/[—–]/g,'-'));
     });
 
     var title=document.querySelector(".site-brand-title");
