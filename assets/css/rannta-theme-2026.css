@@ -1,4 +1,5 @@
 /* RANNTA 2026 production visual system.
    Approved from the PQ Cloud style preview on 2026-09-13. */
-@import url('/assets/css/pq-preview-v4.css?v=20260913');
-@import url('/assets/css/pq-preview-v4-fixes.css?v=20260913');
+@import url('/assets/css/pq-preview-v4.css?v=20260913-2');
+@import url('/assets/css/pq-preview-v4-fixes.css?v=20260913-2');
+@import url('/assets/css/rannta-theme-final-overrides.css?v=20260913-1');
