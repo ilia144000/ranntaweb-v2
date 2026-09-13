@@ -1,6 +1,40 @@
 (function(){
   "use strict";
 
+  function primeProductionTheme(){
+    var path=window.location.pathname||"/";
+    var body=document.body;
+    if(body){
+      Array.from(body.classList).filter(function(c){return c.indexOf("pq-")===0;}).forEach(function(c){body.classList.remove(c);});
+      if(path==="/"||path==="/index.html") body.classList.add("pq-home");
+      else body.classList.add("pq-simple");
+      if(path==="/swap.html"||path.endsWith("/swap.html")) body.classList.add("pq-page-swap");
+      if(path==="/team.html"||path.endsWith("/team.html")) body.classList.add("pq-page-team");
+      if(path==="/ai-index.html"||path.endsWith("/ai-index.html")) body.classList.add("pq-page-ai");
+      if(path==="/roadmap.html"||path.endsWith("/roadmap.html")) body.classList.add("pq-page-roadmap");
+      if(path==="/nft.html"||path.endsWith("/nft.html")) body.classList.add("pq-page-nft");
+      if(path==="/articles.html"||path.endsWith("/articles.html")) body.classList.add("pq-page-articles");
+      if(path==="/contracts.html"||path.endsWith("/contracts.html")) body.classList.add("pq-page-contracts");
+      if(path==="/routex.html"||path.endsWith("/routex.html")) body.classList.add("pq-page-routex");
+      if(path==="/rannta-network.html"||path.endsWith("/rannta-network.html")) body.classList.add("pq-page-network");
+      if(path==="/rannta-core.html"||path.endsWith("/rannta-core.html")) body.classList.add("pq-page-core");
+      body.style.background="#f7faf9";
+      body.style.color="#33453f";
+    }
+    document.documentElement.style.background="#f5faf8";
+    document.documentElement.setAttribute("data-rannta-theme","2026");
+
+    if(!document.getElementById("rannta-theme-2026-css")){
+      var link=document.createElement("link");
+      link.id="rannta-theme-2026-css";
+      link.rel="stylesheet";
+      link.href="/assets/css/rannta-theme-2026.css?v=20260913-2";
+      document.head.appendChild(link);
+    }
+  }
+
+  primeProductionTheme();
+
   function normalizeRanntaTitles(){
     var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
     var nodes=[];
