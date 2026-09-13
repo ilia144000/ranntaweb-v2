@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RANNTA — PQ Cloud Style Preview</title>
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="description" content="Private visual preview of the RANNTA website using the RANNTA PQ Cloud design language." />
+  <link rel="icon" href="/assets/brand/coin.png?v=2" type="image/png" />
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --ink: #111820;
+      --muted: #526067;
+      --line: #dce6e3;
+      --brand: #126355;
+      --brand-dark: #10241f;
+      --soft: #eef6f3;
+      --panel: #ffffff;
+      --bg: #f7faf9;
+      --blue-soft: #edf3f8;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--ink); }
+    a { color: var(--brand); }
+
+    .nav {
+      min-height: 72px;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 14px clamp(18px, 5vw, 72px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(247,250,249,.96);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      color: var(--brand-dark);
+      font-weight: 850;
+      white-space: nowrap;
+    }
+    .brand img { width: 38px; height: 38px; object-fit: contain; }
+    .navlinks { display: flex; justify-content: center; gap: clamp(12px,2vw,24px); flex-wrap: wrap; }
+    .navlinks a { text-decoration: none; font-size: 14px; font-weight: 600; }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 7px;
+      background: var(--brand);
+      color: #fff !important;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .button.secondary { background: #e4efec; color: #163e38 !important; }
+
+    .hero {
+      min-height: min(760px, calc(100vh - 72px));
+      padding: clamp(56px, 9vw, 112px) clamp(18px, 7vw, 96px);
+      display: grid;
+      align-items: center;
+      background: linear-gradient(135deg, #eff7f3 0%, #ffffff 52%, var(--blue-soft) 100%);
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-inner { width: min(1180px,100%); margin: 0 auto; display: grid; gap: 22px; }
+    .eyebrow {
+      margin: 0;
+      color: var(--brand);
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: 13px;
+    }
+    h1,h2,h3,p { margin-top: 0; }
+    h1 { max-width: 1060px; margin-bottom: 0; font-size: clamp(44px, 6vw, 78px); line-height: 1.01; letter-spacing: -.035em; }
+    h2 { font-size: clamp(26px,3vw,38px); line-height: 1.15; }
+    h3 { font-size: 19px; }
+    p { color: var(--muted); line-height: 1.68; }
+    .hero-copy { max-width: 870px; font-size: clamp(17px,2vw,20px); color: #334047; }
+    .cta { display: flex; flex-wrap: wrap; gap: 11px; }
+    .trust { display: flex; flex-wrap: wrap; gap: 10px 18px; color: #526067; font-size: 13px; }
+    .trust span::before { content: "✓"; color: var(--brand); margin-right: 6px; font-weight: 850; }
+
+    .band { padding: clamp(48px, 6vw, 82px) clamp(18px, 7vw, 96px); }
+    .container { width: min(1180px,100%); margin: 0 auto; }
+    .section-head { display: flex; justify-content: space-between; gap: 28px; align-items: end; margin-bottom: 24px; }
+    .section-head p { max-width: 520px; margin-bottom: 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 14px; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+    .card strong { display: block; margin-bottom: 7px; font-size: 18px; }
+    .card p { margin-bottom: 0; }
+    .metric strong { font-size: 30px; color: var(--brand-dark); }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 34px;
+      padding: clamp(48px,6vw,82px) clamp(18px,7vw,96px);
+      background: #fff;
+      border-block: 1px solid var(--line);
+    }
+    .split > div { width: min(560px,100%); }
+    .split > div:first-child { justify-self: end; }
+    .split ul { color: #334047; line-height: 1.9; padding-left: 22px; }
+
+    .quote {
+      padding: 30px;
+      border-left: 4px solid var(--brand);
+      background: var(--soft);
+      border-radius: 0 10px 10px 0;
+      font-size: clamp(21px,3vw,34px);
+      line-height: 1.35;
+      font-weight: 800;
+      color: var(--brand-dark);
+    }
+
+    footer { padding: 28px clamp(18px,5vw,72px); background: var(--brand-dark); color: #c8d8d5; }
+    .footer-inner { width: min(1180px,100%); margin: 0 auto; display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    footer a { color: #c8f2ea; text-decoration: none; }
+
+    .preview-note {
+      background: #fff6d8;
+      border-bottom: 1px solid #eadba4;
+      padding: 10px 18px;
+      text-align: center;
+      color: #5a4700;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 800px) {
+      .nav { grid-template-columns: 1fr auto; }
+      .navlinks { display: none; }
+      .split { grid-template-columns: 1fr; }
+      .split > div:first-child { justify-self: stretch; }
+      .section-head { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-note">Experimental visual preview only — not linked in navigation and not indexed.</div>
+
+  <header class="nav">
+    <a class="brand" href="/">
+      <img src="/assets/brand/coin.png?v=2" alt="RANNTA" />
+      <span>RANNTA</span>
+    </a>
+    <nav class="navlinks" aria-label="Preview navigation">
+      <a href="#network">Network</a>
+      <a href="#pq">Post-Quantum</a>
+      <a href="#ecosystem">Ecosystem</a>
+      <a href="#access">Network Access</a>
+    </nav>
+    <a class="button" href="/">Current Site</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Independent Layer-1 · Chain ID 13113 · RNTX</p>
+        <h1>Infrastructure for an Internet of Blockchains</h1>
+        <p class="hero-copy">RANNTA combines an independent Layer-1 network, public Ethereum-style JSON-RPC, live explorer infrastructure, cross-chain routing, exchange infrastructure and hybrid post-quantum authorization in one connected technical stack.</p>
+        <div class="cta">
+          <a class="button" href="/rannta-network.html">Explore RANNTA X-Chain</a>
+          <a class="button secondary" href="/network/post-quantum.html">Post-Quantum Architecture</a>
+          <a class="button secondary" href="https://explorer.rannta.com/">Open Explorer</a>
+        </div>
+        <div class="trust">
+          <span>Live public RPC</span>
+          <span>Independent L1</span>
+          <span>RNTX native gas</span>
+          <span>HybridRequired</span>
+          <span>Cross-chain infrastructure</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="network">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">RANNTA X-CHAIN</p><h2>One network, clear technical identity</h2></div>
+          <p>The visual language is intentionally quiet, institutional and technical: large typography, restrained color, generous whitespace and evidence-first content.</p>
+        </div>
+        <div class="grid">
+          <article class="card metric"><strong>13113</strong><p>Public Chain ID</p></article>
+          <article class="card metric"><strong>0x3339</strong><p>Hex Chain ID</p></article>
+          <article class="card metric"><strong>RNTX</strong><p>Native currency</p></article>
+          <article class="card metric"><strong>Live</strong><p>RPC + Explorer infrastructure</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="split" id="pq">
+      <div>
+        <p class="eyebrow">PROTOCOL SECURITY</p>
+        <h2>Hybrid post-quantum authorization</h2>
+        <ul>
+          <li>ML-DSA-65 verification standardized in NIST FIPS 204.</li>
+          <li>HybridRequired policy combines classical and post-quantum authorization.</li>
+          <li>Fail-closed handling for missing or invalid PQ evidence.</li>
+          <li>Validator proposal, vote and finality authorization paths.</li>
+        </ul>
+      </div>
+      <div>
+        <p class="eyebrow">EXTERNAL INFRASTRUCTURE</p>
+        <h2>RANNTA PQ Cloud</h2>
+        <ul>
+          <li>Customer-held private keys.</li>
+          <li>Canonical payload verification.</li>
+          <li>Exchange withdrawal and treasury integration paths.</li>
+          <li>Hosted API plus professional production integration.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="container">
+        <div class="quote">Post-quantum security should not be a feature of a signature. It should be a property of the authorization path.</div>
+      </div>
+    </section>
+
+    <section class="band" id="ecosystem" style="background:#f1f7f5;border-block:1px solid var(--line)">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">CONNECTED STACK</p><h2>Built as infrastructure, not a single product</h2></div>
+          <p>Each component has a distinct role, while the visual system presents them as one coherent engineering ecosystem.</p>
+        </div>
+        <div class="grid">
+          <article class="card"><strong>RANNTA X-Chain</strong><p>Independent Layer-1, native RNTX, public RPC and explorer infrastructure.</p></article>
+          <article class="card"><strong>RouteX</strong><p>Multi-network routing and execution-planning infrastructure for heterogeneous chains.</p></article>
+          <article class="card"><strong>RANNTA X-Change</strong><p>Live non-custodial cross-chain exchange surface and network access layer.</p></article>
+          <article class="card"><strong>PQ Cloud</strong><p>Commercial hybrid post-quantum verification and integration layer.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="band" id="access">
+      <div class="container">
+        <div class="section-head">
+          <div><p class="eyebrow">PUBLIC ACCESS</p><h2>Verify the network directly</h2></div>
+          <p>Public infrastructure remains visible and testable instead of being hidden behind marketing claims.</p>
+        </div>
+        <div class="cta">
+          <a class="button" href="https://rpc.rannta.com/">Public RPC</a>
+          <a class="button secondary" href="https://explorer.rannta.com/">Explorer</a>
+          <a class="button secondary" href="/whitepaper.html">Whitepaper</a>
+          <a class="button secondary" href="/rannta-core.html">RANNTA Core</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <strong>RANNTA Network</strong>
+      <span>Experimental PQ Cloud visual-language preview · noindex</span>
+    </div>
+  </footer>
+</body>
+</html>
