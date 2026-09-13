@@ -96,9 +96,9 @@
     <div class="pq-grid">
       <div class="pq-card"><h3>Classical factor</h3><p>secp256k1/ECDSA binds existing account and transaction authority to the protected operation.</p></div>
       <div class="pq-card"><h3>Post-quantum factor</h3><p>ML-DSA-65 provides an independent post-quantum authorization proof over the RANNTA canonical security context.</p></div>
-      <div class="pq-card"><h3>HybridRequired gate</h3><p>The protected path requires the configured authorization factors and fails closed when required evidence is missing or invalid.</p></div>
+      <div class="pq-card"><h3>Mandatory hybrid authorization</h3><p>RANNTA requires both classical secp256k1/ECDSA authorization and ML-DSA-65 authorization wherever HybridRequired is active; classical-only authorization is rejected.</p></div>
     </div>
-    <p>These factors are not presented as alternatives on HybridRequired paths. They form one combined authorization decision. This design reduces dependence on a single cryptographic assumption while preserving compatibility with established account authority.</p>
+    <p>On HybridRequired paths these factors are mandatory components of one authorization decision, not optional alternatives and not a migration-only mode.</p>
   </section>
 
   <section class="pq-section" id="threat-model">
@@ -183,7 +183,7 @@
       <table>
         <thead><tr><th>Project</th><th>Primary PQ direction</th><th>Authorization / protocol approach</th><th>Infrastructure scope</th></tr></thead>
         <tbody>
-          <tr class="rannta-row"><td><strong>RANNTA</strong></td><td>ML-DSA-65 with active secp256k1/ECDSA + ML-DSA-65 HybridRequired authorization</td><td>Native hybrid protected transactions, key lifecycle, fail-closed policy, validator-sensitive authorization</td><td>Independent L1 + public RPC + explorer + exchange/routing stack + live PQ Cloud external integration service</td></tr>
+          <tr class="rannta-row"><td><strong>RANNTA</strong></td><td>Mandatory hybrid authorization: secp256k1/ECDSA + ML-DSA-65</td><td>HybridRequired protected paths require both authorization factors; classical-only authorization is rejected</td><td>Independent L1 + public RPC + explorer + exchange/routing stack + live PQ Cloud external integration service</td></tr>
           <tr><td><strong>Quantus</strong></td><td>PQ-native chain design with ML-DSA and ML-KEM-oriented networking</td><td>Post-quantum-first transaction and network architecture with proof aggregation research</td><td>Focused quantum-resistant blockchain architecture</td></tr>
           <tr><td><strong>QRL 2.0</strong></td><td>Post-quantum account and validator cryptography</td><td>XMSS / ML-DSA evolution with EVM-friendly execution direction</td><td>Post-quantum blockchain and validator ecosystem</td></tr>
           <tr><td><strong>Sui</strong></td><td>Native post-quantum account authentication roadmap</td><td>ML-DSA-65 and SLH-DSA integration strategy</td><td>Large general-purpose Move ecosystem</td></tr>
