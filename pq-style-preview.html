@@ -4,20 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex,nofollow" />
-  <title>RANNTA - Live PQ Cloud Style Preview</title>
+  <title>RANNTA - Theme Lab Preview</title>
   <style>
     *{box-sizing:border-box}
     html,body{margin:0;height:100%;background:#10241f;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    .bar{height:44px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 18px;background:#10241f;color:#dbe8e4;border-bottom:1px solid #28453e;font-size:12px}
-    .bar strong{color:#fff}.bar a{color:#bfe7dd;text-decoration:none;font-weight:800}.bar .right{display:flex;gap:16px;align-items:center}.frame{display:block;width:100%;height:calc(100% - 44px);border:0;background:#eef7f3}
+    .labbar{min-height:58px;display:flex;align-items:center;gap:16px;padding:8px 14px;background:#10241f;color:#dbe8e4;border-bottom:1px solid #28453e;font-size:12px;flex-wrap:wrap}
+    .labtitle{font-weight:900;color:#fff;white-space:nowrap}.group{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.label{opacity:.72;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:800;margin-right:2px}
+    button{appearance:none;border:1px solid #31534b;background:#17352e;color:#dbe8e4;border-radius:8px;padding:7px 10px;font:700 11px/1 Inter,ui-sans-serif,system-ui;cursor:pointer}
+    button:hover{background:#20463d}button.active{background:#e9f4f0;color:#103e34;border-color:#b9d8cf}
+    .spacer{flex:1}.exit{color:#bfe7dd;text-decoration:none;font-weight:800;white-space:nowrap}
+    .frame{display:block;width:100%;height:calc(100% - 58px);border:0;background:#eef7f3}
+    @media(max-width:900px){.labbar{min-height:98px}.frame{height:calc(100% - 98px)}.spacer{display:none}.exit{margin-left:auto}}
   </style>
 </head>
 <body>
-  <div class="bar">
-    <div><strong>RANNTA live reskin preview</strong> - wallpaper evaluation v4.5</div>
-    <div class="right"><span>noindex · experimental</span><a href="/" target="_top">Exit preview</a></div>
+  <div class="labbar">
+    <div class="labtitle">RANNTA Theme Lab v5</div>
+
+    <div class="group" aria-label="Theme choices">
+      <span class="label">Theme</span>
+      <button class="active" data-theme="a" onclick="setRanntaPreviewTheme('a')">A · Institutional Quantum</button>
+      <button data-theme="b" onclick="setRanntaPreviewTheme('b')">B · Mythic Quantum</button>
+      <button data-theme="c" onclick="setRanntaPreviewTheme('c')">C · AI Canonical</button>
+    </div>
+
+    <div class="group" aria-label="Preview pages">
+      <span class="label">Page</span>
+      <button data-page="/" onclick="setRanntaPreviewPage('/')">Home</button>
+      <button class="active" data-page="/rannta-network.html" onclick="setRanntaPreviewPage('/rannta-network.html')">Network</button>
+      <button data-page="/network/post-quantum.html" onclick="setRanntaPreviewPage('/network/post-quantum.html')">PQ</button>
+      <button data-page="/ai-index.html" onclick="setRanntaPreviewPage('/ai-index.html')">AI Index</button>
+      <button data-page="/routex.html" onclick="setRanntaPreviewPage('/routex.html')">RouteX</button>
+    </div>
+
+    <div class="spacer"></div>
+    <span style="opacity:.65">noindex · experimental</span>
+    <a class="exit" href="/" target="_top">Exit preview</a>
   </div>
-  <iframe id="site" class="frame" src="/rannta-network.html" title="RANNTA PQ Cloud style preview"></iframe>
-  <script src="/assets/js/pq-preview-v4.js?v=5"></script>
+
+  <iframe id="site" class="frame" src="/rannta-network.html" title="RANNTA theme laboratory preview"></iframe>
+  <script src="/assets/js/pq-preview-v4.js?v=6"></script>
 </body>
 </html>
