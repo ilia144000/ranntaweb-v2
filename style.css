@@ -3,9 +3,10 @@
    The approved white/green theme is loaded in the same render-blocking CSS chain,
    so the old dark visual theme is no longer painted first and replaced by JavaScript. */
 @import url("https://cdn.jsdelivr.net/gh/ilia144000/ranntaweb-v2@9fc1c5266e97bbe61af7d1ecc46cfae1c4985392/style.css");
-@import url("/assets/css/rannta-theme-2026.css?v=20260913-static-final");
-@import url("/assets/css/rannta-theme-final-overrides.css?v=20260913-static-final");
+@import url("/assets/css/rannta-theme-2026.css?v=20260913-static-final2");
+@import url("/assets/css/rannta-theme-final-overrides.css?v=20260913-static-final2");
 @import url("/assets/css/mobile-nav-2026.css?v=20260913-4");
-@import url("/assets/css/signal-layout-fix.css?v=20260913-1");
+@import url("/assets/css/signal-layout-fix.css?v=20260913-2");
 @import url("/assets/css/rannta-production-readability.css?v=20260913-1");
-@import url("/assets/css/rannta-wallpaper-green-quantum.css?v=20260913-1");
+@import url("/assets/css/rannta-wallpaper-green-quantum.css?v=20260913-2");
+@import url("/assets/css/production-layout-lock.css?v=20260913-1");
