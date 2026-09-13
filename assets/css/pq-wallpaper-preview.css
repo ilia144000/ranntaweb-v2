@@ -1,0 +1,25 @@
+/* Experimental wallpaper for pq-style-preview only. */
+@media (min-width: 821px) {
+  html[data-pq-preview] body {
+    background:
+      radial-gradient(circle at 12% 18%, rgba(18,99,85,.075) 0 2px, transparent 2.6px) 0 0/92px 92px,
+      radial-gradient(circle at 78% 32%, rgba(18,99,85,.055) 0 1.5px, transparent 2.2px) 24px 18px/118px 118px,
+      linear-gradient(30deg, rgba(18,99,85,.028) 12%, transparent 12.5%, transparent 87%, rgba(18,99,85,.028) 87.5%),
+      linear-gradient(150deg, rgba(18,99,85,.022) 12%, transparent 12.5%, transparent 87%, rgba(18,99,85,.022) 87.5%),
+      radial-gradient(circle at 8% 22%, rgba(25,126,106,.10), transparent 24%),
+      radial-gradient(circle at 92% 68%, rgba(30,93,140,.07), transparent 28%),
+      #f6faf8 !important;
+    background-attachment: fixed !important;
+  }
+
+  /* Keep the content areas calm so the wallpaper only lives in the free margins. */
+  html[data-pq-preview] body.pq-simple main,
+  html[data-pq-preview] body.pq-home .home-identity__copy,
+  html[data-pq-preview] body.pq-home .launch-news-card,
+  html[data-pq-preview] body.pq-home main > section,
+  html[data-pq-preview] body.pq-home [data-rannta-pq-home] > div,
+  html[data-pq-preview] body.pq-home [data-rannta-presale-home] > div,
+  html[data-pq-preview] body.pq-home [data-rannta-core-home] > div {
+    backdrop-filter: blur(1.5px);
+  }
+}
