@@ -1,5 +1,13 @@
 /* Final production polish - header, mobile identity, homepage RouteX, no dark leftovers. */
 
+/* Reserve header space before the JS shell is injected. This removes the visible page jump. */
+[data-site-header]{
+  display:block!important;
+  min-height:82px!important;
+  background:#fafcfb!important;
+  border-bottom:1px solid #d8e5e1!important;
+}
+
 /* Header: keep logo close to the brand and make the identity visible on mobile. */
 .siteHeader,[data-site-header] .siteHeader{
   grid-template-columns:72px minmax(280px,1fr) auto!important;
@@ -112,6 +120,7 @@ body.pq-home .routexHomeCard__links a:last-child{
 html,body{background:#f7faf9!important;color:#33453f!important}
 
 @media(max-width:980px){
+  [data-site-header]{min-height:112px!important}
   .siteHeader,[data-site-header] .siteHeader{
     grid-template-columns:60px minmax(0,1fr)!important;
     gap:8px!important;
@@ -132,6 +141,7 @@ html,body{background:#f7faf9!important;color:#33453f!important}
 }
 
 @media(max-width:560px){
+  [data-site-header]{min-height:101px!important}
   .siteHeader,[data-site-header] .siteHeader{grid-template-columns:52px minmax(0,1fr)!important;padding:8px 10px 7px!important}
   .siteHeader__logoLink{width:48px!important;min-width:48px!important;height:48px!important;min-height:48px!important}
   .siteHeader .logo{width:44px!important;height:44px!important;max-width:44px!important;max-height:44px!important}
