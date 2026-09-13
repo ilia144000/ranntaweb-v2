@@ -65,7 +65,7 @@
 <div data-site-header></div>
 <main class="pq-wrap">
   <section class="pq-hero">
-    <div class="pq-kicker">Technical Whitepaper · Version 1.2 · 13 September 2026</div>
+    <div class="pq-kicker">Technical Whitepaper · Version 1.3 · 13 September 2026</div>
     <h1>RANNTA <span>Post-Quantum Security Architecture</span></h1>
     <p class="pq-thesis">RANNTA operates an active dual-cryptographic authorization model on protected paths: classical secp256k1/ECDSA authorization and ML-DSA-65 post-quantum authorization are verified together under HybridRequired fail-closed enforcement.</p>
     <div class="pq-quote">Post-quantum security should not be a feature of a signature. It should be a property of the authorization path.</div>
@@ -144,8 +144,8 @@
 
   <section class="pq-section" id="consensus">
     <h2>6. Validator and Consensus Authorization</h2>
-    <p>RANNTA consensus engineering includes HybridRequired authorization surfaces for validator-sensitive proposal, vote and finality paths. This implementation scope is distinct from validator-topology scale; broader distributed validator deployment remains part of the network expansion program.</p>
-    <p>The strategic objective is a consistent security model from account authorization to validator authority: explicit keys, explicit policy, canonical context, replay resistance and deterministic rejection of invalid evidence.</p>
+    <p>RANNTA consensus engineering implements HybridRequired authorization surfaces across validator-sensitive proposal, vote and finality paths. Broader distributed validator deployment is the topology-scale expansion of this implemented authorization model.</p>
+    <p><strong>The HybridRequired consensus authorization model is implemented independently of validator-count growth.</strong> Network expansion broadens distributed participation without redefining the protected authorization path.</p>
   </section>
 
   <section class="pq-section" id="replay">
