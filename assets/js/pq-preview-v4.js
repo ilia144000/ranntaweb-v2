@@ -6,7 +6,8 @@
     if(!cssPromise){
       cssPromise=Promise.all([
         fetch('/assets/css/pq-preview-v4.css',{cache:'no-store'}),
-        fetch('/assets/css/pq-preview-v4-fixes.css',{cache:'no-store'})
+        fetch('/assets/css/pq-preview-v4-fixes.css',{cache:'no-store'}),
+        fetch('/assets/css/pq-preview-wallpaper-test.css',{cache:'no-store'})
       ]).then(async responses=>{
         for(const r of responses){if(!r.ok) throw new Error('preview css '+r.status);}
         const parts=await Promise.all(responses.map(r=>r.text()));
@@ -73,7 +74,7 @@
       let style=doc.getElementById('pq-live-reskin-v4');
       if(!style){style=doc.createElement('style');style.id='pq-live-reskin-v4';doc.head.appendChild(style);}
       style.textContent=css;
-      doc.documentElement.setAttribute('data-pq-preview','v4.2');
+      doc.documentElement.setAttribute('data-pq-preview','v4.3-wallpaper');
     }catch(e){console.warn('PQ preview skin failed',e);}
   }
 
