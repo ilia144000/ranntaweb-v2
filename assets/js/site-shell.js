@@ -160,7 +160,7 @@
   }
 
   var core=document.createElement("script");
-  core.src="/assets/js/site-shell-core.js?v=20260901-1";
+  core.src="/assets/js/site-shell-core.js?v=20260913-theme1";
   core.onload=function(){
     normalizeRanntaTitles();
     surfaceRanntaCore();
