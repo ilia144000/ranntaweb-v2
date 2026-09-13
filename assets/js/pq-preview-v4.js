@@ -1,6 +1,7 @@
 (function(){
   const frame=document.getElementById('site');
   let cssPromise=null;
+  let currentTheme='a';
 
   function loadCss(){
     if(!cssPromise){
@@ -8,7 +9,8 @@
         fetch('/assets/css/pq-preview-v4.css',{cache:'no-store'}),
         fetch('/assets/css/pq-preview-v4-fixes.css',{cache:'no-store'}),
         fetch('/assets/css/pq-preview-wallpaper-test.css',{cache:'no-store'}),
-        fetch('/assets/css/signal-layout-fix.css',{cache:'no-store'})
+        fetch('/assets/css/signal-layout-fix.css',{cache:'no-store'}),
+        fetch('/assets/css/pq-preview-theme-lab.css',{cache:'no-store'})
       ]).then(async responses=>{
         for(const r of responses){if(!r.ok) throw new Error('preview css '+r.status);}
         const parts=await Promise.all(responses.map(r=>r.text()));
@@ -20,7 +22,7 @@
 
   function classify(doc){
     const body=doc.body;if(!body)return;
-    [...body.classList].filter(c=>c.startsWith('pq-')).forEach(c=>body.classList.remove(c));
+    [...body.classList].filter(c=>c.startsWith('pq-')&&!c.startsWith('pq-theme-')).forEach(c=>body.classList.remove(c));
     const p=(doc.location&&doc.location.pathname)||'/';
     if(p==='/'||p==='/index.html') body.classList.add('pq-home');
     else body.classList.add('pq-simple');
@@ -34,6 +36,13 @@
     if(p.endsWith('/routex.html')||p==='/routex.html') body.classList.add('pq-page-routex');
     if(p.endsWith('/rannta-network.html')||p==='/rannta-network.html') body.classList.add('pq-page-network');
     if(p.endsWith('/rannta-core.html')||p==='/rannta-core.html') body.classList.add('pq-page-core');
+  }
+
+  function applyTheme(doc,theme){
+    if(!doc||!doc.body)return;
+    doc.body.classList.remove('pq-theme-a','pq-theme-b','pq-theme-c');
+    doc.body.classList.add('pq-theme-'+theme);
+    doc.documentElement.setAttribute('data-pq-theme',theme);
   }
 
   function markPresaleWarning(doc){
@@ -72,12 +81,27 @@
       markPresaleWarning(doc);
       markLegacyDark(doc);
       const css=await loadCss();
-      let style=doc.getElementById('pq-live-reskin-v4');
-      if(!style){style=doc.createElement('style');style.id='pq-live-reskin-v4';doc.head.appendChild(style);}
+      let style=doc.getElementById('pq-live-reskin-v5');
+      if(!style){style=doc.createElement('style');style.id='pq-live-reskin-v5';doc.head.appendChild(style);}
       style.textContent=css;
-      doc.documentElement.setAttribute('data-pq-preview','v4.5-wallpaper');
+      applyTheme(doc,currentTheme);
+      doc.documentElement.setAttribute('data-pq-preview','v5-theme-lab');
     }catch(e){console.warn('PQ preview skin failed',e);}
   }
+
+  window.setRanntaPreviewTheme=function(theme){
+    if(!['a','b','c'].includes(theme))return;
+    currentTheme=theme;
+    const doc=frame.contentDocument||frame.contentWindow.document;
+    applyTheme(doc,theme);
+    document.querySelectorAll('[data-theme]').forEach(btn=>btn.classList.toggle('active',btn.getAttribute('data-theme')===theme));
+  };
+
+  window.setRanntaPreviewPage=function(url){
+    if(typeof url!=='string'||!url.startsWith('/'))return;
+    frame.src=url;
+    document.querySelectorAll('[data-page]').forEach(btn=>btn.classList.toggle('active',btn.getAttribute('data-page')===url));
+  };
 
   frame.addEventListener('load',()=>{skin();setTimeout(skin,250);setTimeout(skin,900);setTimeout(skin,1800)});
   setTimeout(skin,500);
