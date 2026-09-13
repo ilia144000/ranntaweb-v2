@@ -1,0 +1,17 @@
+/* Footer RouteX brand correction.
+   Use the canonical yellow RouteX SVG from the live RANNTA X-Change brand surface.
+   The existing footer HTML still references the large Gando artwork; hide only that tiny image
+   and render the correct RouteX mark without affecting the RouteX hero/card artwork elsewhere. */
+.siteFooter .siteFooter__textLink[href="/routex.html"] .footerMiniIcon{
+  display:none !important;
+}
+.siteFooter .siteFooter__textLink[href="/routex.html"]::before{
+  content:"";
+  display:inline-block;
+  width:18px;
+  height:18px;
+  flex:0 0 18px;
+  margin-right:6px;
+  vertical-align:-4px;
+  background:url("https://ranntaexchange.com/brands/routex.svg") center/contain no-repeat;
+}
