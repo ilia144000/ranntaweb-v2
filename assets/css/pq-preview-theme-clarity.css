@@ -1,0 +1,76 @@
+/* Preview Theme Lab contrast guard.
+   Wallpaper must never reduce action/address readability. */
+
+/* Shared address/readability rules. */
+body.pq-theme-a .contract-box__label,
+body.pq-theme-b .contract-box__label,
+body.pq-theme-c .contract-box__label{
+  color:#53665f!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+body.pq-theme-a .ca-short,
+body.pq-theme-b .ca-short,
+body.pq-theme-c .ca-short,
+body.pq-theme-a .contract-box__value,
+body.pq-theme-b .contract-box__value,
+body.pq-theme-c .contract-box__value{
+  color:#173f36!important;
+  opacity:1!important;
+  text-shadow:none!important;
+  font-weight:700!important;
+}
+
+/* A - chosen Green Quantum Mesh: force solid action labels. */
+body.pq-theme-a :is(
+  .btnHero:not(.ghost),
+  .btnConv.primary,
+  .ric-btn,
+  .sealPro__button,
+  .btnCopy,
+  .btnPrimary,
+  .swap-link-button,
+  .routexBtn:not(.secondary),
+  .routexHomeCard__links a:first-child,
+  [data-rannta-pq-home] a,
+  [data-rannta-presale-home] a,
+  [data-rannta-core-home] a
+){
+  color:#fff!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+body.pq-theme-a :is(
+  .btnHero.ghost,
+  .btnConv.ghost,
+  .btnSecondary,
+  .secondary,
+  .routexBtn.secondary,
+  .routexHomeCard__links a:last-child
+){
+  color:#173f36!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+body.pq-theme-a button,
+body.pq-theme-a button *,
+body.pq-theme-a .btnHero *,
+body.pq-theme-a .btnConv *,
+body.pq-theme-a .ric-btn *,
+body.pq-theme-a .sealPro__button *,
+body.pq-theme-a .btnCopy *,
+body.pq-theme-a .btnPrimary *,
+body.pq-theme-a .btnSecondary *{
+  opacity:1!important;
+}
+
+/* B/C safeguards so switching themes cannot reintroduce faded labels. */
+body.pq-theme-b :is(.btnHero,.btnConv,.ric-btn,.sealPro__button,.btnCopy,.btnPrimary,.btnSecondary,.swap-link-button,.routexBtn),
+body.pq-theme-c :is(.btnHero,.btnConv,.ric-btn,.sealPro__button,.btnCopy,.btnPrimary,.btnSecondary,.swap-link-button,.routexBtn){
+  opacity:1!important;
+  text-shadow:none!important;
+}
+body.pq-theme-b :is(.btnHero,.btnConv,.ric-btn,.sealPro__button,.btnCopy,.btnPrimary,.btnSecondary,.swap-link-button,.routexBtn) *,
+body.pq-theme-c :is(.btnHero,.btnConv,.ric-btn,.sealPro__button,.btnCopy,.btnPrimary,.btnSecondary,.swap-link-button,.routexBtn) *{
+  opacity:1!important;
+}
