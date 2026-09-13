@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RANNTA X-Chain Hybrid Security Evidence | HybridRequired Verification Record</title>
+  <meta name="description" content="Public RANNTA X-Chain implementation evidence for HybridRequired native authorization using secp256k1/ECDSA plus ML-DSA-65, fail-closed rejection, replay protection and key lifecycle enforcement." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <link rel="canonical" href="https://rannta.com/network/hybrid-security-evidence.html" />
+  <link rel="icon" href="/assets/brand/coin.png?v=2" type="image/png" />
+  <link rel="stylesheet" href="/style.css" />
+  <meta name="theme-color" content="#f7fbf9" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="RANNTA X-Chain Hybrid Security Evidence" />
+  <meta property="og:description" content="Implementation-grounded verification record for HybridRequired native authorization on RANNTA X-Chain." />
+  <meta property="og:url" content="https://rannta.com/network/hybrid-security-evidence.html" />
+  <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"TechArticle",
+    "headline":"RANNTA X-Chain Hybrid Security Evidence",
+    "alternativeHeadline":"Implementation-Grounded Verification Record for HybridRequired Native Authorization",
+    "url":"https://rannta.com/network/hybrid-security-evidence.html",
+    "datePublished":"2026-09-13",
+    "dateModified":"2026-09-13",
+    "author":{"@type":"Organization","name":"RANNTA","url":"https://rannta.com/"},
+    "publisher":{"@type":"Organization","name":"RANNTA","url":"https://rannta.com/"},
+    "about":["RANNTA X-Chain","HybridRequired","ML-DSA-65","secp256k1","fail-closed authorization","replay protection","post-quantum security"]
+  }
+  </script>
+
+  <style>
+    .evidencePage{color:#10231f}
+    .evidence-wrap{max-width:1180px;margin:0 auto;padding:34px 20px 72px;box-sizing:border-box}
+    .evidence-hero,.evidence-section{background:rgba(255,255,255,.96);border:1px solid rgba(17,105,87,.18);border-radius:24px;box-shadow:0 18px 54px rgba(17,70,59,.08)}
+    .evidence-hero{padding:38px 34px}
+    .evidence-kicker{display:inline-flex;align-items:center;gap:8px;padding:7px 11px;border-radius:999px;background:#edf8f4;border:1px solid #cfe9df;color:#126b59;font-size:.78rem;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+    .evidence-hero h1{margin:18px 0 12px;font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;color:#0d211d}
+    .evidence-hero p{max-width:920px;color:#526761;line-height:1.75;font-size:1.05rem}
+    .evidence-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+    .evidence-actions a{display:inline-flex;align-items:center;padding:11px 16px;border-radius:11px;text-decoration:none;font-weight:800;border:1px solid #bddbd1;background:#fff;color:#116d5b}
+    .evidence-actions a.primary{background:#117460;color:#fff;border-color:#117460}
+    .evidence-note{margin-top:24px;padding:18px 20px;border-radius:15px;background:#f5faf8;border:1px solid #d5e9e2;color:#405a53;line-height:1.65}
+    .evidence-note strong{color:#133f35}
+    .evidence-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+    .evidence-meta div{padding:16px;border:1px solid #dcebe6;border-radius:15px;background:#fbfdfc}
+    .evidence-meta span{display:block;color:#6f827c;font-size:.76rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+    .evidence-meta strong{display:block;color:#123c33;margin-top:5px;word-break:break-word}
+    .evidence-section{margin-top:24px;padding:28px 30px}
+    .evidence-section h2{margin:0 0 12px;color:#102b25;font-size:clamp(1.55rem,3vw,2.1rem)}
+    .evidence-section h3{color:#124f42}
+    .evidence-section p,.evidence-section li{color:#526761;line-height:1.72}
+    .evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:18px}
+    .evidence-card{padding:18px;border:1px solid #d7e9e3;border-radius:16px;background:#fbfdfc}
+    .evidence-card h3{margin:0 0 8px;font-size:1rem}.evidence-card p{margin:0}
+    .evidence-status{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:.72rem;font-weight:900;letter-spacing:.05em;background:#e7f8f1;border:1px solid #bce8d7;color:#087356}
+    .evidence-status.pending{background:#eef7fa;border-color:#cae6ef;color:#176a7e}
+    .evidence-table-wrap{overflow:auto;border:1px solid #d8e8e3;border-radius:16px;margin-top:18px;background:#fff}
+    .evidence-table{width:100%;min-width:880px;border-collapse:collapse;background:#fff}
+    .evidence-table th,.evidence-table td{padding:14px 13px;border-bottom:1px solid #e4eeeb;vertical-align:top;text-align:left}
+    .evidence-table th{background:#edf7f3;color:#184e42;font-size:.82rem;letter-spacing:.02em}
+    .evidence-table td{color:#4d625c;font-size:.92rem;line-height:1.55}
+    .evidence-table tr:last-child td{border-bottom:0}
+    .evidence-table code,.evidence-code{font-family:Consolas,Monaco,monospace}
+    .evidence-table code{background:#eff6f3;color:#0d5949;padding:2px 5px;border-radius:5px;white-space:nowrap}
+    .evidence-code{display:block;overflow:auto;white-space:pre-wrap;padding:18px;border-radius:15px;background:#0d211d;color:#dff8ef;border:1px solid #1f5548;line-height:1.55}
+    .evidence-scope{border-left:4px solid #16836d;padding-left:18px}
+    @media(max-width:800px){.evidence-meta,.evidence-grid{grid-template-columns:1fr}.evidence-hero,.evidence-section{padding:22px}.evidence-wrap{padding-left:14px;padding-right:14px}}
+  </style>
+</head>
+<body class="evidencePage">
+<div data-site-header></div>
+<main class="evidence-wrap">
+  <section class="evidence-hero">
+    <div class="evidence-kicker">Public Verification Record - 13 September 2026</div>
+    <h1>RANNTA X-Chain Hybrid Security Evidence</h1>
+    <p>This record documents implementation-enforced behavior in the RANNTA X-Chain native HybridRequired authorization path. It focuses on what the authorization logic accepts, rejects and tracks when classical secp256k1/ECDSA evidence and ML-DSA-65 post-quantum evidence are bound to the same protected operation.</p>
+    <div class="evidence-actions">
+      <a class="primary" href="/network/post-quantum.html">Technical Whitepaper</a>
+      <a href="/rannta-network.html">RANNTA X-Chain</a>
+      <a href="https://rpc.rannta.com/" target="_blank" rel="noopener noreferrer">Public RPC</a>
+      <a href="https://explorer.rannta.com/" target="_blank" rel="noopener noreferrer">Explorer</a>
+      <a href="https://pq.rannta.com/security-report" target="_blank" rel="noopener noreferrer">PQ Cloud Security Report</a>
+    </div>
+    <div class="evidence-note"><strong>Scope and independence notice:</strong> this is a RANNTA-published implementation evidence record. It is not a third-party audit, certification or independent security assessment. It is intended to expose the authorization rules and failure modes that can be checked against the current X-Chain implementation. A separate third-party security review remains part of the expansion program.</div>
+    <div class="evidence-meta">
+      <div><span>Network</span><strong>RANNTA X-Chain - Chain ID 13113 / 0x3339</strong></div>
+      <div><span>Authorization policy</span><strong>HybridRequired - Fail-Closed</strong></div>
+      <div><span>Cryptographic factors</span><strong>secp256k1/ECDSA + ML-DSA-65</strong></div>
+      <div><span>Implementation snapshot</span><strong>1e1d5f324af6e6766d47e6dc5e22fc20863b4554</strong></div>
+      <div><span>Post-quantum standard</span><strong>ML-DSA-65 - NIST FIPS 204</strong></div>
+      <div><span>Public runtime surface</span><strong>RPC and explorer live</strong></div>
+    </div>
+  </section>
+
+  <section class="evidence-section" id="matrix">
+    <h2>1. Native Hybrid Authorization Evidence Matrix</h2>
+    <p>The table below records the enforcement behavior represented by the native authorization implementation. "Implemented" or "Enforced" means the behavior is present in the authorization code path; it does not mean an independent auditor has certified it.</p>
+    <div class="evidence-table-wrap">
+      <table class="evidence-table">
+        <thead><tr><th>Security case</th><th>Expected behavior</th><th>Implementation signal</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Valid hybrid authorization</strong><br>Valid ECDSA and valid ML-DSA-65 evidence under the correct context.</td><td>Authorize the protected request for execution processing.</td><td><code>status=authorized_pending_execution</code></td><td><span class="evidence-status">IMPLEMENTED</span></td></tr>
+          <tr><td><strong>Classical-only authorization on a HybridRequired account</strong></td><td>Reject instead of silently falling back to legacy authorization.</td><td><code>hybrid_required</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>Invalid ML-DSA-65 signature</strong></td><td>Reject the authorization.</td><td><code>invalid_ml_dsa_signature</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>Invalid secp256k1/ECDSA signature</strong></td><td>Reject the authorization.</td><td><code>invalid_ecdsa_signature</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>Duplicate transaction / replay</strong></td><td>Reject a transaction hash already recorded as executed.</td><td><code>duplicate_transaction_hash</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>Reused key-lifecycle operation identity</strong></td><td>Reject reuse of an operation identity already consumed by registration or rotation.</td><td><code>duplicate_transaction_hash</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>Key version rollback</strong></td><td>Reject registration or rotation that does not move to an allowed higher key version.</td><td><code>key_version_rollback</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>Wrong PQ key version</strong></td><td>Reject authorization bound to a different registered PQ key version.</td><td><code>wrong_pq_key_version</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>Wrong chain identity</strong></td><td>Reject evidence that is not bound to RANNTA X-Chain Chain ID 13113.</td><td><code>wrong_chain_id</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>Expired or premature validity window</strong></td><td>Reject authorization outside its configured block-validity window.</td><td><code>expired_transaction</code> / <code>premature_transaction</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+          <tr><td><strong>ML-DSA backend unavailable</strong></td><td>Fail closed rather than treating missing PQ verification as success.</td><td><code>ml_dsa_backend_unavailable</code></td><td><span class="evidence-status">ENFORCED</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="evidence-section" id="binding">
+    <h2>2. Canonical Context and Replay Binding</h2>
+    <p>Hybrid authorization is not treated as two unrelated signatures. The native path binds authorization evidence to a defined RANNTA X-Chain security context. The implementation includes chain identity, transaction/account fields, validity bounds, PQ key version, authorization policy version and operation identity in the protected authorization flow.</p>
+    <div class="evidence-grid">
+      <div class="evidence-card"><h3>Domain separation</h3><p>The native hybrid domain is versioned as <code>RANNTA-XCHAIN-HYBRID-NATIVE-V1</code>.</p></div>
+      <div class="evidence-card"><h3>Transaction replay state</h3><p>Executed transaction hashes are tracked and duplicate insertion is rejected.</p></div>
+      <div class="evidence-card"><h3>Operation replay state</h3><p>Used operation IDs are tracked for protected key-lifecycle operations.</p></div>
+    </div>
+  </section>
+
+  <section class="evidence-section" id="keys">
+    <h2>3. Key Registration, Hybrid Activation and Rotation</h2>
+    <p>The native authorization registry records the account authorization mode, ML-DSA-65 public key, public-key hash, key version, registration block, activation block, policy version and rotation counter.</p>
+    <div class="evidence-grid">
+      <div class="evidence-card"><h3>Authenticated registration</h3><p>Key registration binds classical account authority and ML-DSA-65 proof to the canonical key operation.</p></div>
+      <div class="evidence-card"><h3>HybridRequired activation</h3><p>Once the account is placed in HybridRequired mode, legacy-only authorization is rejected on the protected native path.</p></div>
+      <div class="evidence-card"><h3>Versioned rotation</h3><p>Rotation requires an incremented key version; rollback or non-incrementing rotation is rejected.</p></div>
+    </div>
+  </section>
+
+  <section class="evidence-section" id="wire">
+    <h2>4. Wire-Level Failure Signals</h2>
+    <p>The implementation exposes deterministic error codes for security-relevant rejection paths. Selected examples:</p>
+    <pre class="evidence-code">hybrid_required
+hybrid_required_irreversible
+invalid_ecdsa_signature
+invalid_ml_dsa_signature
+ml_dsa_backend_unavailable
+duplicate_transaction_hash
+key_version_rollback
+wrong_pq_key_version
+wrong_chain_id
+expired_transaction
+premature_transaction
+invalid_block_authorization_evidence</pre>
+  </section>
+
+  <section class="evidence-section" id="consensus-scope">
+    <h2>5. Consensus Scope</h2>
+    <div class="evidence-scope">
+      <p>RANNTA consensus engineering includes HybridRequired authorization surfaces for validator-sensitive proposal, vote and finality paths. This implementation scope is distinct from validator-topology scale.</p>
+      <p><strong>Broader distributed validator deployment remains part of the network expansion program.</strong> This evidence record therefore does not claim that large-scale validator decentralization is already complete.</p>
+    </div>
+  </section>
+
+  <section class="evidence-section" id="runtime">
+    <h2>6. Public Reproduction Status</h2>
+    <div class="evidence-grid">
+      <div class="evidence-card"><h3><span class="evidence-status">PUBLISHED</span></h3><p>Implementation behavior and wire-level enforcement signals are documented in this record.</p></div>
+      <div class="evidence-card"><h3><span class="evidence-status">LIVE</span></h3><p>RANNTA X-Chain public RPC and explorer are available for network-level inspection.</p></div>
+      <div class="evidence-card"><h3><span class="evidence-status pending">PENDING PUBLICATION</span></h3><p>A one-click public reproduction harness with timestamped command/output artifacts, build identity and block references is not yet represented here as complete.</p></div>
+    </div>
+    <div class="evidence-note"><strong>No fabricated PASS claims:</strong> this page intentionally distinguishes code-enforced behavior from independently observed production test output. Future revisions can add reproducible runtime artifacts when a public harness is published.</div>
+  </section>
+
+  <section class="evidence-section" id="references">
+    <h2>7. Verification Links</h2>
+    <ul>
+      <li><a href="/network/post-quantum.html">RANNTA Post-Quantum Security Architecture - Technical Whitepaper</a></li>
+      <li><a href="/rannta-network.html">RANNTA X-Chain Network Page</a></li>
+      <li><a href="https://rpc.rannta.com/" target="_blank" rel="noopener noreferrer">RANNTA Public RPC</a></li>
+      <li><a href="https://explorer.rannta.com/" target="_blank" rel="noopener noreferrer">RANNTA X-Chain Explorer</a></li>
+      <li><a href="https://pq.rannta.com/security-report" target="_blank" rel="noopener noreferrer">RANNTA PQ Cloud Security Report</a></li>
+      <li><a href="https://csrc.nist.gov/pubs/fips/204/final" target="_blank" rel="noopener noreferrer">NIST FIPS 204 - ML-DSA</a></li>
+    </ul>
+  </section>
+</main>
+<div data-site-footer></div>
+<script src="/assets/js/site-shell.js" defer></script>
+</body>
+</html>
