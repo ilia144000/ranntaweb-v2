@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RANNTA Post-Quantum Security Architecture | Technical Whitepaper</title>
+  <meta name="description" content="RANNTA technical whitepaper for hybrid post-quantum authorization across X-Chain consensus, validator authorization, digital-asset infrastructure and RANNTA PQ Cloud using ML-DSA-65, HybridRequired and fail-closed policy enforcement." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+  <link rel="canonical" href="https://rannta.com/network/post-quantum.html" />
+  <link rel="icon" href="/assets/brand/coin.png?v=2" type="image/png" />
+  <link rel="stylesheet" href="/style.css" />
+  <meta name="theme-color" content="#050506" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="RANNTA Post-Quantum Security Architecture" />
+  <meta property="og:description" content="Hybrid post-quantum authorization at the protocol layer: ML-DSA-65, HybridRequired, fail-closed validator authorization and external PQ security services." />
+  <meta property="og:url" content="https://rannta.com/network/post-quantum.html" />
+  <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RANNTA Post-Quantum Security Architecture" />
+  <meta name="twitter:description" content="Post-quantum security should be a property of the authorization path, not merely a signature primitive." />
+  <meta name="twitter:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
+
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"TechArticle",
+    "headline":"RANNTA Post-Quantum Security Architecture",
+    "alternativeHeadline":"Hybrid Cryptographic Authorization for Layer-1 Consensus, Digital Assets and External Infrastructure",
+    "url":"https://rannta.com/network/post-quantum.html",
+    "datePublished":"2026-09-13",
+    "dateModified":"2026-09-13",
+    "author":{"@type":"Organization","name":"RANNTA","url":"https://rannta.com/"},
+    "publisher":{"@type":"Organization","name":"RANNTA","url":"https://rannta.com/","logo":{"@type":"ImageObject","url":"https://rannta.com/assets/brand/coin.png?v=2"}},
+    "about":["Post-quantum cryptography","ML-DSA-65","Hybrid authorization","Blockchain consensus","RANNTA X-Chain","RANNTA PQ Cloud"],
+    "isPartOf":{"@type":"WebSite","name":"RANNTA","url":"https://rannta.com/"}
+  }
+  </script>
+
+  <style>
+    :root{--pq-bg:#050506;--pq-panel:#0d1016;--pq-panel2:#121722;--pq-gold:#f0c94a;--pq-cyan:#67d7ff;--pq-green:#78f0b2;--pq-red:#ff7e7e;--pq-text:#f4f7fb;--pq-muted:#adb7c5;--pq-line:rgba(240,201,74,.22)}
+    body{background:radial-gradient(circle at 50% -10%,rgba(46,132,255,.14),transparent 34%),radial-gradient(circle at 92% 8%,rgba(240,201,74,.08),transparent 24%),#050506;color:var(--pq-text)}
+    .pq-wrap{max-width:1180px;margin:0 auto;padding:34px 20px 72px}
+    .pq-hero{border:1px solid rgba(240,201,74,.32);border-radius:28px;padding:42px 34px;background:linear-gradient(145deg,rgba(15,18,26,.98),rgba(6,8,12,.98));box-shadow:0 30px 80px rgba(0,0,0,.42)}
+    .pq-kicker{display:inline-flex;padding:7px 12px;border-radius:999px;border:1px solid rgba(103,215,255,.35);color:var(--pq-cyan);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem}
+    .pq-hero h1{font-size:clamp(2.35rem,5.5vw,4.5rem);line-height:1.02;margin:18px 0;color:#fff;max-width:1020px}
+    .pq-hero h1 span{color:var(--pq-gold)}
+    .pq-thesis{font-size:clamp(1.08rem,2vw,1.35rem);max-width:930px;color:#e8edf4;line-height:1.7;margin:0}
+    .pq-quote{margin:28px 0 0;padding:20px 22px;border-left:4px solid var(--pq-gold);background:rgba(240,201,74,.06);font-size:1.18rem;font-weight:700;color:#fff}
+    .pq-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:26px}.pq-btn{display:inline-flex;padding:11px 17px;border-radius:999px;font-weight:800;text-decoration:none}.pq-btn.primary{background:var(--pq-gold);color:#111}.pq-btn.secondary{border:1px solid rgba(103,215,255,.35);color:#dff7ff;background:rgba(103,215,255,.05)}
+    .pq-meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:20px}.pq-meta div{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:15px}.pq-meta span{display:block;color:var(--pq-muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.08em}.pq-meta strong{display:block;margin-top:4px;color:#fff}
+    .pq-section{margin-top:28px;padding:28px;border:1px solid var(--pq-line);border-radius:22px;background:linear-gradient(180deg,rgba(14,17,24,.97),rgba(8,10,14,.97))}.pq-section h2{margin:0 0 14px;color:var(--pq-gold);font-size:clamp(1.55rem,3vw,2.2rem)}.pq-section h3{color:#fff;margin-top:22px}.pq-section p,.pq-section li{color:#d7dde6;line-height:1.72}.pq-section strong{color:#fff}.pq-section code{color:#bdeeff;background:#07111a;padding:2px 6px;border-radius:6px}
+    .pq-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.pq-card{padding:18px;border:1px solid rgba(103,215,255,.16);border-radius:16px;background:rgba(103,215,255,.035)}.pq-card h3{margin:0 0 8px;color:var(--pq-cyan)}.pq-card p{margin:0}
+    .pq-flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:22px 0}.pq-flow div{padding:16px 12px;border-radius:14px;text-align:center;border:1px solid rgba(120,240,178,.22);background:rgba(120,240,178,.045);font-weight:800;color:#eafff3;position:relative}.pq-flow div:not(:last-child)::after{content:"→";position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--pq-gold);z-index:2}
+    .pq-status{display:inline-flex;padding:4px 8px;border-radius:999px;font-size:.74rem;font-weight:900;letter-spacing:.05em}.live{background:rgba(120,240,178,.13);color:var(--pq-green);border:1px solid rgba(120,240,178,.28)}.next{background:rgba(103,215,255,.10);color:var(--pq-cyan);border:1px solid rgba(103,215,255,.25)}
+    .pq-table-wrap{overflow:auto;border-radius:16px;border:1px solid rgba(255,255,255,.09)}table{border-collapse:collapse;width:100%;min-width:900px;background:#090c11}th,td{padding:14px 13px;border-bottom:1px solid rgba(255,255,255,.075);vertical-align:top;text-align:left}th{background:#111721;color:var(--pq-gold);font-size:.84rem;letter-spacing:.035em}td{color:#d9e0e8;font-size:.92rem}tr:last-child td{border-bottom:0}.rannta-row td{background:rgba(240,201,74,.055)}
+    .pq-code{background:#03070a;border:1px solid rgba(103,215,255,.17);border-radius:14px;padding:18px;overflow:auto;color:#c9f4ff;font-family:Consolas,Monaco,monospace;white-space:pre-wrap}
+    .pq-callout{padding:20px;border-radius:16px;background:linear-gradient(135deg,rgba(240,201,74,.08),rgba(103,215,255,.055));border:1px solid rgba(240,201,74,.25);font-weight:700;color:#f3f6fa}
+    .pq-ref a{word-break:break-word}.pq-small{font-size:.9rem;color:var(--pq-muted)!important}.pq-danger{border-color:rgba(255,126,126,.25);background:rgba(255,126,126,.035)}
+    @media(max-width:900px){.pq-meta,.pq-grid{grid-template-columns:1fr 1fr}.pq-flow{grid-template-columns:1fr}.pq-flow div:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-18px}.pq-hero{padding:30px 22px}.pq-section{padding:22px}}
+    @media(max-width:620px){.pq-meta,.pq-grid{grid-template-columns:1fr}.pq-wrap{padding-left:14px;padding-right:14px}.pq-section{padding:18px}.pq-hero h1{font-size:2.35rem}}
+  </style>
+</head>
+<body>
+<div data-site-header></div>
+<main class="pq-wrap">
+  <section class="pq-hero">
+    <div class="pq-kicker">Technical Whitepaper · Version 1.0 · 13 September 2026</div>
+    <h1>RANNTA <span>Post-Quantum Security Architecture</span></h1>
+    <p class="pq-thesis">Hybrid cryptographic authorization for Layer-1 consensus, validator security, digital-asset infrastructure and external production systems. RANNTA moves post-quantum protection beyond a wallet-signature feature and into the authorization path itself.</p>
+    <div class="pq-quote">Post-quantum security should not be a feature of a signature. It should be a property of the authorization path.</div>
+    <div class="pq-actions">
+      <a class="pq-btn primary" href="https://pq.rannta.com/" target="_blank" rel="noopener noreferrer">Open RANNTA PQ Cloud</a>
+      <a class="pq-btn secondary" href="/rannta-network.html">RANNTA X-Chain</a>
+      <a class="pq-btn secondary" href="https://pq.rannta.com/security-report" target="_blank" rel="noopener noreferrer">Security Report</a>
+      <a class="pq-btn secondary" href="https://rpc.rannta.com/" target="_blank" rel="noopener noreferrer">Public RPC</a>
+    </div>
+    <div class="pq-meta">
+      <div><span>Core PQ signature</span><strong>ML-DSA-65 · FIPS 204</strong></div>
+      <div><span>Policy model</span><strong>HybridRequired · Fail-Closed</strong></div>
+      <div><span>Network identity</span><strong>RANNTA X-Chain · 13113</strong></div>
+      <div><span>External layer</span><strong>RANNTA PQ Cloud · Live</strong></div>
+    </div>
+  </section>
+
+  <section class="pq-section" id="abstract">
+    <h2>1. Abstract</h2>
+    <p>RANNTA implements a hybrid post-quantum authorization architecture designed to extend quantum-resistant security beyond account signatures into validator authorization, consensus-critical decisions, treasury operations, exchange withdrawals and external digital-asset infrastructure.</p>
+    <p>The architecture combines classical authorization with <strong>ML-DSA-65</strong>, standardized by NIST in <strong>FIPS 204</strong>, under explicit <strong>HybridRequired</strong> policies. In protected paths, post-quantum verification is not advisory. It is an authorization requirement. When the policy is active, classical-only authorization is rejected rather than silently accepted.</p>
+    <p>Within RANNTA X-Chain engineering, this model is applied to validator proposal, vote and finality authorization. The same security model is exported through <strong>RANNTA PQ Cloud</strong>, allowing exchanges, blockchains, validators, treasury systems and production services to add ML-DSA-65 verification without replacing their entire custody or signing stack.</p>
+    <div class="pq-callout">RANNTA's design target is full-path cryptographic resilience: identity, authorization, consensus, key lifecycle, replay resistance, transport and migration — not a one-time algorithm swap.</div>
+  </section>
+
+  <section class="pq-section" id="threat-model">
+    <h2>2. Quantum Threat Model</h2>
+    <div class="pq-grid">
+      <div class="pq-card"><h3>Signature forgery</h3><p>Large-scale quantum computation threatens elliptic-curve and other public-key systems used to authenticate blockchain accounts, validators and infrastructure.</p></div>
+      <div class="pq-card"><h3>Validator impersonation</h3><p>If consensus authorization depends only on quantum-vulnerable keys, an attacker who can derive private signing authority can impersonate a validator or forge protocol messages.</p></div>
+      <div class="pq-card"><h3>Long-lived infrastructure</h3><p>Treasury, custody and exchange authorization paths often protect assets over time horizons longer than ordinary application sessions and therefore need migration before the threat is operational.</p></div>
+    </div>
+    <p>RANNTA treats quantum migration as a systems problem. Changing a wallet signature while leaving consensus, authorization policies, key registries, transport and operational workflows untouched is incomplete protection.</p>
+  </section>
+
+  <section class="pq-section" id="principles">
+    <h2>3. Design Principles</h2>
+    <ul>
+      <li><strong>Hybrid before replacement.</strong> Classical authorization and post-quantum authorization can coexist during migration, reducing dependence on a single cryptographic assumption.</li>
+      <li><strong>Fail closed.</strong> A protected operation without the required post-quantum authorization is rejected.</li>
+      <li><strong>Domain-bound canonical payloads.</strong> Signatures are bound to an explicit action, context, subject, key version and nonce/round identity instead of signing ambiguous byte strings.</li>
+      <li><strong>Key lifecycle is part of security.</strong> Registration, activation, rotation, versioning and revocation are protocol concerns, not afterthoughts.</li>
+      <li><strong>Crypto-agility.</strong> ML-DSA-65 is the active post-quantum signature primitive; the architecture is built to support future algorithm migration rather than freezing the protocol around one primitive forever.</li>
+      <li><strong>External usability.</strong> The same authorization model must be consumable by exchanges, validators and treasury systems, not only by native RANNTA accounts.</li>
+    </ul>
+  </section>
+
+  <section class="pq-section" id="architecture">
+    <h2>4. RANNTA Hybrid Authorization Path</h2>
+    <div class="pq-flow">
+      <div>Canonical Action</div>
+      <div>Classical Authorization</div>
+      <div>ML-DSA-65 Verification</div>
+      <div>HybridRequired Policy Gate</div>
+      <div>Commit / Execute</div>
+    </div>
+    <p>A protected action reaches execution only after its security context is reconstructed canonically and the required authorization factors pass. RANNTA does not treat the PQ result as metadata. Under HybridRequired, it participates directly in the allow/deny decision.</p>
+    <pre class="pq-code">if policy == HybridRequired:
+    require(classical_authorization == VALID)
+    require(ml_dsa_65_signature == VALID)
+    require(key_version == ACTIVE)
+    require(context_binding == VALID)
+    require(replay_check == PASS)
+    ALLOW
+else:
+    evaluate(policy)</pre>
+  </section>
+
+  <section class="pq-section" id="mldsa">
+    <h2>5. ML-DSA-65 and FIPS 204</h2>
+    <p>RANNTA uses <strong>ML-DSA-65</strong> as its active post-quantum signature scheme. ML-DSA is standardized by the U.S. National Institute of Standards and Technology in <strong>FIPS 204</strong>. The selection aligns RANNTA with the same NIST-standardized family now being adopted or evaluated by major blockchain systems.</p>
+    <p>RANNTA deliberately separates <strong>algorithm choice</strong> from <strong>authorization policy</strong>. ML-DSA-65 supplies the post-quantum signature primitive. HybridRequired defines when that primitive becomes mandatory and how it is combined with existing authorization.</p>
+  </section>
+
+  <section class="pq-section" id="consensus">
+    <h2>6. Consensus and Validator Authorization</h2>
+    <p>RANNTA's post-quantum work extends into consensus-critical authorization. The protocol engineering path includes PQ-aware validator identity and authorization for <strong>proposal, vote and finality</strong> flows. Vote admission is bound to validator membership and canonical consensus context; malformed, non-member, forged-weight and invalid-signature paths fail closed.</p>
+    <p>This matters because a chain is not post-quantum at the protocol layer merely because users can create PQ-signed transactions. Validator authority, round identity, vote content and finality evidence must also survive cryptographic migration.</p>
+    <div class="pq-grid">
+      <div class="pq-card"><h3>Proposal</h3><p>Proposal authorization is tied to validator identity and the active consensus context.</p></div>
+      <div class="pq-card"><h3>Vote</h3><p>Vote authorization binds validator identity, membership, weight and round/type context rather than accepting free-form signatures.</p></div>
+      <div class="pq-card"><h3>Finality</h3><p>Finality paths inherit the same explicit authorization discipline so a classical-only bypass cannot silently survive a HybridRequired activation.</p></div>
+    </div>
+  </section>
+
+  <section class="pq-section" id="payloads">
+    <h2>7. Canonical Payload Binding and Replay Resistance</h2>
+    <p>Cryptographic strength is meaningless if a valid signature can be replayed in the wrong context. RANNTA therefore treats canonical serialization, domain separation, action binding, key versioning and nonce/round binding as first-class parts of the authorization model.</p>
+    <p>For service-side verification, canonical payloads bind fields such as domain, project context, subject, action, key version and nonce. Consensus paths add consensus-specific identity such as round/type and validator context. This prevents a signature produced for one authorization intent from being interpreted as another.</p>
+  </section>
+
+  <section class="pq-section" id="pq-cloud">
+    <h2>8. RANNTA PQ Cloud — Exporting the Security Model</h2>
+    <p><strong>RANNTA PQ Cloud is the commercial and integration surface of the same architectural thesis.</strong> It allows external infrastructure to add ML-DSA-65 verification to existing authorization paths without replacing the custody stack that already performs classical signing and policy enforcement.</p>
+    <div class="pq-grid">
+      <div class="pq-card"><h3>Exchange withdrawals</h3><p>Add a post-quantum authorization requirement before high-value withdrawal release.</p></div>
+      <div class="pq-card"><h3>Treasury operations</h3><p>Protect treasury approvals and privileged execution with an independent PQ verification layer.</p></div>
+      <div class="pq-card"><h3>Validators & infrastructure</h3><p>Bind sensitive infrastructure actions to registered ML-DSA-65 public keys, versioned key lifecycle and explicit policy.</p></div>
+    </div>
+    <p><a href="https://pq.rannta.com/services" target="_blank" rel="noopener noreferrer">RANNTA PQ Cloud Services</a> · <a href="https://pq.rannta.com/docs" target="_blank" rel="noopener noreferrer">Documentation</a> · <a href="https://pq.rannta.com/security" target="_blank" rel="noopener noreferrer">Security</a></p>
+  </section>
+
+  <section class="pq-section" id="state">
+    <h2>9. Protocol State, Registry and Key Lifecycle</h2>
+    <p>The authorization path depends on authoritative knowledge of which PQ key is active, its version, its subject/validator binding and the policy activation state. RANNTA's next hardening stage moves PQ authorization state toward canonical protocol-backed state and strengthens distributed validator operation around that state.</p>
+    <p>The target state machine is explicit: <strong>register → activate → authorize → rotate → revoke</strong>. No long-lived production authorization architecture should depend on informal key replacement.</p>
+  </section>
+
+  <section class="pq-section" id="transport">
+    <h2>10. Transport Security and ML-KEM Frontier</h2>
+    <p>RANNTA currently operates secured node/network transport using conventional TLS/mTLS infrastructure. The post-quantum transport frontier is <strong>ML-KEM-based hybrid node transport</strong>, aligned with NIST FIPS 203. This is the next major layer required to extend quantum resilience from authorization into node-to-node key establishment.</p>
+    <p>Quantus demonstrates one aggressive implementation direction by integrating ML-KEM-768 into its P2P transport. RANNTA's design direction is broader: preserve crypto-agility, hybrid migration and operational compatibility while adding PQ key establishment to production node communication.</p>
+  </section>
+
+  <section class="pq-section" id="scaling">
+    <h2>11. Scaling Post-Quantum Verification</h2>
+    <p>Post-quantum signatures are materially larger than common elliptic-curve signatures. At scale, bandwidth, block space and verification cost become protocol concerns. RANNTA therefore treats <strong>batch authorization and proof aggregation</strong> as a protocol research track rather than pretending signature replacement is free.</p>
+    <p>Quantus addresses this through Wormhole aggregation with Plonky2/FRI. Ethereum is researching leanXMSS plus leanVM-based aggregation. RANNTA's path is to evaluate aggregation architectures that can compress many PQ authorization events into verifiable commitments without weakening canonical authorization semantics.</p>
+  </section>
+
+  <section class="pq-section" id="comparison">
+    <h2>12. Comparative Position — Major Post-Quantum Blockchain Programs</h2>
+    <p class="pq-small">Snapshot based on public project documentation available on 13 September 2026. The table compares architectural scope, not token value or project size.</p>
+    <div class="pq-table-wrap">
+      <table>
+        <thead><tr><th>Project</th><th>PQ signatures</th><th>Validator / consensus PQ</th><th>PQ transport</th><th>Execution scope</th><th>External PQ integration service</th><th>Public status</th></tr></thead>
+        <tbody>
+          <tr class="rannta-row"><td><strong>RANNTA</strong></td><td>ML-DSA-65 + hybrid classical authorization</td><td>HybridRequired proposal / vote / finality authorization implemented in protocol engineering</td><td>TLS/mTLS today; ML-KEM hybrid transport is the next protocol frontier</td><td>Independent L1, public EVM-style JSON-RPC, explorer and network infrastructure</td><td><strong>Yes — RANNTA PQ Cloud</strong></td><td>Live X-Chain infrastructure + live PQ Cloud</td></tr>
+          <tr><td><strong>Quantus</strong></td><td>ML-DSA-65 default; ML-DSA-87 supported</td><td>PQ-native transaction/network design on Substrate-derived chain</td><td><strong>ML-KEM-768 + pqXX</strong></td><td>Specialized PQ/private-money architecture with Wormhole ZK aggregation</td><td>No equivalent external service identified in cited architecture</td><td>Mainnet launched September 2026</td></tr>
+          <tr><td><strong>QRL 2.0</strong></td><td>XMSS + ML-DSA</td><td>ML-DSA mandatory for staking validators in Testnet V2 design</td><td>Not the primary differentiator in cited material</td><td>QRVM / EVM-friendly smart-contract environment</td><td>No equivalent external service identified</td><td>QRL 2.0 Testnet V2</td></tr>
+          <tr><td><strong>Sui</strong></td><td>ML-DSA-65 for native accounts; SLH-DSA vault path</td><td>Public roadmap focuses first on account/vault authentication rather than PQ consensus</td><td>Not the current headline layer</td><td>General-purpose Move L1</td><td>No equivalent external service identified</td><td>Rollout / audit / Testnet-to-Mainnet program</td></tr>
+          <tr><td><strong>NEAR</strong></td><td>ML-DSA account signing supported</td><td>Consensus migration remains a major roadmap stage</td><td>Broader stack migration remains in roadmap</td><td>General-purpose sharded L1 + multichain infrastructure</td><td>No equivalent external service identified</td><td>PQ account signing active; deeper stack migration ongoing</td></tr>
+          <tr><td><strong>Ethereum</strong></td><td>Hash-based / flexible-account PQ research and migration tooling</td><td>leanXMSS + leanVM roadmap for consensus</td><td>Part of broader future migration</td><td>General-purpose global smart-contract platform</td><td>No equivalent external service identified</td><td>Dedicated PQ research/devnets; core milestones target ~2029</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><strong>RANNTA's differentiator in this comparison is the combination of protocol-level hybrid authorization and a live external integration layer.</strong> Quantus is stronger today in native PQ transport and proof aggregation. Ethereum has the deepest large-network migration research. Sui and NEAR bring major ecosystem adoption. QRL brings long-running PQ-chain specialization. RANNTA's strategic position is to connect these two worlds: protect the chain itself while exporting the same authorization architecture to production digital-asset systems.</p>
+  </section>
+
+  <section class="pq-section" id="roadmap">
+    <h2>13. RANNTA Post-Quantum Protocol Frontier</h2>
+    <div class="pq-grid">
+      <div class="pq-card"><span class="pq-status live">ACTIVE</span><h3>Hybrid authorization</h3><p>ML-DSA-65 verification, HybridRequired policy semantics, fail-closed protected paths and PQ Cloud integration.</p></div>
+      <div class="pq-card"><span class="pq-status live">IMPLEMENTED</span><h3>Consensus authorization</h3><p>PQ-aware proposal, vote and finality authorization in RANNTA consensus engineering.</p></div>
+      <div class="pq-card"><span class="pq-status next">NEXT</span><h3>Canonical PQ state</h3><p>Protocol-backed PQ key/policy state and hardened activation/rotation semantics.</p></div>
+      <div class="pq-card"><span class="pq-status next">NEXT</span><h3>Distributed validator quorum</h3><p>Expand production validator topology and quorum evidence around the PQ authorization path.</p></div>
+      <div class="pq-card"><span class="pq-status next">NEXT</span><h3>ML-KEM transport</h3><p>Hybrid post-quantum node transport using a NIST-standardized KEM architecture.</p></div>
+      <div class="pq-card"><span class="pq-status next">RESEARCH</span><h3>PQ aggregation</h3><p>Batch / proof aggregation to reduce the bandwidth and verification cost of high-volume PQ authorization.</p></div>
+    </div>
+  </section>
+
+  <section class="pq-section" id="rips">
+    <h2>14. RANNTA Improvement Proposal Track</h2>
+    <p>RANNTA will formalize the post-quantum architecture as versioned protocol specifications rather than leaving security behavior implicit in implementation code.</p>
+    <pre class="pq-code">RIP-PQ-0001 — Hybrid Post-Quantum Authorization
+RIP-PQ-0002 — ML-DSA-65 Key Registration and Rotation
+RIP-PQ-0003 — Validator Proposal / Vote / Finality PQ Authorization
+RIP-PQ-0004 — Hybrid Post-Quantum Transport with ML-KEM
+RIP-PQ-0005 — Aggregated Post-Quantum Authorization</pre>
+  </section>
+
+  <section class="pq-section pq-danger" id="security-discipline">
+    <h2>15. Security Discipline</h2>
+    <p>RANNTA does not reduce post-quantum security to the phrase “quantum-proof.” Security is an engineering property of implementation, key management, consensus rules, transport, state, operational controls and review. The architecture is therefore versioned, testable and migration-oriented.</p>
+    <p>The next institutional milestone is independent cryptographic and protocol review covering ML-DSA integration, validator authorization, state/key lifecycle, transport migration and PQ Cloud production paths.</p>
+  </section>
+
+  <section class="pq-section" id="references">
+    <h2>16. Technical References</h2>
+    <ul class="pq-ref">
+      <li>NIST FIPS 204 — Module-Lattice-Based Digital Signature Standard (ML-DSA): <a href="https://csrc.nist.gov/pubs/fips/204/final" target="_blank" rel="noopener noreferrer">csrc.nist.gov/pubs/fips/204/final</a></li>
+      <li>NIST FIPS 203 — Module-Lattice-Based Key-Encapsulation Mechanism Standard (ML-KEM): <a href="https://csrc.nist.gov/pubs/fips/203/final" target="_blank" rel="noopener noreferrer">csrc.nist.gov/pubs/fips/203/final</a></li>
+      <li>Quantus Whitepaper v0.4.1: <a href="https://www.quantus.com/whitepaper/v0.4.1/" target="_blank" rel="noopener noreferrer">quantus.com/whitepaper/v0.4.1</a></li>
+      <li>QRL 2.0 Testnet V2: <a href="https://www.theqrl.org/press/qrl-launches-testnet-v2-for-its-postquantum-evmfriendly-blockchain/" target="_blank" rel="noopener noreferrer">theqrl.org</a></li>
+      <li>Sui — Making Sui Quantum Ready: <a href="https://www.sui.io/blog/making-sui-quantum-ready" target="_blank" rel="noopener noreferrer">sui.io/blog/making-sui-quantum-ready</a></li>
+      <li>NEAR — Quantum-Safe Roadmap: <a href="https://www.near.org/blog/near-quantum-safe-roadmap" target="_blank" rel="noopener noreferrer">near.org/blog/near-quantum-safe-roadmap</a></li>
+      <li>Ethereum — Post-quantum cryptography roadmap: <a href="https://ethereum.org/roadmap/security/quantum-resistance/" target="_blank" rel="noopener noreferrer">ethereum.org/roadmap/security/quantum-resistance</a></li>
+      <li>RANNTA PQ Cloud: <a href="https://pq.rannta.com/" target="_blank" rel="noopener noreferrer">pq.rannta.com</a></li>
+      <li>RANNTA X-Chain public RPC: <a href="https://rpc.rannta.com/" target="_blank" rel="noopener noreferrer">rpc.rannta.com</a></li>
+      <li>RANNTA X-Chain Explorer: <a href="https://explorer.rannta.com/" target="_blank" rel="noopener noreferrer">explorer.rannta.com</a></li>
+    </ul>
+  </section>
+
+  <section class="pq-section" id="conclusion">
+    <h2>17. Conclusion</h2>
+    <p>RANNTA is building post-quantum security as an authorization architecture spanning protocol and infrastructure boundaries. The active foundation is ML-DSA-65 under explicit hybrid, fail-closed policy. The protocol path extends this model into validator proposal, vote and finality authorization. RANNTA PQ Cloud exports it to exchanges, treasuries, validators and digital-asset systems.</p>
+    <p><strong>The objective is not to wait for a future “quantum-safe blockchain” label. The objective is to make every security-critical authorization path replaceable, composable, testable and progressively quantum-resilient now.</strong></p>
+  </section>
+</main>
+<div data-site-footer></div>
+<script src="/assets/js/site-shell.js" defer></script>
+</body>
+</html>
