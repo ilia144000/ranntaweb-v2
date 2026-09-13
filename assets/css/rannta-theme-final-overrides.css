@@ -1,6 +1,96 @@
 /* Final production polish - header, mobile identity, homepage RouteX, no dark leftovers. */
 
-/* Reserve header space before the JS shell is injected. This removes the visible page jump. */
+/* First-paint bridge: these selectors do not depend on JS-added body classes.
+   Because this file is now loaded by the render-blocking /style.css chain,
+   the approved light visual system is present before the first paint. */
+html,body{
+  background:#f7faf9!important;
+  color:#33453f!important;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+}
+.home-identity{
+  width:min(1180px,calc(100% - 40px))!important;
+  max-width:1180px!important;
+  margin:34px auto 20px!important;
+  padding:0!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr)!important;
+  gap:20px!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.home-identity__copy,.launch-news-card{
+  background:#fff!important;
+  border:1px solid #d8e5e1!important;
+  border-radius:18px!important;
+  box-shadow:0 10px 28px rgba(16,36,31,.05)!important;
+  padding:clamp(24px,4vw,38px)!important;
+}
+.home-identity h1,.launch-news-card h2{
+  color:#10201c!important;
+  font-family:Inter,ui-sans-serif,system-ui!important;
+  text-shadow:none!important;
+}
+.home-identity p,.launch-news-card p{color:#62736d!important}
+.launch-news-card__label{
+  color:#126355!important;
+  background:#e7f1ee!important;
+  border-radius:999px!important;
+  padding:5px 9px!important;
+  width:max-content!important;
+}
+.signal-hero{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:clamp(50px,7vw,84px) clamp(18px,7vw,96px)!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr)!important;
+  align-items:center!important;
+  gap:46px!important;
+  background:linear-gradient(135deg,#edf7f3,#fff 52%,#eef4f8)!important;
+  border-block:1px solid #d8e5e1!important;
+  box-shadow:none!important;
+}
+.signal-hero .hero-copy h1,.signal-hero .hero-copy h2{color:#10201c!important;text-shadow:none!important;font-family:Inter,ui-sans-serif,system-ui!important}
+.signal-hero .hero-copy .sub{color:#62736d!important}
+.glyph-figure{
+  width:min(430px,100%)!important;
+  margin:0 auto!important;
+  padding:20px!important;
+  background:#fff!important;
+  border:1px solid #d8e5e1!important;
+  border-radius:18px!important;
+  box-shadow:0 16px 40px rgba(16,36,31,.08)!important;
+}
+.glyph-figure img{display:block!important;margin:auto!important;box-shadow:none!important}
+.glyph-figure figcaption{color:#62736d!important;text-align:center!important}
+.sealPro__inner{
+  background:linear-gradient(135deg,#fff,#f4f9f7)!important;
+  border:1px solid #c5d8d2!important;
+  box-shadow:none!important;
+  color:#33453f!important;
+}
+.sealPro__title{color:#10201c!important}
+.sealPro__line,.sealPro__sub{color:#62736d!important}
+.sealPro__ring{display:none!important}
+.rannta-info-card{
+  background:#fff!important;
+  border:1px solid #d8e5e1!important;
+  color:#33453f!important;
+  box-shadow:none!important;
+}
+.rannta-info-card h2{color:#10201c!important;font-family:Inter,ui-sans-serif,system-ui!important}
+.rannta-info-card p{color:#62736d!important}
+.architect-signature{
+  background:#eef6f3!important;
+  border-left:4px solid #126355!important;
+  color:#33453f!important;
+  box-shadow:none!important;
+}
+
+/* Reserve header space before the JS shell is injected. */
 [data-site-header]{
   display:block!important;
   min-height:82px!important;
@@ -8,9 +98,10 @@
   border-bottom:1px solid #d8e5e1!important;
 }
 
-/* Header: keep logo close to the brand and make the identity visible on mobile. */
+/* Header: logo and brand share the same visual center line. */
 .siteHeader,[data-site-header] .siteHeader{
   grid-template-columns:72px minmax(280px,1fr) auto!important;
+  align-items:center!important;
   gap:10px!important;
   padding-left:clamp(16px,3vw,42px)!important;
   padding-right:clamp(16px,3vw,42px)!important;
@@ -26,7 +117,7 @@
   align-items:center!important;
   justify-content:center!important;
   align-self:center!important;
-  transform:translateY(-4px)!important;
+  transform:translateY(-6px)!important;
 }
 .siteHeader .logo{
   width:56px!important;
@@ -62,34 +153,34 @@
 }
 
 /* Homepage RouteX card: remove the old dark split panel. */
-body.pq-home .routexHomeCard{max-width:1180px!important;margin:28px auto 54px!important;padding:0!important}
-body.pq-home .routexHomeCard__inner{
+body.pq-home .routexHomeCard,.routexHomeCard{max-width:1180px!important;margin:28px auto 54px!important;padding:0!important}
+body.pq-home .routexHomeCard__inner,.routexHomeCard__inner{
   display:grid!important;
   grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr)!important;
   overflow:hidden!important;
   background:#fff!important;
-  border:1px solid var(--line)!important;
+  border:1px solid #d8e5e1!important;
   border-radius:20px!important;
   box-shadow:0 14px 34px rgba(16,36,31,.07)!important;
 }
-body.pq-home .routexHomeCard__media{
+body.pq-home .routexHomeCard__media,.routexHomeCard__media{
   background:linear-gradient(145deg,#fff,#f4f9f7)!important;
-  border-right:1px solid var(--line)!important;
+  border-right:1px solid #d8e5e1!important;
   min-height:300px!important;
 }
-body.pq-home .routexHomeCard__media img{
+body.pq-home .routexHomeCard__media img,.routexHomeCard__media img{
   width:100%!important;
   height:100%!important;
   object-fit:contain!important;
   padding:20px!important;
 }
-body.pq-home .routexHomeCard__copy{
+body.pq-home .routexHomeCard__copy,.routexHomeCard__copy{
   padding:38px!important;
   background:linear-gradient(145deg,#fff,#f2f8f6)!important;
-  color:var(--text)!important;
+  color:#33453f!important;
 }
-body.pq-home .routexHomeCard__label{
-  color:var(--brand2)!important;
+body.pq-home .routexHomeCard__label,.routexHomeCard__label{
+  color:#0e7463!important;
   background:#e8f3ef!important;
   display:inline-flex!important;
   width:max-content!important;
@@ -98,33 +189,30 @@ body.pq-home .routexHomeCard__label{
   margin-bottom:14px!important;
   text-shadow:none!important;
 }
-body.pq-home .routexHomeCard__copy h2{
-  color:var(--ink)!important;
+body.pq-home .routexHomeCard__copy h2,.routexHomeCard__copy h2{
+  color:#10201c!important;
   margin:0 0 14px!important;
   font-family:Inter,ui-sans-serif,system-ui!important;
   text-shadow:none!important;
 }
-body.pq-home .routexHomeCard__copy p{
-  color:var(--muted)!important;
+body.pq-home .routexHomeCard__copy p,.routexHomeCard__copy p{
+  color:#62736d!important;
   margin:0 0 22px!important;
   line-height:1.72!important;
 }
-body.pq-home .routexHomeCard__links a{
-  background:var(--brand)!important;
+body.pq-home .routexHomeCard__links a,.routexHomeCard__links a{
+  background:#126355!important;
   color:#fff!important;
-  border:1px solid var(--brand)!important;
+  border:1px solid #126355!important;
   border-radius:9px!important;
   box-shadow:none!important;
   text-shadow:none!important;
 }
-body.pq-home .routexHomeCard__links a:last-child{
+body.pq-home .routexHomeCard__links a:last-child,.routexHomeCard__links a:last-child{
   background:#e7f1ee!important;
   color:#173f36!important;
-  border-color:var(--line2)!important;
+  border-color:#c5d8d2!important;
 }
-
-/* Keep initial visual language light even before route-specific JS finishes. */
-html,body{background:#f7faf9!important;color:#33453f!important}
 
 @media(max-width:980px){
   [data-site-header]{min-height:112px!important}
@@ -133,7 +221,7 @@ html,body{background:#f7faf9!important;color:#33453f!important}
     gap:8px!important;
     padding:10px 14px 8px!important;
   }
-  .siteHeader__logoLink{width:56px!important;min-width:56px!important;height:54px!important;min-height:54px!important;transform:translateY(-3px)!important}
+  .siteHeader__logoLink{width:56px!important;min-width:56px!important;height:54px!important;min-height:54px!important;transform:translateY(-4px)!important}
   .siteHeader .logo{width:50px!important;height:50px!important;max-width:50px!important;max-height:50px!important}
   .siteHeader__brand{grid-column:2!important;grid-row:1!important;display:flex!important;align-self:center!important}
   .site-brand-title{display:block!important;font-size:14px!important;line-height:1.18!important}
@@ -142,19 +230,23 @@ html,body{background:#f7faf9!important;color:#33453f!important}
   .siteNav::-webkit-scrollbar{display:none!important}
   .siteNav__list{justify-content:flex-start!important;flex-wrap:nowrap!important;width:max-content!important;min-width:100%!important;gap:4px!important}
   .siteNav a,.siteNav summary{white-space:nowrap!important;font-size:11px!important;padding:6px 8px!important;min-height:32px!important}
-  body.pq-home .routexHomeCard__inner{grid-template-columns:1fr!important}
-  body.pq-home .routexHomeCard__media{border-right:0!important;border-bottom:1px solid var(--line)!important;min-height:220px!important}
-  body.pq-home .routexHomeCard__copy{padding:26px!important}
+  .home-identity{grid-template-columns:1fr!important;width:calc(100% - 20px)!important}
+  .signal-hero{grid-template-columns:1fr!important;padding:38px 22px!important;gap:28px!important}
+  body.pq-home .routexHomeCard__inner,.routexHomeCard__inner{grid-template-columns:1fr!important}
+  body.pq-home .routexHomeCard__media,.routexHomeCard__media{border-right:0!important;border-bottom:1px solid #d8e5e1!important;min-height:220px!important}
+  body.pq-home .routexHomeCard__copy,.routexHomeCard__copy{padding:26px!important}
 }
 
 @media(max-width:560px){
   [data-site-header]{min-height:101px!important}
   .siteHeader,[data-site-header] .siteHeader{grid-template-columns:52px minmax(0,1fr)!important;padding:8px 10px 7px!important}
-  .siteHeader__logoLink{width:48px!important;min-width:48px!important;height:48px!important;min-height:48px!important;transform:translateY(-2px)!important}
+  .siteHeader__logoLink{width:48px!important;min-width:48px!important;height:48px!important;min-height:48px!important;transform:translateY(-3px)!important}
   .siteHeader .logo{width:44px!important;height:44px!important;max-width:44px!important;max-height:44px!important}
   .site-brand-title{display:block!important;font-size:12.5px!important;line-height:1.18!important}
   .site-brand-rannta{font-size:1.15em!important;margin-right:.12em!important}
   .site-brand-subtitle{display:none!important}
-  body.pq-home .routexHomeCard{width:calc(100% - 20px)!important;margin:20px auto 36px!important}
-  body.pq-home .routexHomeCard__copy{padding:22px 20px!important}
+  .home-identity{width:calc(100% - 16px)!important;margin-top:18px!important}
+  .signal-hero{padding:28px 16px!important}
+  body.pq-home .routexHomeCard,.routexHomeCard{width:calc(100% - 20px)!important;margin:20px auto 36px!important}
+  body.pq-home .routexHomeCard__copy,.routexHomeCard__copy{padding:22px 20px!important}
 }
