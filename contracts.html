@@ -23,7 +23,6 @@
   <meta name="twitter:title" content="Official Contracts — RANNTA">
   <meta name="twitter:description" content="Verify the official TON Jetton Master address. RANNTA exists exclusively on TON.">
   <meta name="twitter:image" content="https://rannta.com/assets/brand/rannta-logo.png">
-  <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -42,7 +41,6 @@
   }
   </script>
 
-  <!-- JSON-LD: WebPage -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -58,14 +56,19 @@
 <style>
   .presale-address-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
   .presale-copy-btn{
-    padding:10px 12px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,.18);
-    background:rgba(255,255,255,.08);
-    color:inherit;
-    cursor:pointer
+    padding:10px 14px;
+    border-radius:10px;
+    border:1px solid #116e5d;
+    background:#116e5d;
+    color:#fff !important;
+    opacity:1 !important;
+    font-weight:800;
+    text-shadow:none !important;
+    cursor:pointer;
+    box-shadow:none;
   }
-  .presale-copy-btn:hover{background:rgba(255,255,255,.12)}
+  .presale-copy-btn:hover{background:#0d5d4f;border-color:#0d5d4f;color:#fff !important}
+  .presale-copy-btn:focus-visible{outline:3px solid rgba(17,110,93,.22);outline-offset:2px}
   .presale-address-hint{margin-top:10px;font-size:13px;color:#cfcfcf;line-height:1.5}
 </style>
 
@@ -77,7 +80,6 @@
 <main>
     <h1>RANNTA Official Contracts</h1>
 
-    <!-- Professional Seal (ONE link only) -->
     <div class="sealPro" role="note" aria-label="RANNTA official verification notice">
       <div class="sealPro__inner">
         <div class="sealPro__badge" aria-hidden="true">
@@ -87,12 +89,8 @@
 
         <div class="sealPro__text">
           <div class="sealPro__title">Official Verification</div>
-          <div class="sealPro__line">
-            RANNTA exists exclusively on TON.
-          </div>
-          <div class="sealPro__sub">
-            Always verify the TON Jetton Master address before interacting.
-          </div>
+          <div class="sealPro__line">RANNTA exists exclusively on TON.</div>
+          <div class="sealPro__sub">Always verify the TON Jetton Master address before interacting.</div>
         </div>
 
         <div class="sealPro__cta">
@@ -107,9 +105,7 @@
     </p>
 
     <h2 id="master">Official Network</h2>
-    <ul>
-      <li>The Open Network (TON)</li>
-    </ul>
+    <ul><li>The Open Network (TON)</li></ul>
 
     <h2>Official TON Jetton Master</h2>
     <div class="presale-address-box">
@@ -167,7 +163,6 @@
       }
     } catch (e) {}
 
-    // Fallback
     try {
       var ta = document.createElement("textarea");
       ta.value = text;
@@ -188,6 +183,3 @@
 <script src="/assets/js/site-shell.js" defer></script>
 </body>
 </html>
-
-
-
