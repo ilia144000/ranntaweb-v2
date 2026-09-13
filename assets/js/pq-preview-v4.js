@@ -4,9 +4,13 @@
 
   function loadCss(){
     if(!cssPromise){
-      cssPromise=fetch('/assets/css/pq-preview-v4.css',{cache:'no-store'}).then(r=>{
-        if(!r.ok) throw new Error('preview css '+r.status);
-        return r.text();
+      cssPromise=Promise.all([
+        fetch('/assets/css/pq-preview-v4.css',{cache:'no-store'}),
+        fetch('/assets/css/pq-preview-v4-fixes.css',{cache:'no-store'})
+      ]).then(async responses=>{
+        for(const r of responses){if(!r.ok) throw new Error('preview css '+r.status);}
+        const parts=await Promise.all(responses.map(r=>r.text()));
+        return parts.join('\n\n');
       });
     }
     return cssPromise;
@@ -26,6 +30,7 @@
     if(p.endsWith('/articles.html')||p==='/articles.html') body.classList.add('pq-page-articles');
     if(p.endsWith('/contracts.html')||p==='/contracts.html') body.classList.add('pq-page-contracts');
     if(p.endsWith('/routex.html')||p==='/routex.html') body.classList.add('pq-page-routex');
+    if(p.endsWith('/rannta-network.html')||p==='/rannta-network.html') body.classList.add('pq-page-network');
   }
 
   function markPresaleWarning(doc){
@@ -67,7 +72,7 @@
       let style=doc.getElementById('pq-live-reskin-v4');
       if(!style){style=doc.createElement('style');style.id='pq-live-reskin-v4';doc.head.appendChild(style);}
       style.textContent=css;
-      doc.documentElement.setAttribute('data-pq-preview','v4');
+      doc.documentElement.setAttribute('data-pq-preview','v4.1');
     }catch(e){console.warn('PQ preview skin failed',e);}
   }
 
