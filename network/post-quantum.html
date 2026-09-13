@@ -65,14 +65,15 @@
 <div data-site-header></div>
 <main class="pq-wrap">
   <section class="pq-hero">
-    <div class="pq-kicker">Technical Whitepaper · Version 1.1 · 13 September 2026</div>
+    <div class="pq-kicker">Technical Whitepaper · Version 1.2 · 13 September 2026</div>
     <h1>RANNTA <span>Post-Quantum Security Architecture</span></h1>
     <p class="pq-thesis">RANNTA operates an active dual-cryptographic authorization model on protected paths: classical secp256k1/ECDSA authorization and ML-DSA-65 post-quantum authorization are verified together under HybridRequired fail-closed enforcement.</p>
     <div class="pq-quote">Post-quantum security should not be a feature of a signature. It should be a property of the authorization path.</div>
     <div class="pq-actions">
       <a class="pq-btn primary" href="https://pq.rannta.com/" target="_blank" rel="noopener noreferrer">Open RANNTA PQ Cloud</a>
       <a class="pq-btn secondary" href="/rannta-network.html">RANNTA X-Chain</a>
-      <a class="pq-btn secondary" href="https://pq.rannta.com/security-report" target="_blank" rel="noopener noreferrer">Security Report</a>
+      <a class="pq-btn secondary" href="/network/hybrid-security-evidence.html">X-Chain Security Evidence</a>
+      <a class="pq-btn secondary" href="https://pq.rannta.com/security-report" target="_blank" rel="noopener noreferrer">PQ Cloud Security Report</a>
       <a class="pq-btn secondary" href="https://rpc.rannta.com/" target="_blank" rel="noopener noreferrer">Public RPC</a>
     </div>
     <div class="pq-meta">
@@ -143,7 +144,7 @@
 
   <section class="pq-section" id="consensus">
     <h2>6. Validator and Consensus Authorization</h2>
-    <p>RANNTA extends post-quantum authorization beyond ordinary account signing. The protocol engineering model applies hybrid, fail-closed authorization to validator-sensitive proposal, vote and finality paths so that post-quantum identity can participate in consensus-critical authorization rather than remaining an application-layer add-on.</p>
+    <p>RANNTA consensus engineering includes HybridRequired authorization surfaces for validator-sensitive proposal, vote and finality paths, with broader distributed validator deployment remaining part of the network expansion program. This separates the implemented authorization model from validator-topology scale and avoids treating broader decentralization as already complete.</p>
     <p>The strategic objective is a consistent security model from account authorization to validator authority: explicit keys, explicit policy, canonical context, replay resistance and deterministic rejection of invalid evidence.</p>
   </section>
 
@@ -179,6 +180,7 @@
   <section class="pq-section" id="comparison">
     <h2>11. Position Among Major Post-Quantum Blockchain Programs</h2>
     <p>Post-quantum blockchain engineering is developing through several different architectural strategies. RANNTA's distinctive position is the combination of an active native hybrid authorization path and a live external post-quantum integration service.</p>
+    <p class="pq-small"><strong>Comparison snapshot: 13 September 2026.</strong> Project roadmaps and deployment status change over time; this table reflects the publicly documented status used for this whitepaper version and should be reviewed as those programs evolve.</p>
     <div class="pq-table-wrap">
       <table>
         <thead><tr><th>Project</th><th>Primary PQ direction</th><th>Authorization / protocol approach</th><th>Infrastructure scope</th></tr></thead>
@@ -205,6 +207,7 @@
       <div class="pq-card"><h3><span class="pq-status live">ACTIVE</span></h3><p>RANNTA PQ Cloud verification and commercial integration surface.</p></div>
       <div class="pq-card"><h3><span class="pq-status expand">EXPANSION</span></h3><p>ML-KEM transport, broader PQ state integration, validator-scale expansion and PQ aggregation.</p></div>
     </div>
+    <div class="pq-callout" style="margin-top:18px">Implementation-grounded evidence for the native X-Chain hybrid authorization path is published in the <a href="/network/hybrid-security-evidence.html">X-Chain Hybrid Security Evidence</a> record. It documents enforced accept/reject behavior and explicitly distinguishes project-published verification evidence from a third-party audit.</div>
   </section>
 
   <section class="pq-section" id="roadmap">
@@ -215,7 +218,7 @@
       <li><strong>Validator-scale expansion:</strong> extend hybrid authorization evidence across broader distributed validator operation.</li>
       <li><strong>ML-KEM transport:</strong> add post-quantum key establishment to node communication while preserving crypto-agility.</li>
       <li><strong>PQ aggregation:</strong> optimize large-scale authorization evidence through batching and aggregation.</li>
-      <li><strong>Independent security review:</strong> expand external verification and audit evidence as the protocol security surface grows.</li>
+      <li><strong>Planned third-party security review:</strong> expand independent external review and audit evidence as the protocol security surface grows. Current public verification records are project-published evidence and are not represented as a third-party audit or certification.</li>
     </ul>
   </section>
 
@@ -229,6 +232,7 @@
       <li><a href="https://www.sui.io/blog/making-sui-quantum-ready" target="_blank" rel="noopener noreferrer">Sui Quantum-Ready Program</a></li>
       <li><a href="https://www.near.org/blog/near-quantum-safe-roadmap" target="_blank" rel="noopener noreferrer">NEAR Quantum-Safe Roadmap</a></li>
       <li><a href="https://ethereum.org/roadmap/security/quantum-resistance/" target="_blank" rel="noopener noreferrer">Ethereum Quantum Resistance Roadmap</a></li>
+      <li><a href="/network/hybrid-security-evidence.html">RANNTA X-Chain Hybrid Security Evidence</a></li>
     </ul>
   </section>
 
