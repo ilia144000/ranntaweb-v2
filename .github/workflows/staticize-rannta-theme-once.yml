@@ -16,8 +16,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Make 2026 theme first-paint static
-        shell: python
+        shell: bash
         run: |
+          python - <<'PY'
           from pathlib import Path
           import re
           import shutil
@@ -27,16 +28,13 @@ jobs:
           legacy = root / 'assets/css/legacy-style-pre-2026.css'
           legacy.parent.mkdir(parents=True, exist_ok=True)
 
-          # Preserve the old stylesheet only as a structural compatibility layer.
-          # The browser now receives legacy first, then the approved 2026 theme,
-          # all in the initial HEAD stylesheet request - no JS-delayed theme swap.
           if not legacy.exists():
               shutil.copyfile(style, legacy)
 
           style.write_text(
               "@import url('/assets/css/legacy-style-pre-2026.css?v=20260913');\n"
-              "@import url('/assets/css/rannta-theme-2026.css?v=20260913-static2');\n"
-              "@import url('/assets/css/rannta-theme-final-overrides.css?v=20260913-static2');\n",
+              "@import url('/assets/css/rannta-theme-2026.css?v=20260913-static3');\n"
+              "@import url('/assets/css/rannta-theme-final-overrides.css?v=20260913-static3');\n",
               encoding='utf-8'
           )
 
@@ -60,9 +58,7 @@ jobs:
                   return text
               attrs = m.group(1)
               cm = re.search(r'class\s*=\s*(["\'])(.*?)\1', attrs, flags=re.I|re.S)
-              existing = []
-              if cm:
-                  existing = cm.group(2).split()
+              existing = cm.group(2).split() if cm else []
               merged = existing[:]
               for c in wanted:
                   if c not in merged:
@@ -82,7 +78,6 @@ jobs:
               text = p.read_text(encoding='utf-8', errors='ignore')
               if '/style.css' not in text:
                   continue
-
               classes = special.get(p.name, ['pq-simple'])
               new = add_body_classes(text, classes)
               new = re.sub(
@@ -97,8 +92,10 @@ jobs:
 
           print(f'STATIC_THEME_HTML_UPDATED={changed}')
           print('STYLE_ENTRYPOINT=STATIC')
+          PY
 
       - name: Commit static first-paint theme
+        shell: bash
         run: |
           git config user.name "RANNTA Theme Bot"
           git config user.email "network@rannta.com"
