@@ -1,0 +1,76 @@
+/* RANNTA production readability guard - light 2026 visual system.
+   Keeps legacy elements readable after the white/green reskin. */
+
+/* TON conversion strip / Jetton Master address. */
+.conversion-strip{
+  color:#33453f!important;
+}
+.conversion-strip__title{
+  color:#10201c!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+.conversion-strip__meta,
+.contract-box__label{
+  color:#53665f!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+.contract-box{
+  background:#eef6f3!important;
+  border-color:#c5d8d2!important;
+}
+.contract-box__value,
+.contract-box__value .ca-short,
+.ca-short{
+  color:#173f36!important;
+  opacity:1!important;
+  text-shadow:none!important;
+  font-weight:700!important;
+}
+.conversion-strip__links a{
+  color:#126355!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+
+/* Primary actions: never inherit muted/link colors. */
+.btnHero:not(.ghost),
+.btnConv.primary,
+.ric-btn,
+.sealPro__button,
+.btnCopy,
+.btnPrimary,
+.swap-link-button,
+.routexHomeCard__links a:first-child,
+[data-rannta-pq-home] a,
+[data-rannta-presale-home] a,
+[data-rannta-core-home] a{
+  color:#fff!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+
+/* Light secondary actions keep dark readable text. */
+.btnHero.ghost,
+.btnConv.ghost,
+.btnSecondary,
+.secondary,
+.routexHomeCard__links a:last-child{
+  color:#173f36!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+
+/* Button text must stay solid even if a parent or legacy rule sets opacity. */
+button,
+button *,
+.btnHero *,
+.btnConv *,
+.ric-btn *,
+.sealPro__button *,
+.btnCopy *,
+.btnPrimary *,
+.btnSecondary *{
+  opacity:1!important;
+}
