@@ -31,6 +31,7 @@
     if(p.endsWith('/contracts.html')||p==='/contracts.html') body.classList.add('pq-page-contracts');
     if(p.endsWith('/routex.html')||p==='/routex.html') body.classList.add('pq-page-routex');
     if(p.endsWith('/rannta-network.html')||p==='/rannta-network.html') body.classList.add('pq-page-network');
+    if(p.endsWith('/rannta-core.html')||p==='/rannta-core.html') body.classList.add('pq-page-core');
   }
 
   function markPresaleWarning(doc){
@@ -72,7 +73,7 @@
       let style=doc.getElementById('pq-live-reskin-v4');
       if(!style){style=doc.createElement('style');style.id='pq-live-reskin-v4';doc.head.appendChild(style);}
       style.textContent=css;
-      doc.documentElement.setAttribute('data-pq-preview','v4.1');
+      doc.documentElement.setAttribute('data-pq-preview','v4.2');
     }catch(e){console.warn('PQ preview skin failed',e);}
   }
 
