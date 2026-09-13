@@ -2,11 +2,16 @@
   'use strict';
 
   function ensureStyles(){
-    if(document.getElementById('rannta-theme-2026-css')) return;
+    var href='/assets/css/rannta-theme-2026.css?v=20260913-3';
+    var existing=document.getElementById('rannta-theme-2026-css');
+    if(existing){
+      if(!existing.href.endsWith('rannta-theme-2026.css?v=20260913-3')) existing.href=href;
+      return;
+    }
     var link=document.createElement('link');
     link.id='rannta-theme-2026-css';
     link.rel='stylesheet';
-    link.href='/assets/css/rannta-theme-2026.css?v=20260913';
+    link.href=href;
     document.head.appendChild(link);
   }
 
