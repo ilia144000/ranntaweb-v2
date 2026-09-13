@@ -76,6 +76,15 @@
     + '  </div>'
     + '</footer>';
 
+  function ensureProductionTheme() {
+    if (!document.getElementById("rannta-theme-2026-loader")) {
+      var themeScript = document.createElement("script");
+      themeScript.id = "rannta-theme-2026-loader";
+      themeScript.src = "/assets/js/rannta-theme-2026.js?v=20260913";
+      document.head.appendChild(themeScript);
+    }
+  }
+
   function addRouteXHomeCard() {
     var currentPath = window.location.pathname || "/";
     if (currentPath !== "/" && currentPath !== "/index.html") return;
@@ -124,6 +133,8 @@
   }
 
   function setShell() {
+    ensureProductionTheme();
+
     var headerSlot = document.querySelector("[data-site-header]");
     var footerSlot = document.querySelector("[data-site-footer]");
 
