@@ -1,195 +1,153 @@
-/* RANNTA mobile navigation - one clean expandable menu, no horizontal swiping. */
+/* RANNTA mobile navigation - single clean expandable panel. */
 @media (max-width: 760px) {
   .siteHeader,
   [data-site-header] .siteHeader {
-    grid-template-columns: 52px minmax(0, 1fr) !important;
+    grid-template-columns: 52px minmax(0,1fr) !important;
     grid-template-rows: auto auto !important;
     column-gap: 8px !important;
-    row-gap: 6px !important;
+    row-gap: 8px !important;
   }
 
-  .siteHeader__logoLink {
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-  }
-
-  .siteHeader__brand {
-    grid-column: 2 !important;
-    grid-row: 1 !important;
-  }
+  .siteHeader__logoLink {grid-column:1!important;grid-row:1!important}
+  .siteHeader__brand {grid-column:2!important;grid-row:1!important}
 
   .siteNav {
-    grid-column: 1 / -1 !important;
-    grid-row: 2 !important;
-    width: 100% !important;
-    max-width: none !important;
-    overflow: visible !important;
-    padding: 4px 0 0 !important;
-    margin: 0 !important;
+    grid-column:1 / -1 !important;
+    grid-row:2 !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow:visible !important;
   }
 
   .siteNav__list {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    justify-content: flex-start !important;
-    width: 100% !important;
-    min-width: 0 !important;
-    max-width: none !important;
-    gap: 4px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: visible !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    gap:4px !important;
+    width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    list-style:none !important;
+    overflow:visible !important;
   }
 
-  /* Closed state: only the single Menu control is visible. */
-  .siteNav__list > li:not(.siteNav__more) {
-    display: none !important;
+  /* Closed: only one menu control. */
+  .siteNav__list > li:not(.siteNav__more){display:none!important}
+  .siteNav__more{
+    display:block!important;
+    order:-1!important;
+    width:100%!important;
+    margin:0!important;
+    position:static!important;
+  }
+  .siteNav__more details{display:block!important;width:100%!important;margin:0!important}
+  .siteNav__more summary{
+    box-sizing:border-box!important;
+    display:flex!important;
+    width:100%!important;
+    min-height:44px!important;
+    align-items:center!important;
+    justify-content:center!important;
+    margin:0!important;
+    padding:10px 14px!important;
+    border:1px solid #cbded8!important;
+    border-radius:10px!important;
+    background:#eef7f4!important;
+    color:transparent!important;
+    font-size:0!important;
+    line-height:0!important;
+    list-style:none!important;
+    box-shadow:none!important;
+    cursor:pointer!important;
+  }
+  .siteNav__more summary::-webkit-details-marker{display:none!important}
+  .siteNav__more summary::marker{content:""!important}
+  .siteNav__more summary::before{
+    content:"☰ Menu"!important;
+    color:#126355!important;
+    font-size:14px!important;
+    line-height:1!important;
+    font-weight:900!important;
+    letter-spacing:.01em!important;
+  }
+  .siteNav__more details[open] summary::before{content:"✕ Close"!important}
+  .siteNav__more summary::after{content:none!important}
+
+  /* Open: one outer card only. */
+  .siteNav__list:has(.siteNav__more details[open]){
+    padding:8px!important;
+    border:1px solid #d8e5e1!important;
+    border-radius:14px!important;
+    background:#fff!important;
+    box-shadow:0 14px 34px rgba(16,36,31,.10)!important;
+    max-height:min(72vh,620px)!important;
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+  }
+  .siteNav__list:has(.siteNav__more details[open]) > li:not(.siteNav__more){
+    display:block!important;
+    width:100%!important;
+    margin:0!important;
+    order:0!important;
   }
 
-  .siteNav__more {
-    display: block !important;
-    width: 100% !important;
-    margin: 0 !important;
-    position: relative !important;
+  /* The legacy More dropdown is flattened visually, without display:contents. */
+  .siteNav__more details[open]{
+    display:block!important;
+    width:100%!important;
+    margin:0 0 4px!important;
+    padding:0!important;
+    border:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
   }
-
-  .siteNav__more details {
-    width: 100% !important;
-    margin: 0 !important;
-  }
-
-  .siteNav__more summary {
-    box-sizing: border-box !important;
-    display: flex !important;
-    width: 100% !important;
-    min-height: 42px !important;
-    justify-content: center !important;
-    align-items: center !important;
-    padding: 10px 14px !important;
-    margin: 0 !important;
-    border-radius: 10px !important;
-    border: 1px solid #cbded8 !important;
-    background: #eef7f4 !important;
-    color: transparent !important;
-    text-shadow: none !important;
-    box-shadow: none !important;
-    font-size: 0 !important;
-    line-height: 0 !important;
-    letter-spacing: 0 !important;
-    list-style: none !important;
-    cursor: pointer !important;
-    overflow: hidden !important;
-    white-space: nowrap !important;
-  }
-
-  .siteNav__more summary::-webkit-details-marker {
-    display: none !important;
-  }
-
-  .siteNav__more summary::marker {
-    content: "" !important;
-    display: none !important;
-  }
-
-  .siteNav__more summary::before {
-    content: "☰ Menu" !important;
-    display: inline-block !important;
-    color: #126355 !important;
-    font-size: 14px !important;
-    line-height: 1 !important;
-    font-weight: 900 !important;
-    letter-spacing: .01em !important;
-    text-indent: 0 !important;
-  }
-
-  .siteNav__more summary::after {
-    content: none !important;
-    display: none !important;
-  }
-
-  .siteNav__more details[open] summary::before {
-    content: "✕ Close" !important;
-  }
-
-  /* Open state: one single card. No nested More box. */
-  .siteNav__list:has(.siteNav__more details[open]) {
-    padding: 8px !important;
-    border: 1px solid #d8e5e1 !important;
-    border-radius: 14px !important;
-    background: #ffffff !important;
-    box-shadow: 0 14px 34px rgba(16,36,31,.10) !important;
-    max-height: min(72vh, 620px) !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-  }
-
-  .siteNav__list:has(.siteNav__more details[open]) > li:not(.siteNav__more) {
-    display: block !important;
-    width: 100% !important;
-    margin: 0 !important;
-    order: 0 !important;
+  .siteNav__dropdown,
+  .siteNav__more details[open] .siteNav__dropdown{
+    position:static!important;
+    inset:auto!important;
+    transform:none!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:4px 0 0!important;
+    padding:0!important;
+    gap:4px!important;
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
   }
 
   .siteNav__list:has(.siteNav__more details[open]) > li:not(.siteNav__more) > a,
-  .siteNav__more details[open] .siteNav__dropdown > a {
-    box-sizing: border-box !important;
-    display: flex !important;
-    width: 100% !important;
-    min-height: 40px !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
-    padding: 9px 12px !important;
-    margin: 0 !important;
-    border: 1px solid transparent !important;
-    border-radius: 9px !important;
-    background: transparent !important;
-    color: #174f43 !important;
-    box-shadow: none !important;
-    font-size: 13px !important;
-    line-height: 1.3 !important;
-    font-weight: 700 !important;
-    text-decoration: none !important;
+  .siteNav__more details[open] .siteNav__dropdown > a{
+    box-sizing:border-box!important;
+    display:flex!important;
+    width:100%!important;
+    min-height:40px!important;
+    align-items:center!important;
+    justify-content:flex-start!important;
+    margin:0!important;
+    padding:9px 12px!important;
+    border:1px solid transparent!important;
+    border-radius:9px!important;
+    background:transparent!important;
+    color:#174f43!important;
+    font-size:13px!important;
+    line-height:1.3!important;
+    font-weight:700!important;
+    text-decoration:none!important;
+    box-shadow:none!important;
   }
-
   .siteNav__list:has(.siteNav__more details[open]) > li:not(.siteNav__more) > a:hover,
   .siteNav__list:has(.siteNav__more details[open]) > li:not(.siteNav__more) > a:focus-visible,
   .siteNav__more details[open] .siteNav__dropdown > a:hover,
-  .siteNav__more details[open] .siteNav__dropdown > a:focus-visible {
-    background: #eef7f4 !important;
-    border-color: #d8e5e1 !important;
-    color: #0f5f50 !important;
-    transform: none !important;
-  }
-
-  /* Flatten the existing More structure into the SAME outer menu card. */
-  .siteNav__more:has(details[open]),
-  .siteNav__more details[open],
-  .siteNav__more details[open] .siteNav__dropdown {
-    display: contents !important;
-  }
-
-  .siteNav__more details[open] summary {
-    order: -100 !important;
-    margin-bottom: 4px !important;
-  }
-
-  .siteNav__more details[open] .siteNav__dropdown > a {
-    order: 20 !important;
-  }
-
-  /* Defensive reset for legacy dropdown styling. */
-  .siteNav__dropdown {
-    position: static !important;
-    inset: auto !important;
-    transform: none !important;
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    border-radius: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
+  .siteNav__more details[open] .siteNav__dropdown > a:focus-visible{
+    background:#eef7f4!important;
+    border-color:#d8e5e1!important;
+    color:#0f5f50!important;
   }
 }
