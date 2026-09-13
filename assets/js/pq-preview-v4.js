@@ -10,7 +10,8 @@
         fetch('/assets/css/pq-preview-v4-fixes.css',{cache:'no-store'}),
         fetch('/assets/css/pq-preview-wallpaper-test.css',{cache:'no-store'}),
         fetch('/assets/css/signal-layout-fix.css',{cache:'no-store'}),
-        fetch('/assets/css/pq-preview-theme-lab.css',{cache:'no-store'})
+        fetch('/assets/css/pq-preview-theme-lab.css',{cache:'no-store'}),
+        fetch('/assets/css/pq-preview-theme-clarity.css',{cache:'no-store'})
       ]).then(async responses=>{
         for(const r of responses){if(!r.ok) throw new Error('preview css '+r.status);}
         const parts=await Promise.all(responses.map(r=>r.text()));
