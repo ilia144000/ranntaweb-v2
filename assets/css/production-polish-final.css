@@ -1,0 +1,133 @@
+/* RANNTA final production polish - 2026-09-13
+   Keeps Green Quantum wallpaper, stabilizes first paint, and fixes low-contrast legacy labels. */
+
+/* 1) Green Quantum stays, but only reads strongly in the side gutters.
+   The first layer is an opaque center mask, so the pattern never appears to wash over content.
+   Avoid fixed background compositing to reduce paint flashes. */
+@media (min-width:821px){
+  html body{
+    background-color:#eef7f3!important;
+    background-image:
+      linear-gradient(90deg,transparent 0 17%,rgba(250,252,251,.985) 21%,rgba(250,252,251,.995) 79%,transparent 83%),
+      radial-gradient(circle at 9% 18%,rgba(18,99,85,.20) 0 2.2px,transparent 2.8px),
+      radial-gradient(circle at 91% 26%,rgba(14,116,99,.17) 0 2.1px,transparent 2.8px),
+      radial-gradient(circle at 13% 72%,rgba(169,120,18,.12) 0 1.7px,transparent 2.4px),
+      radial-gradient(circle at 88% 78%,rgba(18,99,85,.16) 0 2px,transparent 2.7px),
+      linear-gradient(30deg,transparent 0 49.05%,rgba(18,99,85,.065) 49.05% 50.95%,transparent 50.95% 100%),
+      linear-gradient(150deg,transparent 0 49.05%,rgba(18,99,85,.055) 49.05% 50.95%,transparent 50.95% 100%),
+      linear-gradient(180deg,#f7fbf9 0%,#eaf5f1 100%)!important;
+    background-size:100% 100%,190px 190px,230px 230px,270px 270px,310px 310px,54px 94px,54px 94px,100% 100%!important;
+    background-position:0 0,0 0,24px 70px,18px 35px,60px 110px,0 0,27px 47px,0 0!important;
+    background-repeat:no-repeat,repeat,repeat,repeat,repeat,repeat,repeat,no-repeat!important;
+    background-attachment:scroll!important;
+  }
+}
+
+/* 2) Remove visible cross-fades / repaint transitions on the structural surfaces. */
+html body,
+html body main,
+html body .siteHeader,
+html body .signal-hero,
+html body .home-identity,
+html body .routexHomeCard,
+html body .pq-hero,
+html body .pq-section,
+html body [data-rannta-pq-home] > div,
+html body [data-rannta-presale-home] > div,
+html body [data-rannta-core-home] > div{
+  transition:none!important;
+  animation:none!important;
+}
+html body .signal-hero,
+html body .home-identity,
+html body .routexHomeCard,
+html body .pq-hero,
+html body .pq-section,
+html body [data-rannta-pq-home] > div,
+html body [data-rannta-presale-home] > div,
+html body [data-rannta-core-home] > div{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
+/* 3) Homepage generated cards: keep the approved light/green system and readable kickers. */
+html body [data-rannta-presale-home] > div:nth-child(2),
+html body [data-rannta-core-home] > div{
+  background:linear-gradient(145deg,#ffffff,#f3faf7)!important;
+  border:1px solid #cfe0da!important;
+  box-shadow:0 12px 34px rgba(16,36,31,.06)!important;
+}
+
+html body [data-rannta-presale-home] > div:first-child{
+  color:#547067!important;
+}
+html body [data-rannta-presale-home] > div:first-child span{
+  background:#d9e8e3!important;
+}
+html body [data-rannta-presale-home] > div:nth-child(2) > div:first-child,
+html body [data-rannta-core-home] > div > div:first-child{
+  color:#116e5d!important;
+  background:#e9f5f1!important;
+  border:1px solid #cfe5de!important;
+  border-radius:999px!important;
+  display:inline-block!important;
+  padding:6px 11px!important;
+  letter-spacing:.13em!important;
+  text-shadow:none!important;
+  opacity:1!important;
+}
+html body [data-rannta-presale-home] h2,
+html body [data-rannta-core-home] h2{
+  color:#102d26!important;
+  text-shadow:none!important;
+  opacity:1!important;
+}
+html body [data-rannta-presale-home] p,
+html body [data-rannta-core-home] p{
+  color:#5a6d66!important;
+  opacity:1!important;
+}
+html body [data-rannta-presale-home] a,
+html body [data-rannta-core-home] a{
+  background:#116e5d!important;
+  border-color:#116e5d!important;
+  color:#fff!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
+html body [data-rannta-presale-home] > div:nth-child(2) > div:nth-last-child(2){
+  color:#52665f!important;
+  opacity:1!important;
+}
+
+/* 4) Contracts copy button - explicit high contrast, no inherited legacy gray. */
+html body .presale-copy-btn,
+html body #copyMasterBtn{
+  background:#116e5d!important;
+  border:1px solid #116e5d!important;
+  color:#fff!important;
+  opacity:1!important;
+  font-weight:800!important;
+  text-shadow:none!important;
+  box-shadow:none!important;
+}
+html body .presale-copy-btn:hover,
+html body #copyMasterBtn:hover{
+  background:#0d5d4e!important;
+  color:#fff!important;
+}
+
+/* Keep address and helper text readable on the legacy dark address panel. */
+html body .presale-address-box .presale-address,
+html body .presale-address-box code{
+  color:#fff!important;
+  opacity:1!important;
+}
+html body .presale-address-box .presale-address-label{
+  color:#ffd54a!important;
+  opacity:1!important;
+}
+html body .presale-address-box .presale-address-hint{
+  color:#e5ebe8!important;
+  opacity:1!important;
+}
