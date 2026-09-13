@@ -1,0 +1,58 @@
+/* Experimental desktop wallpaper for pq-style-preview.html only.
+   It is injected by the preview wrapper and does not affect production pages. */
+
+@media (min-width: 821px) {
+  html {
+    background:#f4f9f7!important;
+  }
+
+  body {
+    background-color:#f4f9f7!important;
+    background-image:
+      radial-gradient(circle at 9% 18%, rgba(18,99,85,.10) 0 2px, transparent 2.6px),
+      radial-gradient(circle at 91% 26%, rgba(14,116,99,.085) 0 2px, transparent 2.6px),
+      radial-gradient(circle at 13% 72%, rgba(169,120,18,.065) 0 1.5px, transparent 2.2px),
+      radial-gradient(circle at 88% 78%, rgba(18,99,85,.085) 0 1.8px, transparent 2.5px),
+      linear-gradient(30deg, transparent 0 49.2%, rgba(18,99,85,.024) 49.2% 50.8%, transparent 50.8% 100%),
+      linear-gradient(150deg, transparent 0 49.2%, rgba(18,99,85,.020) 49.2% 50.8%, transparent 50.8% 100%),
+      linear-gradient(90deg, rgba(247,250,249,.30), rgba(247,250,249,.96) 24%, rgba(247,250,249,.98) 76%, rgba(247,250,249,.30)),
+      linear-gradient(180deg,#f7fbf9 0%,#eef6f3 100%)!important;
+    background-size:
+      190px 190px,
+      230px 230px,
+      270px 270px,
+      310px 310px,
+      54px 94px,
+      54px 94px,
+      100% 100%,
+      100% 100%!important;
+    background-position:
+      0 0,
+      24px 70px,
+      18px 35px,
+      60px 110px,
+      0 0,
+      27px 47px,
+      0 0,
+      0 0!important;
+    background-attachment:fixed!important;
+  }
+
+  /* Keep the real content surfaces clean so the pattern only lives in the empty margins. */
+  .siteHeader,
+  [data-site-header] .siteHeader {
+    background:rgba(250,252,251,.965)!important;
+  }
+
+  body.pq-simple main,
+  body.pq-page-routex main,
+  body.pq-page-ai .page,
+  body.pq-home .home-identity__copy,
+  body.pq-home .launch-news-card,
+  body.pq-home main>section,
+  body.pq-home [data-rannta-pq-home]>div,
+  body.pq-home [data-rannta-presale-home]>div,
+  body.pq-home [data-rannta-core-home]>div {
+    backdrop-filter:none!important;
+  }
+}
