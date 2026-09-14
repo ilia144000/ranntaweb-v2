@@ -13,19 +13,19 @@
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet"></noscript>
 
-  <meta name="description" content="RANNTA X-Chain is the independent RANNTA blockchain network with Chain ID 13113, native RNTX, public JSON-RPC, explorer infrastructure, public node participation and hybrid post-quantum authorization using ML-DSA-65 and HybridRequired policy." />
+  <meta name="description" content="RANNTA X-Chain is the independent RANNTA blockchain network with Chain ID 13113, native RNTX, public JSON-RPC, explorer infrastructure, public node participation and active hybrid post-quantum protection across validator-sensitive authorization and transport paths." />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
   <link rel="canonical" href="https://rannta.com/rannta-network.html" />
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="RANNTA X-Chain | Independent Network & Post-Quantum Security">
-  <meta property="og:description" content="RANNTA X-Chain is live with Chain ID 13113, native RNTX, public RPC and explorer infrastructure, public full-node participation and protocol-level hybrid post-quantum authorization.">
+  <meta property="og:description" content="RANNTA X-Chain is live with Chain ID 13113, native RNTX, public RPC and explorer infrastructure, HybridRequired authorization and validator-sensitive hybrid post-quantum transport.">
   <meta property="og:url" content="https://rannta.com/rannta-network.html">
   <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="RANNTA X-Chain | Independent Network & Post-Quantum Security">
-  <meta name="twitter:description" content="RANNTA X-Chain: Chain ID 13113, native RNTX, public RPC, explorer, public nodes and hybrid post-quantum authorization with ML-DSA-65.">
+  <meta name="twitter:description" content="RANNTA X-Chain: Chain ID 13113, native RNTX, public RPC, ML-DSA-65 authorization and HybridRequired X25519 + ML-KEM-768 validator-sensitive transport.">
   <meta name="twitter:image" content="https://rannta.com/assets/brand/coin.png?v=2">
 
   <script type="application/ld+json">
@@ -34,8 +34,8 @@
     "@type": "WebPage",
     "name": "RANNTA X-Chain",
     "url": "https://rannta.com/rannta-network.html",
-    "dateModified": "2026-09-13",
-    "description": "RANNTA X-Chain is the independent RANNTA blockchain network with Chain ID 13113, native RNTX, public JSON-RPC, explorer infrastructure, public full-node participation and hybrid post-quantum authorization using ML-DSA-65.",
+    "dateModified": "2026-09-15",
+    "description": "RANNTA X-Chain is the independent RANNTA blockchain network with Chain ID 13113, native RNTX, public JSON-RPC, explorer infrastructure, HybridRequired authorization and active validator-sensitive X25519 + ML-KEM-768 hybrid transport.",
     "isPartOf": {"@type": "WebSite", "name": "RANNTA", "url": "https://rannta.com/"},
     "about": {"@type": "Thing", "name": "RANNTA X-Chain", "identifier": "13113"}
   }
@@ -48,23 +48,25 @@
     <h1 class="manifesto-title">RANNTA X-Chain</h1>
     <p class="manifesto-line">RANNTA X-Chain is the independent blockchain network of the RANNTA ecosystem. It is separate from the RANNTA Jetton issued on The Open Network (TON).</p>
     <p class="manifesto-line">The network uses Chain ID <strong>13113 (0x3339)</strong> and the native currency <strong>RANNTA Core X (RNTX)</strong>. Public JSON-RPC and block-explorer infrastructure are available for network access and verification.</p>
-    <p class="manifesto-line">RANNTA X-Chain provides an EVM-compatible JSON-RPC surface for wallet, transaction, contract and application integration while the broader RANNTA interoperability and post-quantum security stacks continue to expand.</p>
+    <p class="manifesto-line">RANNTA X-Chain provides an EVM-compatible JSON-RPC surface for wallet, transaction, contract and application integration. Its Mainnet security stack now includes active HybridRequired post-quantum authorization and validator-sensitive hybrid post-quantum transport.</p>
   </section>
 
   <section class="nft-links" style="border-left:3px solid #67d7ff; background:linear-gradient(145deg,rgba(4,14,24,.78),rgba(16,12,5,.72));">
-    <h2>Post-Quantum Security Architecture - ML-DSA-65 · HybridRequired · Fail-Closed</h2>
-    <p><strong>RANNTA is engineering post-quantum security into the authorization path itself.</strong> The architecture combines classical authorization with ML-DSA-65, standardized in NIST FIPS 204, and applies explicit HybridRequired policy semantics to security-critical operations.</p>
-    <p>RANNTA consensus engineering includes HybridRequired authorization surfaces for validator-sensitive proposal, vote and finality paths. Broader distributed validator deployment remains a separate network expansion stage. When HybridRequired protection is active, classical-only authorization is rejected instead of being silently accepted. The same security thesis is exported to external production systems through the live <strong>RANNTA PQ Cloud</strong>.</p>
+    <h2>Post-Quantum Security Architecture - ML-DSA-65 · ML-KEM-768 · HybridRequired</h2>
+    <p><strong>RANNTA operates post-quantum security in both authorization and validator-sensitive transport paths.</strong> Protected authorization combines classical secp256k1/ECDSA with ML-DSA-65, standardized in NIST FIPS 204. Validator-sensitive transport is active on Mainnet with X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM under HybridRequired fail-closed policy.</p>
+    <p>RANNTA consensus engineering includes HybridRequired authorization surfaces for validator-sensitive proposal, vote and finality paths. When HybridRequired protection is active, classical-only authorization is rejected instead of being silently accepted. Validator-sensitive protected transport likewise rejects plaintext-sensitive traffic, classical-only peer authentication, replayed records, tampered records, wrong-session records and wrong-direction records.</p>
     <ul>
       <li><strong>ML-DSA-65</strong> post-quantum verification aligned with NIST FIPS 204.</li>
-      <li><strong>HybridRequired</strong> policy combining classical and post-quantum authorization.</li>
-      <li><strong>Fail-closed enforcement</strong> on protected authorization paths.</li>
-      <li><strong>Validator proposal / vote / finality authorization surfaces</strong> integrated into RANNTA consensus engineering, with broader validator-scale deployment in expansion.</li>
+      <li><strong>HybridRequired authorization</strong> combining classical and post-quantum authorization.</li>
+      <li><strong>X25519 + ML-KEM-768</strong> hybrid key establishment for validator-sensitive Mainnet transport.</li>
+      <li><strong>HKDF-SHA256 + AES-256-GCM</strong> for protected transport key derivation and authenticated records.</li>
+      <li><strong>Fail-closed enforcement</strong> on protected authorization and validator-sensitive transport paths.</li>
       <li><strong>Canonical payload binding, key versioning and replay resistance</strong> as part of the authorization model.</li>
       <li><strong>RANNTA PQ Cloud</strong> for exchanges, treasuries, validators, blockchains and digital-asset infrastructure.</li>
-      <li><strong>Next protocol frontier:</strong> canonical PQ state, broader distributed validator quorum, ML-KEM transport and PQ authorization aggregation.</li>
+      <li><strong>Next protocol frontier:</strong> canonical PQ state, broader distributed validator quorum, broader protected transport coverage and PQ authorization aggregation.</li>
     </ul>
-    <p style="font-size:1.08rem;"><strong>Post-quantum security should not be a feature of a signature. It should be a property of the authorization path.</strong></p>
+    <p style="font-size:1.08rem;"><strong>RANNTA X-Chain Mainnet enforces hybrid post-quantum protection across validator-sensitive authorization and transport paths.</strong></p>
+    <p><strong>Scope:</strong> this transport claim applies to validator-sensitive protected paths. It does not claim that every public RPC byte is ML-KEM protected.</p>
     <div style="display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:18px;">
       <a class="ric-btn" style="margin:0;" href="/network/post-quantum.html">Read the Post-Quantum Technical Whitepaper</a>
       <a class="ric-btn" style="margin:0;" href="/network/hybrid-security-evidence.html">View X-Chain Hybrid Security Evidence</a>
@@ -104,7 +106,7 @@
     <h2 class="manifesto-title">Network Status</h2>
     <p class="manifesto-line">The X-Chain core network, public RPC compatibility layer, explorer, production node services and public-node enrollment path are implemented and publicly reachable. The network is no longer merely an emerging architecture or unlaunched concept.</p>
     <p class="manifesto-line">Public Windows node software is released for independent-node participation. Production node identity, heartbeat monitoring, reward qualification telemetry and owner-controlled settlement administration are active. Reward accounting currently runs in Shadow Mode, meaning qualification and reward amounts are recorded while on-chain transfers remain under manual owner approval.</p>
-    <p class="manifesto-line">Hybrid post-quantum authorization with ML-DSA-65 is part of the active RANNTA security architecture. Expanded validator decentralization, canonical PQ state, ML-KEM transport, bridge infrastructure, native liquidity and ecosystem integrations remain separate growth stages and are announced independently after implementation and verification.</p>
+    <p class="manifesto-line">Hybrid post-quantum authorization with ML-DSA-65 and validator-sensitive HybridRequired transport with X25519 + ML-KEM-768 are active parts of the RANNTA Mainnet security architecture. Expanded validator decentralization, canonical PQ state, bridge infrastructure, native liquidity and ecosystem integrations remain separate growth stages and are announced independently after implementation and verification.</p>
   </section>
 
   <section class="manifesto-block" id="network-identity">
