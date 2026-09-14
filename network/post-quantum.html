@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RANNTA Post-Quantum Security Architecture | Technical Whitepaper</title>
-  <meta name="description" content="RANNTA technical whitepaper for active hybrid post-quantum authorization across X-Chain protected transactions, validator security, digital-asset infrastructure and RANNTA PQ Cloud using secp256k1/ECDSA, ML-DSA-65, HybridRequired and fail-closed policy enforcement." />
+  <meta name="description" content="RANNTA technical whitepaper for active hybrid post-quantum authorization and validator-sensitive transport on X-Chain Mainnet, combining secp256k1/ECDSA with ML-DSA-65 authorization and X25519 with ML-KEM-768, HKDF-SHA256 and AES-256-GCM transport under HybridRequired fail-closed enforcement." />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
   <link rel="canonical" href="https://rannta.com/network/post-quantum.html" />
   <link rel="icon" href="/assets/brand/coin.png?v=2" type="image/png" />
@@ -13,12 +13,12 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="RANNTA Post-Quantum Security Architecture" />
-  <meta property="og:description" content="Active dual-cryptographic authorization at the protocol layer: secp256k1/ECDSA plus ML-DSA-65 under HybridRequired fail-closed enforcement." />
+  <meta property="og:description" content="Active hybrid post-quantum security on RANNTA X-Chain Mainnet: secp256k1/ECDSA plus ML-DSA-65 authorization and HybridRequired validator-sensitive transport using X25519 + ML-KEM-768." />
   <meta property="og:url" content="https://rannta.com/network/post-quantum.html" />
   <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="RANNTA Post-Quantum Security Architecture" />
-  <meta name="twitter:description" content="RANNTA combines secp256k1/ECDSA and ML-DSA-65 in an active HybridRequired authorization path." />
+  <meta name="twitter:description" content="RANNTA combines secp256k1/ECDSA + ML-DSA-65 authorization with HybridRequired X25519 + ML-KEM-768 validator-sensitive transport on Mainnet." />
   <meta name="twitter:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
 
   <script type="application/ld+json">
@@ -26,13 +26,13 @@
     "@context":"https://schema.org",
     "@type":"TechArticle",
     "headline":"RANNTA Post-Quantum Security Architecture",
-    "alternativeHeadline":"Active Hybrid Cryptographic Authorization for Layer-1, Digital Assets and External Infrastructure",
+    "alternativeHeadline":"Active Hybrid Cryptographic Authorization and Validator-Sensitive Transport for Layer-1 Infrastructure",
     "url":"https://rannta.com/network/post-quantum.html",
     "datePublished":"2026-09-13",
-    "dateModified":"2026-09-13",
+    "dateModified":"2026-09-15",
     "author":{"@type":"Organization","name":"RANNTA","url":"https://rannta.com/"},
     "publisher":{"@type":"Organization","name":"RANNTA","url":"https://rannta.com/","logo":{"@type":"ImageObject","url":"https://rannta.com/assets/brand/coin.png?v=2"}},
-    "about":["Post-quantum cryptography","ML-DSA-65","secp256k1","HybridRequired","Hybrid authorization","Blockchain security","RANNTA X-Chain","RANNTA PQ Cloud"],
+    "about":["Post-quantum cryptography","ML-DSA-65","ML-KEM-768","X25519","HKDF-SHA256","AES-256-GCM","secp256k1","HybridRequired","Hybrid authorization","Hybrid transport","Blockchain security","RANNTA X-Chain","RANNTA PQ Cloud"],
     "isPartOf":{"@type":"WebSite","name":"RANNTA","url":"https://rannta.com/"}
   }
   </script>
@@ -65,10 +65,10 @@
 <div data-site-header></div>
 <main class="pq-wrap">
   <section class="pq-hero">
-    <div class="pq-kicker">Technical Whitepaper · Version 1.3 · 13 September 2026</div>
+    <div class="pq-kicker">Technical Whitepaper · Version 1.4 · 15 September 2026</div>
     <h1>RANNTA <span>Post-Quantum Security Architecture</span></h1>
-    <p class="pq-thesis">RANNTA operates an active dual-cryptographic authorization model on protected paths: classical secp256k1/ECDSA authorization and ML-DSA-65 post-quantum authorization are verified together under HybridRequired fail-closed enforcement.</p>
-    <div class="pq-quote">Post-quantum security should not be a feature of a signature. It should be a property of the authorization path.</div>
+    <p class="pq-thesis">RANNTA operates active hybrid post-quantum security across two distinct Mainnet layers: protected authorization uses classical secp256k1/ECDSA plus ML-DSA-65, while validator-sensitive transport uses X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM. Both are enforced with fail-closed HybridRequired policy semantics on their protected paths.</p>
+    <div class="pq-quote">Post-quantum security should be a property of protected authorization and transport paths, not a label attached to one primitive.</div>
     <div class="pq-actions">
       <a class="pq-btn primary" href="https://pq.rannta.com/" target="_blank" rel="noopener noreferrer">Open RANNTA PQ Cloud</a>
       <a class="pq-btn secondary" href="/rannta-network.html">RANNTA X-Chain</a>
@@ -80,7 +80,7 @@
       <div><span>Classical authorization</span><strong>secp256k1 / ECDSA · Active</strong></div>
       <div><span>Post-quantum authorization</span><strong>ML-DSA-65 · Active</strong></div>
       <div><span>Policy model</span><strong>HybridRequired · Fail-Closed</strong></div>
-      <div><span>External security layer</span><strong>RANNTA PQ Cloud · Live</strong></div>
+      <div><span>Validator-sensitive transport</span><strong>X25519 + ML-KEM-768 · Active</strong></div>
     </div>
   </section>
 
@@ -88,8 +88,8 @@
     <h2>1. Abstract</h2>
     <p>RANNTA implements a hybrid post-quantum authorization architecture for security-critical blockchain and digital-asset operations. On HybridRequired paths, the authorization model is explicitly dual-cryptographic: a classical secp256k1/ECDSA authorization factor and an ML-DSA-65 post-quantum authorization factor are both validated before the protected action is authorized.</p>
     <p>ML-DSA-65 is standardized by NIST in FIPS 204. RANNTA integrates it as a required authorization factor rather than a decorative signature field. The native hybrid transaction structure carries both <strong>secp256k1 signature evidence</strong> and <strong>ML-DSA-65 signature evidence</strong>, and the policy gate rejects a legacy-only path when HybridRequired is active.</p>
-    <p>The architecture extends the same security thesis into validator and infrastructure authorization, key registration and rotation, canonical action binding, replay controls and external production integration through RANNTA PQ Cloud.</p>
-    <div class="pq-callout">RANNTA's protected hybrid path is active now: classical authorization and post-quantum authorization work together under a fail-closed policy.</div>
+    <p>The architecture extends the same security thesis into validator and infrastructure authorization, key registration and rotation, canonical action binding, replay controls and external production integration through RANNTA PQ Cloud. On RANNTA X-Chain Mainnet, validator-sensitive transport is also active under HybridRequired using X25519 + ML-KEM-768 key establishment, HKDF-SHA256 key derivation and AES-256-GCM authenticated encryption.</p>
+    <div class="pq-callout">RANNTA X-Chain Mainnet enforces hybrid post-quantum protection across validator-sensitive authorization and transport paths.</div>
   </section>
 
   <section class="pq-section" id="active-model">
@@ -104,11 +104,11 @@
 
   <section class="pq-section" id="threat-model">
     <h2>3. Quantum Threat Model</h2>
-    <p>RANNTA treats quantum migration as a system-wide authorization problem. Long-lived blockchain, treasury, custody and validator authority cannot be protected by changing only a wallet format while leaving policy, key lifecycle, replay controls and operational authorization unchanged.</p>
+    <p>RANNTA treats quantum migration as a system-wide authorization and protected-transport problem. Long-lived blockchain, treasury, custody and validator authority cannot be protected by changing only a wallet format while leaving policy, key lifecycle, replay controls, operational authorization and validator-sensitive transport unchanged.</p>
     <div class="pq-grid">
       <div class="pq-card"><h3>Signature resilience</h3><p>ML-DSA-65 adds a post-quantum authorization factor to security-critical paths.</p></div>
-      <div class="pq-card"><h3>Authorization integrity</h3><p>HybridRequired makes the configured cryptographic evidence part of the allow or reject decision.</p></div>
-      <div class="pq-card"><h3>Migration continuity</h3><p>The hybrid model allows RANNTA to strengthen cryptography without discarding established authorization infrastructure.</p></div>
+      <div class="pq-card"><h3>Transport resilience</h3><p>ML-KEM-768 is combined with X25519 for validator-sensitive HybridRequired transport sessions.</p></div>
+      <div class="pq-card"><h3>Migration continuity</h3><p>The hybrid model strengthens cryptography without discarding established authorization and interoperability infrastructure.</p></div>
     </div>
   </section>
 
@@ -156,19 +156,20 @@
 
   <section class="pq-section" id="pq-cloud">
     <h2>8. RANNTA PQ Cloud - Exporting the Security Model</h2>
-    <p><strong>RANNTA PQ Cloud is the live commercial and integration surface of the same hybrid authorization architecture.</strong> It enables exchanges, treasuries, blockchains, validators and digital-asset systems to add ML-DSA-65 verification while retaining their existing classical authorization and custody controls.</p>
+    <p><strong>RANNTA PQ Cloud is the live commercial and integration surface of the hybrid authorization architecture.</strong> It enables exchanges, treasuries, blockchains, validators and digital-asset systems to add ML-DSA-65 verification while retaining their existing classical authorization and custody controls. Professional blockchain and validator engagements can separately include validator-sensitive hybrid transport integration where required.</p>
     <div class="pq-grid">
       <div class="pq-card"><h3>Exchange withdrawals</h3><p>Add ML-DSA-65 verification as a required authorization factor before sensitive withdrawal release.</p></div>
       <div class="pq-card"><h3>Treasury operations</h3><p>Bind high-value approvals to an independent post-quantum verification layer and explicit policy context.</p></div>
-      <div class="pq-card"><h3>Validators and infrastructure</h3><p>Bind privileged infrastructure actions to registered ML-DSA-65 public keys, versioned key lifecycle and fail-closed policy.</p></div>
+      <div class="pq-card"><h3>Validators and infrastructure</h3><p>Integrate protected authorization and, where required, validator-sensitive X25519 + ML-KEM-768 transport.</p></div>
     </div>
     <p class="pq-ref"><a href="https://pq.rannta.com/services" target="_blank" rel="noopener noreferrer">RANNTA PQ Cloud Services</a> · <a href="https://pq.rannta.com/docs" target="_blank" rel="noopener noreferrer">Documentation</a> · <a href="https://pq.rannta.com/security" target="_blank" rel="noopener noreferrer">Security</a></p>
   </section>
 
   <section class="pq-section" id="crypto-agility">
-    <h2>9. Crypto-Agility and Security Expansion</h2>
-    <p>RANNTA does not freeze the protocol around a single primitive. ML-DSA-65 is the active post-quantum signature primitive for the current hybrid authorization architecture. The wider protocol is designed for continued cryptographic expansion as standards, operational requirements and production evidence evolve.</p>
-    <p>Node transport is a separate layer from authorization. Secure TLS/mTLS protects current node communication, while ML-KEM based key establishment is part of the post-quantum transport expansion path. This transport work does not change the status of RANNTA's active HybridRequired authorization, where classical secp256k1/ECDSA and ML-DSA-65 are already combined on protected paths.</p>
+    <h2>9. Crypto-Agility and Active Hybrid Transport</h2>
+    <p>RANNTA does not freeze the protocol around a single primitive. ML-DSA-65 is the active post-quantum signature primitive for the current hybrid authorization architecture. The wider protocol remains crypto-agile as standards, operational requirements and production evidence evolve.</p>
+    <p>Transport is a separate security layer from authorization. RANNTA X-Chain Mainnet now enforces hybrid post-quantum protection on validator-sensitive transport paths using X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM under HybridRequired policy. Production acceptance rejects plaintext-sensitive traffic, classical-only peer authentication, replayed records, modified ciphertext, modified AAD, wrong-session records and wrong-direction records, while fresh reconnects establish new sessions.</p>
+    <div class="pq-callout">Scope boundary: the transport claim applies to validator-sensitive protected paths. It does not claim that every public RPC byte is ML-KEM protected.</div>
   </section>
 
   <section class="pq-section" id="aggregation">
@@ -179,13 +180,13 @@
 
   <section class="pq-section" id="comparison">
     <h2>11. Position Among Major Post-Quantum Blockchain Programs</h2>
-    <p>Post-quantum blockchain engineering is developing through several different architectural strategies. RANNTA's distinctive position is the combination of an active native hybrid authorization path and a live external post-quantum integration service.</p>
-    <p class="pq-small"><strong>Comparison snapshot: 13 September 2026.</strong> Project roadmaps and deployment status change over time; this table reflects the publicly documented status used for this whitepaper version and should be reviewed as those programs evolve.</p>
+    <p>Post-quantum blockchain engineering is developing through several different architectural strategies. RANNTA's distinctive position is the combination of active native hybrid authorization, active validator-sensitive hybrid transport and a live external post-quantum integration service.</p>
+    <p class="pq-small"><strong>Comparison snapshot: 15 September 2026.</strong> Project roadmaps and deployment status change over time; this table reflects the publicly documented status used for this whitepaper version and should be reviewed as those programs evolve.</p>
     <div class="pq-table-wrap">
       <table>
         <thead><tr><th>Project</th><th>Primary PQ direction</th><th>Authorization / protocol approach</th><th>Infrastructure scope</th></tr></thead>
         <tbody>
-          <tr class="rannta-row"><td><strong>RANNTA</strong></td><td>Mandatory hybrid authorization: secp256k1/ECDSA + ML-DSA-65</td><td>HybridRequired protected paths require both authorization factors; classical-only authorization is rejected</td><td>Independent L1 + public RPC + explorer + exchange/routing stack + live PQ Cloud external integration service</td></tr>
+          <tr class="rannta-row"><td><strong>RANNTA</strong></td><td>Mandatory hybrid authorization plus active validator-sensitive hybrid transport</td><td>secp256k1/ECDSA + ML-DSA-65 authorization; X25519 + ML-KEM-768 transport under HybridRequired</td><td>Independent L1 + public RPC + explorer + exchange/routing stack + live PQ Cloud external integration service</td></tr>
           <tr><td><strong>Quantus</strong></td><td>PQ-native chain design with ML-DSA and ML-KEM-oriented networking</td><td>Post-quantum-first transaction and network architecture with proof aggregation research</td><td>Focused quantum-resistant blockchain architecture</td></tr>
           <tr><td><strong>QRL 2.0</strong></td><td>Post-quantum account and validator cryptography</td><td>XMSS / ML-DSA evolution with EVM-friendly execution direction</td><td>Post-quantum blockchain and validator ecosystem</td></tr>
           <tr><td><strong>Sui</strong></td><td>Native post-quantum account authentication roadmap</td><td>ML-DSA-65 and SLH-DSA integration strategy</td><td>Large general-purpose Move ecosystem</td></tr>
@@ -194,7 +195,7 @@
         </tbody>
       </table>
     </div>
-    <div class="pq-callout" style="margin-top:18px">RANNTA's architectural identity is not a future promise of adding one post-quantum signature. It is an active hybrid authorization system that joins classical and post-quantum evidence under explicit policy and extends the same model to external production infrastructure.</div>
+    <div class="pq-callout" style="margin-top:18px">RANNTA's architectural identity is not a future promise of adding one post-quantum signature. It is an active hybrid system spanning protected authorization, validator-sensitive transport and external production integration.</div>
   </section>
 
   <section class="pq-section" id="status">
@@ -205,18 +206,18 @@
       <div class="pq-card"><h3><span class="pq-status live">ACTIVE</span></h3><p>ML-DSA-65 public-key registration, versioning and rotation controls.</p></div>
       <div class="pq-card"><h3><span class="pq-status live">ACTIVE</span></h3><p>Canonical context binding, transaction replay controls and operation identity tracking.</p></div>
       <div class="pq-card"><h3><span class="pq-status live">ACTIVE</span></h3><p>RANNTA PQ Cloud verification and commercial integration surface.</p></div>
-      <div class="pq-card"><h3><span class="pq-status expand">EXPANSION</span></h3><p>ML-KEM transport, broader PQ state integration, validator-scale expansion and PQ aggregation.</p></div>
+      <div class="pq-card"><h3><span class="pq-status live">ACTIVE</span></h3><p>Validator-sensitive X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM transport under HybridRequired.</p></div>
     </div>
-    <div class="pq-callout" style="margin-top:18px">Implementation-grounded evidence for the native X-Chain hybrid authorization path is published in the <a href="/network/hybrid-security-evidence.html">X-Chain Hybrid Security Evidence</a> record. It documents enforced accept/reject behavior and explicitly distinguishes project-published verification evidence from a third-party audit.</div>
+    <div class="pq-callout" style="margin-top:18px">Implementation-grounded evidence for both native hybrid authorization and Mainnet validator-sensitive transport is published in the <a href="/network/hybrid-security-evidence.html">X-Chain Hybrid Security Evidence</a> record.</div>
   </section>
 
   <section class="pq-section" id="roadmap">
     <h2>13. Full-Stack Expansion Program</h2>
-    <p>RANNTA's security program advances from an already active hybrid authorization foundation toward progressively broader post-quantum coverage across the full protocol stack.</p>
+    <p>RANNTA's security program advances from active hybrid authorization and validator-sensitive hybrid transport toward progressively broader post-quantum coverage across the full protocol stack.</p>
     <ul>
       <li><strong>Canonical PQ state integration:</strong> move post-quantum authorization state deeper into protocol-owned canonical state surfaces.</li>
       <li><strong>Validator-scale expansion:</strong> extend hybrid authorization evidence across broader distributed validator operation.</li>
-      <li><strong>ML-KEM transport:</strong> add post-quantum key establishment to node communication while preserving crypto-agility.</li>
+      <li><strong>Broader protected transport coverage:</strong> expand the active validator-sensitive hybrid transport architecture to additional protocol transport domains where technically justified.</li>
       <li><strong>PQ aggregation:</strong> optimize large-scale authorization evidence through batching and aggregation.</li>
       <li><strong>Planned third-party security review:</strong> expand independent external review and audit evidence as the protocol security surface grows. Current public verification records are project-published evidence and are not represented as a third-party audit or certification.</li>
     </ul>
@@ -238,8 +239,8 @@
 
   <section class="pq-section" id="conclusion">
     <h2>15. Conclusion</h2>
-    <p>RANNTA's post-quantum architecture is built around a concrete security rule: protected authorization is hybrid, explicit and fail-closed. Classical secp256k1/ECDSA authority and ML-DSA-65 post-quantum authority are both active factors in the HybridRequired path.</p>
-    <p>RANNTA then extends that model outward: into validator-sensitive authorization, key lifecycle, replay resistance, infrastructure integration and RANNTA PQ Cloud. The result is a security architecture designed to protect the authorization path itself and to keep expanding across the protocol stack as post-quantum standards mature.</p>
+    <p>RANNTA's post-quantum architecture is built around a concrete security rule: protected authorization and validator-sensitive transport are hybrid, explicit and fail-closed. Classical secp256k1/ECDSA authority and ML-DSA-65 post-quantum authority are both active factors in the HybridRequired authorization path. X25519 and ML-KEM-768 are both active factors in the validator-sensitive protected transport handshake, with HKDF-SHA256 and AES-256-GCM protecting session records.</p>
+    <p>RANNTA then extends that model outward into key lifecycle, replay resistance, infrastructure integration and RANNTA PQ Cloud. The result is a security architecture designed to operate as production infrastructure while preserving clear scope boundaries between authorization, transport and public RPC compatibility.</p>
     <p><strong>RANNTA is building post-quantum resilience as operating infrastructure, not as a label.</strong></p>
   </section>
 </main>
