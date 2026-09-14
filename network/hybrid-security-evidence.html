@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RANNTA X-Chain Hybrid Security Evidence | HybridRequired Verification Record</title>
-  <meta name="description" content="Public RANNTA X-Chain implementation evidence for HybridRequired native authorization using secp256k1/ECDSA plus ML-DSA-65, fail-closed rejection, replay protection and key lifecycle enforcement." />
+  <title>RANNTA X-Chain Hybrid Security Evidence | Mainnet Verification Record</title>
+  <meta name="description" content="Public RANNTA X-Chain Mainnet implementation evidence for HybridRequired authorization using secp256k1/ECDSA plus ML-DSA-65 and validator-sensitive hybrid transport using X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM." />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
   <link rel="canonical" href="https://rannta.com/network/hybrid-security-evidence.html" />
   <link rel="icon" href="/assets/brand/coin.png?v=2" type="image/png" />
@@ -13,7 +13,7 @@
 
   <meta property="og:type" content="article" />
   <meta property="og:title" content="RANNTA X-Chain Hybrid Security Evidence" />
-  <meta property="og:description" content="Implementation-grounded verification record for HybridRequired native authorization on RANNTA X-Chain." />
+  <meta property="og:description" content="Implementation-grounded Mainnet verification record for HybridRequired authorization and validator-sensitive hybrid post-quantum transport on RANNTA X-Chain." />
   <meta property="og:url" content="https://rannta.com/network/hybrid-security-evidence.html" />
   <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -23,13 +23,13 @@
     "@context":"https://schema.org",
     "@type":"TechArticle",
     "headline":"RANNTA X-Chain Hybrid Security Evidence",
-    "alternativeHeadline":"Implementation-Grounded Verification Record for HybridRequired Native Authorization",
+    "alternativeHeadline":"Implementation-Grounded Verification Record for HybridRequired Authorization and Validator-Sensitive Transport",
     "url":"https://rannta.com/network/hybrid-security-evidence.html",
     "datePublished":"2026-09-13",
-    "dateModified":"2026-09-13",
+    "dateModified":"2026-09-15",
     "author":{"@type":"Organization","name":"RANNTA","url":"https://rannta.com/"},
     "publisher":{"@type":"Organization","name":"RANNTA","url":"https://rannta.com/"},
-    "about":["RANNTA X-Chain","HybridRequired","ML-DSA-65","secp256k1","fail-closed authorization","replay protection","post-quantum security"]
+    "about":["RANNTA X-Chain","HybridRequired","ML-DSA-65","ML-KEM-768","X25519","HKDF-SHA256","AES-256-GCM","fail-closed authorization","validator-sensitive transport","replay protection","post-quantum security"]
   }
   </script>
 
@@ -77,9 +77,9 @@
 <div data-site-header></div>
 <main class="evidence-wrap">
   <section class="evidence-hero">
-    <div class="evidence-kicker">Public Verification Record - 13 September 2026</div>
+    <div class="evidence-kicker">Public Verification Record - Updated 15 September 2026</div>
     <h1>RANNTA X-Chain Hybrid Security Evidence</h1>
-    <p>This record documents implementation-enforced behavior in the RANNTA X-Chain native HybridRequired authorization path. It focuses on what the authorization logic accepts, rejects and tracks when classical secp256k1/ECDSA evidence and ML-DSA-65 post-quantum evidence are bound to the same protected operation.</p>
+    <p>This record documents implementation-enforced behavior on RANNTA X-Chain Mainnet across two protected security layers: native HybridRequired authorization and validator-sensitive HybridRequired transport. Authorization binds classical secp256k1/ECDSA evidence and ML-DSA-65 evidence to the same protected operation. Validator-sensitive transport uses X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM with fail-closed rejection behavior.</p>
     <div class="evidence-actions">
       <a class="primary" href="/network/post-quantum.html">Technical Whitepaper</a>
       <a href="/rannta-network.html">RANNTA X-Chain</a>
@@ -87,13 +87,13 @@
       <a href="https://explorer.rannta.com/" target="_blank" rel="noopener noreferrer">Explorer</a>
       <a href="https://pq.rannta.com/security-report" target="_blank" rel="noopener noreferrer">PQ Cloud Security Report</a>
     </div>
-    <div class="evidence-note"><strong>Scope and independence notice:</strong> this is a RANNTA-published implementation evidence record. It is not a third-party audit, certification or independent security assessment. It is intended to expose the authorization rules and failure modes that can be checked against the current X-Chain implementation. A separate third-party security review remains part of the expansion program.</div>
+    <div class="evidence-note"><strong>Scope and independence notice:</strong> this is a RANNTA-published implementation evidence record. It is not a third-party audit, certification or independent security assessment. It is intended to expose authorization and validator-sensitive transport rules and failure modes that can be checked against the current X-Chain implementation. It does not claim that every public RPC byte is post-quantum protected. A separate third-party security review remains part of the expansion program.</div>
     <div class="evidence-meta">
       <div><span>Network</span><strong>RANNTA X-Chain - Chain ID 13113 / 0x3339</strong></div>
       <div><span>Authorization policy</span><strong>HybridRequired - Fail-Closed</strong></div>
-      <div><span>Cryptographic factors</span><strong>secp256k1/ECDSA + ML-DSA-65</strong></div>
-      <div><span>Implementation snapshot</span><strong>1e1d5f324af6e6766d47e6dc5e22fc20863b4554</strong></div>
-      <div><span>Post-quantum standard</span><strong>ML-DSA-65 - NIST FIPS 204</strong></div>
+      <div><span>Authorization factors</span><strong>secp256k1/ECDSA + ML-DSA-65</strong></div>
+      <div><span>Transport suite</span><strong>X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM</strong></div>
+      <div><span>Active Mainnet binary</span><strong>f4a9e7556f1e89ff947d10b26f5249debee4d8432b81d573c6e924dd28454296</strong></div>
       <div><span>Public runtime surface</span><strong>RPC and explorer live</strong></div>
     </div>
   </section>
@@ -158,8 +158,37 @@ premature_transaction
 invalid_block_authorization_evidence</pre>
   </section>
 
+  <section class="evidence-section" id="transport-mainnet">
+    <h2>5. Mainnet Hybrid Post-Quantum Transport Evidence</h2>
+    <p><strong>Production status:</strong> RANNTA X-Chain Mainnet enforces hybrid post-quantum protection across validator-sensitive authorization and transport paths. The active transport policy is <code>HybridRequired</code>.</p>
+    <div class="evidence-grid">
+      <div class="evidence-card"><h3>Hybrid key establishment</h3><p><code>X25519 + ML-KEM-768</code> are combined for the protected validator-sensitive transport handshake.</p></div>
+      <div class="evidence-card"><h3>Key derivation and records</h3><p><code>HKDF-SHA256</code> derives transport keys and <code>AES-256-GCM</code> provides authenticated record protection.</p></div>
+      <div class="evidence-card"><h3>Production policy</h3><p><code>HybridRequired</code> is active on the Mainnet node for the protected transport path.</p></div>
+    </div>
+    <div class="evidence-table-wrap">
+      <table class="evidence-table">
+        <thead><tr><th>Production acceptance case</th><th>Observed result</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Encrypted validator-sensitive protected record</td><td><code>encrypted_record_ok=true</code></td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Plaintext-sensitive command</td><td><code>plaintext_rejected</code></td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Classical-only peer authentication</td><td>Rejected under HybridRequired</td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Replay / duplicate record sequence</td><td><code>RecordReplay</code></td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Modified ciphertext</td><td><code>RecordAuthFailed</code></td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Modified AAD / chain binding</td><td><code>ChainMismatch</code></td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Wrong session ID</td><td><code>SessionMissing</code></td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Wrong transport direction</td><td><code>DirectionMismatch</code></td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Reconnect</td><td>Fresh session established</td><td><span class="evidence-status">PASS</span></td></tr>
+          <tr><td>Public RPC compatibility after activation</td><td>Chain ID <code>0x3339</code>, net version <code>13113</code>, blocks progressing</td><td><span class="evidence-status">PASS</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="evidence-scope"><strong>Production artifact:</strong> active Mainnet node SHA-256 <code>f4a9e7556f1e89ff947d10b26f5249debee4d8432b81d573c6e924dd28454296</code>. Final acceptance completed with <code>ROLLBACK_USED=NO</code> and block progression observed from <code>0x6d766</code> to <code>0x6d767</code>.</p>
+    <p class="evidence-scope"><strong>Scope:</strong> the transport claim is limited to validator-sensitive protected paths. Public JSON-RPC remains compatible and is not described as universally ML-KEM-encrypted traffic.</p>
+  </section>
+
   <section class="evidence-section" id="consensus-scope">
-    <h2>5. Consensus Scope</h2>
+    <h2>6. Consensus Scope</h2>
     <div class="evidence-scope">
       <p>RANNTA consensus engineering implements HybridRequired authorization surfaces across validator-sensitive proposal, vote and finality paths. Broader distributed validator deployment is the topology-scale expansion of this implemented authorization model.</p>
       <p><strong>The HybridRequired consensus authorization model is implemented independently of validator-count growth.</strong> Network expansion broadens distributed participation without redefining the protected authorization path.</p>
@@ -167,17 +196,17 @@ invalid_block_authorization_evidence</pre>
   </section>
 
   <section class="evidence-section" id="runtime">
-    <h2>6. Public Reproduction Status</h2>
+    <h2>7. Public Reproduction Status</h2>
     <div class="evidence-grid">
-      <div class="evidence-card"><h3><span class="evidence-status">PUBLISHED</span></h3><p>Implementation behavior and wire-level enforcement signals are documented in this record.</p></div>
+      <div class="evidence-card"><h3><span class="evidence-status">PUBLISHED</span></h3><p>Implementation behavior and production transport acceptance signals are documented in this record.</p></div>
       <div class="evidence-card"><h3><span class="evidence-status">LIVE</span></h3><p>RANNTA X-Chain public RPC and explorer are available for network-level inspection.</p></div>
-      <div class="evidence-card"><h3><span class="evidence-status pending">PENDING PUBLICATION</span></h3><p>A one-click public reproduction harness with timestamped command/output artifacts, build identity and block references is being tracked as a separate verification artifact.</p></div>
+      <div class="evidence-card"><h3><span class="evidence-status">ACTIVE MAINNET</span></h3><p>HybridRequired validator-sensitive transport is active on the production Mainnet node.</p></div>
     </div>
-    <div class="evidence-note"><strong>Evidence boundary:</strong> this record separates implementation-enforced behavior from independently reproducible runtime artifacts. A public reproduction harness can extend this record with timestamped outputs, build identity and block references without changing the implemented HybridRequired security model documented here.</div>
+    <div class="evidence-note"><strong>Evidence boundary:</strong> this page publishes RANNTA-operated implementation and production acceptance evidence. It is not presented as an independent third-party audit or certification.</div>
   </section>
 
   <section class="evidence-section" id="references">
-    <h2>7. Verification Links</h2>
+    <h2>8. Verification Links</h2>
     <ul>
       <li><a href="/network/post-quantum.html">RANNTA Post-Quantum Security Architecture - Technical Whitepaper</a></li>
       <li><a href="/rannta-network.html">RANNTA X-Chain Network Page</a></li>
@@ -185,6 +214,7 @@ invalid_block_authorization_evidence</pre>
       <li><a href="https://explorer.rannta.com/" target="_blank" rel="noopener noreferrer">RANNTA X-Chain Explorer</a></li>
       <li><a href="https://pq.rannta.com/security-report" target="_blank" rel="noopener noreferrer">RANNTA PQ Cloud Security Report</a></li>
       <li><a href="https://csrc.nist.gov/pubs/fips/204/final" target="_blank" rel="noopener noreferrer">NIST FIPS 204 - ML-DSA</a></li>
+      <li><a href="https://csrc.nist.gov/pubs/fips/203/final" target="_blank" rel="noopener noreferrer">NIST FIPS 203 - ML-KEM</a></li>
     </ul>
   </section>
 </main>
