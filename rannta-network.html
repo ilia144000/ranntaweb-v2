@@ -34,7 +34,7 @@
     "@type": "WebPage",
     "name": "RANNTA X-Chain",
     "url": "https://rannta.com/rannta-network.html",
-    "dateModified": "2026-09-15",
+    "dateModified": "2026-09-18",
     "description": "RANNTA X-Chain is the independent RANNTA blockchain network with Chain ID 13113, native RNTX, public JSON-RPC, explorer infrastructure, HybridRequired authorization and active validator-sensitive X25519 + ML-KEM-768 hybrid transport.",
     "isPartOf": {"@type": "WebSite", "name": "RANNTA", "url": "https://rannta.com/"},
     "about": {"@type": "Thing", "name": "RANNTA X-Chain", "identifier": "13113"}
@@ -77,12 +77,13 @@
   </section>
 
   <section class="nft-links" style="border-left:2px solid #FFD700;">
-    <h2>Public Node Participation - RANNTA Core v0.1.6</h2>
-    <p>Public node participation is now open. RANNTA Core v0.1.6 allows Windows 10/11 64-bit users to run an independent RANNTA X-Chain Mainnet full node, synchronize local chain state, monitor node health and bind a reward wallet through a secure message-signing flow.</p>
-    <p><strong>Current transport scope:</strong> RANNTA Core v0.1.6 is not claimed to use the validator-sensitive Hybrid PQ transport described above for its public full-node synchronization connection. Hybrid PQ support for the public Core client is a separate implementation and release step.</p>
+    <h2>Public Node Participation - RANNTA Core Portable RC1</h2>
+    <p>Public node participation is open. RANNTA Core Portable RC1 provides portable Windows x64 and Windows ARM64 builds for running an independent RANNTA X-Chain Mainnet full node, synchronizing local chain state and monitoring node health.</p>
+    <p><strong>Current Core transport:</strong> the portability-audited public Core runtime has verified HybridRequired sessions using X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM with encrypted chain-sync records. This does not imply that every public RPC connection or every network path uses ML-KEM.</p>
     <ul>
-      <li>Independent per-install node identity and TLS enrollment.</li>
+      <li>Independent public-node identity and authenticated peer sessions.</li>
       <li>Full Mainnet synchronization and live local/network height monitoring.</li>
+      <li>HybridRequired public-node transport and encrypted chain-sync records.</li>
       <li>Secure reward-wallet binding for MetaMask and compatible EIP-1193 EVM wallets.</li>
       <li>No wallet private key or seed phrase is requested or stored.</li>
       <li>Qualified uptime, synchronization health, challenge performance and wallet verification are measured from participation.</li>
@@ -109,7 +110,7 @@
     <h2 class="manifesto-title">Network Status</h2>
     <p class="manifesto-line">The X-Chain core network, public RPC compatibility layer, explorer, production node services and public-node enrollment path are implemented and publicly reachable. The network is no longer merely an emerging architecture or unlaunched concept.</p>
     <p class="manifesto-line">Public Windows node software is released for independent-node participation. Production node identity, heartbeat monitoring, reward qualification telemetry and owner-controlled settlement administration are active. Reward accounting currently runs in Shadow Mode, meaning qualification and reward amounts are recorded while on-chain transfers remain under manual owner approval.</p>
-    <p class="manifesto-line">Hybrid post-quantum authorization with ML-DSA-65 and validator-sensitive HybridRequired transport with X25519 + ML-KEM-768 are active parts of the RANNTA Mainnet security architecture. Expanded validator decentralization, canonical PQ state, broader protected transport coverage, public Core Hybrid PQ transport, bridge infrastructure, native liquidity and ecosystem integrations remain separate growth stages and are announced independently after implementation and verification.</p>
+    <p class="manifesto-line">Hybrid post-quantum authorization with ML-DSA-65 and validator-sensitive HybridRequired transport with X25519 + ML-KEM-768 are active parts of the RANNTA Mainnet security architecture. RANNTA Core Portable RC1 also has verified HybridRequired public-node synchronization sessions with encrypted chain-sync records. Expanded validator decentralization, canonical PQ state, broader protected transport coverage, bridge infrastructure, native liquidity and ecosystem integrations remain separate growth stages and are announced independently after implementation and verification.</p>
   </section>
 
   <section class="manifesto-block" id="network-identity">
