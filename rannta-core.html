@@ -4,23 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>RANNTA Core v0.1.6 | Run a RANNTA X-Chain Full Node on Windows</title>
+  <title>RANNTA Core Portable RC1 | Run a RANNTA X-Chain Full Node on Windows</title>
   <link rel="canonical" href="https://rannta.com/rannta-core.html" />
   <link rel="stylesheet" href="/style.css" />
   <link rel="icon" href="/assets/brand/coin.png?v=2" type="image/png" />
 
-  <meta name="description" content="Download RANNTA Core v0.1.6 and run an independent RANNTA X-Chain Mainnet full node on Windows 10 or 11. Qualified node participation is measured from activation for inclusion in the RNTX reward settlement process." />
+  <meta name="description" content="Download RANNTA Core Portable RC1 for Windows x64 or ARM64 and run an independent RANNTA X-Chain Mainnet full node. Official packages are published on the RANNTA GitHub release page." />
   <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="RANNTA Core v0.1.6 | Public Node Participation" />
-  <meta property="og:description" content="Run an independent RANNTA X-Chain Mainnet full node from Windows. Qualified participation is recorded for the RNTX Node Rewards settlement process." />
+  <meta property="og:title" content="RANNTA Core Portable RC1 | Public Node Participation" />
+  <meta property="og:description" content="Run an independent RANNTA X-Chain Mainnet full node from Windows using the official portable x64 or ARM64 release." />
   <meta property="og:url" content="https://rannta.com/rannta-core.html" />
   <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="RANNTA Core v0.1.6 | Public Node Participation" />
-  <meta name="twitter:description" content="Run a RANNTA X-Chain Mainnet full node. Qualified activity is measured from activation for the Node Rewards settlement process." />
+  <meta name="twitter:title" content="RANNTA Core Portable RC1 | Public Node Participation" />
+  <meta name="twitter:description" content="Official portable RANNTA Core builds for Windows x64 and ARM64, published through GitHub Releases." />
   <meta name="twitter:image" content="https://rannta.com/assets/brand/coin.png?v=2" />
 
   <script type="application/ld+json">
@@ -28,13 +28,14 @@
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
     "name": "RANNTA Core",
-    "softwareVersion": "0.1.6",
+    "softwareVersion": "2026.09.18-portable-rc1",
     "applicationCategory": "Blockchain full node software",
-    "operatingSystem": "Windows 10/11 64-bit",
+    "operatingSystem": "Windows 10/11 x64; Windows ARM64 with WSL2",
     "url": "https://rannta.com/rannta-core.html",
-    "downloadUrl": "https://drive.google.com/drive/folders/1wtAy1Fng8T3QqVEPe5rkZPfzHDbd0_jP?usp=sharing",
-    "description": "RANNTA Core is the Windows full-node application for RANNTA X-Chain Mainnet with measured Node Rewards participation.",
-    "dateModified": "2026-09-01"
+    "downloadUrl": "https://github.com/ilia144000/RANNTA-Core-Public/releases/tag/v2026.09.18-portable-rc1",
+    "sameAs": "https://github.com/ilia144000/RANNTA-Core-Public",
+    "description": "RANNTA Core is the portable Windows full-node application for RANNTA X-Chain Mainnet with HybridRequired public-node transport and measured Node Rewards participation.",
+    "dateModified": "2026-09-18"
   }
   </script>
 </head>
@@ -43,10 +44,10 @@
 
 <main>
   <section class="manifesto-block">
-    <h1 class="manifesto-title">RANNTA Core v0.1.6</h1>
+    <h1 class="manifesto-title">RANNTA Core Portable RC1</h1>
     <p class="manifesto-line"><strong>Public node participation is now open.</strong></p>
     <p class="manifesto-line">
-      Run an independent full node for RANNTA X-Chain Mainnet directly from a Windows PC. Early node operators strengthen the live network while participating in measured uptime, synchronization, challenge and Node Rewards qualification.
+      Run an independent full node for RANNTA X-Chain Mainnet from a Windows PC. RANNTA Core now has public portable builds for Windows x64 and Windows ARM64, published through the official RANNTA Core GitHub repository and release page.
     </p>
     <p class="manifesto-line">
       RANNTA Core connects to the live RANNTA X-Chain Mainnet using Chain ID <strong>13113 (0x3339)</strong> and native currency <strong>RNTX</strong>.
@@ -55,13 +56,20 @@
 
   <section class="rannta-info-card" style="display:block !important; margin:60px auto !important; max-width:900px !important; text-align:center !important;">
     <h2>Download RANNTA Core</h2>
-    <p><strong>Release:</strong> v0.1.6</p>
-    <p><strong>Supported:</strong> Windows 10 / Windows 11, 64-bit</p>
-    <p><strong>Requirements:</strong> Internet connection and Administrator permission during setup when required. The installer uses WSL for the node component and Windows may request a restart if WSL must be enabled.</p>
-    <p>
-      <a class="ric-btn" href="https://drive.google.com/drive/folders/1wtAy1Fng8T3QqVEPe5rkZPfzHDbd0_jP?usp=sharing" target="_blank" rel="noopener noreferrer">Download RANNTA Core v0.1.6</a>
-    </p>
-    <p style="word-break:break-all;"><strong>Installer SHA256:</strong><br />21D78D5BB1257300D709B198D24F22B2AB7F922E1ED302C0533F0FD83C0AEACE</p>
+    <p><strong>Release:</strong> Portable RC1, 2026-09-18</p>
+    <p><strong>Supported:</strong> Windows x64 and Windows ARM64</p>
+    <p><strong>Requirements:</strong> Internet connection and WSL2. The Windows package uses the matching RANNTA node runtime inside WSL. Follow the portable setup guide before starting a fresh-machine installation.</p>
+
+    <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:22px 0;">
+      <a class="ric-btn" href="https://github.com/ilia144000/RANNTA-Core-Public/releases/download/v2026.09.18-portable-rc1/RANNTA-Core-Windows-x64.zip" target="_blank" rel="noopener noreferrer">Download Windows x64</a>
+      <a class="ric-btn" href="https://github.com/ilia144000/RANNTA-Core-Public/releases/download/v2026.09.18-portable-rc1/RANNTA-Core-Windows-ARM64.zip" target="_blank" rel="noopener noreferrer">Download Windows ARM64</a>
+    </div>
+
+    <p><a href="https://github.com/ilia144000/RANNTA-Core-Public/blob/main/PORTABLE-SETUP.md" target="_blank" rel="noopener noreferrer">Portable Setup Guide</a> · <a href="https://github.com/ilia144000/RANNTA-Core-Public/releases/tag/v2026.09.18-portable-rc1" target="_blank" rel="noopener noreferrer">GitHub Release</a> · <a href="https://github.com/ilia144000/RANNTA-Core-Public" target="_blank" rel="noopener noreferrer">Public Source Repository</a></p>
+
+    <p style="word-break:break-all;"><strong>Windows x64 ZIP SHA256:</strong><br />e903f513ae9e3d75806234bf8209ad2ce0f429730412305ea82db19ad2d50206</p>
+    <p style="word-break:break-all;"><strong>Windows ARM64 ZIP SHA256:</strong><br />c1368b0b55e3df0b2da68aab131be638a1d11ca10fb886229060e01048266765</p>
+    <p><strong>Release status:</strong> RC1 / prerelease. Windows ARM64 PE architecture is verified; physical ARM64 runtime testing is not yet claimed.</p>
   </section>
 
   <section class="nft-links">
@@ -70,7 +78,8 @@
       <li>Independent RANNTA X-Chain Mainnet node identity.</li>
       <li>Full Mainnet synchronization and local chain-state tracking.</li>
       <li>Live node health, peer, RPC and synchronization status.</li>
-      <li>Secure public-node TLS enrollment with unique per-install credentials.</li>
+      <li>HybridRequired public-node transport using X25519 + ML-KEM-768 + HKDF-SHA256 + AES-256-GCM.</li>
+      <li>Encrypted chain-sync records and authenticated peer sessions.</li>
       <li>Reward participation telemetry and challenge verification.</li>
       <li>Direct reward-wallet binding through MetaMask and compatible EIP-1193 EVM wallets.</li>
       <li>No seed phrase or wallet private key is requested or stored by the reward system.</li>
@@ -78,7 +87,7 @@
   </section>
 
   <section class="nft-links" style="border-left:2px solid #FFD700;">
-    <h2>Node Rewards — Measured Participation</h2>
+    <h2>Node Rewards - Measured Participation</h2>
     <p>
       Qualified participation is recorded from the time a node enters the Node Rewards measurement system. Uptime, synchronization health, challenge performance, node identity and verified reward-wallet status are used to determine eligibility.
     </p>
@@ -86,7 +95,7 @@
       The current qualification target is at least <strong>6 qualified hours per day for at least 20 qualified days in a month</strong>, together with healthy synchronization and challenge performance.
     </p>
     <p>
-      A fully qualified node has a current minimum qualified reward target of <strong>0.5 RNTX per monthly settlement period</strong>. Healthy-node targets are generally <strong>0.8–1.2 RNTX</strong>, subject to the published scoring, anti-fraud and cap rules.
+      A fully qualified node has a current minimum qualified reward target of <strong>0.5 RNTX per monthly settlement period</strong>. Healthy-node targets are generally <strong>0.8-1.2 RNTX</strong>, subject to the published scoring, anti-fraud and cap rules.
     </p>
     <p>
       The accounting system is currently operating in <strong>Shadow Mode</strong>: qualification and reward amounts are measured and recorded, while on-chain transfers remain under owner-controlled manual approval. <strong>Eligible early-node participation recorded during this measurement period is intended to be included in the reward settlement process when manual RNTX distribution is activated.</strong>
@@ -108,7 +117,7 @@
   <section class="manifesto-block">
     <h2 class="manifesto-title">Run a Node. Strengthen the Network.</h2>
     <p class="manifesto-line">
-      RANNTA X-Chain now supports independently identified public nodes through RANNTA Core. Installing the software, completing synchronization and maintaining a healthy node contributes directly to the decentralization and resilience of the Mainnet.
+      RANNTA X-Chain supports independently identified public nodes through RANNTA Core. Installing the software, completing synchronization and maintaining a healthy node contributes directly to the decentralization and resilience of the Mainnet.
     </p>
     <p class="manifesto-line">
       <a href="/rannta-network.html">RANNTA X-Chain Network</a> · <a href="/roadmap.html">Roadmap</a> · <a href="/whitepaper.html">Whitepaper</a>
