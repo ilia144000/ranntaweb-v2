@@ -182,11 +182,11 @@
         section.innerHTML=''
           + '<div style="border:1px solid rgba(255,213,74,.38);border-radius:22px;padding:26px;background:linear-gradient(145deg,rgba(26,22,8,.98),rgba(10,12,17,.98));box-shadow:0 18px 50px rgba(0,0,0,.28);text-align:center">'
           + '<div style="font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:#FFD54A;font-weight:900;margin-bottom:8px">PUBLIC NODE RELEASE</div>'
-          + '<h2 style="margin:0 0 12px;color:#FFD54A;font-size:clamp(1.7rem,4vw,2.5rem)">RANNTA Core v0.1.6</h2>'
-          + '<p style="max-width:850px;margin:0 auto 18px;color:#eef1f6;line-height:1.75">Run an independent RANNTA X-Chain Mainnet full node on Windows 10/11. Public node participation is open, and qualified early-node activity is being recorded for the Node Rewards settlement process.</p>'
+          + '<h2 style="margin:0 0 12px;color:#FFD54A;font-size:clamp(1.7rem,4vw,2.5rem)">RANNTA Core Portable RC1</h2>'
+          + '<p style="max-width:850px;margin:0 auto 18px;color:#eef1f6;line-height:1.75">Run an independent RANNTA X-Chain Mainnet full node on Windows. Official portable builds are available for x64 and ARM64 through the public RANNTA Core GitHub release.</p>'
           + '<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">'
           + '<a href="/rannta-core.html" style="display:inline-flex;padding:12px 18px;border-radius:12px;background:#FFD54A;color:#111;font-weight:900;text-decoration:none">RANNTA Core Details</a>'
-          + '<a href="https://drive.google.com/drive/folders/1wtAy1Fng8T3QqVEPe5rkZPfzHDbd0_jP?usp=sharing" target="_blank" rel="noopener noreferrer" style="display:inline-flex;padding:12px 18px;border-radius:12px;border:1px solid rgba(255,213,74,.45);color:#fff;font-weight:800;text-decoration:none">Download v0.1.6</a>'
+          + '<a href="https://github.com/ilia144000/RANNTA-Core-Public/releases/tag/v2026.09.18-portable-rc1" target="_blank" rel="noopener noreferrer" style="display:inline-flex;padding:12px 18px;border-radius:12px;border:1px solid rgba(255,213,74,.45);color:#fff;font-weight:800;text-decoration:none">Download Portable RC1</a>'
           + '</div></div>';
         main.insertBefore(section,main.firstChild);
       }
