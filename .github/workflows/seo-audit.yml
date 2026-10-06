@@ -1,13 +1,6 @@
 name: SEO Canonical Audit
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-  schedule:
-    - cron: "17 3 * * 1"
-
-jobs:
+on:\n  workflow_dispatch:\n\njobs:
   seo-audit:
     runs-on: ubuntu-latest
     steps:

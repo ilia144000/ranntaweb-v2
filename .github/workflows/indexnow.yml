@@ -1,32 +1,6 @@
 name: IndexNow Canonical URLs
 
-on:
-  push:
-    branches: [main]
-    paths:
-      - "index.html"
-      - "ilia144000.html"
-      - "authoritative.html"
-      - "entity.html"
-      - "ai-index.html"
-      - "ai.txt"
-      - ".well-known/ai.txt"
-      - "llms.txt"
-      - "sitemap.xml"
-      - "assets/js/site-shell.js"
-      - "burn.html"
-      - "manifesto.html"
-      - "ranntaverse.html"
-      - "symbolists.html"
-      - "team.html"
-      - "kyc.html"
-      - "rannta-network.html"
-      - "network/post-quantum.html"
-      - "network/hybrid-security-evidence.html"
-      - ".github/workflows/indexnow.yml"
-  workflow_dispatch:
-
-jobs:
+on:\n  workflow_dispatch:\n\njobs:
   submit-indexnow:
     runs-on: ubuntu-latest
     steps:

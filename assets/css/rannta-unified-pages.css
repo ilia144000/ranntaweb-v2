@@ -1,0 +1,398 @@
+/* RANNTA unified public-page visual layer - 2026-10-07
+   Keeps legacy content compatible while forcing the approved white/green production theme. */
+
+body.rannta-unified-page{
+  font-family:"Poppins",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+  color:#31463f!important;
+  background:#f7faf9!important;
+}
+
+body.rannta-unified-page a{
+  color:#0f6b5d;
+  text-underline-offset:3px;
+}
+
+body.rannta-unified-page h1,
+body.rannta-unified-page h2,
+body.rannta-unified-page h3{
+  color:#102e27!important;
+  letter-spacing:-.02em;
+}
+
+body.rannta-unified-page h1{
+  font-size:clamp(2rem,4vw,3.25rem)!important;
+  line-height:1.08!important;
+}
+
+body.rannta-unified-page h2{
+  font-size:clamp(1.3rem,2.2vw,1.85rem)!important;
+}
+
+body.rannta-unified-page .rannta-page-kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:7px 11px;
+  border:1px solid #bcd8cf;
+  border-radius:999px;
+  background:#eef7f4;
+  color:#0d6658;
+  font-size:.76rem;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+body.rannta-unified-page .rannta-context-note{
+  margin:16px 0 0;
+  padding:14px 16px;
+  border:1px solid #cce0da;
+  border-left:4px solid #127461;
+  border-radius:14px;
+  background:#f1f8f6;
+  color:#3d5650;
+  line-height:1.7;
+}
+
+body.rannta-unified-page .btn,
+body.rannta-unified-page .presale-copy-btn,
+body.rannta-unified-page .sealPro__button{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-height:42px;
+  padding:10px 16px!important;
+  border:1px solid #116e5d!important;
+  border-radius:11px!important;
+  background:#116e5d!important;
+  color:#fff!important;
+  font-weight:850!important;
+  text-decoration:none!important;
+  box-shadow:none!important;
+}
+
+body.rannta-unified-page .btn.ghost{
+  background:#fff!important;
+  color:#0f6658!important;
+  border-color:#bdd7d0!important;
+}
+
+/* Architect pages */
+body.rannta-architect-page .wrap{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin:32px auto 72px!important;
+  padding:0!important;
+}
+
+body.rannta-architect-page .hero,
+body.rannta-architect-page .arch-hero{
+  width:min(1180px,calc(100% - 40px))!important;
+  margin:32px auto 28px!important;
+  padding:clamp(24px,4vw,44px)!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr)!important;
+  gap:clamp(28px,5vw,54px)!important;
+  align-items:center!important;
+  color:#31463f!important;
+  background:rgba(255,255,255,.96)!important;
+  border:1px solid #d6e5e0!important;
+  border-radius:26px!important;
+  box-shadow:0 18px 55px rgba(21,70,58,.08)!important;
+  overflow:hidden!important;
+}
+
+body.rannta-architect-page .arch-hero::before,
+body.rannta-architect-page .sigil::before,
+body.rannta-architect-page .sigil::after{
+  display:none!important;
+}
+
+body.rannta-architect-page .hero h1,
+body.rannta-architect-page .arch-hero h1{
+  font-family:"Poppins",system-ui,sans-serif!important;
+  color:#102e27!important;
+}
+
+body.rannta-architect-page .lead,
+body.rannta-architect-page .meta,
+body.rannta-architect-page .caption,
+body.rannta-architect-page .small{
+  color:#657a73!important;
+  opacity:1!important;
+}
+
+body.rannta-architect-page .sig{
+  margin-top:16px!important;
+  padding:16px 18px!important;
+  color:#31463f!important;
+  background:#f1f8f6!important;
+  border:1px solid #cce0da!important;
+  border-left:4px solid #14715f!important;
+  border-radius:14px!important;
+}
+
+body.rannta-architect-page .pill{
+  display:inline-flex!important;
+  padding:7px 11px!important;
+  margin:10px 8px 0 0!important;
+  border:1px solid #c5ddd6!important;
+  border-radius:999px!important;
+  background:#eef7f4!important;
+  color:#0e6658!important;
+  font-weight:800!important;
+}
+
+body.rannta-architect-page .sigil{
+  filter:none!important;
+}
+
+body.rannta-architect-page .sigil img{
+  width:min(440px,100%)!important;
+  margin:auto!important;
+  border:1px solid #d5e2de!important;
+  border-radius:20px!important;
+  box-shadow:0 15px 38px rgba(21,70,58,.13)!important;
+  animation:none!important;
+}
+
+body.rannta-architect-page main{
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:0 auto 72px!important;
+  padding:clamp(22px,4vw,38px)!important;
+  background:rgba(255,255,255,.96)!important;
+  border:1px solid #d6e5e0!important;
+  border-radius:24px!important;
+  box-shadow:0 16px 48px rgba(21,70,58,.07)!important;
+  color:#31463f!important;
+}
+
+body.rannta-architect-page .wrap main{
+  width:100%!important;
+  margin:0!important;
+}
+
+body.rannta-architect-page section.block,
+body.rannta-architect-page .toc,
+body.rannta-architect-page details{
+  margin:14px 0!important;
+  padding:17px 18px!important;
+  background:#f8fbfa!important;
+  color:#31463f!important;
+  border:1px solid #d7e6e1!important;
+  border-radius:15px!important;
+  box-shadow:none!important;
+}
+
+body.rannta-architect-page details[open]{
+  background:#f2f8f6!important;
+  border-color:#c3ddd5!important;
+}
+
+body.rannta-architect-page summary{
+  color:#0f6658!important;
+  font-weight:850!important;
+}
+
+body.rannta-architect-page code.k{
+  color:#0f6658!important;
+  background:#edf6f3!important;
+  border:1px solid #c8ded7!important;
+}
+
+body.rannta-architect-page blockquote.sig{
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+/* Burn dashboard */
+body.rannta-burn-page main{
+  width:min(1120px,calc(100% - 40px))!important;
+  margin:32px auto 72px!important;
+  padding:clamp(24px,4vw,42px)!important;
+  color:#31463f!important;
+  background:rgba(255,255,255,.97)!important;
+  border:1px solid #d6e5e0!important;
+  border-radius:26px!important;
+  box-shadow:0 18px 55px rgba(21,70,58,.08)!important;
+}
+
+body.rannta-burn-page h1{
+  margin:0 0 12px!important;
+  color:#102e27!important;
+}
+
+body.rannta-burn-page .flame{display:none!important}
+
+body.rannta-burn-page .intro,
+body.rannta-burn-page .section-sub,
+body.rannta-burn-page .history,
+body.rannta-burn-page .table-note,
+body.rannta-burn-page .refresh-note{
+  color:#5e736c!important;
+}
+
+body.rannta-burn-page .cards-grid{
+  gap:16px!important;
+}
+
+body.rannta-burn-page .card{
+  min-height:150px!important;
+  padding:20px!important;
+  justify-content:flex-start!important;
+  background:linear-gradient(180deg,#fbfdfc,#f3f9f7)!important;
+  border:1px solid #d1e3dd!important;
+  border-radius:18px!important;
+  box-shadow:none!important;
+}
+
+body.rannta-burn-page .card-title{
+  color:#60766f!important;
+  font-weight:850!important;
+}
+
+body.rannta-burn-page .card-value{
+  color:#0f6658!important;
+  font-size:clamp(1.05rem,2vw,1.35rem)!important;
+  word-break:break-word!important;
+}
+
+body.rannta-burn-page .card-caption{
+  color:#667b74!important;
+  font-size:.82rem!important;
+}
+
+body.rannta-burn-page h2.section-title{
+  color:#102e27!important;
+  margin-top:34px!important;
+}
+
+body.rannta-burn-page .snapshot-badge{
+  display:inline-flex;
+  padding:9px 13px;
+  border:1px solid #bddbd2;
+  border-radius:999px;
+  background:#edf7f4;
+  color:#0f6658;
+  font-weight:850;
+}
+
+body.rannta-burn-page table{
+  overflow:hidden;
+  border:1px solid #d5e5df!important;
+  border-radius:14px!important;
+  background:#fff!important;
+}
+
+body.rannta-burn-page thead,
+body.rannta-burn-page tbody tr:nth-child(odd),
+body.rannta-burn-page tbody tr:nth-child(even),
+body.rannta-burn-page tbody tr:hover{
+  background:#fff!important;
+}
+
+body.rannta-burn-page tbody tr:nth-child(even){
+  background:#f7fbf9!important;
+}
+
+body.rannta-burn-page th{
+  color:#4c665e!important;
+  background:#edf6f3!important;
+  border-color:#d4e5df!important;
+}
+
+body.rannta-burn-page td{
+  color:#3d5650!important;
+  border-bottom:1px solid #e0ebe7!important;
+}
+
+body.rannta-burn-page td span{
+  color:#72867f!important;
+}
+
+/* Contracts */
+body.rannta-contracts-page main{
+  width:min(1040px,calc(100% - 40px))!important;
+  margin:32px auto 72px!important;
+  padding:clamp(24px,4vw,42px)!important;
+  color:#31463f!important;
+  background:rgba(255,255,255,.97)!important;
+  border:1px solid #d6e5e0!important;
+  border-radius:26px!important;
+  box-shadow:0 18px 55px rgba(21,70,58,.08)!important;
+}
+
+body.rannta-contracts-page .sealPro{
+  margin:22px 0!important;
+  background:linear-gradient(135deg,#f9fcfb,#eef7f4)!important;
+  border:1px solid #d0e3dc!important;
+  border-radius:18px!important;
+  box-shadow:none!important;
+}
+
+body.rannta-contracts-page .sealPro__title,
+body.rannta-contracts-page .sealPro__line{
+  color:#102e27!important;
+}
+
+body.rannta-contracts-page .sealPro__sub{
+  color:#62776f!important;
+}
+
+body.rannta-contracts-page p,
+body.rannta-contracts-page li{
+  color:#536a62!important;
+}
+
+body.rannta-contracts-page .presale-address-box{
+  padding:18px!important;
+  background:#f6faf8!important;
+  border:1px solid #d3e4de!important;
+  border-radius:16px!important;
+}
+
+body.rannta-contracts-page .presale-address-label{
+  color:#0f6658!important;
+  font-weight:900!important;
+}
+
+body.rannta-contracts-page .presale-address{
+  display:inline-block;
+  max-width:100%;
+  padding:10px 12px!important;
+  color:#193c33!important;
+  background:#fff!important;
+  border:1px solid #d8e6e2!important;
+  border-radius:10px!important;
+  overflow-wrap:anywhere;
+}
+
+body.rannta-contracts-page .presale-address-hint{
+  color:#657970!important;
+}
+
+@media(max-width:920px){
+  body.rannta-architect-page .hero,
+  body.rannta-architect-page .arch-hero{
+    grid-template-columns:1fr!important;
+    width:min(100% - 24px,1180px)!important;
+  }
+
+  body.rannta-architect-page main,
+  body.rannta-architect-page .wrap,
+  body.rannta-burn-page main,
+  body.rannta-contracts-page main{
+    width:min(100% - 24px,1120px)!important;
+  }
+}
+
+@media(max-width:640px){
+  body.rannta-unified-page .grid-2,
+  body.rannta-burn-page .two-column{
+    grid-template-columns:1fr!important;
+  }
+
+  body.rannta-unified-page table{
+    display:block;
+    overflow-x:auto;
+  }
+}
