@@ -3,7 +3,7 @@
 
   <url>
     <loc>https://rannta.com/</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -132,13 +132,13 @@
   </url>
 
   <url>
-    <loc>https://rannta.com/manifesto.html</loc>
+    <loc>https://rannta.com/manifesto.html</loc>\n    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://rannta.com/ranntaverse.html</loc>
+    <loc>https://rannta.com/ranntaverse.html</loc>\n    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -168,11 +168,11 @@
   </url>
 
   <url>
-    <loc>https://rannta.com/symbolists.html</loc>
+    <loc>https://rannta.com/symbolists.html</loc>\n    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>\n<url>
-    <loc>https://rannta.com/team.html</loc>
+    <loc>https://rannta.com/team.html</loc>\n    <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -192,7 +192,7 @@
   </url>
 
   <url>
-    <loc>https://rannta.com/kyc.html</loc>
+    <loc>https://rannta.com/kyc.html</loc>\n    <lastmod>2026-10-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
