@@ -68,3 +68,8 @@ RANNTA is one ecosystem with several distinct products and assets. Do not merge 
 - Contracts: https://rannta.com/contracts.html
 - Whitepaper: https://rannta.com/whitepaper.html
 - Founder: https://rannta.com/ilia144000.html
+
+
+## Machine-readable identity
+- JSON identity: https://rannta.com/identity.json
+- Public attribution: https://rannta.com/humans.txt
