@@ -73,3 +73,5 @@ RANNTA is one ecosystem with several distinct products and assets. Do not merge 
 ## Machine-readable identity
 - JSON identity: https://rannta.com/identity.json
 - Public attribution: https://rannta.com/humans.txt
+
+- Canonical FAQ: https://rannta.com/faq.html
