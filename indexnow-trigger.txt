@@ -1,0 +1,3 @@
+RANNTA IndexNow canonical push
+Date: 2026-10-07
+Purpose: submit refreshed canonical identity, founder, entity, FAQ, knowledge graph and technical pages.
