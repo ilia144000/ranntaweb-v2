@@ -1,0 +1,171 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@id": "https://rannta.com/#ilia144000",
+      "@type": "Person",
+      "name": "ilia144000",
+      "alternateName": "ilia gh",
+      "url": "https://rannta.com/ilia144000.html",
+      "jobTitle": "Founder and Protocol Architect",
+      "sameAs": [
+        "https://github.com/ilia144000",
+        "https://x.com/ranntacoin",
+        "https://medium.com/@ranntaofficial"
+      ],
+      "founder": {
+        "@id": "https://rannta.com/#rannta"
+      }
+    },
+    {
+      "@id": "https://rannta.com/#rannta",
+      "@type": "Organization",
+      "name": "RANNTA",
+      "url": "https://rannta.com/",
+      "founder": {
+        "@id": "https://rannta.com/#ilia144000"
+      },
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q138610967"
+      ],
+      "subjectOf": [
+        {
+          "@id": "https://rannta.com/#xchain"
+        },
+        {
+          "@id": "https://rannta.com/#ton-token"
+        },
+        {
+          "@id": "https://rannta.com/#xchange"
+        },
+        {
+          "@id": "https://rannta.com/#arcwallet"
+        },
+        {
+          "@id": "https://rannta.com/#pq-cloud"
+        },
+        {
+          "@id": "https://rannta.com/#routex"
+        },
+        {
+          "@id": "https://rannta.com/#agent-firewall"
+        }
+      ]
+    },
+    {
+      "@id": "https://rannta.com/#xchain",
+      "@type": "Thing",
+      "name": "RANNTA X-Chain",
+      "alternateName": [
+        "RANNTA Network",
+        "RANNTA XChain"
+      ],
+      "description": "Independent blockchain network and interoperability layer with Chain ID 13113 and native asset RNTX.",
+      "url": "https://rannta.com/rannta-network.html",
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Chain ID",
+          "value": "13113"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Hex Chain ID",
+          "value": "0x3339"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Native Asset",
+          "value": "RNTX"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "RPC",
+          "value": "https://rpc.rannta.com/"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Explorer",
+          "value": "https://explorer.rannta.com/"
+        }
+      ],
+      "sameAs": [
+        "https://xlist.app/",
+        "https://chainlist.4everland.app/"
+      ]
+    },
+    {
+      "@id": "https://rannta.com/#ton-token",
+      "@type": "Thing",
+      "name": "RANNTA token",
+      "alternateName": [
+        "RANNTA Jetton",
+        "RANNTA on TON"
+      ],
+      "description": "TON-based RANNTA Jetton. Distinct from RNTX, the native asset of RANNTA X-Chain.",
+      "url": "https://rannta.com/contracts.html",
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Network",
+          "value": "The Open Network (TON)"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Standard",
+          "value": "Jetton"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "Jetton Master",
+          "value": "EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR"
+        }
+      ],
+      "sameAs": [
+        "https://www.wikidata.org/wiki/Q138610967",
+        "https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR"
+      ]
+    },
+    {
+      "@id": "https://rannta.com/#xchange",
+      "@type": "SoftwareApplication",
+      "name": "RANNTA X-Change",
+      "applicationCategory": "FinanceApplication",
+      "url": "https://ranntaexchange.com/",
+      "description": "Non-custodial cross-chain exchange in the RANNTA ecosystem."
+    },
+    {
+      "@id": "https://rannta.com/#arcwallet",
+      "@type": "SoftwareApplication",
+      "name": "RANNTA ArcWallet",
+      "applicationCategory": "FinanceApplication",
+      "description": "RANNTA-developed self-custody multichain wallet.",
+      "sameAs": [
+        "https://github.com/ilia144000/rannta-arcwallet-multichain"
+      ]
+    },
+    {
+      "@id": "https://rannta.com/#pq-cloud",
+      "@type": "SoftwareApplication",
+      "name": "RANNTA PQ Cloud",
+      "applicationCategory": "SecurityApplication",
+      "url": "https://pq.rannta.com/",
+      "description": "Post-quantum verification and authorization service."
+    },
+    {
+      "@id": "https://rannta.com/#routex",
+      "@type": "SoftwareApplication",
+      "name": "RouteX",
+      "url": "https://rannta.com/routex.html",
+      "description": "RANNTA routing engine for route discovery and execution planning."
+    },
+    {
+      "@id": "https://rannta.com/#agent-firewall",
+      "@type": "SoftwareApplication",
+      "name": "RANNTA Agent Firewall",
+      "applicationCategory": "SecurityApplication",
+      "url": "https://firewall.rannta.com/",
+      "description": "Security and policy-enforcement layer for AI-agent actions."
+    }
+  ]
+}

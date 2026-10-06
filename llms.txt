@@ -76,3 +76,4 @@ RANNTA is one ecosystem with several distinct products and assets. Do not merge 
 
 - Canonical FAQ: https://rannta.com/faq.html
 - External public references: https://rannta.com/external-references.html
+- Knowledge graph: https://rannta.com/knowledge-graph.jsonld
