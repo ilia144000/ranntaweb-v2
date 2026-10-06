@@ -21,6 +21,28 @@ jobs:
   submit-indexnow:
     runs-on: ubuntu-latest
     steps:
+      - name: Wait for GitHub Pages deployment
+        shell: bash
+        env:
+          INDEXNOW_KEY: 9f4a7c2e13b84d5aa6c1f790d2e65b31
+        run: |
+          set -euo pipefail
+          key_url="https://rannta.com/${INDEXNOW_KEY}.txt"
+
+          for attempt in {1..24}; do
+            body="$(curl --silent --show-error --location --max-time 15 "${key_url}" || true)"
+            if [[ "${body}" == *"${INDEXNOW_KEY}"* ]]; then
+              echo "IndexNow key is live."
+              exit 0
+            fi
+
+            echo "Waiting for GitHub Pages deployment (attempt ${attempt}/24)..."
+            sleep 10
+          done
+
+          echo "IndexNow key did not become reachable in time."
+          exit 1
+
       - name: Submit canonical RANNTA URLs to IndexNow
         shell: bash
         env:
