@@ -129,35 +129,6 @@
     anchor.parentNode.insertBefore(section,anchor);
   }
 
-  function surfacePresale(){
-    var path=window.location.pathname||"/";
-    if(path!=="/"&&path!=="/index.html") return;
-    if(document.querySelector('[data-rannta-presale-home]')) return;
-
-    var anchor=document.querySelector('.home-identity');
-    if(!anchor) return;
-
-    var section=document.createElement('section');
-    section.setAttribute('data-rannta-presale-home','');
-    section.style.cssText='max-width:1180px;margin:54px auto 8px;padding:0 20px;box-sizing:border-box';
-    section.innerHTML=''
-      + '<div aria-hidden="true" style="display:flex;align-items:center;gap:14px;margin:0 0 18px;color:#b89a39;font-size:.72rem;font-weight:900;letter-spacing:.16em;text-transform:uppercase"><span style="height:1px;background:rgba(255,213,74,.24);flex:1"></span><span>Token sale · TON Mainnet</span><span style="height:1px;background:rgba(255,213,74,.24);flex:1"></span></div>'
-      + '<div style="position:relative;overflow:hidden;border:1px solid rgba(255,213,74,.52);border-radius:22px;padding:24px 26px;background:linear-gradient(135deg,rgba(34,26,5,.98),rgba(10,12,18,.99));box-shadow:0 18px 55px rgba(0,0,0,.32);text-align:center">'
-      + '<div style="font-size:.76rem;letter-spacing:.16em;text-transform:uppercase;color:#FFD54A;font-weight:900;margin-bottom:8px">OFFICIAL RANNTA SALE - TON MAINNET</div>'
-      + '<h2 style="margin:0 0 10px;color:#fff;font-size:clamp(1.55rem,4vw,2.35rem)">Official RANNTA Presale V2 on TON Mainnet Is Live</h2>'
-      + '<p style="max-width:900px;margin:0 auto 15px;color:#e9edf3;line-height:1.72">Purchase the official RANNTA Jetton on The Open Network (TON) through the active Presale V2 Mainnet contract. This sale is for the TON-based RANNTA token and is separate from RANNTA X-Chain and its native asset RNTX.</p>'
-      + '<div style="display:flex;justify-content:center;gap:8px 16px;flex-wrap:wrap;margin:0 0 18px;color:#cfd5de;font-size:.9rem"><span>TON Mainnet</span><span>•</span><span>Presale V2</span><span>•</span><span>On-chain delivery</span><span>•</span><span>Separate from RANNTA X-Chain</span></div>'
-      + '<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">'
-      + '<a href="https://presale.rannta.com/" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:12px;background:#FFD54A;color:#111;font-weight:900;text-decoration:none">Open Official Sale</a>'
-      + '<a href="https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:12px;border:1px solid rgba(255,213,74,.46);color:#fff;font-weight:800;text-decoration:none">Verify RANNTA Jetton</a>'
-      + '</div>'
-      + '<div style="margin-top:15px;color:#c6ccd5;font-size:.8rem;font-weight:700;word-break:break-all">Jetton Master: EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR</div>'
-      + '<div style="max-width:960px;margin:16px auto 0;padding:13px 15px;border:1px solid rgba(255,64,64,.58);border-radius:12px;background:rgba(120,0,0,.20);color:#ffd4d4;font-size:.9rem;font-weight:700;line-height:1.65"><strong style="color:#ff3b3b;font-size:1.06rem;font-weight:900">Warning:</strong> The only official RANNTA Coin is on TON. Any RANNTA token on Solana, Ethereum, BNB Chain, Base, or any other network is fake and not affiliated with the official RANNTA project.</div>'
-      + '</div>';
-
-    anchor.parentNode.insertBefore(section,anchor);
-  }
-
   function surfaceRanntaCore(){
     var navList=document.querySelector(".siteNav__list");
     if(navList&&!navList.querySelector('[data-rannta-core-nav]')){
@@ -200,8 +171,7 @@
     surfaceRanntaCore();
     surfaceRanntaPQNav();
     surfaceRanntaPQ();
-    surfacePresale();
-    setTimeout(function(){normalizeRanntaTitles();surfaceRanntaCore();surfaceRanntaPQNav();surfaceRanntaPQ();surfacePresale();},50);
+    setTimeout(function(){normalizeRanntaTitles();surfaceRanntaCore();surfaceRanntaPQNav();surfaceRanntaPQ();},50);
   };
   document.head.appendChild(core);
 })();
