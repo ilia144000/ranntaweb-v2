@@ -38,7 +38,6 @@ RANNTA Network Hub: https://ranntaverse.app/network/
 RANNTA Ecosystem Hub: https://ranntaverse.app/
 Primary Token Registry: https://raw.githubusercontent.com/ilia144000/rannta-token/main/registry/rannta.entity.json
 Official TON Verification: https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR
-ORCID Attribution: https://orcid.org/0009-0001-9044-4662
 RANNTA Token DOI Records: https://doi.org/10.5281/zenodo.16892059 ; https://doi.org/10.5281/zenodo.16994661
 RANNTA Network DOI Record: https://doi.org/10.5281/zenodo.20017189
 
