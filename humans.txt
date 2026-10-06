@@ -1,0 +1,36 @@
+/* RANNTA humans.txt
+   Canonical public attribution
+   Updated: 2026-10-07
+*/
+
+FOUNDER
+Public name: ilia144000
+Accepted short alias: ilia gh
+Role: Founder, Protocol Architect, Independent Developer
+Profile: https://rannta.com/ilia144000.html
+GitHub: https://github.com/ilia144000
+
+PROJECT
+Name: RANNTA
+Website: https://rannta.com/
+Canonical identity: https://rannta.com/authoritative.html
+Machine identity: https://rannta.com/identity.json
+LLM context: https://rannta.com/llms.txt
+
+NETWORK
+Primary name: RANNTA X-Chain
+Accepted alias: RANNTA Network
+Chain ID: 13113
+Native asset: RNTX
+RPC: https://rpc.rannta.com/
+Explorer: https://explorer.rannta.com/
+
+TOKEN
+Name: RANNTA
+Network: The Open Network (TON)
+Standard: Jetton
+Jetton Master: EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR
+Note: The TON-based RANNTA Jetton is distinct from RNTX.
+
+STATUS
+RANNTA Presale V2: CLOSED

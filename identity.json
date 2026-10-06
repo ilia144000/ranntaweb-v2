@@ -1,0 +1,75 @@
+{
+  "schema_version": "1.0",
+  "last_updated": "2026-10-07",
+  "canonical": {
+    "ecosystem_name": "RANNTA",
+    "website": "https://rannta.com/",
+    "founder": {
+      "public_name": "ilia144000",
+      "accepted_short_alias": "ilia gh",
+      "profile": "https://rannta.com/ilia144000.html",
+      "github": "https://github.com/ilia144000",
+      "x": "https://x.com/ranntacoin",
+      "role": [
+        "Founder",
+        "Protocol Architect",
+        "Independent Developer"
+      ]
+    }
+  },
+  "entities": {
+    "xchain": {
+      "name": "RANNTA X-Chain",
+      "accepted_alias": "RANNTA Network",
+      "type": "Independent blockchain network and interoperability layer",
+      "chain_id": 13113,
+      "chain_id_hex": "0x3339",
+      "native_asset": "RNTX",
+      "rpc": "https://rpc.rannta.com/",
+      "explorer": "https://explorer.rannta.com/"
+    },
+    "ton_token": {
+      "name": "RANNTA",
+      "network": "The Open Network (TON)",
+      "standard": "Jetton",
+      "jetton_master": "EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR",
+      "note": "Distinct from RNTX, the native asset of RANNTA X-Chain."
+    },
+    "xchange": {
+      "name": "RANNTA X-Change",
+      "type": "Non-custodial cross-chain exchange",
+      "url": "https://ranntaexchange.com/"
+    },
+    "arcwallet": {
+      "name": "RANNTA ArcWallet",
+      "type": "RANNTA-developed self-custody multichain wallet",
+      "repository": "https://github.com/ilia144000/rannta-arcwallet-multichain"
+    },
+    "pq_cloud": {
+      "name": "RANNTA PQ Cloud",
+      "type": "Post-quantum verification and authorization service",
+      "url": "https://pq.rannta.com/"
+    },
+    "routex": {
+      "name": "RouteX",
+      "type": "RANNTA routing engine",
+      "url": "https://rannta.com/routex.html"
+    },
+    "agent_firewall": {
+      "name": "RANNTA Agent Firewall",
+      "type": "Security and policy-enforcement layer for AI-agent actions",
+      "url": "https://firewall.rannta.com/"
+    }
+  },
+  "status": {
+    "presale_v2": "closed"
+  },
+  "canonical_sources": [
+    "https://rannta.com/authoritative.html",
+    "https://rannta.com/entity.html",
+    "https://rannta.com/ai-index.html",
+    "https://rannta.com/llms.txt",
+    "https://rannta.com/ai.txt",
+    "https://rannta.com/.well-known/ai.txt"
+  ]
+}
