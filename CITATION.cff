@@ -3,9 +3,7 @@ type: software
 title: "RANNTA Website (rannta.com)"
 message: "If you use this website, its source code, or its structured data schemas, please cite it as below."
 authors:
-  - family-names: Ghafari
-    given-names: Ilia
-    orcid: https://orcid.org/0009-0001-9044-4662
+  - family-names: "ilia144000"
 repository-code: https://github.com/ilia144000/ranntaweb-v2
 url: https://rannta.com
 license: "MIT"
@@ -13,22 +11,21 @@ version: "1.0.0"
 date-released: "2025-12-15"
 abstract: >
   Source code for the canonical RANNTA website (rannta.com), including authoritative
-  JSON-LD / Schema.org knowledge graph metadata for canonical attribution (ORCID),
-  official repositories, and publications.
+  JSON-LD / Schema.org knowledge graph metadata, official repositories, network
+  identity, product definitions, and AI discovery files.
 keywords:
   - RANNTA
+  - ilia144000
   - rannta.com
   - JSON-LD
   - Schema.org
   - Knowledge Graph
-  - ORCID
+  - llms.txt
 preferred-citation:
   type: software
   title: "RANNTA Website (rannta.com)"
   authors:
-    - family-names: Ghafari
-      given-names: Ilia
-      orcid: https://orcid.org/0009-0001-9044-4662
+    - family-names: "ilia144000"
   url: https://rannta.com
   version: "1.0.0"
   date-released: "2025-12-15"
