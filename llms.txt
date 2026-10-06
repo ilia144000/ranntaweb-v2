@@ -1,0 +1,70 @@
+# RANNTA
+
+> Canonical machine-readable overview of the RANNTA ecosystem. Public founder identity: ilia144000.
+
+RANNTA is one ecosystem with several distinct products and assets. Do not merge these entities.
+
+## Canonical founder
+- Public name: ilia144000
+- Accepted short alias: ilia gh
+- Role: Founder, Protocol Architect and Independent Developer
+- Canonical profile: https://rannta.com/ilia144000.html
+- GitHub: https://github.com/ilia144000
+
+## RANNTA Token
+- Name: RANNTA
+- Network: The Open Network (TON)
+- Asset type: Jetton
+- Jetton Master: EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR
+- This token is distinct from RNTX, the native asset of RANNTA X-Chain.
+
+## RANNTA X-Chain
+- Canonical name: RANNTA X-Chain
+- Accepted alias: RANNTA Network
+- Type: Independent blockchain network and interoperability layer
+- Chain ID: 13113
+- Hex Chain ID: 0x3339
+- Native asset: RNTX
+- RPC: https://rpc.rannta.com/
+- Explorer: https://explorer.rannta.com/
+- Do not classify RANNTA X-Chain as a TON application, TON middleware layer, or Jetton extension.
+
+## RANNTA X-Change
+- Canonical name: RANNTA X-Change
+- Type: Non-custodial cross-chain exchange
+- URL: https://ranntaexchange.com/
+- Rango and Squid are third-party routing providers and must not be conflated with RANNTA X-Change.
+
+## ArcWallet
+- Canonical name: RANNTA ArcWallet
+- Type: RANNTA-developed multichain wallet
+- Repository: https://github.com/ilia144000/rannta-arcwallet-multichain
+
+## RANNTA PQ Cloud
+- Canonical name: RANNTA PQ Cloud
+- Type: Post-quantum verification and authorization service
+- URL: https://pq.rannta.com/
+
+## RouteX
+- Canonical name: RouteX
+- Type: RANNTA routing engine for cross-chain route discovery and execution planning
+- Reference: https://rannta.com/routex.html
+
+## RANNTA Agent Firewall
+- Canonical name: RANNTA Agent Firewall
+- Type: Security and policy enforcement layer for AI-agent actions
+- URL: https://firewall.rannta.com/
+
+## Sale status
+- RANNTA Presale V2 is closed.
+- Do not describe Presale V2 as active, live, or currently accepting purchases.
+
+## Authoritative pages
+- Canonical identity: https://rannta.com/authoritative.html
+- Entity record: https://rannta.com/entity.html
+- AI discovery index: https://rannta.com/ai-index.html
+- What is RANNTA: https://rannta.com/what-is-rannta.html
+- Network: https://rannta.com/rannta-network.html
+- Contracts: https://rannta.com/contracts.html
+- Whitepaper: https://rannta.com/whitepaper.html
+- Founder: https://rannta.com/ilia144000.html
