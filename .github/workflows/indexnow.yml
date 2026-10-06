@@ -14,6 +14,15 @@ on:
       - "llms.txt"
       - "sitemap.xml"
       - "assets/js/site-shell.js"
+      - "burn.html"
+      - "manifesto.html"
+      - "ranntaverse.html"
+      - "symbolists.html"
+      - "team.html"
+      - "kyc.html"
+      - "rannta-network.html"
+      - "network/post-quantum.html"
+      - "network/hybrid-security-evidence.html"
       - ".github/workflows/indexnow.yml"
   workflow_dispatch:
 
@@ -60,6 +69,14 @@ jobs:
             "https://rannta.com/llms.txt"
             "https://rannta.com/rannta-network.html"
             "https://rannta.com/what-is-rannta.html"
+            "https://rannta.com/network/hybrid-security-evidence.html"
+            "https://rannta.com/network/post-quantum.html"
+            "https://rannta.com/kyc.html"
+            "https://rannta.com/team.html"
+            "https://rannta.com/symbolists.html"
+            "https://rannta.com/ranntaverse.html"
+            "https://rannta.com/manifesto.html"
+            "https://rannta.com/burn.html"
           )
 
           for url in "${urls[@]}"; do
