@@ -3,7 +3,7 @@
 
   <url>
     <loc>https://rannta.com/</loc>
-    <lastmod>2026-09-13</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -83,6 +83,14 @@
     <lastmod>2026-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+
+
+  <url>
+    <loc>https://rannta.com/articles/rannta-agent-firewall-v0-8-0-2026-10-06.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.95</priority>
   </url>
 
   <url>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>RANNTA Agent Firewall V0.8.0 Is Live — AI Transaction Authorization</title>
+  <link rel="canonical" href="https://rannta.com/articles/rannta-agent-firewall-v0-8-0-2026-10-06.html" />
+  <link rel="stylesheet" href="https://rannta.com/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+
+  <meta name="description" content="RANNTA Agent Firewall V0.8.0 is live in production as an authorization and risk-control layer for autonomous financial agents, with tenant API access, policy enforcement, audit logs and usage metering." />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="RANNTA Agent Firewall V0.8.0 Is Live">
+  <meta property="og:description" content="A production authorization layer for autonomous finance: the agent proposes, owner policy defines the limits, the firewall verifies, and the wallet executes.">
+  <meta property="og:url" content="https://rannta.com/articles/rannta-agent-firewall-v0-8-0-2026-10-06.html">
+  <meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2">
+  <meta property="article:published_time" content="2026-10-06">
+  <meta property="article:modified_time" content="2026-10-06">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RANNTA Agent Firewall V0.8.0 Is Live">
+  <meta name="twitter:description" content="AI transaction authorization for autonomous finance, now live in production.">
+  <meta name="twitter:image" content="https://rannta.com/assets/brand/coin.png?v=2">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://rannta.com/#publisher",
+        "name": "RANNTA",
+        "url": "https://rannta.com/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://rannta.com/assets/brand/coin.png?v=2"
+        }
+      },
+      {
+        "@type": "Article",
+        "@id": "https://rannta.com/articles/rannta-agent-firewall-v0-8-0-2026-10-06.html#article",
+        "headline": "RANNTA Agent Firewall V0.8.0 Is Live",
+        "description": "RANNTA Agent Firewall V0.8.0 is live in production as an authorization and risk-control layer for autonomous financial agents.",
+        "image": "https://rannta.com/assets/brand/coin.png?v=2",
+        "datePublished": "2026-10-06",
+        "dateModified": "2026-10-06",
+        "author": {
+          "@type": "Organization",
+          "name": "RANNTA"
+        },
+        "publisher": {
+          "@id": "https://rannta.com/#publisher"
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://rannta.com/articles/rannta-agent-firewall-v0-8-0-2026-10-06.html"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://rannta.com/articles/rannta-agent-firewall-v0-8-0-2026-10-06.html#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://rannta.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Articles",
+            "item": "https://rannta.com/articles.html"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "RANNTA Agent Firewall V0.8.0",
+            "item": "https://rannta.com/articles/rannta-agent-firewall-v0-8-0-2026-10-06.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<div data-site-header></div>
+
+<main class="article-page">
+  <p class="article-kicker">Official Product Update</p>
+  <h1>RANNTA Agent Firewall V0.8.0 Is Live</h1>
+  <p class="article-subtitle">AI transaction authorization for autonomous finance, built around bounded authority instead of unrestricted wallet access.</p>
+
+  <div class="article-meta">
+    <span>Published <time datetime="2026-10-06">6 October 2026</time></span>
+    <span>Production version <strong>0.8.0</strong></span>
+  </div>
+
+  <section class="nft-links">
+    <h2>What Is RANNTA Agent Firewall?</h2>
+    <p>
+      RANNTA Agent Firewall is an external authorization and risk-control layer between autonomous AI agents and financial execution systems.
+      Its operating model is simple: <strong>the agent proposes, the owner defines the rules, the firewall verifies, and the wallet executes.</strong>
+    </p>
+    <p>
+      The design gives an AI agent limited financial authority without giving it unrestricted possession of the wallet. The wallet remains the execution boundary.
+    </p>
+  </section>
+
+  <section class="nft-links">
+    <h2>V0.8.0 Production Capabilities</h2>
+    <ul>
+      <li><strong>Tenant-isolated API access</strong> for B2B integrations and paid technical pilots.</li>
+      <li><strong>Scoped Agent Sessions</strong> bound to owner-defined policy and agent identity.</li>
+      <li><strong>Agent Ed25519 proofs</strong> for signed autonomous actions.</li>
+      <li><strong>Owner ML-DSA-65 policy authorization</strong> for post-quantum-oriented policy verification.</li>
+      <li><strong>Replay protection</strong> using monotonic nonces and single-use authorization consumption.</li>
+      <li><strong>Per-transaction, daily and session spending limits</strong> enforced independently by the firewall.</li>
+      <li><strong>Usage metering, quotas and customer audit logs</strong> for commercial API operation.</li>
+      <li><strong>TypeScript and Python SDKs</strong> for server-side integration.</li>
+    </ul>
+  </section>
+
+  <section class="nft-links">
+    <h2>API Keys Do Not Replace Wallet Authorization</h2>
+    <p>
+      Commercial API keys identify the customer account. They do not grant possession of wallet keys and do not replace the cryptographic authorization required for financial execution.
+      The current model keeps customer authentication, agent-action authentication, owner policy authorization and wallet execution authorization as separate trust boundaries.
+    </p>
+  </section>
+
+  <section class="nft-links">
+    <h2>Built for Autonomous Finance Integrations</h2>
+    <p>
+      RANNTA Agent Firewall is intended for wallets, AI trading agents, treasury systems, payment agents and other autonomous finance applications that need policy-controlled execution.
+      The production service now supports tenant provisioning, API credentials, usage accounting and audit visibility for integration pilots.
+    </p>
+  </section>
+
+  <section class="nft-links">
+    <h2>Live Service</h2>
+    <p>
+      The production service is available at
+      <a href="https://firewall.rannta.com/" target="_blank" rel="noopener noreferrer">firewall.rannta.com</a>.
+      Service health and the public API schema are exposed through the production endpoint.
+    </p>
+  </section>
+
+  <nav class="article-cta" aria-label="RANNTA Agent Firewall links">
+    <a class="btnHero" href="https://firewall.rannta.com/" target="_blank" rel="noopener noreferrer">Open Agent Firewall</a>
+    <a class="btnHero ghost" href="https://firewall.rannta.com/health" target="_blank" rel="noopener noreferrer">Service status</a>
+    <a class="btnHero ghost" href="https://firewall.rannta.com/openapi.json" target="_blank" rel="noopener noreferrer">OpenAPI schema</a>
+    <a class="btnHero ghost" href="/articles.html">More RANNTA news</a>
+  </nav>
+</main>
+
+<div data-site-footer></div>
+<script src="https://rannta.com/assets/js/site-shell.js" defer></script>
+</body>
+</html>
