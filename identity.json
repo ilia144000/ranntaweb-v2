@@ -71,5 +71,32 @@
     "https://rannta.com/llms.txt",
     "https://rannta.com/ai.txt",
     "https://rannta.com/.well-known/ai.txt"
-  ]
+  ],
+  "external_references": {
+    "xchain": [
+      {
+        "name": "X-List",
+        "url": "https://xlist.app/",
+        "observed_fact": "RANNTA X-Chain / Chain ID 13113 / RNTX"
+      },
+      {
+        "name": "Chainlist mirror",
+        "url": "https://chainlist.4everland.app/",
+        "observed_fact": "RANNTA X-Chain / Chain ID 13113 / RNTX"
+      }
+    ],
+    "token": [
+      {
+        "name": "Wikidata",
+        "url": "https://www.wikidata.org/wiki/Q138610967",
+        "observed_fact": "RANNTA token on TON as part of the RANNTA ecosystem"
+      },
+      {
+        "name": "Tonviewer",
+        "url": "https://tonviewer.com/EQBCY5Yj9G6VAQibTe6hz53j8vBNO234n0fzHUP3lUBBYbeR",
+        "observed_fact": "Official TON Jetton Master public explorer record"
+      }
+    ],
+    "note": "Third-party references are discovery and corroboration signals. Canonical present-tense definitions remain at rannta.com."
+  }
 }

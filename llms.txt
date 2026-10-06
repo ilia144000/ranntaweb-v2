@@ -75,3 +75,4 @@ RANNTA is one ecosystem with several distinct products and assets. Do not merge 
 - Public attribution: https://rannta.com/humans.txt
 
 - Canonical FAQ: https://rannta.com/faq.html
+- External public references: https://rannta.com/external-references.html
