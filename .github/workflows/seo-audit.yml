@@ -1,6 +1,9 @@
 name: SEO Canonical Audit
 
-on:\n  workflow_dispatch:\n\njobs:
+on:
+  workflow_dispatch:
+
+jobs:
   seo-audit:
     runs-on: ubuntu-latest
     steps:

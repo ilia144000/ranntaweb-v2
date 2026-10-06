@@ -1,6 +1,9 @@
 name: IndexNow Canonical URLs
 
-on:\n  workflow_dispatch:\n\njobs:
+on:
+  workflow_dispatch:
+
+jobs:
   submit-indexnow:
     runs-on: ubuntu-latest
     steps:
@@ -18,7 +21,6 @@ on:\n  workflow_dispatch:\n\njobs:
               echo "IndexNow key is live."
               exit 0
             fi
-
             echo "Waiting for GitHub Pages deployment (attempt ${attempt}/24)..."
             sleep 10
           done
@@ -54,12 +56,7 @@ on:\n  workflow_dispatch:\n\njobs:
           )
 
           for url in "${urls[@]}"; do
-            code="$(curl --retry 3 --retry-all-errors --silent --show-error \
-              --output /tmp/indexnow-response.txt \
-              --write-out '%{http_code}' \
-              --get 'https://api.indexnow.org/indexnow' \
-              --data-urlencode "url=${url}" \
-              --data-urlencode "key=${INDEXNOW_KEY}")"
+            code="$(curl --retry 3 --retry-all-errors --silent --show-error               --output /tmp/indexnow-response.txt               --write-out '%{http_code}'               --get 'https://api.indexnow.org/indexnow'               --data-urlencode "url=${url}"               --data-urlencode "key=${INDEXNOW_KEY}")"
 
             echo "IndexNow HTTP ${code}: ${url}"
             if [[ "${code}" != "200" && "${code}" != "202" ]]; then
