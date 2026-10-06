@@ -1,0 +1,56 @@
+name: IndexNow Canonical URLs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "ilia144000.html"
+      - "authoritative.html"
+      - "entity.html"
+      - "ai-index.html"
+      - "ai.txt"
+      - ".well-known/ai.txt"
+      - "llms.txt"
+      - "sitemap.xml"
+      - "assets/js/site-shell.js"
+      - ".github/workflows/indexnow.yml"
+  workflow_dispatch:
+
+jobs:
+  submit-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit canonical RANNTA URLs to IndexNow
+        shell: bash
+        env:
+          INDEXNOW_KEY: 9f4a7c2e13b84d5aa6c1f790d2e65b31
+        run: |
+          set -euo pipefail
+          urls=(
+            "https://rannta.com/"
+            "https://rannta.com/ilia144000.html"
+            "https://rannta.com/authoritative.html"
+            "https://rannta.com/entity.html"
+            "https://rannta.com/ai-index.html"
+            "https://rannta.com/ai.txt"
+            "https://rannta.com/.well-known/ai.txt"
+            "https://rannta.com/llms.txt"
+            "https://rannta.com/rannta-network.html"
+            "https://rannta.com/what-is-rannta.html"
+          )
+
+          for url in "${urls[@]}"; do
+            code="$(curl --retry 3 --retry-all-errors --silent --show-error \
+              --output /tmp/indexnow-response.txt \
+              --write-out '%{http_code}' \
+              --get 'https://api.indexnow.org/indexnow' \
+              --data-urlencode "url=${url}" \
+              --data-urlencode "key=${INDEXNOW_KEY}")"
+
+            echo "IndexNow HTTP ${code}: ${url}"
+            if [[ "${code}" != "200" && "${code}" != "202" ]]; then
+              cat /tmp/indexnow-response.txt || true
+              exit 1
+            fi
+          done
