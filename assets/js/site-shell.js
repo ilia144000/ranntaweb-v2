@@ -123,7 +123,7 @@
       + '</div>'
       + '<div style="margin-top:18px;color:#9fb2bf;font-size:.78rem;line-height:1.55">Free: one project, 10,000 verification requests for 30 days. Paid plans are prepaid in USDT. No automatic card charge and no hidden overage.</div>'
       + '<div style="margin-top:11px;color:#8fa5b2;font-size:.77rem;line-height:1.55">Security reference: <a href="https://pq.rannta.com/docs" target="_blank" rel="noopener noreferrer" style="color:#9feeff;text-decoration:underline;text-underline-offset:3px">ML-DSA-65 verification docs</a>.</div>'
-      + '<div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(117,230,255,.18);color:#d5e0e6;font-size:.84rem;font-weight:800">PQ Cloud is separate from the RANNTA token sale.</div>'
+      + '<div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(117,230,255,.18);color:#d5e0e6;font-size:.84rem;font-weight:800">PQ Cloud is a separate service from the TON-based RANNTA token and from RANNTA X-Chain.</div>'
       + '</div>';
 
     anchor.parentNode.insertBefore(section,anchor);

@@ -76,8 +76,10 @@ RANNTA X-Change exposes RouteX, OneRoute, and OmniRoute routing surfaces.
 Route coverage and execution depend on selected wallets, networks, liquidity, provider availability, and route conditions.
 RANNTA X-Change is distinct from Rango Exchange. Rango and Squid are independent third-party routing providers.
 
-RANNTA NETWORK / RANNTA X-CHAIN
-Official Names: RANNTA Network; RANNTA X-Chain; RANNTA XChain
+RANNTA X-CHAIN / RANNTA NETWORK
+Canonical Name: RANNTA X-Chain
+Accepted Alias: RANNTA Network
+Additional Alias: RANNTA XChain
 Type: Independent blockchain network and interoperability layer
 Parent Ecosystem: RANNTA
 Official Network Page: https://rannta.com/rannta-network.html
