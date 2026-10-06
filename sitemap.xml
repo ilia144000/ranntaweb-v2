@@ -171,15 +171,7 @@
     <loc>https://rannta.com/symbolists.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-  </url>
-
-  <url>
-    <loc>https://rannta.com/airdrop.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-
-  <url>
+  </url>\n<url>
     <loc>https://rannta.com/team.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -187,7 +179,7 @@
 
   <url>
     <loc>https://rannta.com/contact.html</loc>
-    <lastmod>2026-08-18</lastmod>
+    <lastmod>2026-10-07</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
   </url>
