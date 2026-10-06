@@ -29,7 +29,6 @@ RANNTA X-Change: https://ranntaexchange.com/
 RANNTA Network Hub: https://ranntaverse.app/network/
 RANNTA Ecosystem Hub: https://ranntaverse.app/
 Primary Token Registry: https://raw.githubusercontent.com/ilia144000/rannta-token/main/registry/rannta.entity.json
-ORCID Attribution: https://orcid.org/0009-0001-9044-4662
 Manifesto: https://rannta.com/manifesto.html
 Manifesto-Source: https://github.com/ilia144000/ranntaweb-v2/blob/main/manifesto.html
 RANNTA Token DOI Records: https://doi.org/10.5281/zenodo.16892059 ; https://doi.org/10.5281/zenodo.16994661
