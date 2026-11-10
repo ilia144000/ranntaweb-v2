@@ -9,6 +9,8 @@ const btc = sats => (sats / 100000000).toFixed(8);
 const sameAddress = (left, right) => typeof left === "string" &&
   (left === right || (/^bc1/i.test(left) && /^bc1/i.test(right) && left.toLowerCase() === right.toLowerCase()));
 
+const optionalUtxos = (fetcher, url) => fetchJson(fetcher, url).catch(() => null);
+
 async function mempoolScan(fetcher, address, now) {
   const base = "https://mempool.space/api";
   const validation = await fetchJson(fetcher, base + "/v1/validate-address/" + encodeURIComponent(address));
@@ -17,9 +19,9 @@ async function mempoolScan(fetcher, address, now) {
   }
   const [profile, utxos] = await Promise.all([
     fetchJson(fetcher, base + "/address/" + encodeURIComponent(address)),
-    fetchJson(fetcher, base + "/address/" + encodeURIComponent(address) + "/utxo")
+    optionalUtxos(fetcher, base + "/address/" + encodeURIComponent(address) + "/utxo")
   ]);
-  if (!object(profile) || !sameAddress(profile.address, address) || !Array.isArray(utxos)) throw new Error("Invalid Bitcoin address response");
+  if (!object(profile) || !sameAddress(profile.address, address)) throw new Error("Invalid Bitcoin address response");
   const chain = stats(profile.chain_stats);
   const mempool = stats(profile.mempool_stats);
   if (!chain || !mempool) throw new Error("Invalid Bitcoin address statistics");
@@ -32,9 +34,9 @@ async function blockstreamScan(fetcher, address, now) {
   const base = "https://blockstream.info/api";
   const [profile, utxos] = await Promise.all([
     fetchJson(fetcher, base + "/address/" + encodeURIComponent(address)),
-    fetchJson(fetcher, base + "/address/" + encodeURIComponent(address) + "/utxo")
+    optionalUtxos(fetcher, base + "/address/" + encodeURIComponent(address) + "/utxo")
   ]);
-  if (!object(profile) || !sameAddress(profile.address, address) || !Array.isArray(utxos)) throw new Error("Invalid Bitcoin address response");
+  if (!object(profile) || !sameAddress(profile.address, address)) throw new Error("Invalid Bitcoin address response");
   const chain = stats(profile.chain_stats);
   const mempool = stats(profile.mempool_stats);
   if (!chain || !mempool) throw new Error("Invalid Bitcoin address statistics");
@@ -46,13 +48,16 @@ function normalize(address, chain, mempool, utxos, source, addressType, now = Da
   const pendingDelta = mempool.funded_txo_sum - mempool.spent_txo_sum;
   const currentBalance = confirmedBalance + pendingDelta;
   if (![confirmedBalance, pendingDelta, currentBalance].every(Number.isSafeInteger)) throw new Error("Invalid Bitcoin balance");
-  const cleanUtxos = utxos.slice(0, 10000).flatMap(row => {
+  const cleanUtxos = (Array.isArray(utxos) ? utxos.slice(0, 10000) : []).flatMap(row => {
     if (!object(row) || typeof row.txid !== "string" || !/^[0-9a-f]{64}$/i.test(row.txid) ||
         !Number.isSafeInteger(row.vout) || row.vout < 0 || satoshis(row.value) === null || !object(row.status)) return [];
     return [{ txid: row.txid, vout: row.vout, value: row.value, confirmed: row.status.confirmed === true }];
   });
+  const listed = Array.isArray(utxos) && cleanUtxos.length === utxos.length;
+  const indexedCount = chain.funded_txo_count - chain.spent_txo_count + mempool.funded_txo_count - mempool.spent_txo_count;
+  const utxoCount = listed ? cleanUtxos.length : satoshis(indexedCount);
   const utxoValue = cleanUtxos.reduce((sum, row) => sum + row.value, 0);
-  const unconfirmedUtxos = cleanUtxos.filter(row => !row.confirmed).length;
+  const unconfirmedUtxos = listed ? cleanUtxos.filter(row => !row.confirmed).length : mempool.tx_count === 0 ? 0 : null;
   const findings = [
     { id: "btcIdentity", section: "identity", label: "Bitcoin address", status: "PASS", source,
       detail: addressType ? "Valid Bitcoin mainnet address · " + addressType + "." : "Valid Bitcoin mainnet address confirmed by the explorer.",
@@ -65,9 +70,11 @@ function normalize(address, chain, mempool, utxos, source, addressType, now = Da
       detail: mempool.tx_count ? mempool.tx_count + " unconfirmed transaction(s) currently affect this address." :
         "No unconfirmed transactions currently affect this address.",
       explanation: "Unconfirmed transactions can still be replaced, dropped or reorganized before confirmation.", points: 0 },
-    { id: "btcUtxo", section: "funds", label: "Unspent outputs", status: "PASS", source,
-      detail: cleanUtxos.length + " UTXO(s) returned, totaling " + btc(utxoValue) + " BTC" +
-        (unconfirmedUtxos ? "; " + unconfirmedUtxos + " unconfirmed." : "."),
+    { id: "btcUtxo", section: "funds", label: "Unspent outputs", status: utxoCount === null ? "UNKNOWN" : "PASS", source,
+      detail: listed ? cleanUtxos.length + " UTXO(s) returned, totaling " + btc(utxoValue) + " BTC" +
+        (unconfirmedUtxos ? "; " + unconfirmedUtxos + " unconfirmed." : ".") : utxoCount === null ?
+        "The explorer did not return a complete list or a valid indexed count." :
+        utxoCount + " UTXO(s) calculated from indexed funded and spent output counts. Individual outputs were unavailable.",
       explanation: "UTXOs are the currently unspent outputs associated with the address.", points: 0 },
     { id: "btcAttribution", section: "attribution", label: "Known-risk attribution", status: "UNKNOWN", source: "Coverage",
       detail: "No verified sanctions, scam or entity-attribution provider is connected to this public scan.",
@@ -85,7 +92,7 @@ function normalize(address, chain, mempool, utxos, source, addressType, now = Da
     assetStatus: "CONFIRMED",
     assetDetail: "Bitcoin mainnet address confirmed.",
     asset: { name: "Bitcoin address", symbol: "BTC", supply: null, metadataSource: source, chainPosition: null },
-    sources: [{ name: source, status: "AVAILABLE", detail: null }],
+    sources: [{ name: source, status: listed ? "AVAILABLE" : "PARTIAL", detail: listed ? null : "Full UTXO list unavailable; address statistics verified." }],
     findings,
     risk: { value: null, level: "ADDRESS PROFILE", evidencedPoints: 0, penalties: [], coveredGroups: 3, totalGroups: 4,
       warnings, critical: 0, unknown },
@@ -107,7 +114,7 @@ function normalize(address, chain, mempool, utxos, source, addressType, now = Da
       unconfirmedTxCount: mempool.tx_count,
       fundedOutputCount: chain.funded_txo_count,
       spentOutputCount: chain.spent_txo_count,
-      utxoCount: cleanUtxos.length,
+      utxoCount,
       unconfirmedUtxoCount: unconfirmedUtxos
     },
     limitations: [

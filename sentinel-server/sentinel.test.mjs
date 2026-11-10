@@ -150,6 +150,24 @@ test("Bitcoin scanner falls back to Blockstream when mempool.space is unavailabl
   assert.equal(result.sources[0].status, "UNAVAILABLE");
 });
 
+test("Bitcoin address statistics survive an explorer's full UTXO list limit", async () => {
+  const fetcher = async url => {
+    const path = new URL(url).pathname;
+    if (path.includes("/validate-address/")) return Response.json({ isvalid: true, address: btcAddress });
+    if (path.endsWith("/utxo")) return new Response("Too many unspent outputs", { status: 400 });
+    return Response.json({ address: btcAddress,
+      chain_stats: { tx_count: 600, funded_txo_count: 800, funded_txo_sum: 400000, spent_txo_count: 50, spent_txo_sum: 25000 },
+      mempool_stats: { tx_count: 1, funded_txo_count: 2, funded_txo_sum: 1000, spent_txo_count: 1, spent_txo_sum: 500 } });
+  };
+  const result = await scan({ network: "bitcoin", address: btcAddress }, { fetcher });
+  assert.equal(result.assetStatus, "CONFIRMED");
+  assert.equal(result.bitcoin.utxoCount, 751);
+  assert.equal(result.bitcoin.unconfirmedUtxoCount, null);
+  assert.equal(result.bitcoin.currentBalanceSats, 375500);
+  assert.equal(result.sources[0].status, "PARTIAL");
+  assert.match(f(result, "btcUtxo").detail, /indexed funded and spent output counts/);
+});
+
 test("verified EVM contract detects proxy and implementation ABI mint interface", async () => {
   const result = await scan({ network: "ethereum", address: evm }, { fetcher: fixture() });
   assert.equal(result.assetStatus, "CONFIRMED");
