@@ -41,11 +41,25 @@ export async function inspectEvmRpc(fetcher, config, address) {
     ...slots.map(slot => ["eth_getStorageAt", [address, slot, block]]),
     ...selectors.map(data => ["eth_call", [{ to: address, data, gas: "0x493e0" }, block]])
   ];
-  const batches = [];
-  const size = config.batchSize ?? reads.length;
-  for (let offset = 0; offset < reads.length; offset += size) batches.push(reads.slice(offset, offset + size));
-  const [code, implementation, admin, beacon, legacyImpl, legacyAdmin, name, symbol, decimals, supply, owner, paused] =
-    (await Promise.all(batches.map(batch => rpc(fetcher, config.rpc, batch)))).flat();
+  let partial = false;
+  let values;
+  if (config.batchSize) {
+    // Establish code existence before requesting optional reads from a constrained RPC.
+    const [code] = await rpc(fetcher, config.rpc, [reads[0]], false);
+    const batches = [];
+    if (typeof code === "string" && code !== "0x") {
+      for (let offset = 1; offset < reads.length; offset += config.batchSize) {
+        batches.push(reads.slice(offset, offset + config.batchSize));
+      }
+    }
+    const optional = await Promise.allSettled(batches.map(batch => rpc(fetcher, config.rpc, batch)));
+    partial = optional.some(item => item.status === "rejected");
+    values = [code, ...optional.flatMap((item, index) => item.status === "fulfilled" ? item.value :
+      Array(batches[index].length).fill(undefined))];
+  } else {
+    values = await rpc(fetcher, config.rpc, reads);
+  }
+  const [code, implementation, admin, beacon, legacyImpl, legacyAdmin, name, symbol, decimals, supply, owner, paused] = values;
   if (typeof code !== "string" || !/^0x(?:[0-9a-f]{2})*$/i.test(code)) throw new Error("Invalid contract bytecode");
   if (code === "0x") return { confirmed: false, block, detail: "No deployed contract code at the observed block." };
   const evidence = {};
@@ -83,7 +97,7 @@ export async function inspectEvmRpc(fetcher, config, address) {
   }
   const decimalWord = uint(decimals);
   return {
-    confirmed: true, block, target: target ?? (legacy ? legacyTarget : minimal ? "0x" + minimal[1].toLowerCase() : null), evidence,
+    confirmed: true, partial, block, target: target ?? (legacy ? legacyTarget : minimal ? "0x" + minimal[1].toLowerCase() : null), evidence,
     name: abiText(name), symbol: abiText(symbol),
     supply: units(uint(supply), decimalWord === null ? null : Number(decimalWord))
   };
@@ -149,6 +163,7 @@ const getRows = value => Array.isArray(value) ? value.slice(0, 100).flatMap(row 
 export async function inspectGoPlus(fetcher, chain, address, bearer) {
   const reply = await fetchJson(fetcher, "https://api.gopluslabs.io/api/v1/token_security/" + chain +
     "?contract_addresses=" + address, bearer ? { headers: { authorization: "Bearer " + bearer } } : {});
+  if (Number.isInteger(reply?.code) && reply.code !== 1) throw new Error("Upstream provider code " + reply.code);
   if (!object(reply) || reply.code !== 1 || !object(reply.result)) throw new Error("Invalid token security response");
   const data = reply.result[address];
   if (!object(data) || !Object.keys(data).length) return { available: true, matched: false };

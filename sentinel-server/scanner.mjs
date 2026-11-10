@@ -57,11 +57,12 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
       const result = await operation();
       sources.push({ name, status: result.available === false ? "UNAVAILABLE" : result.partial ? "PARTIAL" :
         result.matched === false ? "NO MATCH" : "AVAILABLE",
-        detail: result.available === false ? "The upstream lookup could not be verified." : result.detail ?? null });
+        detail: result.available === false ? "The upstream lookup could not be verified." : result.detail ??
+          (result.partial ? "Some upstream reads were unavailable." : null) });
       for (const [key, item] of Object.entries(result.evidence ?? {})) mergeFact(evidence, key, item);
       return result;
     } catch (error) {
-      const detail = /^Upstream HTTP \d{3}$/.test(error?.message) ? error.message + "." :
+      const detail = /^Upstream (?:HTTP \d{3}|provider code -?\d{1,6})$/.test(error?.message) ? error.message + "." :
         error?.name === "TimeoutError" || error?.name === "AbortError" ? "The upstream request timed out." :
         error?.name === "SyntaxError" ? "The upstream response was not valid JSON." :
         error?.name === "TypeError" ? "The upstream response could not be read." :
@@ -72,10 +73,13 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
   };
 
   const rpcTask = run(rpcName, () => solana ? inspectSolanaRpc(fetcher, config.rpc, address) :
-    inspectEvmRpc(fetcher, config, address)).then(result => {
-    if (result || !config.fallback) return result;
-    rpcName = config.fallback.rpcLabel;
-    return run(rpcName, () => inspectEvmRpc(fetcher, { ...config, ...config.fallback }, address));
+    inspectEvmRpc(fetcher, config, address)).then(async result => {
+    for (const fallback of config.fallbacks ?? []) {
+      if (result) break;
+      rpcName = fallback.rpcLabel;
+      result = await run(rpcName, () => inspectEvmRpc(fetcher, { ...config, ...fallback }, address));
+    }
+    return result;
   });
   const dexTask = run(dexSource, () => inspectDex(fetcher, network, address));
   const secondaryTask = solana ? run("Solana largest token accounts",

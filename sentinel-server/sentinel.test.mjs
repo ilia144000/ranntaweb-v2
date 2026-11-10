@@ -23,13 +23,14 @@ function fixture({ verified = true, dexDown = false, allDown = false, tokenData 
     const target = new URL(url);
     if (allDown) throw new Error("offline");
     if (target.hostname === "ethereum-rpc.publicnode.com") {
-      const calls = JSON.parse(options.body);
+      const payload = JSON.parse(options.body);
+      const calls = Array.isArray(payload) ? payload : [payload];
       const values = {
         "0x06fdde03": rawText("<img onerror=bad>"), "0x95d89b41": rawText("TST"),
         "0x313ce567": word(6), "0x18160ddd": word(2300000), "0x8da5cb5b": word(0),
         "0x5c975abb": word(0)
       };
-      return Response.json(calls.map(({ id, method, params }) => {
+      const response = calls.map(({ id, method, params }) => {
         if (!["eth_chainId", "eth_blockNumber"].includes(method)) assert.equal(params.at(-1), "0x1a");
         const result = {
           eth_chainId: wrongChain ? "0x89" : "0x1", eth_blockNumber: "0x1a", eth_getCode: noCode ? "0x" : "0x6000",
@@ -38,7 +39,8 @@ function fixture({ verified = true, dexDown = false, allDown = false, tokenData 
           eth_call: values[params[0]?.data]
         }[method];
         return { jsonrpc: "2.0", id, result };
-      }).reverse());
+      }).reverse();
+      return Response.json(Array.isArray(payload) ? response : response[0]);
     }
     if (target.hostname === "solana-rpc.publicnode.com") {
       const call = JSON.parse(options.body);
@@ -139,7 +141,8 @@ test("a rate-limited EVM RPC falls back with bounded, block-pinned batches", asy
     const host = new URL(url).hostname;
     if (host === "ethereum-rpc.publicnode.com") return new Response(null, { status: 429 });
     if (host === "eth.drpc.org") {
-      fallbackBatches.push(JSON.parse(options.body).length);
+      const payload = JSON.parse(options.body);
+      fallbackBatches.push(Array.isArray(payload) ? payload.length : 1);
       return upstream("https://ethereum-rpc.publicnode.com", options);
     }
     return upstream(url, options);
@@ -149,7 +152,27 @@ test("a rate-limited EVM RPC falls back with bounded, block-pinned batches", asy
   assert.equal(result.asset.metadataSource, "dRPC Ethereum");
   assert.equal(f(result, "proxy").source, "dRPC Ethereum");
   assert.match(result.sources.find(item => item.name === "PublicNode EVM RPC").detail, /429/);
-  assert.deepEqual(fallbackBatches, [2, 3, 3, 3, 3]);
+  assert.deepEqual(fallbackBatches, [2, 1, 3, 3, 3, 2]);
+});
+
+test("optional RPC rate limits do not invalidate confirmed on-chain code", async () => {
+  const upstream = fixture();
+  const fetcher = (url, options) => {
+    const host = new URL(url).hostname;
+    if (host === "ethereum-rpc.publicnode.com") return new Response(null, { status: 429 });
+    if (host === "eth.drpc.org") {
+      const payload = JSON.parse(options.body);
+      if (Array.isArray(payload) && payload.some(call => call.method === "eth_call")) {
+        return new Response(null, { status: 429 });
+      }
+      return upstream("https://ethereum-rpc.publicnode.com", options);
+    }
+    return upstream(url, options);
+  };
+  const result = await scan({ network: "ethereum", address: evm }, { fetcher });
+  assert.equal(result.assetStatus, "CONFIRMED");
+  assert.equal(result.asset.supply, null);
+  assert.equal(result.sources.find(item => item.name === "dRPC Ethereum").status, "PARTIAL");
 });
 
 test("wrong-chain and no-code evidence do not produce a risk score", async () => {

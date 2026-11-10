@@ -1,12 +1,15 @@
 export const networks = Object.freeze({
   ethereum: { label: "Ethereum", chain: 1, rpc: "https://ethereum-rpc.publicnode.com",
-    fallback: { rpc: "https://eth.drpc.org", rpcLabel: "dRPC Ethereum", batchSize: 3 } },
+    fallbacks: [{ rpc: "https://eth.drpc.org", rpcLabel: "dRPC Ethereum", batchSize: 3 }] },
   bsc: { label: "BNB Chain", chain: 56, rpc: "https://bsc-rpc.publicnode.com",
-    fallback: { rpc: "https://bsc-dataseed.bnbchain.org", rpcLabel: "BNB Chain RPC" } },
+    fallbacks: [{ rpc: "https://bsc-dataseed.bnbchain.org", rpcLabel: "BNB Chain RPC" }] },
   base: { label: "Base", chain: 8453, rpc: "https://base-rpc.publicnode.com",
-    fallback: { rpc: "https://mainnet.base.org", rpcLabel: "Base Mainnet RPC" } },
+    fallbacks: [
+      { rpc: "https://base-mainnet.public.blastapi.io", rpcLabel: "Blast Base RPC", batchSize: 3 },
+      { rpc: "https://public.1rpc.io/base", rpcLabel: "1RPC Base", batchSize: 3 }
+    ] },
   polygon: { label: "Polygon", chain: 137, rpc: "https://polygon-bor-rpc.publicnode.com",
-    fallback: { rpc: "https://polygon.drpc.org", rpcLabel: "dRPC Polygon", batchSize: 3 } },
+    fallbacks: [{ rpc: "https://polygon.drpc.org", rpcLabel: "dRPC Polygon", batchSize: 3 }] },
   solana: { label: "Solana", rpc: "https://solana-rpc.publicnode.com" }
 });
 
