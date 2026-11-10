@@ -96,15 +96,16 @@ export async function inspectEvmRpc(fetcher, config, address) {
       : unknown(rpcSource, "paused() returned false. The authority to pause was not established.");
   }
   const decimalWord = uint(decimals);
+  const supplyRaw = uint(supply);
   return {
     confirmed: true, partial, block, target: target ?? (legacy ? legacyTarget : minimal ? "0x" + minimal[1].toLowerCase() : null), evidence,
-    name: abiText(name), symbol: abiText(symbol),
-    supply: units(uint(supply), decimalWord === null ? null : Number(decimalWord))
+    name: abiText(name), symbol: abiText(symbol), supplyRaw,
+    supply: units(supplyRaw, decimalWord === null ? null : Number(decimalWord))
   };
 }
 
 async function verifiedContract(fetcher, chain, address) {
-  const data = await fetchJson(fetcher, "https://sourcify.dev/server/v2/contract/" + chain + "/" + address + "?fields=abi");
+  const data = await fetchJson(fetcher, "https://sourcify.dev/server/v2/contract/" + chain + "/" + address + "?fields=abi,deployment");
   if (data === null) return null;
   if (!object(data) || !["exact_match", "match"].includes(data.match) || !Array.isArray(data.abi)) {
     throw new Error("Unexpected source verification response");
@@ -132,8 +133,32 @@ export async function inspectVerification(fetcher, chain, address, target) {
     if (names.length) evidence[key] = fact("WARNING", sourcify,
       "Published " + (target ? "implementation " : "") + "ABI exposes " + names.join(", ") + ". Access controls were not established.", 2);
   }
-  return { evidence, available: contracts.some(item => item.status === "fulfilled"),
+  const record = main.value;
+  const deployment = record?.deployment;
+  const deployer = deployment?.deployer;
+  const verifiedDeployment = String(record?.chainId) === String(chain) &&
+    typeof record?.address === "string" && record.address.toLowerCase() === address &&
+    typeof deployer === "string" && /^0x[0-9a-f]{40}$/i.test(deployer) && deployer.toLowerCase() !== zero &&
+    typeof deployment.transactionHash === "string" && /^0x[0-9a-f]{64}$/i.test(deployment.transactionHash) &&
+    typeof deployment.blockNumber === "string" && /^[1-9][0-9]{0,17}$/.test(deployment.blockNumber)
+    ? { deployer: deployer.toLowerCase(), blockNumber: BigInt(deployment.blockNumber) } : null;
+  return { evidence, deployment: verifiedDeployment, available: contracts.some(item => item.status === "fulfilled"),
     partial: contracts.some(item => item.status === "rejected"), matched: Boolean(main.value) };
+}
+
+export async function inspectDeployerBalance(fetcher, endpoint, address, chain, deployment) {
+  const source = "Sourcify deployment + chain RPC";
+  if (!chain?.confirmed || !deployment || deployment.blockNumber > BigInt(chain.block)) return { matched: false };
+  const read = async data => uint((await rpc(fetcher, endpoint, [["eth_call", [{ to: address, data, gas: "0x493e0" }, chain.block]]], false))[0]);
+  const [balance, supply] = await Promise.all([
+    read("0x70a08231" + deployment.deployer.slice(2).padStart(64, "0")),
+    chain.supplyRaw ?? read("0x18160ddd")
+  ]);
+  if (balance === null || !supply || balance > supply) return { matched: false, detail: "Pinned deployer balance or positive total supply was unavailable." };
+  const percentage = Number(balance * 1000000n / supply) / 10000;
+  return { evidence: { creator: fact(severityFor(percentage, 10, 25), source,
+    "Sourcify-recorded deployer " + deployment.deployer + " held " + percentage.toFixed(4) +
+    "% of total supply at block " + chain.block + ". This does not identify related wallets.") } };
 }
 
 export function ratio(value) {
@@ -163,8 +188,9 @@ const getRows = value => Array.isArray(value) ? value.slice(0, 100).flatMap(row 
 export async function inspectGoPlus(fetcher, chain, address, bearer) {
   const reply = await fetchJson(fetcher, "https://api.gopluslabs.io/api/v1/token_security/" + chain +
     "?contract_addresses=" + address, bearer ? { headers: { authorization: "Bearer " + bearer } } : {});
-  if (Number.isInteger(reply?.code) && reply.code !== 1) throw new Error("Upstream provider code " + reply.code);
-  if (!object(reply) || reply.code !== 1 || !object(reply.result)) throw new Error("Invalid token security response");
+  const partial = reply?.code === 2;
+  if (Number.isInteger(reply?.code) && reply.code !== 1 && !partial) throw new Error("Upstream provider code " + reply.code);
+  if (!object(reply) || (reply.code !== 1 && !partial) || !object(reply.result)) throw new Error("Invalid token security response");
   const data = reply.result[address];
   if (!object(data) || !Object.keys(data).length) return { available: true, matched: false };
   const evidence = {
@@ -204,6 +230,33 @@ export async function inspectGoPlus(fetcher, chain, address, bearer) {
   if (creator !== null) evidence.creator = fact(severityFor(creator, 10, 25), goPlus,
     "Provider attributes " + percent(creator) + " of supply to the creator" +
     (clean(data.creator_address, 42) ? " (" + clean(data.creator_address, 42) + ")" : "") + ".");
-  return { available: true, matched: true, evidence, holders: holderRows.slice(0, 10), lp: lpRows.slice(0, 5),
+  return { available: true, matched: true, partial, evidence, holders: holderRows.slice(0, 10), lp: lpRows.slice(0, 5),
     name: clean(data.token_name), symbol: clean(data.token_symbol), buy, sell };
+}
+
+const simulationChains = new Set([1, 56, 8453]);
+export function supportsHoneypotSimulation(chain) {
+  return simulationChains.has(chain);
+}
+
+export async function inspectHoneypotSimulation(fetcher, chain, address) {
+  const source = "Honeypot.is simulation";
+  const result = await fetchJson(fetcher, "https://api.honeypot.is/v2/IsHoneypot?chainID=" + chain + "&address=" + address);
+  if (!object(result) || String(result.chain?.id) !== String(chain) || typeof result.token?.address !== "string" ||
+      result.token.address.toLowerCase() !== address) throw new Error("Invalid simulation identity");
+  if (result.simulationSuccess !== true || typeof result.pairAddress !== "string" || !/^0x[0-9a-f]{40}$/i.test(result.pairAddress) ||
+      /^0x0{40}$/i.test(result.pairAddress)) return { matched: false, detail: "No successful simulation on an identified pool." };
+
+  const evidence = {};
+  const context = " Simulated pool " + result.pairAddress + "; other routes and accounts were not evaluated.";
+  const isHoneypot = result.honeypotResult?.isHoneypot;
+  if (typeof isHoneypot === "boolean") evidence.honeypot = fact(isHoneypot ? "HIGH RISK" : "PASS", source,
+    (isHoneypot ? "Simulation flagged honeypot behavior." : "Simulation did not flag honeypot behavior.") + context);
+  const validPercent = value => typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 100;
+  const { buyTax, sellTax, transferTax } = result.simulationResult ?? {};
+  if (validPercent(buyTax) && validPercent(sellTax)) evidence.tax = fact(severityFor(Math.max(buyTax, sellTax), 5, 20), source,
+    "Simulated buy tax " + percent(buyTax) + ", sell tax " + percent(sellTax) + "." + context);
+  if (validPercent(transferTax)) evidence.transferFee = fact(severityFor(transferTax, Number.MIN_VALUE, 20), source,
+    "Simulated transfer tax " + percent(transferTax) + "." + context);
+  return { matched: Object.keys(evidence).length > 0, evidence };
 }

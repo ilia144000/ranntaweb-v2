@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { normalizeInput, abiText, boundedJson, fetchJson } from "./upstreams.mjs";
 import { scan } from "./scanner.mjs";
+import { inspectDeployerBalance, inspectGoPlus, inspectHoneypotSimulation, inspectVerification } from "./evm.mjs";
 import { inspectSolanaIndex, recheckIndexedAccounts } from "./solana.mjs";
 import { createHandler, endpoint } from "./handler.mjs";
 import { findingsFrom, score } from "./rules.mjs";
@@ -204,6 +205,60 @@ test("outage preserves partial findings without declaring unknown evidence safe"
   assert.equal(failed.risk.value, null);
   assert.equal(failed.risk.level, "INSUFFICIENT EVIDENCE");
   assert.equal(failed.risk.unknown, failed.findings.length);
+});
+
+const simulation = { chain: { id: "1" }, token: { address: evm }, pairAddress: holder,
+  simulationSuccess: true, honeypotResult: { isHoneypot: false }, simulationResult: { buyTax: 5, sellTax: 0 } };
+
+test("a GoPlus quota error falls back to a successful matched pool simulation", async () => {
+  const upstream = fixture();
+  const fetcher = (url, options) => {
+    const host = new URL(url).hostname;
+    if (host === "api.gopluslabs.io") return Response.json({ code: 4029 });
+    if (host === "api.honeypot.is") return Response.json(simulation);
+    return upstream(url, options);
+  };
+  const result = await scan({ network: "ethereum", address: evm }, { fetcher });
+  assert.equal(result.risk.coveredGroups, 3);
+  assert.equal(f(result, "honeypot").status, "PASS");
+  assert.equal(f(result, "tax").status, "WARNING");
+  assert.equal(f(result, "tax").points, 10);
+  assert.equal(f(result, "holders").status, "UNKNOWN");
+});
+
+test("a failed or mismatched simulation cannot establish a trading pass", async () => {
+  const failed = await inspectHoneypotSimulation(async () => Response.json({ ...simulation, simulationSuccess: false }), 1, evm);
+  assert.equal(failed.matched, false);
+  await assert.rejects(inspectHoneypotSimulation(async () => Response.json({ ...simulation, chain: { id: "137" } }), 1, evm),
+    /Invalid simulation identity/);
+});
+
+test("partial GoPlus data preserves known risks and leaves missing results unknown", async () => {
+  const result = await inspectGoPlus(async () => Response.json({ code: 2, result: { [evm]: { is_mintable: "1" } } }), 1, evm);
+  assert.equal(result.partial, true);
+  assert.equal(result.evidence.mint.status, "WARNING");
+  assert.equal(result.evidence.tax.status, "UNKNOWN");
+  assert.equal(result.evidence.honeypot.status, "UNKNOWN");
+});
+
+test("deployer evidence uses the submitted contract and balances pinned to the scan block", async () => {
+  const deployment = { deployer: holder, blockNumber: "12", transactionHash: "0x" + "1".repeat(64) };
+  const verification = await inspectVerification(async url => {
+    const address = new URL(url).pathname.split("/").at(-1);
+    return Response.json({ match: "exact_match", chainId: "1", address, abi: [],
+      deployment: address === evm ? deployment : { ...deployment, deployer: implementation } });
+  }, 1, evm, implementation);
+  assert.equal(verification.deployment.deployer, holder);
+  const result = await inspectDeployerBalance(async (url, options) => {
+    const request = JSON.parse(options.body);
+    assert.deepEqual(request.params, [{ to: evm, data: "0x70a08231" + holder.slice(2).padStart(64, "0"), gas: "0x493e0" }, "0x1a"]);
+    return Response.json({ jsonrpc: "2.0", id: request.id, result: word(25) });
+  }, "https://ethereum-rpc.publicnode.com", evm, { confirmed: true, block: "0x1a", supplyRaw: 100n }, verification.deployment);
+  assert.equal(result.evidence.creator.status, "HIGH RISK");
+  assert.match(result.evidence.creator.detail, /25\.0000%.*0x1a/);
+  const future = await inspectDeployerBalance(() => assert.fail("future deployment queried"), "https://ethereum-rpc.publicnode.com", evm,
+    { confirmed: true, block: "0xa", supplyRaw: 100n }, verification.deployment);
+  assert.equal(future.matched, false);
 });
 
 test("a rate-limited EVM RPC falls back with bounded, block-pinned batches", async () => {

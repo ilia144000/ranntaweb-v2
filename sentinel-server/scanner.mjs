@@ -1,6 +1,7 @@
 import { scanBitcoin } from "./bitcoin.mjs";
 import { clean, fetchJson, networks, normalizeInput, object } from "./upstreams.mjs";
-import { fact, inspectEvmRpc, inspectGoPlus, inspectVerification, mergeFact, unknown } from "./evm.mjs";
+import { fact, inspectDeployerBalance, inspectEvmRpc, inspectGoPlus, inspectHoneypotSimulation, inspectVerification, mergeFact,
+  supportsHoneypotSimulation, unknown } from "./evm.mjs";
 import { inspectSolanaHolders, inspectSolanaIndex, inspectSolanaRpc, recheckIndexedAccounts, solanaConcentration } from "./solana.mjs";
 import { findingsFrom, policy, score } from "./rules.mjs";
 
@@ -54,6 +55,7 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
   const sources = [];
   const evidence = {};
   let rpcName = solana ? "PublicNode Solana RPC" : "PublicNode EVM RPC";
+  let rpcEndpoint = config.rpc;
   const run = async (name, operation) => {
     try {
       const result = await operation();
@@ -79,6 +81,7 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
     for (const fallback of config.fallbacks ?? []) {
       if (result) break;
       rpcName = fallback.rpcLabel;
+      rpcEndpoint = fallback.rpc;
       result = await run(rpcName, () => inspectEvmRpc(fetcher, { ...config, ...fallback }, address));
     }
     return result;
@@ -89,7 +92,19 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
     run("GoPlus Security", () => inspectGoPlus(fetcher, config.chain, address, bearer));
   const verificationTask = solana ? Promise.resolve() : rpcTask.then(chain => run("Sourcify",
     () => inspectVerification(fetcher, config.chain, address, chain?.target)));
-  const [chain, dex, secondary] = await Promise.all([rpcTask, dexTask, secondaryTask, verificationTask]);
+  const simulationTask = supportsHoneypotSimulation(config.chain) ? secondaryTask.then(result => {
+    const observed = check => result?.evidence?.[check] && result.evidence[check].status !== "UNKNOWN";
+    if (!observed("tax") || !observed("honeypot")) {
+      return run("Honeypot.is simulation", () => inspectHoneypotSimulation(fetcher, config.chain, address));
+    }
+  }) : Promise.resolve();
+  const deployerTask = solana ? Promise.resolve() : Promise.all([rpcTask, verificationTask, secondaryTask])
+    .then(([chain, verification, result]) => {
+      if (chain?.confirmed && verification?.deployment && (!result?.evidence?.creator || result.evidence.creator.status === "UNKNOWN")) {
+        return run("Sourcify deployment + chain RPC", () => inspectDeployerBalance(fetcher, rpcEndpoint, address, chain, verification.deployment));
+      }
+    });
+  const [chain, dex, secondary] = await Promise.all([rpcTask, dexTask, secondaryTask, simulationTask, deployerTask]);
 
   let holders = solana ? [] : secondary?.holders ?? [];
   let holderType = solana ? "Token accounts at the finalized slot" : "GoPlus-reported holder addresses";
@@ -114,6 +129,7 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
     }
   }
   if (solana) {
+    evidence.holders ??= unknown("Solana RPC / GoPlus", "No comparable largest-account snapshot or verified concentration was returned.");
     evidence.creator = unknown("Coverage", "Mint authority is not proof of creator identity or wallet balances.");
     evidence.lp = unknown(dexSource, "Pool ownership and lock structure require venue-specific evidence.");
   } else if (!evidence.transferFee) {
