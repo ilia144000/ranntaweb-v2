@@ -1,4 +1,5 @@
 export const networks = Object.freeze({
+  bitcoin: { label: "Bitcoin" },
   ethereum: { label: "Ethereum", chain: 1, rpc: "https://ethereum-rpc.publicnode.com",
     fallbacks: [{ rpc: "https://eth.drpc.org", rpcLabel: "dRPC Ethereum", batchSize: 3 }] },
   bsc: { label: "BNB Chain", chain: 56, rpc: "https://bsc-rpc.publicnode.com",
@@ -19,6 +20,13 @@ export function normalizeInput(input) {
       typeof input.address !== "string") return null;
   const network = input.network;
   const address = input.address.trim();
+  if (network === "bitcoin") {
+    const base58 = /^(?:1|3)[1-9A-HJ-NP-Za-km-z]{25,34}$/;
+    const bech32 = /^(?:bc1|BC1)[0-9A-Za-z]{8,87}$/;
+    const mixedCase = address.startsWith("bc1") || address.startsWith("BC1")
+      ? address !== address.toLowerCase() && address !== address.toUpperCase() : false;
+    return !mixedCase && (base58.test(address) || bech32.test(address)) ? { network, address } : null;
+  }
   if (network !== "solana") {
     return /^0x[0-9a-fA-F]{40}$/.test(address) ? { network, address: address.toLowerCase() } : null;
   }
