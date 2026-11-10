@@ -51,7 +51,7 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
   const solana = network === "solana";
   const sources = [];
   const evidence = {};
-  const rpcName = solana ? "PublicNode Solana RPC" : "PublicNode EVM RPC";
+  let rpcName = solana ? "PublicNode Solana RPC" : "PublicNode EVM RPC";
   const run = async (name, operation) => {
     try {
       const result = await operation();
@@ -60,14 +60,23 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
         detail: result.available === false ? "The upstream lookup could not be verified." : result.detail ?? null });
       for (const [key, item] of Object.entries(result.evidence ?? {})) mergeFact(evidence, key, item);
       return result;
-    } catch {
-      sources.push({ name, status: "UNAVAILABLE", detail: "The source timed out, rejected the request, or returned unreadable data." });
+    } catch (error) {
+      const detail = /^Upstream HTTP \d{3}$/.test(error?.message) ? error.message + "." :
+        error?.name === "TimeoutError" || error?.name === "AbortError" ? "The upstream request timed out." :
+        error?.name === "SyntaxError" ? "The upstream response was not valid JSON." :
+        error?.name === "TypeError" ? "The upstream response could not be read." :
+        "The upstream response did not contain verified scan data.";
+      sources.push({ name, status: "UNAVAILABLE", detail });
       return null;
     }
   };
 
   const rpcTask = run(rpcName, () => solana ? inspectSolanaRpc(fetcher, config.rpc, address) :
-    inspectEvmRpc(fetcher, config, address));
+    inspectEvmRpc(fetcher, config, address)).then(result => {
+    if (result || !config.fallback) return result;
+    rpcName = config.fallback.rpcLabel;
+    return run(rpcName, () => inspectEvmRpc(fetcher, { ...config, ...config.fallback }, address));
+  });
   const dexTask = run(dexSource, () => inspectDex(fetcher, network, address));
   const secondaryTask = solana ? run("Solana largest token accounts",
     () => inspectSolanaHolders(fetcher, config.rpc, address)) :

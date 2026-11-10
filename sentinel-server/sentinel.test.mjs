@@ -132,6 +132,26 @@ test("outage preserves partial findings without declaring unknown evidence safe"
   assert.equal(failed.risk.unknown, failed.findings.length);
 });
 
+test("a rate-limited EVM RPC falls back with bounded, block-pinned batches", async () => {
+  const upstream = fixture();
+  const fallbackBatches = [];
+  const fetcher = (url, options) => {
+    const host = new URL(url).hostname;
+    if (host === "ethereum-rpc.publicnode.com") return new Response(null, { status: 429 });
+    if (host === "eth.drpc.org") {
+      fallbackBatches.push(JSON.parse(options.body).length);
+      return upstream("https://ethereum-rpc.publicnode.com", options);
+    }
+    return upstream(url, options);
+  };
+  const result = await scan({ network: "ethereum", address: evm }, { fetcher });
+  assert.equal(result.assetStatus, "CONFIRMED");
+  assert.equal(result.asset.metadataSource, "dRPC Ethereum");
+  assert.equal(f(result, "proxy").source, "dRPC Ethereum");
+  assert.match(result.sources.find(item => item.name === "PublicNode EVM RPC").detail, /429/);
+  assert.deepEqual(fallbackBatches, [2, 3, 3, 3, 3]);
+});
+
 test("wrong-chain and no-code evidence do not produce a risk score", async () => {
   const wrong = await scan({ network: "ethereum", address: evm }, { fetcher: fixture({ wrongChain: true }) });
   assert.equal(wrong.assetStatus, "UNCONFIRMED");

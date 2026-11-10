@@ -1,6 +1,5 @@
 import { abiText, clean, fetchJson, hexWord, object, rpc, uint, units } from "./upstreams.mjs";
 
-const rpcSource = "PublicNode EVM RPC";
 const sourcify = "Sourcify";
 const goPlus = "GoPlus Security";
 const addressWord = value => hexWord(value) && /^0x0{24}/i.test(value) ? "0x" + value.slice(-40).toLowerCase() : null;
@@ -33,15 +32,20 @@ export function mergeFact(evidence, key, candidate) {
 }
 
 export async function inspectEvmRpc(fetcher, config, address) {
+  const rpcSource = config.rpcLabel ?? "PublicNode EVM RPC";
   const [chain, block] = await rpc(fetcher, config.rpc, [["eth_chainId", []], ["eth_blockNumber", []]]);
   if (typeof chain !== "string" || !/^0x[0-9a-f]+$/i.test(chain) || BigInt(chain) !== BigInt(config.chain) ||
       typeof block !== "string" || !/^0x[0-9a-f]{1,16}$/i.test(block)) throw new Error("Unconfirmed chain or block");
+  const reads = [
+    ["eth_getCode", [address, block]],
+    ...slots.map(slot => ["eth_getStorageAt", [address, slot, block]]),
+    ...selectors.map(data => ["eth_call", [{ to: address, data, gas: "0x493e0" }, block]])
+  ];
+  const batches = [];
+  const size = config.batchSize ?? reads.length;
+  for (let offset = 0; offset < reads.length; offset += size) batches.push(reads.slice(offset, offset + size));
   const [code, implementation, admin, beacon, legacyImpl, legacyAdmin, name, symbol, decimals, supply, owner, paused] =
-    await rpc(fetcher, config.rpc, [
-      ["eth_getCode", [address, block]],
-      ...slots.map(slot => ["eth_getStorageAt", [address, slot, block]]),
-      ...selectors.map(data => ["eth_call", [{ to: address, data, gas: "0x493e0" }, block]])
-    ]);
+    (await Promise.all(batches.map(batch => rpc(fetcher, config.rpc, batch)))).flat();
   if (typeof code !== "string" || !/^0x(?:[0-9a-f]{2})*$/i.test(code)) throw new Error("Invalid contract bytecode");
   if (code === "0x") return { confirmed: false, block, detail: "No deployed contract code at the observed block." };
   const evidence = {};
