@@ -1,3 +1,4 @@
+import { scanBitcoin } from "./bitcoin.mjs";
 import { clean, fetchJson, networks, normalizeInput, object } from "./upstreams.mjs";
 import { fact, inspectEvmRpc, inspectGoPlus, inspectVerification, mergeFact, unknown } from "./evm.mjs";
 import { inspectSolanaHolders, inspectSolanaIndex, inspectSolanaRpc, recheckIndexedAccounts, solanaConcentration } from "./solana.mjs";
@@ -47,6 +48,7 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
   const input = normalizeInput({ network, address });
   if (!input) throw new TypeError("Invalid scan input");
   ({ network, address } = input);
+  if (network === "bitcoin") return scanBitcoin({ address }, { fetcher, now });
   const config = networks[network];
   const solana = network === "solana";
   const sources = [];
