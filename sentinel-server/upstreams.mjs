@@ -46,7 +46,7 @@ export async function boundedJson(body, limit) {
 
 export async function fetchJson(fetcher, url, options = {}) {
   const response = await fetcher(url, {
-    ...options, signal: AbortSignal.timeout(6500), redirect: "error",
+    ...options, signal: AbortSignal.timeout(6500), redirect: "manual",
     headers: { accept: "application/json", ...options.headers }
   });
   if (!response.ok) {

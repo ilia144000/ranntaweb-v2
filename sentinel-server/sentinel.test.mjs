@@ -18,7 +18,7 @@ const f = (result, id) => result.findings.find(item => item.id === id);
 function fixture({ verified = true, dexDown = false, allDown = false, tokenData = {}, wrongChain = false,
   modern = false, holderSlot = 111, legacyProxy = false, noCode = false } = {}) {
   return async (url, options) => {
-    assert.equal(options.redirect, "error");
+    assert.equal(options.redirect, "manual");
     assert.ok(options.signal instanceof AbortSignal);
     const target = new URL(url);
     if (allDown) throw new Error("offline");
@@ -190,6 +190,11 @@ test("empty and malformed ABI results stay unknown; bounded JSON cancels over li
   await assert.rejects(boundedJson(Response.json({ x: "x".repeat(200) }).body, 32), /size limit/);
   await assert.rejects(fetchJson(async () => new Response("broken", { status: 200 }),
     "https://test.invalid/"), SyntaxError);
+  await assert.rejects(fetchJson(async (url, options) => {
+    assert.equal(url, "https://test.invalid/");
+    assert.equal(options.redirect, "manual");
+    return Response.redirect("https://other.invalid/");
+  }, "https://test.invalid/"), /Upstream HTTP 302/);
 });
 
 const request = (body, headers = {}) => new Request("https://rannta.com" + endpoint, {
