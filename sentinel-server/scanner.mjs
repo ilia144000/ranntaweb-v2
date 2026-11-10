@@ -48,7 +48,7 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
   const input = normalizeInput({ network, address });
   if (!input) throw new TypeError("Invalid scan input");
   ({ network, address } = input);
-  if (network === "bitcoin") return scanBitcoin({ address }, { fetcher });
+  if (network === "bitcoin") return scanBitcoin({ address }, { fetcher, now });
   const config = networks[network];
   const solana = network === "solana";
   const sources = [];
