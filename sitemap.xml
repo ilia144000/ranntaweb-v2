@@ -9,6 +9,16 @@
   </url>
 
   <url>
+    <loc>https://rannta.com/sentinel</loc>
+  </url>
+  <url>
+    <loc>https://rannta.com/security</loc>
+  </url>
+  <url>
+    <loc>https://rannta.com/tools</loc>
+  </url>
+
+  <url>
     <loc>https://rannta.com/network/post-quantum.html</loc>
     <lastmod>2026-09-15</lastmod>
     <changefreq>weekly</changefreq>

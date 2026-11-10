@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RANNTA Sentinel — On-Chain Token &amp; Smart Contract Risk Scanner</title>
+  <meta name="description" content="Scan tokens and smart contracts for on-chain controls, trading restrictions, liquidity, and holder concentration on five networks.">
+  <link rel="canonical" href="https://rannta.com/sentinel">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RANNTA Sentinel — On-Chain Token &amp; Smart Contract Risk Scanner">
+  <meta property="og:description" content="Scan tokens and smart contracts for on-chain controls, trading restrictions, liquidity, and holder concentration on five networks.">
+  <meta property="og:url" content="https://rannta.com/sentinel">
+  <meta property="og:image" content="https://rannta.com/assets/opengraph/home_og_1200x630.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/style.css?v=20260913-mobile3">
+  <link rel="stylesheet" href="/assets/css/sentinel.css">
+  <script src="/assets/js/site-shell.js?v=sentinel-1" defer></script>
+  <script src="/assets/js/sentinel.js" defer></script>
+</head>
+<body class="sentinel-page">
+<div data-site-header></div>
+<main id="sentinel" class="sentinel">
+  <section class="sentinel-hero" aria-labelledby="sentinel-title">
+    <div class="sentinel-intro">
+      <p class="sentinel-eyebrow">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.5 21 6v6c0 4.3-4.2 7.6-9 9.5-4.8-1.9-9-5.2-9-9.5V6z"/><path d="M7.5 12h2l1.2-2.5 2.1 5 1.3-2.5h2.4"/></svg>
+        RANNTA SENTINEL
+      </p>
+      <h1 id="sentinel-title">On-Chain Risk Intelligence</h1>
+      <p class="sentinel-lede">Scan token and smart-contract risk before interacting. See what the evidence supports and where it is incomplete.</p>
+    </div>
+    <form id="sentinel-form" class="sentinel-form" novalidate>
+      <div class="sentinel-field">
+        <label for="sentinel-network">Network</label>
+        <select id="sentinel-network" name="network">
+          <option value="ethereum">Ethereum</option>
+          <option value="bsc">BNB Chain</option>
+          <option value="base">Base</option>
+          <option value="polygon">Polygon</option>
+          <option value="solana">Solana</option>
+        </select>
+      </div>
+      <div class="sentinel-field">
+        <label for="sentinel-address">Contract address</label>
+        <input id="sentinel-address" name="address" type="text" spellcheck="false" autocomplete="off" autocapitalize="off" maxlength="44" placeholder="0x…" aria-describedby="sentinel-format" required>
+      </div>
+      <button class="sentinel-primary" type="submit">Scan address <span aria-hidden="true">→</span></button>
+      <p id="sentinel-format" class="sentinel-help">Enter the public contract address for the selected network.</p>
+    </form>
+    <noscript><p class="sentinel-help">Enable JavaScript to submit a scan.</p></noscript>
+    <p class="sentinel-progress" id="sentinel-progress" role="status" aria-live="polite"></p>
+  </section>
+  <section id="sentinel-report" aria-label="Sentinel risk report" hidden></section>
+  <aside class="sentinel-footer" aria-label="Scope and related pages">
+    <p>Sentinel reports observable on-chain and market risk indicators. It does not guarantee safety and is not financial advice.</p>
+    <div><a href="/security">RANNTA Security</a><a href="/tools">RANNTA Tools</a></div>
+  </aside>
+</main>
+<div data-site-footer></div>
+</body>
+</html>
