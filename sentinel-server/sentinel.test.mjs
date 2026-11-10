@@ -212,7 +212,7 @@ test("a rate-limited EVM RPC falls back with bounded, block-pinned batches", asy
   const fetcher = (url, options) => {
     const host = new URL(url).hostname;
     if (host === "ethereum-rpc.publicnode.com") return new Response(null, { status: 429 });
-    if (host === "eth.drpc.org") {
+    if (host === "eth-mainnet.public.blastapi.io") {
       const payload = JSON.parse(options.body);
       fallbackBatches.push(Array.isArray(payload) ? payload.length : 1);
       return upstream("https://ethereum-rpc.publicnode.com", options);
@@ -221,8 +221,8 @@ test("a rate-limited EVM RPC falls back with bounded, block-pinned batches", asy
   };
   const result = await scan({ network: "ethereum", address: evm }, { fetcher });
   assert.equal(result.assetStatus, "CONFIRMED");
-  assert.equal(result.asset.metadataSource, "dRPC Ethereum");
-  assert.equal(f(result, "proxy").source, "dRPC Ethereum");
+  assert.equal(result.asset.metadataSource, "Blast Ethereum RPC");
+  assert.equal(f(result, "proxy").source, "Blast Ethereum RPC");
   assert.match(result.sources.find(item => item.name === "PublicNode EVM RPC").detail, /429/);
   assert.deepEqual(fallbackBatches, [2, 1, 3, 3, 3, 2]);
 });
@@ -232,7 +232,7 @@ test("optional RPC rate limits do not invalidate confirmed on-chain code", async
   const fetcher = (url, options) => {
     const host = new URL(url).hostname;
     if (host === "ethereum-rpc.publicnode.com") return new Response(null, { status: 429 });
-    if (host === "eth.drpc.org") {
+    if (host === "eth-mainnet.public.blastapi.io") {
       const payload = JSON.parse(options.body);
       if (Array.isArray(payload) && payload.some(call => call.method === "eth_call")) {
         return new Response(null, { status: 429 });
@@ -244,7 +244,7 @@ test("optional RPC rate limits do not invalidate confirmed on-chain code", async
   const result = await scan({ network: "ethereum", address: evm }, { fetcher });
   assert.equal(result.assetStatus, "CONFIRMED");
   assert.equal(result.asset.supply, null);
-  assert.equal(result.sources.find(item => item.name === "dRPC Ethereum").status, "PARTIAL");
+  assert.equal(result.sources.find(item => item.name === "Blast Ethereum RPC").status, "PARTIAL");
 });
 
 test("wrong-chain and no-code evidence do not produce a risk score", async () => {
