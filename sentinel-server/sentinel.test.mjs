@@ -8,6 +8,7 @@ import { findingsFrom, score } from "./rules.mjs";
 
 const evm = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
 const mint = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v";
+const btcAddress = "1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa";
 const token2022 = "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb";
 const implementation = "0x" + "a1".repeat(20);
 const holder = "0x" + "b2".repeat(20);
@@ -89,11 +90,64 @@ function fixture({ verified = true, dexDown = false, allDown = false, tokenData 
 test("network and address validation includes exact Solana decoded length", () => {
   assert.deepEqual(normalizeInput({ network: "ethereum", address: "  0x" + evm.slice(2).toUpperCase() }), { network: "ethereum", address: evm });
   assert.deepEqual(normalizeInput({ network: "solana", address: mint }), { network: "solana", address: mint });
+  assert.deepEqual(normalizeInput({ network: "bitcoin", address: btcAddress }), { network: "bitcoin", address: btcAddress });
   for (const input of [
-    { network: "base", address: "0x0000" }, { network: "solana", address: "1".repeat(44) },
+    { network: "base", address: "0x0000" }, { network: "bitcoin", address: "bc1INVALID0OIl" },
+    { network: "solana", address: "1".repeat(44) },
     { network: "solana", address: "0" + mint.slice(1) }, { network: "__proto__", address: evm },
     { network: { toString: null }, address: evm }, { network: "polygon", address: "http://169.254.169.254" }
   ]) assert.equal(normalizeInput(input), null);
+});
+
+test("Bitcoin address scan returns verified on-chain profile without inventing attribution risk", async () => {
+  const fetcher = async (url, options) => {
+    assert.equal(options.redirect, "manual");
+    const target = new URL(url);
+    if (target.hostname !== "mempool.space") throw new Error("Unexpected Bitcoin source");
+    if (target.pathname.includes("/validate-address/")) {
+      return Response.json({ isvalid: true, address: btcAddress, isscript: false, iswitness: false });
+    }
+    if (target.pathname.endsWith("/utxo")) {
+      return Response.json([
+        { txid: "a".repeat(64), vout: 0, value: 25000000, status: { confirmed: true } },
+        { txid: "b".repeat(64), vout: 1, value: 1000000, status: { confirmed: false } }
+      ]);
+    }
+    if (target.pathname.includes("/address/")) {
+      return Response.json({ address: btcAddress,
+        chain_stats: { tx_count: 4, funded_txo_count: 3, funded_txo_sum: 80000000, spent_txo_count: 2, spent_txo_sum: 55000000 },
+        mempool_stats: { tx_count: 1, funded_txo_count: 1, funded_txo_sum: 1000000, spent_txo_count: 0, spent_txo_sum: 0 } });
+    }
+    throw new Error("Unexpected Bitcoin path");
+  };
+  const result = await scan({ network: "bitcoin", address: btcAddress }, { fetcher, now: () => 1000 });
+  assert.equal(result.reportType, "bitcoin");
+  assert.equal(result.assetStatus, "CONFIRMED");
+  assert.equal(result.bitcoin.currentBalanceSats, 26000000);
+  assert.equal(result.bitcoin.utxoCount, 2);
+  assert.equal(result.risk.value, null);
+  assert.equal(result.risk.level, "ADDRESS PROFILE");
+  assert.equal(f(result, "btcAttribution").status, "UNKNOWN");
+  assert.equal(f(result, "btcMempool").status, "WARNING");
+  assert.equal(result.scannedAt, "1970-01-01T00:00:01.000Z");
+});
+
+test("Bitcoin scanner falls back to Blockstream when mempool.space is unavailable", async () => {
+  const fetcher = async (url, options) => {
+    assert.equal(options.redirect, "manual");
+    const target = new URL(url);
+    if (target.hostname === "mempool.space") return new Response(null, { status: 503 });
+    if (target.hostname !== "blockstream.info") throw new Error("Unexpected Bitcoin source");
+    if (target.pathname.endsWith("/utxo")) return Response.json([]);
+    return Response.json({ address: btcAddress,
+      chain_stats: { tx_count: 1, funded_txo_count: 1, funded_txo_sum: 5000, spent_txo_count: 1, spent_txo_sum: 5000 },
+      mempool_stats: { tx_count: 0, funded_txo_count: 0, funded_txo_sum: 0, spent_txo_count: 0, spent_txo_sum: 0 } });
+  };
+  const result = await scan({ network: "bitcoin", address: btcAddress }, { fetcher });
+  assert.equal(result.assetStatus, "CONFIRMED");
+  assert.equal(result.asset.metadataSource, "Blockstream Esplora");
+  assert.equal(result.sources[0].name, "mempool.space");
+  assert.equal(result.sources[0].status, "UNAVAILABLE");
 });
 
 test("verified EVM contract detects proxy and implementation ABI mint interface", async () => {
