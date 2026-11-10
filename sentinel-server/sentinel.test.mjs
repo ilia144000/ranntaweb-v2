@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { normalizeInput, abiText, boundedJson, fetchJson } from "./upstreams.mjs";
 import { scan } from "./scanner.mjs";
 import { inspectDeployerBalance, inspectGoPlus, inspectHoneypotSimulation, inspectVerification } from "./evm.mjs";
-import { inspectSolanaIndex, recheckIndexedAccounts } from "./solana.mjs";
+import { heliusRpcEndpoint, inspectSolanaHolderSnapshot, inspectSolanaIndex, recheckIndexedAccounts } from "./solana.mjs";
 import { createHandler, endpoint } from "./handler.mjs";
 import { findingsFrom, score } from "./rules.mjs";
 
@@ -323,6 +323,46 @@ test("legacy Solana mint uses matching slot, mint authority and account-based co
   assert.equal(f(result, "holders").status, "WARNING");
   assert.equal(result.holders[0].percentage, 40);
   assert.ok(!result.findings.some(item => item.id === "proxy"));
+});
+
+test("Solana holder fallback scores only a matched, finalized RPC snapshot", async () => {
+  const key = "test-solana-key-0001";
+  const upstream = fixture();
+  let batches = 0;
+  const fetcher = (url, options) => {
+    const target = new URL(url);
+    if (target.hostname !== "mainnet.helius-rpc.com") return upstream(url, options);
+    assert.equal(target.searchParams.get("api-key"), key);
+    const requests = JSON.parse(options.body);
+    assert.deepEqual(requests.map(call => call.method), ["getTokenLargestAccounts", "getTokenSupply"]);
+    assert.ok(requests.every(call => call.params[0] === mint && call.params[1].commitment === "finalized"));
+    batches++;
+    return Response.json([
+      { jsonrpc: "2.0", id: 0, result: { context: { slot: 123 }, value: [{ address: mint, amount: "40" }] } },
+      { jsonrpc: "2.0", id: 1, result: { context: { slot: batches === 1 ? 124 : 123 }, value: { amount: "100" } } }
+    ]);
+  };
+  const result = await scan({ network: "solana", address: mint }, { fetcher, heliusKey: key });
+  assert.equal(batches, 2);
+  assert.equal(result.risk.coveredGroups, 3);
+  assert.equal(f(result, "holders").source, "Helius Solana RPC");
+  assert.match(f(result, "holders").detail, /40\.00% at finalized slot 123/);
+  assert.ok(!JSON.stringify(result).includes(key));
+  assert.equal(heliusRpcEndpoint("https://untrusted.invalid/"), null);
+});
+
+test("Solana fallback cannot use a supply from another slot or an incomplete ranking", async () => {
+  const endpoint = heliusRpcEndpoint("test-solana-key-0001");
+  const run = (slot, rows) => inspectSolanaHolderSnapshot(async () => Response.json([
+    { jsonrpc: "2.0", id: 0, result: { context: { slot: 123 }, value: rows } },
+    { jsonrpc: "2.0", id: 1, result: { context: { slot }, value: { amount: "100" } } }
+  ]), endpoint, mint);
+  const mismatch = await run(124, [{ address: mint, amount: "40" }]);
+  assert.equal(mismatch.matched, false);
+  assert.match(mismatch.detail, /did not share a finalized slot/);
+  const invalid = await run(123, [{ address: "invalid", amount: "40" }, { address: mint, amount: "1" }]);
+  assert.equal(invalid.matched, false);
+  assert.equal(invalid.evidence, undefined);
 });
 
 test("Token-2022 distinguishes fee, delegate, hook, metadata and mismatched slots", async () => {

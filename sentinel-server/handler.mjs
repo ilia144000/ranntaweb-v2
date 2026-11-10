@@ -6,7 +6,7 @@ const reply = (body, status = 200, headers = {}) => Response.json(body, {
   status, headers: { "cache-control": "no-store", "x-content-type-options": "nosniff", ...headers }
 });
 
-export function createHandler({ perform = scan, now = Date.now, maxEntries = 128, maxActive = 6, bearer, clientKey } = {}) {
+export function createHandler({ perform = scan, now = Date.now, maxEntries = 128, maxActive = 6, bearer, heliusKey, clientKey } = {}) {
   const cache = new Map();
   const active = new Map();
   const clients = new Map();
@@ -54,7 +54,7 @@ export function createHandler({ perform = scan, now = Date.now, maxEntries = 128
         clients.set(client, { minute, count: bucket?.minute === minute ? bucket.count + 1 : 1 });
         if (clients.size > 2048) clients.delete(clients.keys().next().value);
       }
-      work = Promise.resolve().then(() => perform(input, { now, bearer })).then(value => {
+      work = Promise.resolve().then(() => perform(input, { now, bearer, heliusKey })).then(value => {
         const ttl = value.assetStatus === "CONFIRMED" && !value.sources.some(source => ["PARTIAL", "UNAVAILABLE"].includes(source.status)) ? 45000 : 5000;
         cache.set(key, { value, expires: now() + ttl });
         if (cache.size > maxEntries) cache.delete(cache.keys().next().value);

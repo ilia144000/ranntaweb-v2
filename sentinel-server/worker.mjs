@@ -11,6 +11,7 @@ export default {
       return fetch(new Request(url, request));
     }
     handler ??= createHandler({ bearer: env.SENTINEL_GOPLUS_TOKEN,
+      heliusKey: env.SENTINEL_HELIUS_API_KEY,
       clientKey: request => request.headers.get("cf-connecting-ip") });
     return handler(request);
   }

@@ -2,18 +2,23 @@ import { clean, decimalAmount, fetchJson, normalizeInput, object, rpc, units } f
 import { fact, ratio, severityFor, unknown } from "./evm.mjs";
 
 const source = "PublicNode Solana RPC";
+export const heliusSource = "Helius Solana RPC";
 const indexSource = "GoPlus Solana Security";
 const splToken = "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA";
 const token2022 = "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb";
 const publicKey = value => normalizeInput({ network: "solana", address: value })?.address ?? null;
-const auth = (container, key, label, detail = "") => {
-  if (container?.[key] === null) return fact("PASS", source, label + " is disabled in the parsed mint state.");
-  const address = publicKey(container?.[key]);
-  return address ? fact("WARNING", source, label + " " + address + "." + detail) :
-    unknown(source, "The mint response did not establish the " + label.toLowerCase() + ".");
-};
+export function heliusRpcEndpoint(key) {
+  return typeof key === "string" && /^[a-z0-9_-]{16,128}$/i.test(key)
+    ? "https://mainnet.helius-rpc.com/?api-key=" + encodeURIComponent(key) : null;
+}
 
-export async function inspectSolanaRpc(fetcher, endpoint, address) {
+export async function inspectSolanaRpc(fetcher, endpoint, address, mintSource = source) {
+  const auth = (container, key, label, detail = "") => {
+    if (container?.[key] === null) return fact("PASS", mintSource, label + " is disabled in the parsed mint state.");
+    const authority = publicKey(container?.[key]);
+    return authority ? fact("WARNING", mintSource, label + " " + authority + "." + detail) :
+      unknown(mintSource, "The mint response did not establish the " + label.toLowerCase() + ".");
+  };
   const [account] = await rpc(fetcher, endpoint, [["getAccountInfo", [address, {
     encoding: "jsonParsed", commitment: "finalized"
   }]]], false);
@@ -37,23 +42,23 @@ export async function inspectSolanaRpc(fetcher, endpoint, address) {
   const hasExtensions = Array.isArray(info.extensions) && info.extensions.every(entry =>
     typeof entry?.extension === "string");
   const ext = name => hasExtensions ? info.extensions.find(item => item.extension === name) : null;
-  const noExtension = name => !modern ? fact("NOT APPLICABLE", source, "Legacy SPL Token program.") :
-    hasExtensions ? fact("PASS", source, "No " + name + " extension in the parsed mint.") :
-      unknown(source, "Token-2022 extension state was not fully parsed.");
+  const noExtension = name => !modern ? fact("NOT APPLICABLE", mintSource, "Legacy SPL Token program.") :
+    hasExtensions ? fact("PASS", mintSource, "No " + name + " extension in the parsed mint.") :
+      unknown(mintSource, "Token-2022 extension state was not fully parsed.");
   const evidence = {
-    program: fact("PASS", source, (modern ? "Token-2022" : "SPL Token") + " · " + program + " · finalized slot " + block + "."),
+    program: fact("PASS", mintSource, (modern ? "Token-2022" : "SPL Token") + " · " + program + " · finalized slot " + block + "."),
     mint: auth(info, "mintAuthority", "Mint authority"),
     deny: auth(info, "freezeAuthority", "Freeze authority"),
-    extensions: !modern ? fact("NOT APPLICABLE", source, "Legacy SPL Token program.") :
-      hasExtensions ? fact("PASS", source, "Parsed extensions: " +
+    extensions: !modern ? fact("NOT APPLICABLE", mintSource, "Legacy SPL Token program.") :
+      hasExtensions ? fact("PASS", mintSource, "Parsed extensions: " +
         (info.extensions.slice(0, 30).map(item => clean(item.extension, 44)).filter(Boolean).join(", ") || "none") + ".") :
-        unknown(source, "Token-2022 extension state was not fully parsed."),
+        unknown(mintSource, "Token-2022 extension state was not fully parsed."),
     delegate: noExtension("permanent delegate"),
     hook: noExtension("transfer hook"),
     transferFee: noExtension("transfer fee"),
     feeControl: noExtension("transfer fee"),
     transfer: noExtension("transfer restriction"),
-    metadata: unknown(source, "Metaplex and external metadata authority were not resolved.")
+    metadata: unknown(mintSource, "Metaplex and external metadata authority were not resolved.")
   };
   const delegate = ext("permanentDelegate");
   if (delegate) evidence.delegate = auth(delegate.state, "delegate", "Permanent delegate");
@@ -63,16 +68,16 @@ export async function inspectSolanaRpc(fetcher, endpoint, address) {
   if (ext("transferFeeConfig")) {
     const bps = [fee?.olderTransferFee?.transferFeeBasisPoints, fee?.newerTransferFee?.transferFeeBasisPoints]
       .filter(number => Number.isInteger(number) && number >= 0 && number <= 10000);
-    evidence.transferFee = bps.length === 2 ? fact(severityFor(Math.max(...bps), 1, 2000), source,
+    evidence.transferFee = bps.length === 2 ? fact(severityFor(Math.max(...bps), 1, 2000), mintSource,
       "Older and newer schedules specify " + bps.join(" / ") + " bps. The active schedule depends on the current epoch and the fee cap.") :
-      unknown(source, "Transfer-fee extension exists, but a complete schedule was unavailable.");
+      unknown(mintSource, "Transfer-fee extension exists, but a complete schedule was unavailable.");
     evidence.feeControl = auth(fee, "transferFeeConfigAuthority", "Transfer-fee configuration authority");
   }
-  if (ext("nonTransferable")) evidence.transfer = fact("HIGH RISK", source, "The non-transferable extension is enabled.");
+  if (ext("nonTransferable")) evidence.transfer = fact("HIGH RISK", mintSource, "The non-transferable extension is enabled.");
   else if (ext("defaultAccountState")?.state?.accountState === "frozen") {
-    evidence.transfer = fact("WARNING", source, "New token accounts are frozen by default.");
+    evidence.transfer = fact("WARNING", mintSource, "New token accounts are frozen by default.");
   } else if (ext("defaultAccountState") || ext("pausable")) {
-    evidence.transfer = unknown(source, "An account-state or pausable extension is present; restrictions were not fully evaluated.");
+    evidence.transfer = unknown(mintSource, "An account-state or pausable extension is present; restrictions were not fully evaluated.");
   }
   const meta = ext("tokenMetadata")?.state;
   if (object(meta)) evidence.metadata = auth(meta, "updateAuthority", "On-mint metadata update authority",
@@ -91,20 +96,52 @@ export async function inspectSolanaHolders(fetcher, endpoint, address) {
   }) };
 }
 
-export function solanaConcentration(holders, mint) {
+export function solanaConcentration(holders, mint, holderSource = source) {
   if (!mint?.confirmed || mint.supplyRaw === 0n || !holders.rows.length) return null;
   if (holders.slot !== Number(mint.block)) return {
     rows: [],
-    finding: unknown(source, "Largest accounts and mint supply came from different finalized slots (" +
+    finding: unknown(holderSource, "Largest accounts and mint supply came from different finalized slots (" +
       holders.slot + " and " + mint.block + "); a comparable percentage was unavailable.")
   };
   const rows = holders.rows.filter(row => row.amount <= mint.supplyRaw).map(row => ({
     address: row.address, percentage: Number(row.amount * 1000000n / mint.supplyRaw) / 10000
   })).sort((a, b) => b.percentage - a.percentage).slice(0, 10);
   if (!rows.length) return null;
-  return { rows, finding: fact(severityFor(rows[0].percentage, 20, 50), source,
+  return { rows, finding: fact(severityFor(rows[0].percentage, 20, 50), holderSource,
     "Largest returned token account holds " + rows[0].percentage.toFixed(2) + "% at finalized slot " + holders.slot +
     ". Token accounts can belong to pools, programs or the same wallet.") };
+}
+
+export async function inspectSolanaHolderSnapshot(fetcher, endpoint, address) {
+  const params = [address, { commitment: "finalized" }];
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const [largest, supply] = await rpc(fetcher, endpoint, [["getTokenLargestAccounts", params], ["getTokenSupply", params]]);
+    const slot = largest?.context?.slot;
+    const supplyRaw = decimalAmount(supply?.value?.amount);
+    if (!Number.isSafeInteger(slot) || slot < 1 || !Number.isSafeInteger(supply?.context?.slot) ||
+        !supplyRaw || !Array.isArray(largest.value) || !largest.value.length) {
+      return { matched: false, detail: "A valid largest-account ranking or positive supply was unavailable." };
+    }
+    if (slot !== supply.context.slot) continue;
+
+    const seen = new Set();
+    const rows = [];
+    let sum = 0n;
+    for (const row of largest.value.slice(0, 20)) {
+      const account = publicKey(row?.address);
+      const amount = decimalAmount(row?.amount);
+      if (!account || amount === null || seen.has(account) || (rows.length && amount > rows.at(-1).amount)) {
+        return { matched: false, detail: "The largest-account ranking could not be verified." };
+      }
+      seen.add(account);
+      rows.push({ address: account, amount });
+      sum += amount;
+    }
+    if (!sum || sum > supplyRaw) return { matched: false, detail: "Ranked balances did not reconcile with same-slot supply." };
+    const result = solanaConcentration({ slot, rows }, { confirmed: true, block: String(slot), supplyRaw }, heliusSource);
+    return { rows: result.rows, evidence: { holders: result.finding } };
+  }
+  return { matched: false, detail: "Largest accounts and supply did not share a finalized slot." };
 }
 
 export async function inspectSolanaIndex(fetcher, address, bearer, mint) {

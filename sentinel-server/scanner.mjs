@@ -2,7 +2,8 @@ import { scanBitcoin } from "./bitcoin.mjs";
 import { clean, fetchJson, networks, normalizeInput, object } from "./upstreams.mjs";
 import { fact, inspectDeployerBalance, inspectEvmRpc, inspectGoPlus, inspectHoneypotSimulation, inspectVerification, mergeFact,
   supportsHoneypotSimulation, unknown } from "./evm.mjs";
-import { inspectSolanaHolders, inspectSolanaIndex, inspectSolanaRpc, recheckIndexedAccounts, solanaConcentration } from "./solana.mjs";
+import { heliusRpcEndpoint, heliusSource, inspectSolanaHolders, inspectSolanaHolderSnapshot, inspectSolanaIndex,
+  inspectSolanaRpc, recheckIndexedAccounts, solanaConcentration } from "./solana.mjs";
 import { findingsFrom, policy, score } from "./rules.mjs";
 
 const evmChecks = ["verification", "owner", "proxy", "mint", "pause", "deny", "methods", "external",
@@ -45,13 +46,14 @@ async function inspectDex(fetcher, network, address) {
     name: clean(pools[0].token.name), symbol: clean(pools[0].token.symbol) };
 }
 
-export async function scan({ network, address }, { fetcher = fetch, bearer, now = Date.now } = {}) {
+export async function scan({ network, address }, { fetcher = fetch, bearer, heliusKey, now = Date.now } = {}) {
   const input = normalizeInput({ network, address });
   if (!input) throw new TypeError("Invalid scan input");
   ({ network, address } = input);
   if (network === "bitcoin") return scanBitcoin({ address }, { fetcher, now });
   const config = networks[network];
   const solana = network === "solana";
+  const heliusEndpoint = solana ? heliusRpcEndpoint(heliusKey) : null;
   const sources = [];
   const evidence = {};
   let rpcName = solana ? "PublicNode Solana RPC" : "PublicNode EVM RPC";
@@ -78,6 +80,10 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
 
   const rpcTask = run(rpcName, () => solana ? inspectSolanaRpc(fetcher, config.rpc, address) :
     inspectEvmRpc(fetcher, config, address)).then(async result => {
+    if (solana && !result && heliusEndpoint) {
+      rpcName = heliusSource;
+      return run(rpcName, () => inspectSolanaRpc(fetcher, heliusEndpoint, address, heliusSource));
+    }
     for (const fallback of config.fallbacks ?? []) {
       if (result) break;
       rpcName = fallback.rpcLabel;
@@ -87,8 +93,10 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
     return result;
   });
   const dexTask = run(dexSource, () => inspectDex(fetcher, network, address));
-  const secondaryTask = solana ? run("Solana largest token accounts",
-    () => inspectSolanaHolders(fetcher, config.rpc, address)) :
+  const publicHolders = () => run("Solana largest token accounts", () => inspectSolanaHolders(fetcher, config.rpc, address));
+  const secondaryTask = solana ? (heliusEndpoint
+    ? run("Helius finalized holder snapshot", () => inspectSolanaHolderSnapshot(fetcher, heliusEndpoint, address))
+      .then(result => result?.rows?.length ? result : publicHolders()) : publicHolders()) :
     run("GoPlus Security", () => inspectGoPlus(fetcher, config.chain, address, bearer));
   const verificationTask = solana ? Promise.resolve() : rpcTask.then(chain => run("Sourcify",
     () => inspectVerification(fetcher, config.chain, address, chain?.target)));
@@ -109,7 +117,8 @@ export async function scan({ network, address }, { fetcher = fetch, bearer, now 
   let holders = solana ? [] : secondary?.holders ?? [];
   let holderType = solana ? "Token accounts at the finalized slot" : "GoPlus-reported holder addresses";
   if (solana && secondary) {
-    const concentration = solanaConcentration(secondary, chain);
+    const concentration = secondary.evidence?.holders ? { rows: secondary.rows, finding: secondary.evidence.holders } :
+      solanaConcentration(secondary, chain);
     if (concentration) {
       holders = concentration.rows;
       evidence.holders = concentration.finding;
