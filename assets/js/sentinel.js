@@ -8,6 +8,7 @@ const statusLine = document.getElementById("sentinel-progress");
 const output = document.getElementById("sentinel-report");
 const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
 const number = new Intl.NumberFormat("en-US", { maximumFractionDigits: 2 });
+const btc = sats => (Number(sats || 0) / 100000000).toFixed(8) + " BTC";
 
 function element(tag, text, className) {
   const node = document.createElement(tag);
@@ -17,12 +18,17 @@ function element(tag, text, className) {
 }
 
 function updateFormat() {
-  const solana = network.value === "solana";
-  form.querySelector('label[for="sentinel-address"]').textContent = solana ? "Token mint address" : "Token contract address";
-  address.placeholder = solana ? "Solana token mint address" : "0x…";
-  document.getElementById("sentinel-format").textContent = solana
-    ? "Enter the public base58 token mint address. Wallet addresses are outside this scanner's scope."
-    : "Enter the public token contract address for the selected network.";
+  const selected = network.value;
+  const bitcoin = selected === "bitcoin";
+  const solana = selected === "solana";
+  form.querySelector('label[for="sentinel-address"]').textContent = bitcoin ? "Bitcoin address" :
+    solana ? "Token mint address" : "Token contract address";
+  address.placeholder = bitcoin ? "bc1… / 1… / 3…" : solana ? "Solana token mint address" : "0x…";
+  address.maxLength = bitcoin ? 90 : 44;
+  document.getElementById("sentinel-format").textContent = bitcoin ? "Enter a Bitcoin mainnet address." :
+    solana ? "Enter the public base58 token mint address." :
+    "Enter the public token contract address for the selected network.";
+  button.firstChild.nodeValue = bitcoin ? "Scan Bitcoin address " : "Scan token ";
   address.removeAttribute("aria-invalid");
 }
 
@@ -33,16 +39,29 @@ function showStatus(text, error = false) {
 
 function render(data) {
   const { asset, risk, findings } = data;
+  const bitcoin = data.reportType === "bitcoin";
   const headline = element("div", null, "sentinel-headline");
   const identity = element("div", null, "sentinel-asset");
-  const title = element("h2", asset.name ? asset.name + (asset.symbol ? " (" + asset.symbol + ")" : "") : asset.symbol || "Scan report");
+  const title = element("h2", bitcoin ? "Bitcoin address" :
+    asset.name ? asset.name + (asset.symbol ? " (" + asset.symbol + ")" : "") : asset.symbol || "Scan report");
   const time = element("time", data.scannedAt.replace("T", " ").replace(/\.\d{3}Z$/, " UTC"));
   time.dateTime = data.scannedAt;
   const timestamp = element("p", "Scanned ");
   timestamp.append(time);
-  identity.append(element("p", "OVERVIEW", "sentinel-eyebrow"), title, element("p", data.networkLabel + " · " + data.assetStatus),
-    element("p", data.address), element("p", "Supply: " + (asset.supply ?? "Unknown")), timestamp);
-  if (asset.metadataSource) identity.append(element("p", "Metadata: " + asset.metadataSource));
+  identity.append(element("p", "OVERVIEW", "sentinel-eyebrow"), title,
+    element("p", data.networkLabel + " · " + data.assetStatus),
+    element("p", data.address));
+  if (bitcoin && data.bitcoin) {
+    identity.append(
+      element("p", "Balance: " + btc(data.bitcoin.currentBalanceSats)),
+      element("p", "Confirmed transactions: " + data.bitcoin.confirmedTxCount),
+      element("p", "UTXOs: " + data.bitcoin.utxoCount)
+    );
+  } else {
+    identity.append(element("p", "Supply: " + (asset.supply ?? "Unknown")));
+  }
+  identity.append(timestamp);
+  if (asset.metadataSource) identity.append(element("p", "Source: " + asset.metadataSource));
   if (asset.chainPosition) identity.append(element("p", (data.network === "solana" ? "Finalized slot " : "Block ") + asset.chainPosition));
   if (data.assetStatus !== "CONFIRMED") identity.append(element("p", data.assetDetail));
 
@@ -51,17 +70,33 @@ function render(data) {
   const print = element("button", "Print report", "sentinel-print");
   print.type = "button";
   print.addEventListener("click", () => window.print());
-  score.append(element("h3", "RISK SCORE"),
-    element("strong", risk.value === null ? "—" : risk.value + " / 100"), element("p", risk.level),
-    element("p", risk.warnings + " warnings · " + risk.critical + " high-risk · " + risk.unknown + " unknown"),
-    element("p", risk.coveredGroups + " of " + risk.totalGroups + " evidence sections · " + data.ruleVersion));
-  if (risk.value === null && risk.evidencedPoints > 0) score.append(element("p", "Observed penalties: " + risk.evidencedPoints + " points"));
+
+  if (bitcoin && data.bitcoin) {
+    score.append(
+      element("h3", "CURRENT BALANCE"),
+      element("strong", btc(data.bitcoin.currentBalanceSats)),
+      element("p", data.bitcoin.confirmedTxCount + " confirmed tx · " + data.bitcoin.utxoCount + " UTXO"),
+      element("p", data.bitcoin.unconfirmedTxCount + " unconfirmed tx")
+    );
+  } else {
+    score.append(
+      element("h3", "RISK SCORE"),
+      element("strong", risk.value === null ? "—" : risk.value + " / 100"),
+      element("p", risk.level),
+      element("p", risk.warnings + " warnings · " + risk.critical + " high-risk · " + risk.unknown + " unknown"),
+      element("p", risk.coveredGroups + " of " + risk.totalGroups + " evidence sections · " + data.ruleVersion)
+    );
+    if (risk.value === null && risk.evidencedPoints > 0) {
+      score.append(element("p", "Observed penalties: " + risk.evidencedPoints + " points"));
+    }
+  }
   score.append(print);
   headline.append(identity, score);
 
+  const defaultSections = [["control", "Contract control"], ["trading", "Trading safety"],
+    ["liquidity", "Liquidity"], ["holders", "Holder distribution"]];
   const grid = element("div", null, "sentinel-grid");
-  for (const [group, label] of [["control", "Contract control"], ["trading", "Trading safety"],
-    ["liquidity", "Liquidity"], ["holders", "Holder distribution"]]) {
+  for (const [group, label] of (data.sections || defaultSections)) {
     const card = element("section", null, "sentinel-card");
     card.append(element("h3", label));
     const rows = element("ul", null, "sentinel-findings");
@@ -74,19 +109,30 @@ function render(data) {
     }
     card.append(rows);
     const figures = element("ul", null, "sentinel-lines");
-    if (group === "liquidity") {
+    if (!bitcoin && group === "liquidity") {
       const liquidity = data.liquidity;
       if (liquidity) {
         figures.append(element("li", usd.format(liquidity.usd) + " across " + liquidity.poolCount + " tracked pools"));
-        for (const pool of liquidity.pools) figures.append(element("li",
-          pool.venue + " · " + usd.format(pool.liquidity) + " · " + pool.pair));
+        for (const pool of liquidity.pools) {
+          figures.append(element("li", pool.venue + " · " + usd.format(pool.liquidity) + " · " + pool.pair));
+        }
       }
-      for (const holder of data.lpHolders) figures.append(element("li",
-        "LP · " + number.format(holder.percentage) + "% · " + holder.address +
-        (holder.locked === null ? "" : holder.locked ? " · reported locked" : " · reported unlocked")));
-    } else if (group === "holders" && data.holders.length) {
+      for (const holder of data.lpHolders) {
+        figures.append(element("li", "LP · " + number.format(holder.percentage) + "% · " + holder.address +
+          (holder.locked === null ? "" : holder.locked ? " · reported locked" : " · reported unlocked")));
+      }
+    } else if (!bitcoin && group === "holders" && data.holders.length) {
       figures.append(element("li", data.holderType));
-      for (const holder of data.holders) figures.append(element("li", number.format(holder.percentage) + "% · " + holder.address));
+      for (const holder of data.holders) {
+        figures.append(element("li", number.format(holder.percentage) + "% · " + holder.address));
+      }
+    } else if (bitcoin && group === "funds" && data.bitcoin) {
+      figures.append(
+        element("li", "Confirmed balance · " + btc(data.bitcoin.confirmedBalanceSats)),
+        element("li", "Pending delta · " + btc(data.bitcoin.pendingDeltaSats)),
+        element("li", "Funded outputs · " + data.bitcoin.fundedOutputCount),
+        element("li", "Spent outputs · " + data.bitcoin.spentOutputCount)
+      );
     }
     if (figures.childElementCount) card.append(figures);
     grid.append(card);
@@ -104,10 +150,15 @@ function render(data) {
     evidence.append(disclosure, printable);
   }
   evidence.append(element("h4", "Source coverage"));
-  for (const item of data.sources) evidence.append(element("p", item.name + " · " + item.status + (item.detail ? " · " + item.detail : "")));
-  evidence.append(element("h4", "Scoring and limitations"),
-    element("p", "Points add up to a maximum of 100. A score requires confirmed on-chain identity and observations on risk checks in at least three sections, including control. Unknown and inapplicable checks add no points."));
-  for (const limit of data.limitations) evidence.append(element("p", limit));
+  for (const item of data.sources) {
+    evidence.append(element("p", item.name + " · " + item.status + (item.detail ? " · " + item.detail : "")));
+  }
+  if (!bitcoin) {
+    evidence.append(element("h4", "Scoring"),
+      element("p", "A score requires confirmed identity and sufficient evidence. Unknown checks add no points."));
+  }
+  for (const limit of data.limitations || []) evidence.append(element("p", limit));
+
   output.replaceChildren(headline, grid, evidence);
   output.hidden = false;
 }
@@ -121,27 +172,37 @@ address.addEventListener("input", () => address.removeAttribute("aria-invalid"))
 form.addEventListener("submit", async event => {
   event.preventDefault();
   const value = address.value.trim();
-  const solana = network.value === "solana";
-  if (!(solana ? /^[1-9A-HJ-NP-Za-km-z]{32,44}$/ : /^0x[0-9a-fA-F]{40}$/).test(value)) {
+  const selected = network.value;
+  const bitcoin = selected === "bitcoin";
+  const solana = selected === "solana";
+  const bitcoinShape = /^(?:(?:1|3)[1-9A-HJ-NP-Za-km-z]{25,34}|(?:bc1|BC1)[0-9A-Za-z]{8,87})$/;
+  const valid = bitcoin ? bitcoinShape.test(value) :
+    solana ? /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(value) :
+    /^0x[0-9a-fA-F]{40}$/.test(value);
+  if (!valid) {
     address.setAttribute("aria-invalid", "true");
-    showStatus(solana ? "Enter a valid Solana token mint address." : "Enter a valid 42-character EVM token contract address.", true);
+    showStatus(bitcoin ? "Enter a valid Bitcoin mainnet address." :
+      solana ? "Enter a valid Solana token mint address." :
+      "Enter a valid 42-character EVM token contract address.", true);
     address.focus();
     return;
   }
   button.disabled = network.disabled = address.disabled = true;
   output.hidden = true;
   form.setAttribute("aria-busy", "true");
-  showStatus("Scanning on-chain and market sources…");
+  showStatus(bitcoin ? "Scanning Bitcoin address…" : "Scanning on-chain and market sources…");
   try {
     const response = await fetch("/api/sentinel/scan", {
-      method: "POST", headers: { "content-type": "application/json" },
-      body: JSON.stringify({ network: network.value, address: value }), signal: AbortSignal.timeout(28000)
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ network: selected, address: value }),
+      signal: AbortSignal.timeout(28000)
     });
     if (!response.headers.get("content-type")?.includes("application/json")) throw new Error("The Sentinel service is unavailable.");
     const result = await response.json();
     if (!response.ok) throw new Error(result.error || "The Sentinel service is unavailable.");
     render(result);
-    showStatus(result.cached ? "Showing a recent scan." : "Scan complete. Review the report below.");
+    showStatus(result.cached ? "Showing a recent scan." : "Scan complete.");
   } catch (error) {
     showStatus(error.name === "TimeoutError" ? "The scan timed out. Please try again." :
       error instanceof TypeError ? "The Sentinel service is unavailable. Please try again." : error.message, true);

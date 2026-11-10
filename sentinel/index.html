@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RANNTA Sentinel — Token & Smart Contract Risk Scanner</title>
-  <meta name="description" content="Scan tokens and smart contracts for on-chain control, trading, liquidity and holder-concentration risk on Ethereum, BNB Chain, Base, Polygon and Solana.">
+  <title>RANNTA Sentinel — Token, Contract & Bitcoin Address Scanner</title>
+  <meta name="description" content="Scan Bitcoin addresses, tokens and smart contracts using verifiable on-chain evidence across Bitcoin, Ethereum, BNB Chain, Base, Polygon and Solana.">
   <link rel="canonical" href="https://rannta.com/sentinel">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="RANNTA Sentinel — Token & Smart Contract Risk Scanner">
-  <meta property="og:description" content="Evidence-based on-chain token and smart-contract risk scanning across five supported networks.">
+  <meta property="og:title" content="RANNTA Sentinel — Token, Contract & Bitcoin Address Scanner">
+  <meta property="og:description" content="Evidence-based Bitcoin address, token and smart-contract scanning across six supported networks.">
   <meta property="og:url" content="https://rannta.com/sentinel">
   <meta property="og:image" content="https://rannta.com/assets/opengraph/home_og_1200x630.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/style.css?v=20260913-mobile3">
-  <link rel="stylesheet" href="/assets/css/sentinel.css?v=20261110-r2">
+  <link rel="stylesheet" href="/assets/css/sentinel.css?v=20261110-r3">
   <script src="/assets/js/site-shell.js?v=sentinel-2" defer></script>
-  <script src="/assets/js/sentinel.js?v=20261110-r2" defer></script>
+  <script src="/assets/js/sentinel.js?v=20261110-r3" defer></script>
 </head>
 <body class="rannta-unified-page sentinel-page">
 <div data-site-header></div>
@@ -27,13 +27,10 @@
         <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2.5 21 6v6c0 4.3-4.2 7.6-9 9.5-4.8-1.9-9-5.2-9-9.5V6z"/><path d="M7.5 12h2l1.2-2.5 2.1 5 1.3-2.5h2.4"/></svg>
         RANNTA SENTINEL
       </p>
-      <h1 id="sentinel-title">Token &amp; Smart Contract Risk Scanner</h1>
-      <p class="sentinel-lede">
-        Check a token before buying, swapping or interacting with it. Sentinel reads verifiable on-chain and market evidence,
-        then reports contract control, trading restrictions, liquidity and holder-concentration risks.
-      </p>
+      <h1 id="sentinel-title">On-Chain Risk Scanner</h1>
+      <p class="sentinel-lede">Scan Bitcoin addresses, tokens and smart contracts using verifiable on-chain evidence.</p>
       <div class="sentinel-network-row" aria-label="Supported networks">
-        <span>Ethereum</span><span>BNB Chain</span><span>Base</span><span>Polygon</span><span>Solana</span>
+        <span>Bitcoin</span><span>Ethereum</span><span>BNB Chain</span><span>Base</span><span>Polygon</span><span>Solana</span>
       </div>
     </div>
 
@@ -41,6 +38,7 @@
       <div class="sentinel-field">
         <label for="sentinel-network">Network</label>
         <select id="sentinel-network" name="network">
+          <option value="bitcoin">Bitcoin</option>
           <option value="ethereum">Ethereum</option>
           <option value="bsc">BNB Chain</option>
           <option value="base">Base</option>
@@ -49,51 +47,16 @@
         </select>
       </div>
       <div class="sentinel-field">
-        <label for="sentinel-address">Token / contract address</label>
+        <label for="sentinel-address">Address</label>
         <input id="sentinel-address" name="address" type="text" spellcheck="false" autocomplete="off" autocapitalize="off"
-          maxlength="44" placeholder="0x…" aria-describedby="sentinel-format" required>
+          maxlength="90" placeholder="Bitcoin address" aria-describedby="sentinel-format" required>
       </div>
-      <button class="sentinel-primary" type="submit">Scan token <span aria-hidden="true">→</span></button>
-      <p id="sentinel-format" class="sentinel-help">Enter the public token contract address for the selected network.</p>
+      <button class="sentinel-primary" type="submit">Scan address <span aria-hidden="true">→</span></button>
+      <p id="sentinel-format" class="sentinel-help">Enter a public Bitcoin mainnet address.</p>
     </form>
 
     <noscript><p class="sentinel-help">Enable JavaScript to submit a scan.</p></noscript>
     <p class="sentinel-progress" id="sentinel-progress" role="status" aria-live="polite"></p>
-  </section>
-
-  <section class="sentinel-purpose" aria-labelledby="sentinel-purpose-title">
-    <div class="sentinel-purpose-copy">
-      <p class="sentinel-section-label">WHAT THIS TOOL IS FOR</p>
-      <h2 id="sentinel-purpose-title">A pre-interaction risk check for tokens and smart contracts</h2>
-      <p>
-        Sentinel is designed to answer practical questions before you interact with a token: Can supply be changed?
-        Can transfers be paused or blacklisted? Is the contract upgradeable? Are buy/sell restrictions or taxes reported?
-        How much observable liquidity exists, and is supply concentrated in a small number of addresses?
-      </p>
-    </div>
-    <div class="sentinel-checks" aria-label="Sentinel checks">
-      <span>Owner &amp; admin control</span>
-      <span>Proxy / upgradeability</span>
-      <span>Mint &amp; supply controls</span>
-      <span>Pause / blacklist logic</span>
-      <span>Honeypot &amp; sell restrictions</span>
-      <span>Buy / sell / transfer fees</span>
-      <span>DEX liquidity</span>
-      <span>Holder concentration</span>
-    </div>
-  </section>
-
-  <section class="sentinel-bitcoin-note" aria-labelledby="sentinel-bitcoin-title">
-    <div>
-      <p class="sentinel-section-label">WHY BITCOIN IS NOT IN THE SELECTOR</p>
-      <h2 id="sentinel-bitcoin-title">Bitcoin addresses are a different type of risk analysis</h2>
-      <p>
-        This scanner evaluates token contracts and token mints. Bitcoin does not use ERC-20-style token contracts or Solana mint accounts;
-        it uses UTXO addresses and transaction history. A meaningful Bitcoin scanner must analyze address transactions, UTXO flows,
-        counterparties and known-risk attribution. That is a separate address-intelligence module, not the same contract scanner.
-      </p>
-    </div>
-    <strong>Current scope: token / smart-contract risk — not wallet reputation or Bitcoin address scoring.</strong>
   </section>
 
   <section id="sentinel-report" aria-label="Sentinel risk report" hidden></section>
