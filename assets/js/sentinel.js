@@ -18,11 +18,11 @@ function element(tag, text, className) {
 
 function updateFormat() {
   const solana = network.value === "solana";
-  form.querySelector('label[for="sentinel-address"]').textContent = solana ? "Mint address" : "Contract address";
-  address.placeholder = solana ? "Solana mint address" : "0x…";
+  form.querySelector('label[for="sentinel-address"]').textContent = solana ? "Token mint address" : "Token contract address";
+  address.placeholder = solana ? "Solana token mint address" : "0x…";
   document.getElementById("sentinel-format").textContent = solana
-    ? "Enter the public base58 mint address. Wallet addresses do not identify tokens."
-    : "Enter the public contract address for the selected network.";
+    ? "Enter the public base58 token mint address. Wallet addresses are outside this scanner's scope."
+    : "Enter the public token contract address for the selected network.";
   address.removeAttribute("aria-invalid");
 }
 
@@ -124,7 +124,7 @@ form.addEventListener("submit", async event => {
   const solana = network.value === "solana";
   if (!(solana ? /^[1-9A-HJ-NP-Za-km-z]{32,44}$/ : /^0x[0-9a-fA-F]{40}$/).test(value)) {
     address.setAttribute("aria-invalid", "true");
-    showStatus(solana ? "Enter a valid Solana mint address." : "Enter a valid 42-character EVM contract address.", true);
+    showStatus(solana ? "Enter a valid Solana token mint address." : "Enter a valid 42-character EVM token contract address.", true);
     address.focus();
     return;
   }
