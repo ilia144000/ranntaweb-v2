@@ -6,26 +6,29 @@ const stats = value => object(value) &&
     .every(key => Number.isSafeInteger(value[key]) && value[key] >= 0) ? value : null;
 const btc = sats => (sats / 100000000).toFixed(8);
 
-async function mempoolScan(fetcher, address) {
+const sameAddress = (left, right) => typeof left === "string" &&
+  (left === right || (/^bc1/i.test(left) && /^bc1/i.test(right) && left.toLowerCase() === right.toLowerCase()));
+
+async function mempoolScan(fetcher, address, now) {
   const base = "https://mempool.space/api";
   const validation = await fetchJson(fetcher, base + "/v1/validate-address/" + encodeURIComponent(address));
-  if (!object(validation) || validation.isvalid !== true || validation.address !== address) {
+  if (!object(validation) || validation.isvalid !== true || !sameAddress(validation.address, address)) {
     return { confirmed: false, detail: "The address was not accepted as a valid Bitcoin mainnet address." };
   }
   const [profile, utxos] = await Promise.all([
     fetchJson(fetcher, base + "/address/" + encodeURIComponent(address)),
     fetchJson(fetcher, base + "/address/" + encodeURIComponent(address) + "/utxo")
   ]);
-  if (!object(profile) || profile.address !== address || !Array.isArray(utxos)) throw new Error("Invalid Bitcoin address response");
+  if (!object(profile) || !sameAddress(profile.address, address) || !Array.isArray(utxos)) throw new Error("Invalid Bitcoin address response");
   const chain = stats(profile.chain_stats);
   const mempool = stats(profile.mempool_stats);
   if (!chain || !mempool) throw new Error("Invalid Bitcoin address statistics");
   return normalize(address, chain, mempool, utxos, "mempool.space",
     validation.iswitness ? "Witness" + (Number.isInteger(validation.witness_version) ? " v" + validation.witness_version : "") :
-      validation.isscript ? "Script address" : "Legacy address");
+      validation.isscript ? "Script address" : "Legacy address", now);
 }
 
-async function blockstreamScan(fetcher, address) {
+async function blockstreamScan(fetcher, address, now) {
   const base = "https://blockstream.info/api";
   const [profile, utxos] = await Promise.all([
     fetchJson(fetcher, base + "/address/" + encodeURIComponent(address)),
@@ -35,10 +38,10 @@ async function blockstreamScan(fetcher, address) {
   const chain = stats(profile.chain_stats);
   const mempool = stats(profile.mempool_stats);
   if (!chain || !mempool) throw new Error("Invalid Bitcoin address statistics");
-  return normalize(address, chain, mempool, utxos, "Blockstream Esplora", null);
+  return normalize(address, chain, mempool, utxos, "Blockstream Esplora", null, now);
 }
 
-function normalize(address, chain, mempool, utxos, source, addressType) {
+function normalize(address, chain, mempool, utxos, source, addressType, now = Date.now) {
   const confirmedBalance = chain.funded_txo_sum - chain.spent_txo_sum;
   const pendingDelta = mempool.funded_txo_sum - mempool.spent_txo_sum;
   const currentBalance = confirmedBalance + pendingDelta;
@@ -75,7 +78,7 @@ function normalize(address, chain, mempool, utxos, source, addressType) {
   return {
     ruleVersion: "sentinel-btc-1",
     reportType: "bitcoin",
-    scannedAt: new Date().toISOString(),
+    scannedAt: new Date(now()).toISOString(),
     network: "bitcoin",
     networkLabel: "Bitcoin",
     address,
@@ -113,11 +116,11 @@ function normalize(address, chain, mempool, utxos, source, addressType) {
   };
 }
 
-export async function scanBitcoin({ address }, { fetcher = fetch } = {}) {
+export async function scanBitcoin({ address }, { fetcher = fetch, now = Date.now } = {}) {
   try {
-    const result = await mempoolScan(fetcher, address);
+    const result = await mempoolScan(fetcher, address, now);
     return result.confirmed === false ? {
-      ruleVersion: "sentinel-btc-1", reportType: "bitcoin", scannedAt: new Date().toISOString(),
+      ruleVersion: "sentinel-btc-1", reportType: "bitcoin", scannedAt: new Date(now()).toISOString(),
       network: "bitcoin", networkLabel: "Bitcoin", address, assetStatus: "NOT FOUND", assetDetail: result.detail,
       asset: { name: "Bitcoin address", symbol: "BTC", supply: null, metadataSource: "mempool.space", chainPosition: null },
       sources: [{ name: "mempool.space", status: "NO MATCH", detail: result.detail }],
@@ -126,7 +129,7 @@ export async function scanBitcoin({ address }, { fetcher = fetch } = {}) {
       holders: [], holderType: "", liquidity: null, lpHolders: [], sections: [], bitcoin: null, limitations: []
     } : result;
   } catch {
-    const result = await blockstreamScan(fetcher, address);
+    const result = await blockstreamScan(fetcher, address, now);
     result.sources.unshift({ name: "mempool.space", status: "UNAVAILABLE", detail: "Primary Bitcoin source was unavailable." });
     return result;
   }
