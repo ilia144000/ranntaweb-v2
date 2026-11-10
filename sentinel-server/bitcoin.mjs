@@ -34,7 +34,7 @@ async function blockstreamScan(fetcher, address, now) {
     fetchJson(fetcher, base + "/address/" + encodeURIComponent(address)),
     fetchJson(fetcher, base + "/address/" + encodeURIComponent(address) + "/utxo")
   ]);
-  if (!object(profile) || profile.address !== address || !Array.isArray(utxos)) throw new Error("Invalid Bitcoin address response");
+  if (!object(profile) || !sameAddress(profile.address, address) || !Array.isArray(utxos)) throw new Error("Invalid Bitcoin address response");
   const chain = stats(profile.chain_stats);
   const mempool = stats(profile.mempool_stats);
   if (!chain || !mempool) throw new Error("Invalid Bitcoin address statistics");
