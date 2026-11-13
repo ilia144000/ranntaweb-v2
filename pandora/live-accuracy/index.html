@@ -130,6 +130,11 @@ tbody tr:hover{background:#1b2328}
 @media(max-width:1080px){.grid{grid-template-columns:1fr 1fr}.lift{grid-column:1/-1;min-height:145px}.metric{justify-content:space-around}}
 @media(max-width:690px){.shell{width:min(100% - 28px,1170px)}.hero{padding-top:48px}.hero-logo{width:106px;height:106px}.hero-logo img{width:99px;height:99px}.toplinks a:first-child{display:none}.grid{grid-template-columns:1fr}.lift{grid-column:auto}.metric{min-height:176px}.donut{width:126px}.donut strong{font-size:23px}.latest{padding:17px}.latest-grid{grid-template-columns:1fr;gap:15px}.history{padding:16px}.live-side{width:100%;justify-content:space-between}.event-times{flex-direction:column;gap:4px}.bottom{flex-direction:column;align-items:flex-start;gap:6px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fill{transition:none}}
+.horizon-control{display:flex;justify-content:center;align-items:center;gap:12px;margin:20px 0;color:var(--gold-soft)}
+.horizon-control select{color:var(--gold-soft);background:#141210;border:1px solid #8b6b37;padding:10px 36px 10px 14px;border-radius:10px;font:inherit}
+.horizon-control select:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px}
+#accuracy-history{display:flex;gap:4px;align-items:end;height:48px;margin:10px 0}
+#accuracy-history span{background:var(--gold);flex:1;min-width:2px;max-width:45px;border-radius:3px 3px 0 0}
 </style>
 </head>
 <body>
@@ -148,11 +153,18 @@ tbody tr:hover{background:#1b2328}
     <p class="eyebrow">RANNTA PANDORA · PUBLIC FORECAST LEDGER</p>
     <h1>LIVE <span>ACCURACY</span></h1>
     <p class="subtitle">Real BTC/USDT spot predictions. Each receipt records Pandora's forecast before the market outcome is known, then shows the observed settlement.</p>
+    <div class="horizon-control"><label for="forecast-horizon">Forecast horizon</label>
+      <select id="forecast-horizon">
+        <option value="10">10 Seconds</option><option value="60" selected>1 Minute</option>
+        <option value="900">15 Minutes</option><option value="3600">1 Hour</option>
+        <option value="25200">7 Hours</option><option value="86400">24 Hours</option><option value="604800">7 Days</option>
+      </select>
+    </div>
     <div class="specs" aria-label="Exact prediction target">
       <span class="spec">MARKET <strong>BTC / USDT SPOT</strong></span>
-      <span class="spec">TARGET <strong>FIRST ±0.5 bp MIDPRICE MOVE</strong></span>
-      <span class="spec">WINDOW <strong>10 SECONDS MAX</strong></span>
-      <span class="spec">CLASSES <strong>UP · DOWN · NO MOVE</strong></span>
+      <span class="spec">TARGET <strong id="target-type">OFFICIAL TERMINAL MIDPRICE</strong></span>
+      <span class="spec">WINDOW <strong id="target-window">1 Minute</strong></span>
+      <span class="spec">CLASSES <strong id="target-classes">UP · DOWN · FLAT</strong></span>
     </div>
   </header>
 
@@ -168,7 +180,7 @@ tbody tr:hover{background:#1b2328}
       <div class="donut" id="model-ring" aria-label="Pandora accuracy chart">
         <div class="donut-inner"><strong id="model">—</strong><small>ACCURACY</small></div>
       </div>
-      <div class="copy"><p class="label">PANDORA LIVE V2</p><p class="sub">Active inference engine</p><p class="count" id="model-count">Loading…</p></div>
+      <div class="copy"><p class="label" id="score-model">PANDORA OFFICIAL</p><p class="sub">Serving forecasts at issuance</p><p class="count" id="model-count">Loading…</p></div>
     </article>
     <article class="surface metric base">
       <div class="donut" id="baseline-ring" aria-label="Rolling majority accuracy chart">
@@ -187,6 +199,9 @@ tbody tr:hover{background:#1b2328}
   </section>
 
   <section class="surface latest" aria-label="Most recent forecast">
+    <p id="model-version"></p>
+    <p id="quality-metrics"></p>
+    <div id="accuracy-history" role="img" aria-label="Accuracy by successive groups of up to 25 settlements"></div>
     <div class="latest-top">
       <div><h2 class="title">Latest forecast</h2><p class="hint">The full probability distribution, not only the winning class</p></div>
       <span class="latest-id" id="latest-id">WAITING</span>
@@ -201,7 +216,7 @@ tbody tr:hover{background:#1b2328}
         <div class="prob-title"><span>Forecast probabilities</span><span>Sum: 100%</span></div>
         <div class="prob-row"><span class="prob-name">UP</span><div class="track"><div class="fill" id="bar-up"></div></div><span class="prob-percent" id="prob-up">—</span></div>
         <div class="prob-row"><span class="prob-name">DOWN</span><div class="track"><div class="fill down" id="bar-down"></div></div><span class="prob-percent" id="prob-down">—</span></div>
-        <div class="prob-row"><span class="prob-name">NO MOVE</span><div class="track"><div class="fill no" id="bar-no"></div></div><span class="prob-percent" id="prob-no">—</span></div>
+        <div class="prob-row"><span class="prob-name" id="prob-third-label">FLAT</span><div class="track"><div class="fill no" id="bar-no"></div></div><span class="prob-percent" id="prob-no">—</span></div>
       </div>
     </div>
     <div class="event-times" id="forecast-time"><span>Issue and settlement times appear here in UTC.</span></div>
@@ -219,26 +234,26 @@ tbody tr:hover{background:#1b2328}
     <p class="rib-label">Recent outcome sequence · <span style="color:var(--teal)">correct</span> / <span style="color:var(--red)">incorrect</span></p>
     <div id="ribbon" class="ribbon" aria-label="Recent prediction results"></div>
     <div class="scroller" tabindex="0" role="region" aria-label="Forecast settlement table">
-      <table><thead><tr><th scope="col">Receipt</th><th scope="col">Issued (UTC)</th><th scope="col">V2 forecast</th><th scope="col">Baseline</th><th scope="col">Actual move</th><th scope="col">Settled (UTC)</th><th scope="col">Result</th></tr></thead><tbody id="history"><tr><td colspan="7" class="empty">Loading receipts…</td></tr></tbody></table>
+      <table><thead><tr><th scope="col">Receipt</th><th scope="col">Issued (UTC)</th><th scope="col">Forecast</th><th scope="col">Baseline</th><th scope="col">Actual move</th><th scope="col">Settled (UTC)</th><th scope="col">Result</th></tr></thead><tbody id="history"><tr><td colspan="7" class="empty">Loading receipts…</td></tr></tbody></table>
     </div>
   </section>
 
   <section class="explainer" id="methodology" aria-label="How to read these results">
     <h2>What is being predicted?</h2>
-    <p>Pandora predicts whether the BTC/USDT spot midprice first moves <strong style="color:var(--ink)">0.5 basis points (0.005%)</strong> upward or downward from the issue price during the next <strong style="color:var(--ink)">10 seconds</strong>. If neither threshold is crossed within that window, the settled class is <strong style="color:var(--ink)">NO MOVE</strong>. This is not a candle-direction forecast.</p>
-    <p>Accuracy compares the latest 434 eligible settled receipts (or all available if fewer). The rolling baseline selects the most common class among the last 10 outcomes known <em>before</em> each issuance, using the most recent outcome for ties. Forecast issuance and settlement timestamps are shown in UTC. Some receipts first appear on this public mirror after they settle; the mirror is published in batches and is not a low-latency trading signal feed. Forecast accuracy is not trading profitability.</p>
+    <p id="target-method"></p>
+    <p>Accuracy compares up to 434 eligible settlements per horizon. The baseline selects the most common class among the last 10 eligible prior outcomes, using the most recent outcome for ties. Official horizons allow the full settlement window before counting an outcome as known and use a no-change baseline until 10 outcomes are available. The public mirror publishes in batches. Some receipts first appear after settlement.</p>
     <a href="/pandora/live-accuracy/snapshot.json" target="_blank" rel="noopener noreferrer">View public ledger snapshot</a>
   </section>
   <footer class="bottom"><span><strong>RANNTA</strong> / PANDORA INTELLIGENCE</span><span>Public evidence · Live predictions · Independent verification</span></footer>
 </main>
 <script nonce="pandora-live-v1">
 "use strict";
-const LABELS=["UP","DOWN","NO MOVE"];
+let LABELS=["UP","DOWN","FLAT"];
 const el=id=>document.getElementById(id);
 const pct=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US",{style:"percent",minimumFractionDigits:1,maximumFractionDigits:1}).format(x):"—";
 const num=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US").format(x):"—";
 const utc=x=>Number.isFinite(Number(x))?new Date(Number(x)*1000).toISOString().slice(0,19).replace("T"," "):"—";
-let snapshot=null,filter="all",syncError=false;
+let snapshot=null,feed=null,filter="all",syncError=false,selectedByUser=false;
 function setStatus(){
   if(!snapshot)return;
   const old=Date.now()/1000-Number(snapshot.as_of)>240;
@@ -277,8 +292,26 @@ function paintHistory(){
     ribbon.append(bar);
   }
 }
+function drawFeed(data){
+  feed=data;
+  const selector=el("forecast-horizon");
+  if(!selectedByUser)selector.value=data.horizons?.["60"]?.latest?"60":"10";
+  const h=selector.value;
+  const first=h==="10";
+  const horizon=first?data:data.horizons?.[h];
+  LABELS=first?["UP","DOWN","NO MOVE"]:["UP","DOWN","FLAT"];
+  el("target-type").textContent=first?"FIRST ±0.5 bp MIDPRICE MOVE":"OFFICIAL TERMINAL MIDPRICE";
+  el("target-window").textContent=selector.selectedOptions[0].textContent;
+  el("target-classes").textContent=LABELS.join(" · ");
+  el("prob-third-label").textContent=LABELS[2];
+  el("score-model").textContent=first?"PANDORA LIVE V2":"PANDORA OFFICIAL";
+  el("target-method").textContent=first?
+    "First 0.5 basis point BTC/USDT spot midprice move within 10 seconds. NO MOVE means neither boundary was crossed.":
+    "The official model predicts terminal BTC/USDT midprice at origin plus this horizon. The first eligible quote at or after target settles the receipt. FLAT means the observed return stayed within the receipt’s recorded band.";
+  const frame={n:0,receipts:[],...horizon,as_of:data.as_of,source_online:!!horizon?.source_online&&!data.fallback};
+  draw(frame);
+}
 function draw(data){
-  if(!data||data.schema!=="pandora-public-accuracy-v1"||!Array.isArray(data.receipts))throw Error("Invalid public accuracy payload");
   snapshot=data;syncError=false;setStatus();
   const n=Number(data.n)||0,good=Number(data.model_correct)||0,base=Number(data.baseline_correct)||0;
   const p=n?good/n:NaN,b=n?base/n:NaN;
@@ -292,31 +325,49 @@ function draw(data){
   el("sample").textContent=num(n);
   el("cohort").textContent=n?"Receipts #"+data.first_id+"–"+data.last_id:"Awaiting settlements";
   el("cohort-detail").textContent=n?"Same "+num(n)+" matched outcomes":"";
-  const current=data.pending&&data.pending.target>Date.now()/1000?data.pending:data.receipts[0];
+  const current=data.latest|| (data.pending&&data.pending.target>Date.now()/1000?data.pending:data.receipts[0]);
+  el("model-version").textContent=current?.model?current.model+" · "+current.version:(data.model||"")+(data.version?" · "+data.version:"");
+  el("quality-metrics").textContent=Number.isFinite(data.brier)?
+    "Brier "+data.brier.toFixed(4)+" · Log loss "+data.log_loss.toFixed(4):"Awaiting verified probability scores";
+  const history=data.accuracy_history||[];
+  el("accuracy-history").replaceChildren(...history.map((value,i)=>{
+    const bar=document.createElement("span");
+    bar.style.height=(100*value)+"%";
+    bar.title="Group "+(i+1)+" · "+pct(value);
+    return bar;
+  }));
   if(current&&Array.isArray(current.probabilities)&&current.probabilities.length===3){
     el("latest-id").textContent="RECEIPT #"+current.id;
     const call=el("forecast-call");call.textContent=outcomeLabel(current.call);
     call.className="signal-main "+(current.call===0?"up":current.call===1?"down":"no");
     const settled=Number(current.settled)>0;
     const hit=settled&&current.call===current.outcome;
-    el("forecast-outcome").textContent=settled?"SETTLED "+outcomeLabel(current.outcome)+" · "+(hit?"CORRECT":"INCORRECT"):"AWAITING SETTLEMENT";
+    el("forecast-outcome").textContent=settled?"SETTLED "+outcomeLabel(current.outcome)+" · "+(hit?"CORRECT":"INCORRECT"):
+      current.pending_status==="awaiting_settlement"?"AWAITING SETTLEMENT":"PENDING";
     ["up","down","no"].forEach((s,i)=>{
       const v=Number(current.probabilities[i]);el("prob-"+s).textContent=pct(v);
       el("bar-"+s).style.width=(Number.isFinite(v)?Math.max(0,Math.min(100,v*100)):0).toFixed(2)+"%";
     });
     el("forecast-time").replaceChildren();
-    const times=[["ISSUED",current.issued],[(settled?"SETTLED":"TARGET"),settled?current.settled:current.target]];
+    const times=[["ISSUED",current.issued],["TARGET",current.target]];
+    if(settled)times.push(["SETTLED",current.settled]);
     for(const [label,stamp] of times){
       const part=document.createElement("span");const strong=document.createElement("strong");strong.textContent=label+" ";part.append(strong,document.createTextNode(utc(stamp)+" UTC"));el("forecast-time").append(part);
     }
+    if(Number.isFinite(current.band_bps))el("forecast-time").append("FLAT band ±"+current.band_bps.toFixed(4)+" bp");
   }else{
     el("latest-id").textContent="WAITING";
     el("forecast-call").textContent="—";
     el("forecast-outcome").textContent="No recent forecast receipt";
+    el("forecast-time").replaceChildren();
     ["up","down","no"].forEach(s=>{el("prob-"+s).textContent="—";el("bar-"+s).style.width="0%";});
   }
   paintHistory();
 }
+el("forecast-horizon").addEventListener("change",()=>{
+  selectedByUser=true;
+  if(feed)drawFeed(feed);
+});
 document.querySelectorAll("[data-filter]").forEach(button=>button.addEventListener("click",()=>{
   filter=button.dataset.filter;
   document.querySelectorAll("[data-filter]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
@@ -331,9 +382,9 @@ async function refresh(){
     return data;
   };
   try{
-    try{draw(await read("/api/pandora/live-accuracy"));}
+    try{drawFeed(await read("/api/pandora/live-accuracy"));}
     catch{
-      if(!snapshot){draw({...await read("/pandora/live-accuracy/snapshot.json"),source_online:false,pending:null});}
+      if(!snapshot){drawFeed({...await read("/pandora/live-accuracy/snapshot.json"),fallback:true,source_online:false,pending:null});}
       else{syncError=true;setStatus();}
     }
   }catch{

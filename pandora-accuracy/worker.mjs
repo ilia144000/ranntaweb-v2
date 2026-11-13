@@ -27,7 +27,7 @@ export default {
       if (request.method !== "POST") return json({ error: "Not found" }, 404);
       if (!await authorized(request, env.PUBLISH_TOKEN)) return json({ error: "Unauthorized" }, 401);
       const length = Number(request.headers.get("Content-Length"));
-      if (!(length > 0 && length <= 64000)) return json({ error: "Invalid payload size" }, 413);
+      if (!(length > 0 && length <= 128000)) return json({ error: "Invalid payload size" }, 413);
       let snapshot;
       try {
         snapshot = await request.json();
