@@ -161,7 +161,7 @@ tbody tr:hover{background:#1b2328}
     <p class="subtitle">Real BTC/USDT spot predictions. Each receipt records Pandora's forecast before the market outcome is known, then shows the observed settlement.</p>
     <div class="horizon-control"><label for="forecast-horizon">Forecast horizon</label>
       <select id="forecast-horizon">
-        <option value="10">10 Seconds</option><option value="60" selected>1 Minute</option>
+        <option value="10" selected>10 Seconds</option><option value="60">1 Minute</option>
         <option value="900">15 Minutes</option><option value="3600">1 Hour</option>
         <option value="25200">7 Hours</option><option value="86400">24 Hours</option><option value="604800">7 Days</option>
       </select>
@@ -321,7 +321,7 @@ function paintHistory(){
 function drawFeed(data){
   feed=data;
   const selector=el("forecast-horizon");
-  if(!selectedByUser)selector.value=data.horizons?.["60"]?.latest?"60":"10";
+  if(!selectedByUser)selector.value="10";
   const h=selector.value;
   if(h!==historyHorizon){historyHorizon=h;historyPage=0;}
   const first=h==="10";
