@@ -1,0 +1,15 @@
+name = "rannta-pandora-accuracy"
+main = "worker.mjs"
+account_id = "03be5c8eebd38cece29e4177b27b2219"
+compatibility_date = "2025-03-01"
+workers_dev = false
+preview_urls = false
+routes = [
+  { pattern = "rannta.com/pandora/live-accuracy*", zone_name = "rannta.com" },
+  { pattern = "rannta.com/api/pandora/live-accuracy*", zone_name = "rannta.com" }
+]
+
+[[kv_namespaces]]
+binding = "ACCURACY"
+id = "c29e10f978a74118b527333b6ebb072d"
+
