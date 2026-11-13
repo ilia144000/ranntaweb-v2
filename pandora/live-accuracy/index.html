@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="See real RANNTA Pandora Bitcoin next-move forecast receipts, settlements, and baseline performance.">
+<link rel="canonical" href="https://rannta.com/pandora/live-accuracy">
+<title>Live Accuracy · RANNTA Pandora</title>
+<style>
+:root{color-scheme:dark;--ink:#edf4ef;--muted:#a2b5ac;--mint:#7bf4c2;--line:#2b3d36;--panel:#112019;--bg:#0b1410}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",sans-serif}
+main,nav{max-width:1120px;margin:auto;padding-inline:clamp(16px,5vw,58px)}
+nav{display:flex;align-items:center;min-height:64px;border-bottom:1px solid var(--line)}a{color:var(--mint);text-underline-offset:.22em}
+.brand{font-weight:700;letter-spacing:.12em;font-size:.8rem}.hero{padding-block:clamp(28px,6vw,66px) 26px}
+h1,h2,p{margin:0}h1{font-size:clamp(2.75rem,9vw,5.75rem);line-height:1;letter-spacing:-.065em;margin-bottom:14px}
+h2{font-size:1.25rem;margin-bottom:8px}.muted{color:var(--muted)}
+.freshness{margin-top:16px;color:var(--mint)}.freshness.stale{color:#ffd89d}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin-block:8px 24px}
+.card,.latest,.history{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.number{display:block;font-size:2.35rem;font-weight:650;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.latest{margin-bottom:12px}.latest p+p{margin-top:5px}.history{overflow:hidden}
+.scroll{overflow-x:auto}.scroll:focus-visible,a:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
+table{width:100%;min-width:650px;border-collapse:collapse;text-align:left;font-size:.9rem;font-variant-numeric:tabular-nums}
+th,td{padding:10px 9px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:500}
+.correct{color:var(--mint)}.wrong{color:#ffc4ad}.foot{padding-block:18px 38px;color:var(--muted);font-size:.94rem}
+@media(max-width:520px){.card,.latest,.history{padding:14px}.cards{grid-template-columns:1fr 1fr}.cards .card:last-child{grid-column:1/-1}}
+</style>
+<nav aria-label="Site"><a class="brand" href="/">RANNTA</a></nav>
+<main>
+  <header class="hero">
+    <h1>Live Accuracy</h1>
+    <p class="muted">RANNTA Pandora · BTC/USDT spot · First 0.5 bp midprice move within 10 seconds</p>
+    <p id="freshness" class="freshness" role="status">Loading the public forecast ledger…</p>
+  </header>
+  <section class="cards" aria-label="Accuracy comparison">
+    <article class="card"><p>Active V2</p><strong class="number" id="model">—</strong><p class="muted" id="model-count"></p></article>
+    <article class="card"><p>Rolling majority</p><strong class="number" id="baseline">—</strong><p class="muted" id="baseline-count"></p></article>
+    <article class="card"><p>Matched settlements</p><strong class="number" id="sample">—</strong><p class="muted" id="cohort"></p></article>
+  </section>
+  <section class="latest">
+    <h2>Latest forecast receipt</h2><p id="forecast">—</p><p class="muted" id="forecast-time"></p>
+  </section>
+  <section class="history">
+    <h2>Recent settlements</h2>
+    <div class="scroll" tabindex="0" role="region" aria-label="Forecast receipt table">
+      <table><thead><tr><th scope="col">Receipt</th><th scope="col">Issued (UTC)</th><th scope="col">Active V2</th><th scope="col">Baseline</th><th scope="col">Outcome</th><th scope="col">Settled (UTC)</th><th scope="col">Result</th></tr></thead><tbody id="history"></tbody></table>
+    </div>
+  </section>
+  <p class="foot">The comparison uses the latest 434 eligible settled receipts, or all available when fewer exist. The baseline picks the most common outcome among the 10 settlements known before each issuance. Ties use the most recent outcome. The page mirrors Pandora’s local ledger in batches. Some receipts first appear here after settlement. Next-move accuracy measures forecast outcomes, not trading returns.</p>
+</main>
+<script nonce="pandora-live-v1">
+"use strict";
+const labels=["UP","DOWN","NO MOVE"];
+const el=id=>document.getElementById(id);
+const utc=stamp=>new Date(stamp*1000).toISOString().replace("T"," ").slice(0,19);
+const pct=x=>Intl.NumberFormat("en",{style:"percent",minimumFractionDigits:1,maximumFractionDigits:1}).format(x);
+let state=null;
+function status(){
+  if(!state)return;
+  const stale=Date.now()/1000-state.as_of>240||!state.source_online;
+  el("freshness").textContent=(stale?"Delayed feed":"Ledger synced")+" · "+utc(state.as_of)+" UTC";
+  el("freshness").classList.toggle("stale",stale);
+}
+function display(data){
+  state=data;
+  status();
+  el("model").textContent=data.n?pct(data.model_correct/data.n):"—";
+  el("baseline").textContent=data.n?pct(data.baseline_correct/data.n):"—";
+  el("model-count").textContent=data.n?data.model_correct+" correct":"";
+  el("baseline-count").textContent=data.n?data.baseline_correct+" correct":"";
+  el("sample").textContent=data.n.toLocaleString("en");
+  el("cohort").textContent=data.n?"Receipts #"+data.first_id+"–"+data.last_id:"Awaiting settlements";
+  const current=data.pending?.target>Date.now()/1000?data.pending:data.receipts[0];
+  el("forecast").textContent=current?"#"+current.id+" · "+labels[current.call]+" · "+
+    current.probabilities.map((p,i)=>labels[i]+" "+pct(p)).join(" / "):"Awaiting forecasts";
+  el("forecast-time").textContent=current?"Issued "+utc(current.issued)+" UTC · "+
+    (current.settled?"Settled "+labels[current.outcome]+" at "+utc(current.settled)+" UTC":"Target "+utc(current.target)+" UTC"):"";
+  el("history").replaceChildren(...data.receipts.map(receipt=>{
+    const row=document.createElement("tr");
+    const hit=receipt.call===receipt.outcome;
+    const values=["#"+receipt.id,utc(receipt.issued),labels[receipt.call],labels[receipt.baseline],
+      labels[receipt.outcome],utc(receipt.settled),hit?"Correct":"Incorrect"];
+    values.forEach((value,i)=>{
+      const cell=row.insertCell();
+      cell.textContent=value;
+      if(i===6)cell.className=hit?"correct":"wrong";
+    });
+    return row;
+  }));
+}
+async function refresh(){
+  try{
+    const read=async path=>{
+      const response=await fetch(path,{signal:AbortSignal.timeout(8000)});
+      if(!response.ok)throw new Error("Unavailable");
+      const data=await response.json();
+      if(data.schema!=="pandora-public-accuracy-v1"||!Array.isArray(data.receipts))throw new Error("Invalid ledger");
+      return data;
+    };
+    try{
+      display(await read("/api/pandora/live-accuracy"));
+    }catch{
+      if(state){
+        el("freshness").textContent="Sync unavailable · Last snapshot "+utc(state.as_of)+" UTC";
+        el("freshness").classList.add("stale");
+      }else{
+        display({...await read("/pandora/live-accuracy/snapshot.json"),source_online:false,pending:null});
+      }
+    }
+  }catch{
+    el("freshness").textContent=state?"Sync unavailable · Last snapshot "+utc(state.as_of)+" UTC":"Forecast ledger temporarily unavailable.";
+    el("freshness").classList.add("stale");
+  }finally{
+    setTimeout(refresh,30000);
+  }
+}
+refresh();
+</script>
+</html>
