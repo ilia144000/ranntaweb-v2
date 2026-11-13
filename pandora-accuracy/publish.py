@@ -15,6 +15,7 @@ from urllib.request import Request, urlopen
 URL = "https://rannta.com/api/pandora/live-accuracy/publish"
 INTERVAL = 120
 WINDOW = 434
+PUBLIC_HISTORY = 40
 HOME = Path(os.environ["LOCALAPPDATA"]) / "RANNTA"
 LEDGER = HOME / "Pandora" / "Pandora-Live-V2.sqlite3"
 TOKEN = HOME / "PandoraPublicAccuracy" / "token"
@@ -79,7 +80,7 @@ def summarize(cohort):
                 brier=sum(sum((p-(i==r["outcome"]))**2 for i,p in enumerate(r["probabilities"]))
                           for r in cohort)/n if n else None,
                 log_loss=-sum(math.log(max(1e-12,r["probabilities"][r["outcome"]])) for r in cohort)/n if n else None,
-                receipts=list(reversed(cohort[-16:])),
+                receipts=list(reversed(cohort[-PUBLIC_HISTORY:])),
                 accuracy_history=[round(sum(r["call"]==r["outcome"] for r in cohort[i:i+25])/len(cohort[i:i+25]),4)
                                   for i in range(0,n,25)])
 
@@ -179,7 +180,7 @@ def snapshot(path=LEDGER):
                 n=len(cohort),first_id=cohort[0]["id"] if cohort else None,last_id=cohort[-1]["id"] if cohort else None,
                 model_correct=sum(r["call"]==r["outcome"] for r in cohort),
                 baseline_correct=sum(r["baseline"]==r["outcome"] for r in cohort),
-                receipts=list(reversed(cohort[-24:])),pending=pending)
+                receipts=list(reversed(cohort[-PUBLIC_HISTORY:])),pending=pending)
     result.update({key:value for key,value in summarize(cohort).items() if key!="receipts"})
     result["target_type"]="first_mid_move"
     result["labels"]=["UP","DOWN","NO MOVE"]

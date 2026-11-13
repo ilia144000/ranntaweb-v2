@@ -109,6 +109,12 @@ h1 span{background:linear-gradient(120deg,#fff1c6,#d6a95b 64%,#fff1cf);color:tra
 .ribbon span{height:100%;flex:1;background:#424950;border-radius:3px;min-width:3px}
 .ribbon span.correct{background:#6ed3bb}.ribbon span.wrong{background:#d3787d}
 .scroller{overflow:auto;border:1px solid #292e35;border-radius:12px}
+.history-pagination{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px 16px;margin-top:14px;color:var(--muted);font-size:13px}
+.history-pagination label,.history-page-buttons{display:flex;align-items:center;gap:8px}
+.history-pagination select,.history-pagination button{min-height:40px;padding:6px 11px;border:1px solid #695638;border-radius:8px;background:#14171a;color:var(--gold-soft);font:inherit}
+.history-pagination button:disabled{opacity:.45;cursor:default}
+.history-pagination select:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#history-range{font-variant-numeric:tabular-nums}
 table{width:100%;min-width:800px;border-collapse:collapse;text-align:left;font-size:12px;font-variant-numeric:tabular-nums}
 th,td{padding:13px 12px;border-bottom:1px solid #282f35;white-space:nowrap}
 th{background:#171b20;color:#a4afb6;font-size:10px;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
@@ -236,6 +242,16 @@ tbody tr:hover{background:#1b2328}
     <div class="scroller" tabindex="0" role="region" aria-label="Forecast settlement table">
       <table><thead><tr><th scope="col">Receipt</th><th scope="col">Issued (UTC)</th><th scope="col">Forecast</th><th scope="col">Baseline</th><th scope="col">Actual move</th><th scope="col">Settled (UTC)</th><th scope="col">Result</th></tr></thead><tbody id="history"><tr><td colspan="7" class="empty">Loading receipts…</td></tr></tbody></table>
     </div>
+    <nav class="history-pagination" aria-label="Settlement history pagination">
+      <label for="history-page-size">Rows per page
+        <select id="history-page-size"><option value="5">5</option><option value="10" selected>10</option><option value="15">15</option><option value="30">30</option></select>
+      </label>
+      <span id="history-range" role="status">—</span>
+      <div class="history-page-buttons">
+        <button type="button" id="history-prev" aria-controls="history" disabled>Previous</button>
+        <button type="button" id="history-next" aria-controls="history" disabled>Next</button>
+      </div>
+    </nav>
   </section>
 
   <section class="explainer" id="methodology" aria-label="How to read these results">
@@ -254,6 +270,7 @@ const pct=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US",{style:"percent",m
 const num=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US").format(x):"—";
 const utc=x=>Number.isFinite(Number(x))?new Date(Number(x)*1000).toISOString().slice(0,19).replace("T"," "):"—";
 let snapshot=null,feed=null,filter="all",syncError=false,selectedByUser=false;
+let historyPage=0,historyHorizon=null;
 function setStatus(){
   if(!snapshot)return;
   const old=Date.now()/1000-Number(snapshot.as_of)>240;
@@ -273,9 +290,18 @@ function paintHistory(){
   if(!snapshot)return;
   const recent=Array.isArray(snapshot.receipts)?snapshot.receipts:[];
   const selected=recent.filter(r=>filter==="all"||(filter==="correct"?(r.call===r.outcome):(r.call!==r.outcome)));
+  const pageSize=Number(el("history-page-size").value);
+  const lastPage=Math.max(0,Math.ceil(selected.length/pageSize)-1);
+  historyPage=Math.max(0,Math.min(historyPage,lastPage));
+  const start=historyPage*pageSize;
+  const end=Math.min(start+pageSize,selected.length);
+  const range=selected.length?(start+1)+"–"+end+" of "+selected.length:"No matching receipts";
+  if(el("history-range").textContent!==range)el("history-range").textContent=range;
+  el("history-prev").disabled=historyPage===0;
+  el("history-next").disabled=historyPage===lastPage;
   const tbody=el("history");tbody.replaceChildren();
   if(!selected.length){const tr=document.createElement("tr");const td=tr.insertCell();td.colSpan=7;td.className="empty";td.textContent="No matching settled receipts in this snapshot.";tbody.append(tr);}
-  for(const r of selected){
+  for(const r of selected.slice(start,end)){
     const row=document.createElement("tr"),hit=r.call===r.outcome;
     const cellText=(s,cls)=>{const td=row.insertCell();td.textContent=s;if(cls)td.className=cls;return td;};
     cellText("#"+r.id,"idcol");cellText(utc(r.issued));row.insertCell().append(makeDirection(r.call));
@@ -297,6 +323,7 @@ function drawFeed(data){
   const selector=el("forecast-horizon");
   if(!selectedByUser)selector.value=data.horizons?.["60"]?.latest?"60":"10";
   const h=selector.value;
+  if(h!==historyHorizon){historyHorizon=h;historyPage=0;}
   const first=h==="10";
   const horizon=first?data:data.horizons?.[h];
   LABELS=first?["UP","DOWN","NO MOVE"]:["UP","DOWN","FLAT"];
@@ -370,9 +397,13 @@ el("forecast-horizon").addEventListener("change",()=>{
 });
 document.querySelectorAll("[data-filter]").forEach(button=>button.addEventListener("click",()=>{
   filter=button.dataset.filter;
+  historyPage=0;
   document.querySelectorAll("[data-filter]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
   paintHistory();
 }));
+el("history-page-size").addEventListener("change",()=>{historyPage=0;paintHistory();});
+el("history-prev").addEventListener("click",()=>{historyPage--;paintHistory();});
+el("history-next").addEventListener("click",()=>{historyPage++;paintHistory();});
 async function refresh(){
   const read=async path=>{
     const response=await fetch(path,{cache:"no-store",signal:AbortSignal.timeout(8000)});
