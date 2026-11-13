@@ -21,6 +21,55 @@ TOKEN = HOME / "PandoraPublicAccuracy" / "token"
 OFFICIAL = HOME / "Pandora" / "Pandora-Official-Forecasts.sqlite3"
 HORIZONS = (60, 900, 3600, 25200, 86400, 604800)
 
+# Explicit public contract. Never expose internal model provenance, raw origin
+# prices, precise settlement prices, training metadata or private identifiers.
+PUBLIC_RECEIPT_FIELDS = (
+    "id", "issued", "target", "call", "probabilities", "baseline",
+    "settled", "outcome", "pending_status",
+)
+PUBLIC_SUMMARY_FIELDS = (
+    "n", "first_id", "last_id", "model_correct", "baseline_correct",
+    "brier", "log_loss", "accuracy_history", "verified_total",
+    "source_online", "target_type", "labels",
+)
+
+
+def public_receipt(raw):
+    if not isinstance(raw, dict):
+        return None
+    result = {key: raw[key] for key in PUBLIC_RECEIPT_FIELDS if key in raw}
+    probs = result.get("probabilities")
+    if isinstance(probs, (list, tuple)) and len(probs) == 3:
+        # Keep user-visible probabilities, not full internal floating-point precision.
+        p0, p1 = round(float(probs[0]), 4), round(float(probs[1]), 4)
+        result["probabilities"] = [p0, p1, round(1 - p0 - p1, 4)]
+    return result
+
+
+def public_horizon(raw):
+    result = {key: raw[key] for key in PUBLIC_SUMMARY_FIELDS if key in raw}
+    result["receipts"] = [public_receipt(r) for r in raw.get("receipts", []) if isinstance(r, dict)]
+    result["latest"] = public_receipt(raw.get("latest"))
+    return result
+
+
+def public_snapshot(raw):
+    """Minimal browser-visible schema shared by publisher and Pages snapshots."""
+    result = {
+        "schema": raw["schema"],
+        "as_of": raw["as_of"],
+        "source_online": raw.get("source_online", False),
+    }
+    result.update({key: raw[key] for key in PUBLIC_SUMMARY_FIELDS if key in raw})
+    result["receipts"] = [public_receipt(r) for r in raw.get("receipts", []) if isinstance(r, dict)]
+    result["pending"] = public_receipt(raw.get("pending"))
+    result["horizons"] = {
+        str(h): public_horizon(value)
+        for h, value in raw.get("horizons", {}).items()
+        if str(h) in {str(x) for x in HORIZONS} and isinstance(value, dict)
+    }
+    return result
+
 
 def summarize(cohort):
     n=len(cohort)
@@ -137,7 +186,7 @@ def snapshot(path=LEDGER):
     result["model"]="Live V2"
     result["version"]="live-v2-gamma-risk-1"
     result["horizons"]=official_snapshot(now)
-    return result
+    return public_snapshot(result)
 
 
 def main():
