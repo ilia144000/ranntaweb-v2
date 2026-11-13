@@ -19,6 +19,54 @@ function json(value, status = 200) {
   return Response.json(value, { status, headers: { ...headers, "Cache-Control": "no-store" } });
 }
 
+// Enforce a strict public field allowlist on both write and read. This also
+// sanitizes older KV snapshots published before the privacy update.
+const RECEIPT_KEYS = [
+  "id", "issued", "target", "call", "probabilities", "baseline",
+  "settled", "outcome", "pending_status",
+];
+const SUMMARY_KEYS = [
+  "n", "first_id", "last_id", "model_correct", "baseline_correct",
+  "brier", "log_loss", "accuracy_history", "verified_total",
+  "source_online", "target_type", "labels",
+];
+const PUBLIC_HORIZONS = ["60", "900", "3600", "25200", "86400", "604800"];
+const own = (o, key) => Object.prototype.hasOwnProperty.call(o, key);
+function publicReceipt(raw) {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) return null;
+  const out = {};
+  for (const key of RECEIPT_KEYS) if (own(raw, key)) out[key] = raw[key];
+  if (Array.isArray(out.probabilities) && out.probabilities.length === 3) {
+    const p0 = Math.round(Number(out.probabilities[0]) * 10000) / 10000;
+    const p1 = Math.round(Number(out.probabilities[1]) * 10000) / 10000;
+    out.probabilities = [p0, p1, Math.round((1 - p0 - p1) * 10000) / 10000];
+  }
+  return out;
+}
+function publicHorizon(raw) {
+  const out = {};
+  for (const key of SUMMARY_KEYS) if (own(raw, key)) out[key] = raw[key];
+  out.receipts = Array.isArray(raw.receipts) ? raw.receipts.map(publicReceipt).filter(Boolean) : [];
+  out.latest = publicReceipt(raw.latest);
+  return out;
+}
+function publicSnapshot(raw) {
+  const out = {
+    schema: raw.schema,
+    as_of: raw.as_of,
+    source_online: !!raw.source_online,
+  };
+  for (const key of SUMMARY_KEYS) if (own(raw, key)) out[key] = raw[key];
+  out.receipts = Array.isArray(raw.receipts) ? raw.receipts.map(publicReceipt).filter(Boolean) : [];
+  out.pending = publicReceipt(raw.pending);
+  out.horizons = {};
+  const horizons = raw.horizons && typeof raw.horizons === "object" ? raw.horizons : {};
+  for (const key of PUBLIC_HORIZONS) {
+    if (horizons[key] && typeof horizons[key] === "object") out.horizons[key] = publicHorizon(horizons[key]);
+  }
+  return out;
+}
+
 export default {
   async fetch(request, env) {
     const path = new URL(request.url).pathname;
@@ -38,7 +86,7 @@ export default {
           !Number.isFinite(snapshot.as_of) || Math.abs(Date.now() / 1000 - snapshot.as_of) > 180) {
         return json({ error: "Invalid or expired snapshot" }, 400);
       }
-      await env.ACCURACY.put("current", JSON.stringify(snapshot));
+      await env.ACCURACY.put("current", JSON.stringify(publicSnapshot(snapshot)));
       return new Response(null, { status: 204, headers });
     }
     if (request.method !== "GET" && request.method !== "HEAD") {
@@ -60,8 +108,16 @@ export default {
     }
     if (path === API) {
       const snapshot = await env.ACCURACY.get("current", { cacheTtl: 30 });
-      return new Response(request.method === "HEAD" ? null : snapshot ?? '{"error":"Awaiting first publication"}', {
-        status: snapshot ? 200 : 503,
+      if (!snapshot) return json({ error: "Awaiting first publication" }, 503);
+      // Sanitize older persisted snapshots at read time as well.
+      let publicData;
+      try {
+        publicData = publicSnapshot(JSON.parse(snapshot));
+      } catch {
+        return json({ error: "Invalid ledger" }, 503);
+      }
+      return new Response(request.method === "HEAD" ? null : JSON.stringify(publicData), {
+        status: 200,
         headers: { ...headers, "Content-Type": "application/json; charset=utf-8", "Cache-Control": "public, max-age=15" },
       });
     }
