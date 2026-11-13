@@ -242,7 +242,7 @@ tbody tr:hover{background:#1b2328}
     <h2>What is being predicted?</h2>
     <p id="target-method"></p>
     <p>Accuracy compares up to 434 eligible settlements per horizon. The baseline selects the most common class among the last 10 eligible prior outcomes, using the most recent outcome for ties. Official horizons allow the full settlement window before counting an outcome as known and use a no-change baseline until 10 outcomes are available. The public mirror publishes in batches. Some receipts first appear after settlement.</p>
-    <a href="/pandora/live-accuracy/snapshot.json" target="_blank" rel="noopener noreferrer">View public ledger snapshot</a>
+    <p>Public results, forecast probabilities, and issuance / settlement timestamps are available in the verified receipt history above.</p>
   </section>
   <footer class="bottom"><span><strong>RANNTA</strong> / PANDORA INTELLIGENCE</span><span>Public evidence · Live predictions · Independent verification</span></footer>
 </main>
@@ -326,7 +326,7 @@ function draw(data){
   el("cohort").textContent=n?"Receipts #"+data.first_id+"–"+data.last_id:"Awaiting settlements";
   el("cohort-detail").textContent=n?"Same "+num(n)+" matched outcomes":"";
   const current=data.latest|| (data.pending&&data.pending.target>Date.now()/1000?data.pending:data.receipts[0]);
-  el("model-version").textContent=current?.model?current.model+" · "+current.version:(data.model||"")+(data.version?" · "+data.version:"");
+  el("model-version").textContent=data.target_type==="first_mid_move"?"Live V2 · next-move model":"Official forecast · terminal midprice";
   el("quality-metrics").textContent=Number.isFinite(data.brier)?
     "Brier "+data.brier.toFixed(4)+" · Log loss "+data.log_loss.toFixed(4):"Awaiting verified probability scores";
   const history=data.accuracy_history||[];
@@ -354,7 +354,7 @@ function draw(data){
     for(const [label,stamp] of times){
       const part=document.createElement("span");const strong=document.createElement("strong");strong.textContent=label+" ";part.append(strong,document.createTextNode(utc(stamp)+" UTC"));el("forecast-time").append(part);
     }
-    if(Number.isFinite(current.band_bps))el("forecast-time").append("FLAT band ±"+current.band_bps.toFixed(4)+" bp");
+
   }else{
     el("latest-id").textContent="WAITING";
     el("forecast-call").textContent="—";
