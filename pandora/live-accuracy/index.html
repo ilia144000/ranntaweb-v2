@@ -162,6 +162,51 @@ tbody tr:hover{background:#1b2328}
 .horizon-control select:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px}
 #accuracy-history{display:flex;gap:4px;align-items:end;height:48px;margin:10px 0}
 #accuracy-history span{background:var(--gold);flex:1;min-width:2px;max-width:45px;border-radius:3px 3px 0 0}
+.topbar .shell{min-height:64px}
+.hero{padding:29px 0 24px}
+.hero-logo{width:90px;height:90px;margin-bottom:11px}
+.hero-logo img{width:79px;height:79px}
+.hero-logo:before{inset:-6px;box-shadow:none}
+.hero h1{font-size:clamp(34px,6vw,67px);margin:7px 0 8px}
+.subtitle{max-width:610px;font-size:14px}
+.horizon-control{margin:15px 0 10px}
+.specs{gap:6px;margin-top:0}
+.spec{padding:5px 10px}
+.live-state{gap:8px 16px;margin-bottom:16px;padding:10px 13px}
+.grid{gap:10px;margin-bottom:16px}
+.surface{border-radius:15px;box-shadow:0 8px 24px #0002}
+.metric,.lift{min-height:152px;padding:15px}
+.donut{width:110px}
+.donut-inner{width:calc(100% - 12px);height:calc(100% - 12px)}
+.latest,.history{padding:18px;margin-bottom:16px}
+.latest-grid{gap:16px}
+.signal{min-height:130px;padding:15px}
+.ribbon{height:12px;margin-bottom:12px}
+th,td{padding:9px 10px}
+.explainer{padding-bottom:20px}
+.contact-section{margin-bottom:18px;padding:18px}
+.contact-heading{margin-bottom:12px}
+.contact-link{min-height:56px;padding:9px 11px}
+.contact-icon{width:32px;height:32px;flex-basis:32px;border-radius:8px}
+.contact-icon svg{width:17px;height:17px}
+@media(max-width:690px){
+  .shell{width:calc(100% - 24px)}
+  .brand{gap:6px}.brand img{width:33px;height:33px}.brand small{font-size:8px}
+  .topbar .shell{gap:8px;min-height:54px}.toplinks a:last-child{padding:6px 8px;font-size:10px}
+  .hero{padding-top:21px}.hero-logo{width:68px;height:68px}.hero-logo img{width:60px;height:60px}
+  .spec{font-size:10px;gap:5px}.subtitle{font-size:13px}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .metric{flex-direction:column;justify-content:center;gap:6px;text-align:center;padding:10px 5px;min-height:140px}
+  .metric .label{font-size:10px;letter-spacing:.04em}.metric .sub{margin:2px 0 3px;font-size:11px}
+  .donut{width:78px}.donut strong{font-size:20px}.donut small{font-size:8px}
+  .lift{grid-column:1/-1;min-height:auto;padding:11px 13px}.lift .value{font-size:30px;margin:2px 0}.lift .rule{margin:7px 0}
+  .latest,.history,.contact-section{padding:13px}.signal{min-height:auto;gap:3px}
+  .prob-wrap{gap:8px}.prob-title{margin-bottom:2px}
+  .contact-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+  .contact-link{min-height:54px;gap:6px;padding:6px}.contact-arrow{display:none}.contact-link-text small{font-size:10px}
+  .scroller table{min-width:640px}.scroller th,.scroller td{padding:8px 6px;font-size:11px}
+  .scroller .verdict,.scroller .direction{font-size:10px}.scroller .verdict{padding:2px 4px}
+}
 </style>
 </head>
 <body>
@@ -198,7 +243,7 @@ tbody tr:hover{background:#1b2328}
   <section class="live-state" id="state-banner" aria-label="Public feed freshness">
     <div class="live-main"><span class="pulse" aria-hidden="true"></span><span class="live-status" id="state-label">Connecting to public ledger</span></div>
     <span class="live-meta" id="freshness" role="status" aria-live="polite">Loading forecast data…</span>
-    <div class="live-side"><span>Public batch mirror</span><span>Refresh every 30s</span></div>
+    <div class="live-side"><span>Public batch mirror</span></div>
   </section>
 
   <div class="section-head"><div><h2>Prediction performance</h2><p>Matched settled forecasts · identical receipt cohort</p></div><p id="cohort">Awaiting settlements</p></div>
@@ -336,12 +381,13 @@ const num=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US").format(x):"—";
 const utc=x=>Number.isFinite(Number(x))?new Date(Number(x)*1000).toISOString().slice(0,19).replace("T"," "):"—";
 let snapshot=null,feed=null,filter="all",syncError=false,selectedByUser=false;
 let historyPage=0,historyHorizon=null;
+const cacheKey="pandora-public-accuracy-v1-cache";
 function setStatus(){
   if(!snapshot)return;
   const old=Date.now()/1000-Number(snapshot.as_of)>240;
   const delayed=syncError||old||!snapshot.source_online;
   el("state-banner").classList.toggle("delayed",delayed);
-  el("state-label").textContent=syncError?"SYNC INTERRUPTED":delayed?"DELAYED FEED":"LEDGER SYNCED";
+  el("state-label").textContent=syncError?"SYNC INTERRUPTED":snapshot.fallback?"SAVED SNAPSHOT":old?"DELAYED PUBLICATION":delayed?"DELAYED FEED":"LEDGER SYNCED";
   el("freshness").textContent="Last public update: "+utc(snapshot.as_of)+" UTC"+(old?" · stale snapshot":"");
 }
 function outcomeLabel(n){return LABELS[n]||"—";}
@@ -400,7 +446,7 @@ function drawFeed(data){
   el("target-method").textContent=first?
     "First 0.5 basis point BTC/USDT spot midprice move within 10 seconds. NO MOVE means neither boundary was crossed.":
     "The official model predicts terminal BTC/USDT midprice at origin plus this horizon. The first eligible quote at or after target settles the receipt. FLAT means the observed return stayed within the receipt’s recorded band.";
-  const frame={n:0,receipts:[],...horizon,as_of:data.as_of,source_online:!!horizon?.source_online&&!data.fallback};
+  const frame={n:0,receipts:[],...horizon,as_of:data.as_of,fallback:!!data.fallback,source_online:!!horizon?.source_online&&!data.fallback};
   draw(frame);
 }
 function draw(data){
@@ -469,16 +515,20 @@ document.querySelectorAll("[data-filter]").forEach(button=>button.addEventListen
 el("history-page-size").addEventListener("change",()=>{historyPage=0;paintHistory();});
 el("history-prev").addEventListener("click",()=>{historyPage--;paintHistory();});
 el("history-next").addEventListener("click",()=>{historyPage++;paintHistory();});
-async function refresh(){
-  const read=async path=>{
+async function read(path){
     const response=await fetch(path,{cache:"no-store",signal:AbortSignal.timeout(8000)});
     if(!response.ok)throw Error("HTTP "+response.status);
     const data=await response.json();
     if(data.schema!=="pandora-public-accuracy-v1"||!Array.isArray(data.receipts))throw Error("Invalid public ledger");
     return data;
-  };
+}
+async function refresh(){
   try{
-    try{drawFeed(await read("/api/pandora/live-accuracy"));}
+    try{
+      const data=await read("/api/pandora/live-accuracy");
+      drawFeed(data);
+      try{localStorage.setItem(cacheKey,JSON.stringify(data));}catch{}
+    }
     catch{
       if(!snapshot){drawFeed({...await read("/pandora/live-accuracy/snapshot.json"),fallback:true,source_online:false,pending:null});}
       else{syncError=true;setStatus();}
@@ -492,6 +542,15 @@ async function refresh(){
       el("freshness").textContent="Public forecast ledger temporarily unavailable.";
     }
   }finally{setTimeout(refresh,30000);}
+}
+try{
+  const cached=JSON.parse(localStorage.getItem(cacheKey)||"null");
+  if(cached?.schema==="pandora-public-accuracy-v1"&&Array.isArray(cached.receipts))drawFeed({...cached,fallback:true});
+}catch{}
+if(!feed){
+  read("/pandora/live-accuracy/snapshot.json").then(data=>{
+    if(!feed)drawFeed({...data,fallback:true,pending:null});
+  }).catch(()=>{});
 }
 refresh();
 setInterval(setStatus,10000);

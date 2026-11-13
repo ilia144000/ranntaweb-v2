@@ -4,6 +4,8 @@ import argparse
 from collections import Counter
 from contextlib import closing
 import json
+import logging
+from logging.handlers import RotatingFileHandler
 import math
 import os
 from pathlib import Path
@@ -13,7 +15,7 @@ from urllib.request import Request, urlopen
 
 
 URL = "https://rannta.com/api/pandora/live-accuracy/publish"
-INTERVAL = 120
+INTERVAL = 100
 WINDOW = 434
 PUBLIC_HISTORY = 40
 HOME = Path(os.environ["LOCALAPPDATA"]) / "RANNTA"
@@ -175,8 +177,12 @@ def snapshot(path=LEDGER):
         elif status=="pending" and target>now:
             pending=receipt
     cohort=evidence[-WINDOW:]
+    # The worker can be between resyncs when we take a batch snapshot.
+    # Freshness of the mirror depends on actual forecast activity as well.
+    fresh_receipt=bool(cohort and 0<=now-cohort[-1]["settled"]<=45)
+    fresh_worker=bool(runtime and 0<=now-runtime[0]<=10)
     result=dict(schema="pandora-public-accuracy-v1",as_of=now,source_t=runtime[0] if runtime else None,
-                source_online=bool(runtime and runtime[1]=="online" and 0<=now-runtime[0]<10),
+                source_online=bool(fresh_worker and (runtime[1]=="online" or fresh_receipt)),
                 n=len(cohort),first_id=cohort[0]["id"] if cohort else None,last_id=cohort[-1]["id"] if cohort else None,
                 model_correct=sum(r["call"]==r["outcome"] for r in cohort),
                 baseline_correct=sum(r["baseline"]==r["outcome"] for r in cohort),
@@ -201,7 +207,14 @@ def main():
         print(json.dumps(snapshot(),allow_nan=False))
         return
     token=TOKEN.read_text(encoding="ascii").strip()
+    logger=logging.getLogger("pandora_public_accuracy")
+    if options.watch:
+        handler=RotatingFileHandler(TOKEN.parent/"publisher.log",maxBytes=128_000,backupCount=1,encoding="utf8")
+        handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
+        logger.addHandler(handler)
+        logger.setLevel(logging.INFO)
     while True:
+        started=time.monotonic()
         try:
             data=snapshot()
             body=json.dumps(data,allow_nan=False,separators=(",",":")).encode()
@@ -210,14 +223,18 @@ def main():
             with urlopen(request,timeout=25) as response:
                 if response.status!=204:
                     raise RuntimeError(f"Unexpected HTTP {response.status}")
-            print(f"Published {data['n']} receipts through #{data['last_id']}",flush=True)
+            message=f"Published {data['n']} receipts through #{data['last_id']} (source_online={data['source_online']})"
+            if options.watch:
+                logger.info(message)
+            else:
+                print(message,flush=True)
         except Exception as error:
             if options.once:
                 raise
-            print(f"Publication failed: {type(error).__name__}: {error}",flush=True)
+            logger.warning("Publication failed: %s (HTTP status %s)",type(error).__name__,getattr(error,"code","—"))
         if options.once:
             return
-        time.sleep(INTERVAL)
+        time.sleep(max(1,INTERVAL-(time.monotonic()-started)))
 
 
 if __name__=="__main__":
