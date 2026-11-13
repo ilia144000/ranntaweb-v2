@@ -131,6 +131,27 @@ tbody tr:hover{background:#1b2328}
 .explainer h2{font-size:15px;color:#f3ead9;margin-bottom:7px}
 .explainer p+p{margin-top:8px}
 .explainer a{display:inline-block;margin-top:12px}
+
+/* Public contact directory — scoped to this page only. */
+.contact-section{margin:0 0 36px;padding:clamp(20px,3.8vw,34px);background:linear-gradient(125deg,rgba(33,30,25,.97),rgba(14,19,23,.98) 65%);border:1px solid rgba(228,187,100,.32);border-radius:22px;box-shadow:0 16px 50px rgba(0,0,0,.2);position:relative;overflow:hidden}
+.contact-section:before{content:"";position:absolute;inset:0 0 auto;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.8}
+.contact-heading{display:flex;gap:15px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:20px}
+.contact-heading h2{font-size:clamp(22px,3.3vw,30px);letter-spacing:-.045em;line-height:1.2;color:var(--ink)}
+.contact-heading p{color:var(--muted);font-size:13px;margin-top:6px}
+.contact-tag{color:var(--gold-soft);font-size:10px;font-weight:800;letter-spacing:.16em;padding:7px 12px;border:1px solid rgba(228,187,100,.35);border-radius:100px;background:rgba(228,187,100,.05)}
+.contact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.contact-link{display:flex;align-items:center;gap:13px;min-height:78px;padding:15px 14px;border:1px solid #323638;border-radius:14px;background:rgba(12,15,18,.8);color:var(--ink);text-decoration:none;transition:background .18s ease,border-color .18s ease,transform .18s ease;min-width:0}
+.contact-link:hover{border-color:rgba(228,187,100,.72);background:rgba(228,187,100,.085);color:var(--ink);transform:translateY(-2px)}
+.contact-link:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.contact-icon{width:41px;height:41px;flex:0 0 41px;border:1px solid rgba(228,187,100,.32);border-radius:12px;background:rgba(228,187,100,.075);display:grid;place-items:center;color:var(--gold-soft)}
+.contact-icon svg{width:22px;height:22px;display:block;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.contact-link-text{min-width:0;flex:1}
+.contact-link-text strong{display:block;font-size:12px;line-height:1.3;font-weight:750;letter-spacing:.02em}
+.contact-link-text small{display:block;color:#aeb6bc;font-size:11px;line-height:1.5;margin-top:3px;overflow-wrap:anywhere}
+.contact-arrow{color:var(--gold);opacity:.8;flex:none;font-size:15px}
+@media(max-width:900px){.contact-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:550px){.contact-grid{grid-template-columns:1fr}.contact-section{padding:19px}.contact-link{min-height:72px}.contact-heading{gap:10px}}
+@media(prefers-reduced-motion:reduce){.contact-link{transition:none}.contact-link:hover{transform:none}}
 .bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0 31px;border-top:1px solid #23282d;color:#969ca4;font-size:11px}
 .bottom strong{color:var(--gold);letter-spacing:.14em}
 @media(max-width:1080px){.grid{grid-template-columns:1fr 1fr}.lift{grid-column:1/-1;min-height:145px}.metric{justify-content:space-around}}
@@ -259,6 +280,50 @@ tbody tr:hover{background:#1b2328}
     <p id="target-method"></p>
     <p>Accuracy compares up to 434 eligible settlements per horizon. The baseline selects the most common class among the last 10 eligible prior outcomes, using the most recent outcome for ties. Official horizons allow the full settlement window before counting an outcome as known and use a no-change baseline until 10 outcomes are available. The public mirror publishes in batches. Some receipts first appear after settlement.</p>
     <p>Public results, forecast probabilities, and issuance / settlement timestamps are available in the verified receipt history above.</p>
+  </section>
+
+  <section class="contact-section" id="contact-us" aria-labelledby="contact-title">
+    <div class="contact-heading">
+      <div><h2 id="contact-title">Contact Us</h2><p>Connect with RANNTA Pandora for product inquiries, technical collaboration, and updates.</p></div>
+      <span class="contact-tag">OFFICIAL CHANNELS</span>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-link" href="mailto:info@rannta.com" aria-label="Email: info@rannta.com">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="m3.5 7 8.5 6.5L20.5 7"/></svg></span>
+        <span class="contact-link-text"><strong>Email</strong><small>info@rannta.com</small></span>
+        <span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="contact-link" href="https://t.me/sun1414" target="_blank" rel="noopener noreferrer" aria-label="Telegram · Direct: @sun1414">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21.5 3 2.5 11l6.8 2.5L12 21l3-6.7L21.5 3Z"/><path d="m9.3 13.5 12.2-10.5M12 21l-.2-7.7"/></svg></span>
+        <span class="contact-link-text"><strong>Telegram · Direct</strong><small>@sun1414</small></span>
+        <span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="contact-link" href="https://t.me/Rannta_coin" target="_blank" rel="noopener noreferrer" aria-label="Telegram · Community: @Rannta_coin">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21.5 3 2.5 11l6.8 2.5L12 21l3-6.7L21.5 3Z"/><path d="m9.3 13.5 12.2-10.5M12 21l-.2-7.7"/></svg></span>
+        <span class="contact-link-text"><strong>Telegram · Community</strong><small>@Rannta_coin</small></span>
+        <span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="contact-link" href="https://x.com/ranntacoin" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter: @ranntacoin">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 3h4l12 18h-4L4 3Z"/><path d="m20 3-7 8.2M4 21l7-8.2"/></svg></span>
+        <span class="contact-link-text"><strong>X / Twitter</strong><small>@ranntacoin</small></span>
+        <span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/ilia-rannta/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn: ilia-rannta">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.1M11 17v-7M11 13.3c0-2 1.1-3.3 3.1-3.3s2.9 1.1 2.9 3.3V17"/></svg></span>
+        <span class="contact-link-text"><strong>LinkedIn</strong><small>ilia-rannta</small></span>
+        <span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="contact-link" href="https://medium.com/@ranntaofficial" target="_blank" rel="noopener noreferrer" aria-label="Medium: @ranntaofficial">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="5.5" cy="12" r="4.5"/><ellipse cx="15.5" cy="12" rx="2.9" ry="4.5"/><ellipse cx="22" cy="12" rx="1" ry="4"/></svg></span>
+        <span class="contact-link-text"><strong>Medium</strong><small>@ranntaofficial</small></span>
+        <span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="contact-link" href="https://github.com/ilia144000" target="_blank" rel="noopener noreferrer" aria-label="GitHub: ilia144000">
+        <span class="contact-icon"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 19c-4 1.3-4-2-5.5-2.5M20 16.8v-2.7a4.2 4.2 0 0 0-1.1-3.2c.5-1.3.4-2.5-.2-3.8-1.5.1-2.7.7-3.5 1.5a12.1 12.1 0 0 0-6.4 0C8 7.8 6.8 7.2 5.3 7.1c-.6 1.3-.7 2.5-.2 3.8A4.2 4.2 0 0 0 4 14.1v2.7M10 21v-3.3c-3.8.7-6.2-1.5-6.2-4.4 0-4 3.6-6.5 8.2-6.5s8.2 2.5 8.2 6.5c0 2.9-2.4 5.1-6.2 4.4V21"/></svg></span>
+        <span class="contact-link-text"><strong>GitHub</strong><small>ilia144000</small></span>
+        <span class="contact-arrow" aria-hidden="true">↗</span>
+      </a>
+    </div>
   </section>
   <footer class="bottom"><span><strong>RANNTA</strong> / PANDORA INTELLIGENCE</span><span>Public evidence · Live predictions · Independent verification</span></footer>
 </main>
