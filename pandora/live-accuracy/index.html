@@ -1,118 +1,353 @@
 <!doctype html>
 <html lang="en">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="See real RANNTA Pandora Bitcoin next-move forecast receipts, settlements, and baseline performance.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b0d">
+<meta name="description" content="Explore verifiable RANNTA Pandora BTC/USDT next-move forecasts, real settlement receipts and rolling-baseline comparisons.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pandora Live Accuracy | RANNTA">
+<meta property="og:description" content="Real BTC/USDT next-move forecasts, probabilities and settled outcomes from the RANNTA Pandora public ledger.">
+<meta property="og:image" content="https://rannta.com/assets/brand/coin.png?v=2">
+<link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="canonical" href="https://rannta.com/pandora/live-accuracy">
-<title>Live Accuracy · RANNTA Pandora</title>
+<title>Pandora Live Accuracy | RANNTA</title>
 <style>
-:root{color-scheme:dark;--ink:#edf4ef;--muted:#a2b5ac;--mint:#7bf4c2;--line:#2b3d36;--panel:#112019;--bg:#0b1410}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Segoe UI",sans-serif}
-main,nav{max-width:1120px;margin:auto;padding-inline:clamp(16px,5vw,58px)}
-nav{display:flex;align-items:center;min-height:64px;border-bottom:1px solid var(--line)}a{color:var(--mint);text-underline-offset:.22em}
-.brand{font-weight:700;letter-spacing:.12em;font-size:.8rem}.hero{padding-block:clamp(28px,6vw,66px) 26px}
-h1,h2,p{margin:0}h1{font-size:clamp(2.75rem,9vw,5.75rem);line-height:1;letter-spacing:-.065em;margin-bottom:14px}
-h2{font-size:1.25rem;margin-bottom:8px}.muted{color:var(--muted)}
-.freshness{margin-top:16px;color:var(--mint)}.freshness.stale{color:#ffd89d}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px;margin-block:8px 24px}
-.card,.latest,.history{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
-.number{display:block;font-size:2.35rem;font-weight:650;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-.latest{margin-bottom:12px}.latest p+p{margin-top:5px}.history{overflow:hidden}
-.scroll{overflow-x:auto}.scroll:focus-visible,a:focus-visible{outline:2px solid var(--mint);outline-offset:2px}
-table{width:100%;min-width:650px;border-collapse:collapse;text-align:left;font-size:.9rem;font-variant-numeric:tabular-nums}
-th,td{padding:10px 9px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:500}
-.correct{color:var(--mint)}.wrong{color:#ffc4ad}.foot{padding-block:18px 38px;color:var(--muted);font-size:.94rem}
-@media(max-width:520px){.card,.latest,.history{padding:14px}.cards{grid-template-columns:1fr 1fr}.cards .card:last-child{grid-column:1/-1}}
+:root{color-scheme:dark;--bg:#080a0d;--paper:#101419;--paper2:#151a20;--gold:#e4bb64;--gold-soft:#ffe1a3;--teal:#70e0c8;--red:#fa8891;--ink:#f3f0e8;--muted:#9aa4af;--line:#303239;--line2:#272d33}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:radial-gradient(ellipse 58% 24% at 50% -2%,rgba(196,151,69,.17),transparent 85%),radial-gradient(ellipse 45% 30% at 95% 40%,rgba(58,131,138,.07),transparent),var(--bg);font:15px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+body:before{content:"";position:absolute;inset:0 0 auto;height:620px;pointer-events:none;opacity:.26;background-image:linear-gradient(rgba(191,165,102,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(191,165,102,.055) 1px,transparent 1px);background-size:45px 45px;mask-image:linear-gradient(#000,transparent)}
+a{color:var(--gold-soft);text-underline-offset:3px}
+a:hover{color:#fff}
+button{font:inherit}
+button:focus-visible,a:focus-visible,.scroller:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.shell{width:min(1170px,calc(100% - 44px));margin:auto;position:relative}
+.topbar{border-bottom:1px solid rgba(227,193,121,.17);background:rgba(7,9,12,.78)}
+.topbar .shell{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:79px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand img{width:43px;height:43px;object-fit:contain;filter:drop-shadow(0 1px 10px rgba(228,187,100,.24))}
+.brand strong{display:block;letter-spacing:.2em;font-size:17px;font-weight:750;line-height:1.15}
+.brand small{display:block;color:var(--muted);font-size:10px;letter-spacing:.2em}
+.toplinks{display:flex;align-items:center;gap:22px}
+.toplinks a{text-decoration:none;color:#c2c6cb;font-size:12px;font-weight:650;letter-spacing:.04em}
+.toplinks a:last-child{border:1px solid #705b37;color:var(--gold-soft);padding:9px 14px;border-radius:99px}
+.hero{text-align:center;padding:51px 0 42px}
+.hero-logo{width:124px;height:124px;margin:0 auto 21px;display:grid;place-items:center;position:relative;isolation:isolate}
+.hero-logo:before{content:"";position:absolute;inset:-17px;border:1px solid rgba(228,187,100,.3);border-radius:50%;box-shadow:0 0 0 12px rgba(228,187,100,.025)}
+.hero-logo:after{content:"";position:absolute;inset:1px;border:1px solid rgba(228,187,100,.23);border-radius:50%;background:radial-gradient(circle,rgba(228,187,100,.08),transparent 75%);z-index:-1}
+.hero-logo img{width:112px;height:112px;object-fit:contain;filter:drop-shadow(0 0 24px rgba(228,187,100,.25))}
+.eyebrow{color:var(--gold);font-size:10px;font-weight:750;letter-spacing:.3em;text-transform:uppercase}
+h1,h2,h3,p{margin:0}
+h1{font-size:clamp(43px,7.5vw,83px);font-weight:760;letter-spacing:-.068em;line-height:1.08;margin:10px 0 13px}
+h1 span{background:linear-gradient(120deg,#fff1c6,#d6a95b 64%,#fff1cf);color:transparent;background-clip:text;-webkit-background-clip:text}
+.subtitle{max-width:770px;margin:0 auto;color:#b5b9bf;font-size:clamp(13px,2vw,16px)}
+.specs{display:flex;flex-wrap:wrap;gap:9px;align-items:center;justify-content:center;margin-top:26px}
+.spec{display:flex;gap:9px;align-items:center;border:1px solid #3c3b35;background:#191a1b;border-radius:99px;padding:8px 13px;font-size:12px;color:#d8d8d4}
+.spec strong{color:var(--gold-soft);font-weight:750}
+.spec b{color:#f5f3ea}
+.live-state{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;background:linear-gradient(100deg,#191b1b,#13191a);border:1px solid #333937;border-radius:14px;padding:13px 18px;margin:0 0 23px}
+.live-main{display:flex;align-items:center;gap:10px}
+.pulse{width:9px;height:9px;flex:none;border-radius:50%;background:var(--teal);box-shadow:0 0 0 5px rgba(112,224,200,.12)}
+.live-state.delayed .pulse{background:var(--gold);box-shadow:0 0 0 5px rgba(228,187,100,.1)}
+.live-status{color:var(--ink);font-weight:730;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.live-meta{font-size:12px;color:#b0b6bc}
+.live-side{display:flex;gap:16px;color:#b5b9bb;font-size:12px}
+.section-head{display:flex;justify-content:space-between;gap:14px;align-items:flex-end;margin:0 0 15px}
+.section-head h2{font-size:21px;letter-spacing:-.035em}
+.section-head p{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:1fr 1fr .84fr;gap:14px;margin-bottom:29px}
+.surface{background:linear-gradient(150deg,rgba(26,31,37,.96),rgba(14,18,23,.98));border:1px solid var(--line);border-radius:20px;box-shadow:0 15px 55px rgba(0,0,0,.13)}
+.metric{padding:22px 21px 20px;display:flex;align-items:center;gap:18px;min-height:223px}
+.metric .copy{flex:1;min-width:0}
+.metric .label{font-size:12px;font-weight:730;letter-spacing:.09em;text-transform:uppercase;color:#d9d7cf}
+.metric .sub{font-size:12px;color:var(--muted);margin:5px 0 13px}
+.metric .count{color:var(--muted);font-size:12px}
+.metric .count strong{color:#fff}
+.donut{--pct:0%;--ring:var(--gold);width:150px;aspect-ratio:1;border-radius:50%;background:conic-gradient(var(--ring) 0 var(--pct),#343943 var(--pct) 100%);display:grid;place-items:center;flex-shrink:0;box-shadow:0 0 25px rgba(0,0,0,.16)}
+.donut-inner{width:calc(100% - 17px);height:calc(100% - 17px);border-radius:50%;background:radial-gradient(circle at 50% 40%,#20242a,#0c1014);display:flex;align-items:center;justify-content:center;flex-direction:column}
+.donut strong{font-size:27px;letter-spacing:-.055em;font-variant-numeric:tabular-nums}
+.donut small{font-size:9px;letter-spacing:.15em;color:var(--muted)}
+.metric.base .donut{--ring:#879ba7}
+.lift{padding:24px 22px;display:flex;flex-direction:column;justify-content:center;min-height:223px;position:relative;overflow:hidden}
+.lift:after{content:"";width:155px;height:155px;border:1px solid rgba(228,187,100,.08);border-radius:50%;position:absolute;right:-80px;top:-69px;box-shadow:0 0 0 35px rgba(228,187,100,.025),0 0 0 70px rgba(228,187,100,.015)}
+.lift .label{font-size:12px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.lift .value{display:block;color:var(--gold-soft);font-size:clamp(34px,3.5vw,52px);font-weight:750;line-height:1.2;letter-spacing:-.06em;margin:12px 0 2px;font-variant-numeric:tabular-nums}
+.lift .unit{color:var(--muted);font-size:12px}
+.lift .rule{height:1px;background:var(--line);margin:17px 0 11px}
+.lift .n{font-size:16px;font-weight:800}
+.lift .cohort{font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.latest{padding:26px;margin-bottom:28px}
+.latest-top{display:flex;align-items:start;justify-content:space-between;gap:14px;margin-bottom:19px}
+.latest-top .title{font-size:20px;letter-spacing:-.035em;font-weight:750}
+.latest-top .hint{color:var(--muted);font-size:12px}
+.latest-id{font-size:12px;color:var(--gold);border:1px solid #5f4b2e;border-radius:99px;padding:6px 12px;white-space:nowrap}
+.latest-grid{display:grid;grid-template-columns:.9fr 1.4fr;gap:26px}
+.signal{border:1px solid var(--line2);background:#0d1216;border-radius:14px;padding:22px 21px;display:flex;flex-direction:column;justify-content:center;gap:7px;min-height:177px}
+.signal-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.signal-main{font-size:clamp(30px,4vw,45px);font-weight:800;line-height:1.1;letter-spacing:-.05em}
+.signal-main.up{color:var(--teal)}.signal-main.down{color:var(--red)}.signal-main.no{color:var(--gold-soft)}
+.signal-outcome{color:#b4c0c5;font-size:12px}
+.prob-title{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;margin-bottom:14px}
+.prob-wrap{display:grid;gap:14px;align-content:center}
+.prob-row{display:grid;grid-template-columns:72px 1fr 53px;gap:12px;align-items:center;font-size:12px}
+.prob-name{color:#d9e0e0;font-weight:720;letter-spacing:.04em}
+.prob-percent{font-variant-numeric:tabular-nums;text-align:right;color:#f4f3ef;font-weight:730}
+.track{height:10px;background:#2d343b;border-radius:20px;overflow:hidden}
+.fill{height:100%;width:0;border-radius:20px;transition:width .55s ease;background:var(--teal)}
+.fill.down{background:var(--red)}.fill.no{background:var(--gold)}
+.event-times{display:flex;flex-wrap:wrap;gap:13px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:#b4bbc1}
+.event-times strong{color:var(--ink);font-weight:650}
+.history{padding:24px;margin-bottom:19px}
+.history-top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-bottom:18px}
+.history-top h2{font-size:20px}
+.filters{display:flex;gap:5px;background:#0a0e11;padding:4px;border:1px solid #30353b;border-radius:99px}
+.filters button{border:0;border-radius:99px;background:transparent;padding:7px 12px;color:#aeb6bf;cursor:pointer;font-size:12px}
+.filters button[aria-pressed="true"]{color:#171714;background:var(--gold-soft);font-weight:800}
+.rib-label{font-size:11px;letter-spacing:.09em;color:var(--muted);text-transform:uppercase;margin-bottom:8px}
+.ribbon{display:flex;gap:4px;height:28px;margin-bottom:20px}
+.ribbon span{height:100%;flex:1;background:#424950;border-radius:3px;min-width:3px}
+.ribbon span.correct{background:#6ed3bb}.ribbon span.wrong{background:#d3787d}
+.scroller{overflow:auto;border:1px solid #292e35;border-radius:12px}
+table{width:100%;min-width:800px;border-collapse:collapse;text-align:left;font-size:12px;font-variant-numeric:tabular-nums}
+th,td{padding:13px 12px;border-bottom:1px solid #282f35;white-space:nowrap}
+th{background:#171b20;color:#a4afb6;font-size:10px;font-weight:750;letter-spacing:.08em;text-transform:uppercase}
+td{color:#cbd0d2}tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#1b2328}
+.idcol{color:var(--gold-soft);font-weight:720}
+.direction{font-weight:780;font-size:11px;letter-spacing:.04em}
+.direction.up{color:var(--teal)}.direction.down{color:var(--red)}.direction.no{color:var(--gold)}
+.verdict{border-radius:99px;display:inline-block;padding:3px 9px;font-size:11px;font-weight:750}
+.verdict.good{color:var(--teal);background:rgba(112,224,200,.09)}
+.verdict.bad{color:#f2a7ad;background:rgba(250,136,145,.09)}
+.empty{padding:25px;color:var(--muted);text-align:center}
+.explainer{border-top:1px solid #2a2e32;padding:21px 0 42px;color:var(--muted);font-size:12px}
+.explainer h2{font-size:15px;color:#f3ead9;margin-bottom:7px}
+.explainer p+p{margin-top:8px}
+.explainer a{display:inline-block;margin-top:12px}
+.bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 0 31px;border-top:1px solid #23282d;color:#969ca4;font-size:11px}
+.bottom strong{color:var(--gold);letter-spacing:.14em}
+@media(max-width:1080px){.grid{grid-template-columns:1fr 1fr}.lift{grid-column:1/-1;min-height:145px}.metric{justify-content:space-around}}
+@media(max-width:690px){.shell{width:min(100% - 28px,1170px)}.hero{padding-top:48px}.hero-logo{width:106px;height:106px}.hero-logo img{width:99px;height:99px}.toplinks a:first-child{display:none}.grid{grid-template-columns:1fr}.lift{grid-column:auto}.metric{min-height:176px}.donut{width:126px}.donut strong{font-size:23px}.latest{padding:17px}.latest-grid{grid-template-columns:1fr;gap:15px}.history{padding:16px}.live-side{width:100%;justify-content:space-between}.event-times{flex-direction:column;gap:4px}.bottom{flex-direction:column;align-items:flex-start;gap:6px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fill{transition:none}}
 </style>
-<nav aria-label="Site"><a class="brand" href="/">RANNTA</a></nav>
-<main>
+</head>
+<body>
+<nav class="topbar" aria-label="RANNTA site navigation">
+  <div class="shell">
+    <a class="brand" href="/" aria-label="RANNTA homepage">
+      <img src="/assets/brand/rannta-logo.png" alt="" width="43" height="43">
+      <span><strong>RANNTA</strong><small>INTELLIGENCE / PANDORA</small></span>
+    </a>
+    <div class="toplinks"><a href="/">RANNTA ECOSYSTEM</a><a href="#methodology">Verification &amp; methodology</a></div>
+  </div>
+</nav>
+<main class="shell">
   <header class="hero">
-    <h1>Live Accuracy</h1>
-    <p class="muted">RANNTA Pandora · BTC/USDT spot · First 0.5 bp midprice move within 10 seconds</p>
-    <p id="freshness" class="freshness" role="status">Loading the public forecast ledger…</p>
+    <div class="hero-logo"><img src="/assets/brand/rannta-logo.png" alt="Official RANNTA logo" width="112" height="112"></div>
+    <p class="eyebrow">RANNTA PANDORA · PUBLIC FORECAST LEDGER</p>
+    <h1>LIVE <span>ACCURACY</span></h1>
+    <p class="subtitle">Real BTC/USDT spot predictions. Each receipt records Pandora's forecast before the market outcome is known, then shows the observed settlement.</p>
+    <div class="specs" aria-label="Exact prediction target">
+      <span class="spec">MARKET <strong>BTC / USDT SPOT</strong></span>
+      <span class="spec">TARGET <strong>FIRST ±0.5 bp MIDPRICE MOVE</strong></span>
+      <span class="spec">WINDOW <strong>10 SECONDS MAX</strong></span>
+      <span class="spec">CLASSES <strong>UP · DOWN · NO MOVE</strong></span>
+    </div>
   </header>
-  <section class="cards" aria-label="Accuracy comparison">
-    <article class="card"><p>Active V2</p><strong class="number" id="model">—</strong><p class="muted" id="model-count"></p></article>
-    <article class="card"><p>Rolling majority</p><strong class="number" id="baseline">—</strong><p class="muted" id="baseline-count"></p></article>
-    <article class="card"><p>Matched settlements</p><strong class="number" id="sample">—</strong><p class="muted" id="cohort"></p></article>
+
+  <section class="live-state" id="state-banner" aria-label="Public feed freshness">
+    <div class="live-main"><span class="pulse" aria-hidden="true"></span><span class="live-status" id="state-label">Connecting to public ledger</span></div>
+    <span class="live-meta" id="freshness" role="status" aria-live="polite">Loading forecast data…</span>
+    <div class="live-side"><span>Public batch mirror</span><span>Refresh every 30s</span></div>
   </section>
-  <section class="latest">
-    <h2>Latest forecast receipt</h2><p id="forecast">—</p><p class="muted" id="forecast-time"></p>
+
+  <div class="section-head"><div><h2>Prediction performance</h2><p>Matched settled forecasts · identical receipt cohort</p></div><p id="cohort">Awaiting settlements</p></div>
+  <section class="grid" aria-label="Accuracy comparison">
+    <article class="surface metric">
+      <div class="donut" id="model-ring" aria-label="Pandora accuracy chart">
+        <div class="donut-inner"><strong id="model">—</strong><small>ACCURACY</small></div>
+      </div>
+      <div class="copy"><p class="label">PANDORA LIVE V2</p><p class="sub">Active inference engine</p><p class="count" id="model-count">Loading…</p></div>
+    </article>
+    <article class="surface metric base">
+      <div class="donut" id="baseline-ring" aria-label="Rolling majority accuracy chart">
+        <div class="donut-inner"><strong id="baseline">—</strong><small>ACCURACY</small></div>
+      </div>
+      <div class="copy"><p class="label">ROLLING BASELINE</p><p class="sub">Last 10 settled outcomes</p><p class="count" id="baseline-count">Loading…</p></div>
+    </article>
+    <article class="surface lift">
+      <p class="label">ADVANTAGE OVER BASELINE</p>
+      <strong class="value" id="lift">—</strong>
+      <p class="unit">percentage points · same receipts</p>
+      <div class="rule"></div>
+      <p><span class="n" id="sample">—</span> <span class="unit">matched settlements</span></p>
+      <p class="cohort" id="cohort-detail"></p>
+    </article>
   </section>
-  <section class="history">
-    <h2>Recent settlements</h2>
-    <div class="scroll" tabindex="0" role="region" aria-label="Forecast receipt table">
-      <table><thead><tr><th scope="col">Receipt</th><th scope="col">Issued (UTC)</th><th scope="col">Active V2</th><th scope="col">Baseline</th><th scope="col">Outcome</th><th scope="col">Settled (UTC)</th><th scope="col">Result</th></tr></thead><tbody id="history"></tbody></table>
+
+  <section class="surface latest" aria-label="Most recent forecast">
+    <div class="latest-top">
+      <div><h2 class="title">Latest forecast</h2><p class="hint">The full probability distribution, not only the winning class</p></div>
+      <span class="latest-id" id="latest-id">WAITING</span>
+    </div>
+    <div class="latest-grid">
+      <div class="signal">
+        <span class="signal-label">PANDORA PREDICTED</span>
+        <strong class="signal-main" id="forecast-call">—</strong>
+        <span class="signal-outcome" id="forecast-outcome">Awaiting forecast receipt</span>
+      </div>
+      <div class="prob-wrap">
+        <div class="prob-title"><span>Forecast probabilities</span><span>Sum: 100%</span></div>
+        <div class="prob-row"><span class="prob-name">UP</span><div class="track"><div class="fill" id="bar-up"></div></div><span class="prob-percent" id="prob-up">—</span></div>
+        <div class="prob-row"><span class="prob-name">DOWN</span><div class="track"><div class="fill down" id="bar-down"></div></div><span class="prob-percent" id="prob-down">—</span></div>
+        <div class="prob-row"><span class="prob-name">NO MOVE</span><div class="track"><div class="fill no" id="bar-no"></div></div><span class="prob-percent" id="prob-no">—</span></div>
+      </div>
+    </div>
+    <div class="event-times" id="forecast-time"><span>Issue and settlement times appear here in UTC.</span></div>
+  </section>
+
+  <section class="surface history" aria-labelledby="history-heading">
+    <div class="history-top">
+      <div><h2 id="history-heading">Recent settled forecasts</h2><p style="color:var(--muted);font-size:12px">Public receipt trail · UTC timestamps</p></div>
+      <div class="filters" aria-label="Filter settled forecasts">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="correct" aria-pressed="false">Correct</button>
+        <button type="button" data-filter="incorrect" aria-pressed="false">Incorrect</button>
+      </div>
+    </div>
+    <p class="rib-label">Recent outcome sequence · <span style="color:var(--teal)">correct</span> / <span style="color:var(--red)">incorrect</span></p>
+    <div id="ribbon" class="ribbon" aria-label="Recent prediction results"></div>
+    <div class="scroller" tabindex="0" role="region" aria-label="Forecast settlement table">
+      <table><thead><tr><th scope="col">Receipt</th><th scope="col">Issued (UTC)</th><th scope="col">V2 forecast</th><th scope="col">Baseline</th><th scope="col">Actual move</th><th scope="col">Settled (UTC)</th><th scope="col">Result</th></tr></thead><tbody id="history"><tr><td colspan="7" class="empty">Loading receipts…</td></tr></tbody></table>
     </div>
   </section>
-  <p class="foot">The comparison uses the latest 434 eligible settled receipts, or all available when fewer exist. The baseline picks the most common outcome among the 10 settlements known before each issuance. Ties use the most recent outcome. The page mirrors Pandora’s local ledger in batches. Some receipts first appear here after settlement. Next-move accuracy measures forecast outcomes, not trading returns.</p>
+
+  <section class="explainer" id="methodology" aria-label="How to read these results">
+    <h2>What is being predicted?</h2>
+    <p>Pandora predicts whether the BTC/USDT spot midprice first moves <strong style="color:var(--ink)">0.5 basis points (0.005%)</strong> upward or downward from the issue price during the next <strong style="color:var(--ink)">10 seconds</strong>. If neither threshold is crossed within that window, the settled class is <strong style="color:var(--ink)">NO MOVE</strong>. This is not a candle-direction forecast.</p>
+    <p>Accuracy compares the latest 434 eligible settled receipts (or all available if fewer). The rolling baseline selects the most common class among the last 10 outcomes known <em>before</em> each issuance, using the most recent outcome for ties. Forecast issuance and settlement timestamps are shown in UTC. Some receipts first appear on this public mirror after they settle; the mirror is published in batches and is not a low-latency trading signal feed. Forecast accuracy is not trading profitability.</p>
+    <a href="/pandora/live-accuracy/snapshot.json" target="_blank" rel="noopener noreferrer">View public ledger snapshot</a>
+  </section>
+  <footer class="bottom"><span><strong>RANNTA</strong> / PANDORA INTELLIGENCE</span><span>Public evidence · Live predictions · Independent verification</span></footer>
 </main>
 <script nonce="pandora-live-v1">
 "use strict";
-const labels=["UP","DOWN","NO MOVE"];
+const LABELS=["UP","DOWN","NO MOVE"];
 const el=id=>document.getElementById(id);
-const utc=stamp=>new Date(stamp*1000).toISOString().replace("T"," ").slice(0,19);
-const pct=x=>Intl.NumberFormat("en",{style:"percent",minimumFractionDigits:1,maximumFractionDigits:1}).format(x);
-let state=null;
-function status(){
-  if(!state)return;
-  const stale=Date.now()/1000-state.as_of>240||!state.source_online;
-  el("freshness").textContent=(stale?"Delayed feed":"Ledger synced")+" · "+utc(state.as_of)+" UTC";
-  el("freshness").classList.toggle("stale",stale);
+const pct=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US",{style:"percent",minimumFractionDigits:1,maximumFractionDigits:1}).format(x):"—";
+const num=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US").format(x):"—";
+const utc=x=>Number.isFinite(Number(x))?new Date(Number(x)*1000).toISOString().slice(0,19).replace("T"," "):"—";
+let snapshot=null,filter="all",syncError=false;
+function setStatus(){
+  if(!snapshot)return;
+  const old=Date.now()/1000-Number(snapshot.as_of)>240;
+  const delayed=syncError||old||!snapshot.source_online;
+  el("state-banner").classList.toggle("delayed",delayed);
+  el("state-label").textContent=syncError?"SYNC INTERRUPTED":delayed?"DELAYED FEED":"LEDGER SYNCED";
+  el("freshness").textContent="Last public update: "+utc(snapshot.as_of)+" UTC"+(old?" · stale snapshot":"");
 }
-function display(data){
-  state=data;
-  status();
-  el("model").textContent=data.n?pct(data.model_correct/data.n):"—";
-  el("baseline").textContent=data.n?pct(data.baseline_correct/data.n):"—";
-  el("model-count").textContent=data.n?data.model_correct+" correct":"";
-  el("baseline-count").textContent=data.n?data.baseline_correct+" correct":"";
-  el("sample").textContent=data.n.toLocaleString("en");
-  el("cohort").textContent=data.n?"Receipts #"+data.first_id+"–"+data.last_id:"Awaiting settlements";
-  const current=data.pending?.target>Date.now()/1000?data.pending:data.receipts[0];
-  el("forecast").textContent=current?"#"+current.id+" · "+labels[current.call]+" · "+
-    current.probabilities.map((p,i)=>labels[i]+" "+pct(p)).join(" / "):"Awaiting forecasts";
-  el("forecast-time").textContent=current?"Issued "+utc(current.issued)+" UTC · "+
-    (current.settled?"Settled "+labels[current.outcome]+" at "+utc(current.settled)+" UTC":"Target "+utc(current.target)+" UTC"):"";
-  el("history").replaceChildren(...data.receipts.map(receipt=>{
-    const row=document.createElement("tr");
-    const hit=receipt.call===receipt.outcome;
-    const values=["#"+receipt.id,utc(receipt.issued),labels[receipt.call],labels[receipt.baseline],
-      labels[receipt.outcome],utc(receipt.settled),hit?"Correct":"Incorrect"];
-    values.forEach((value,i)=>{
-      const cell=row.insertCell();
-      cell.textContent=value;
-      if(i===6)cell.className=hit?"correct":"wrong";
-    });
-    return row;
-  }));
+function outcomeLabel(n){return LABELS[n]||"—";}
+function makeDirection(value){
+  const node=document.createElement("span");
+  node.className="direction "+(value===0?"up":value===1?"down":"no");
+  node.textContent=outcomeLabel(value);
+  return node;
 }
-async function refresh(){
-  try{
-    const read=async path=>{
-      const response=await fetch(path,{signal:AbortSignal.timeout(8000)});
-      if(!response.ok)throw new Error("Unavailable");
-      const data=await response.json();
-      if(data.schema!=="pandora-public-accuracy-v1"||!Array.isArray(data.receipts))throw new Error("Invalid ledger");
-      return data;
-    };
-    try{
-      display(await read("/api/pandora/live-accuracy"));
-    }catch{
-      if(state){
-        el("freshness").textContent="Sync unavailable · Last snapshot "+utc(state.as_of)+" UTC";
-        el("freshness").classList.add("stale");
-      }else{
-        display({...await read("/pandora/live-accuracy/snapshot.json"),source_online:false,pending:null});
-      }
-    }
-  }catch{
-    el("freshness").textContent=state?"Sync unavailable · Last snapshot "+utc(state.as_of)+" UTC":"Forecast ledger temporarily unavailable.";
-    el("freshness").classList.add("stale");
-  }finally{
-    setTimeout(refresh,30000);
+function paintHistory(){
+  if(!snapshot)return;
+  const recent=Array.isArray(snapshot.receipts)?snapshot.receipts:[];
+  const selected=recent.filter(r=>filter==="all"||(filter==="correct"?(r.call===r.outcome):(r.call!==r.outcome)));
+  const tbody=el("history");tbody.replaceChildren();
+  if(!selected.length){const tr=document.createElement("tr");const td=tr.insertCell();td.colSpan=7;td.className="empty";td.textContent="No matching settled receipts in this snapshot.";tbody.append(tr);}
+  for(const r of selected){
+    const row=document.createElement("tr"),hit=r.call===r.outcome;
+    const cellText=(s,cls)=>{const td=row.insertCell();td.textContent=s;if(cls)td.className=cls;return td;};
+    cellText("#"+r.id,"idcol");cellText(utc(r.issued));row.insertCell().append(makeDirection(r.call));
+    row.insertCell().append(makeDirection(r.baseline));row.insertCell().append(makeDirection(r.outcome));
+    cellText(utc(r.settled));
+    const verdict=document.createElement("span");verdict.className="verdict "+(hit?"good":"bad");verdict.textContent=hit?"CORRECT":"INCORRECT";
+    row.insertCell().append(verdict);tbody.append(row);
+  }
+  const ribbon=el("ribbon");ribbon.replaceChildren();
+  for(const r of recent.slice(0,32).reverse()){
+    const bar=document.createElement("span"),hit=r.call===r.outcome;
+    bar.className=hit?"correct":"wrong";
+    bar.title="#"+r.id+" · "+(hit?"Correct":"Incorrect");
+    ribbon.append(bar);
   }
 }
+function draw(data){
+  if(!data||data.schema!=="pandora-public-accuracy-v1"||!Array.isArray(data.receipts))throw Error("Invalid public accuracy payload");
+  snapshot=data;syncError=false;setStatus();
+  const n=Number(data.n)||0,good=Number(data.model_correct)||0,base=Number(data.baseline_correct)||0;
+  const p=n?good/n:NaN,b=n?base/n:NaN;
+  el("model").textContent=pct(p);el("baseline").textContent=pct(b);
+  el("model-ring").style.setProperty("--pct",Number.isFinite(p)?(p*100).toFixed(3)+"%":"0%");
+  el("baseline-ring").style.setProperty("--pct",Number.isFinite(b)?(b*100).toFixed(3)+"%":"0%");
+  el("model-count").textContent=n?num(good)+" of "+num(n)+" correct":"Awaiting results";
+  el("baseline-count").textContent=n?num(base)+" of "+num(n)+" correct":"Awaiting results";
+  const delta=n?(p-b)*100:NaN;
+  el("lift").textContent=Number.isFinite(delta)?(delta>=0?"+":"")+delta.toFixed(2)+" pp":"—";
+  el("sample").textContent=num(n);
+  el("cohort").textContent=n?"Receipts #"+data.first_id+"–"+data.last_id:"Awaiting settlements";
+  el("cohort-detail").textContent=n?"Same "+num(n)+" matched outcomes":"";
+  const current=data.pending&&data.pending.target>Date.now()/1000?data.pending:data.receipts[0];
+  if(current&&Array.isArray(current.probabilities)&&current.probabilities.length===3){
+    el("latest-id").textContent="RECEIPT #"+current.id;
+    const call=el("forecast-call");call.textContent=outcomeLabel(current.call);
+    call.className="signal-main "+(current.call===0?"up":current.call===1?"down":"no");
+    const settled=Number(current.settled)>0;
+    const hit=settled&&current.call===current.outcome;
+    el("forecast-outcome").textContent=settled?"SETTLED "+outcomeLabel(current.outcome)+" · "+(hit?"CORRECT":"INCORRECT"):"AWAITING SETTLEMENT";
+    ["up","down","no"].forEach((s,i)=>{
+      const v=Number(current.probabilities[i]);el("prob-"+s).textContent=pct(v);
+      el("bar-"+s).style.width=(Number.isFinite(v)?Math.max(0,Math.min(100,v*100)):0).toFixed(2)+"%";
+    });
+    el("forecast-time").replaceChildren();
+    const times=[["ISSUED",current.issued],[(settled?"SETTLED":"TARGET"),settled?current.settled:current.target]];
+    for(const [label,stamp] of times){
+      const part=document.createElement("span");const strong=document.createElement("strong");strong.textContent=label+" ";part.append(strong,document.createTextNode(utc(stamp)+" UTC"));el("forecast-time").append(part);
+    }
+  }else{
+    el("latest-id").textContent="WAITING";
+    el("forecast-call").textContent="—";
+    el("forecast-outcome").textContent="No recent forecast receipt";
+    ["up","down","no"].forEach(s=>{el("prob-"+s).textContent="—";el("bar-"+s).style.width="0%";});
+  }
+  paintHistory();
+}
+document.querySelectorAll("[data-filter]").forEach(button=>button.addEventListener("click",()=>{
+  filter=button.dataset.filter;
+  document.querySelectorAll("[data-filter]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
+  paintHistory();
+}));
+async function refresh(){
+  const read=async path=>{
+    const response=await fetch(path,{cache:"no-store",signal:AbortSignal.timeout(8000)});
+    if(!response.ok)throw Error("HTTP "+response.status);
+    const data=await response.json();
+    if(data.schema!=="pandora-public-accuracy-v1"||!Array.isArray(data.receipts))throw Error("Invalid public ledger");
+    return data;
+  };
+  try{
+    try{draw(await read("/api/pandora/live-accuracy"));}
+    catch{
+      if(!snapshot){draw({...await read("/pandora/live-accuracy/snapshot.json"),source_online:false,pending:null});}
+      else{syncError=true;setStatus();}
+    }
+  }catch{
+    syncError=true;
+    if(snapshot)setStatus();
+    else{
+      el("state-banner").classList.add("delayed");
+      el("state-label").textContent="DATA UNAVAILABLE";
+      el("freshness").textContent="Public forecast ledger temporarily unavailable.";
+    }
+  }finally{setTimeout(refresh,30000);}
+}
 refresh();
+setInterval(setStatus,10000);
 </script>
+</body>
 </html>
