@@ -157,9 +157,13 @@ tbody tr:hover{background:#1b2328}
 @media(max-width:1080px){.grid{grid-template-columns:1fr 1fr}.lift{grid-column:1/-1;min-height:145px}.metric{justify-content:space-around}}
 @media(max-width:690px){.shell{width:min(100% - 28px,1170px)}.hero{padding-top:48px}.hero-logo{width:106px;height:106px}.hero-logo img{width:99px;height:99px}.toplinks a:first-child{display:none}.grid{grid-template-columns:1fr}.lift{grid-column:auto}.metric{min-height:176px}.donut{width:126px}.donut strong{font-size:23px}.latest{padding:17px}.latest-grid{grid-template-columns:1fr;gap:15px}.history{padding:16px}.live-side{width:100%;justify-content:space-between}.event-times{flex-direction:column;gap:4px}.bottom{flex-direction:column;align-items:flex-start;gap:6px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.fill{transition:none}}
-.horizon-control{display:flex;justify-content:center;align-items:center;gap:12px;margin:20px 0;color:var(--gold-soft)}
+.horizon-control{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:12px;margin:20px 0;color:var(--gold-soft)}
 .horizon-control select{color:var(--gold-soft);background:#141210;border:1px solid #8b6b37;padding:10px 36px 10px 14px;border-radius:10px;font:inherit}
 .horizon-control select:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px}
+.connection-status{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border:1px solid currentColor;border-radius:999px;color:var(--muted);font-size:11px;font-weight:700;letter-spacing:.06em;white-space:nowrap}
+.connection-status::before{content:"";width:7px;height:7px;flex:none;border-radius:50%;background:currentColor}
+.connection-status[data-state="online"]{color:#7ee5ad;background:rgba(30,130,77,.16)}
+.connection-status[data-state="offline"]{color:#ff9ba2;background:rgba(155,48,59,.18)}
 #accuracy-history{display:flex;gap:4px;align-items:end;height:48px;margin:10px 0}
 #accuracy-history span{background:var(--gold);flex:1;min-width:2px;max-width:45px;border-radius:3px 3px 0 0}
 .topbar .shell{min-height:64px}
@@ -232,6 +236,7 @@ th,td{padding:9px 10px}
         <option value="900">15 Minutes</option><option value="3600">1 Hour</option>
         <option value="25200">7 Hours</option><option value="86400">24 Hours</option><option value="604800">7 Days</option>
       </select>
+      <span class="connection-status" id="connection-status" data-state="checking" role="status">CHECKING</span>
     </div>
     <div class="specs" aria-label="Exact prediction target">
       <span class="spec">MARKET <strong>BTC / USDT SPOT</strong></span>
@@ -390,9 +395,35 @@ const age=s=>{
 let snapshot=null,feed=null,filter="all",syncError=false,selectedByUser=false;
 let historyPage=0,historyHorizon=null;
 const cacheKey="pandora-public-accuracy-v1-cache";
+const publicationMaxAge=30;
+let livePublication=null,publicApiUnavailable=false;
+function setConnectionStatus(){
+  const badge=el("connection-status");
+  const elapsed=Date.now()/1000-livePublication?.as_of;
+  let state="checking",reason="Checking the public forecast feed";
+  if(navigator.onLine===false){
+    state="offline";reason="This browser is offline";
+  }else if(publicApiUnavailable){
+    state="offline";reason="The public forecast API is unreachable";
+  }else if(livePublication){
+    if(!Number.isFinite(elapsed)||elapsed>publicationMaxAge||elapsed < -10){
+      state="offline";reason="No recent publication from Pandora";
+    }else if(livePublication.source_online!==true){
+      state="offline";reason="The upstream Pandora feed is unavailable";
+    }else{
+      state="online";reason="The API and Pandora feed are publishing current data";
+    }
+  }
+  if(badge.dataset.state!==state){
+    badge.dataset.state=state;
+    badge.textContent=state.toUpperCase();
+  }
+  if(badge.title!==reason)badge.title=reason;
+}
 function setStatus(){
+  setConnectionStatus();
   if(!snapshot)return;
-  const old=Date.now()/1000-Number(snapshot.as_of)>30;
+  const old=Date.now()/1000-Number(snapshot.as_of)>publicationMaxAge;
   const daily=historyHorizon==="86400";
   const delayed=syncError||old||(!daily&&!snapshot.source_online);
   el("state-banner").classList.toggle("delayed",delayed);
@@ -560,10 +591,12 @@ async function refresh(){
   try{
     try{
       const data=await read("/api/pandora/live-accuracy");
+      livePublication=data;publicApiUnavailable=false;
       drawFeed(data);
       try{localStorage.setItem(cacheKey,JSON.stringify(data));}catch{}
     }
     catch{
+      livePublication=null;publicApiUnavailable=true;setConnectionStatus();
       if(!snapshot){drawFeed({...await read("/pandora/live-accuracy/snapshot.json"),fallback:true,source_online:false,pending:null});}
       else{syncError=true;setStatus();}
     }
@@ -586,6 +619,11 @@ if(!feed){
     if(!feed)drawFeed({...data,fallback:true,pending:null});
   }).catch(()=>{});
 }
+window.addEventListener("offline",()=>{
+  livePublication=null;publicApiUnavailable=true;setConnectionStatus();
+});
+window.addEventListener("online",setConnectionStatus);
+setConnectionStatus();
 refresh();
 setInterval(setStatus,1000);
 </script>
