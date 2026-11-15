@@ -207,6 +207,7 @@ th,td{padding:9px 10px}
   .scroller table{min-width:640px}.scroller th,.scroller td{padding:8px 6px;font-size:11px}
   .scroller .verdict,.scroller .direction{font-size:10px}.scroller .verdict{padding:2px 4px}
 }
+  .receipt-odds{margin-top:4px;color:var(--muted);font-size:.72rem;font-variant-numeric:tabular-nums}
 </style>
 </head>
 <body>
@@ -377,6 +378,7 @@ th,td{padding:9px 10px}
 let LABELS=["UP","DOWN","FLAT"];
 const el=id=>document.getElementById(id);
 const pct=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US",{style:"percent",minimumFractionDigits:1,maximumFractionDigits:1}).format(x):"—";
+const receiptPct=new Intl.NumberFormat("en-US",{style:"percent",minimumFractionDigits:2,maximumFractionDigits:2});
 const num=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US").format(x):"—";
 const timeZone=Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC";
 const displayClock=new Intl.DateTimeFormat("sv-SE",{timeZone,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"});
@@ -391,13 +393,17 @@ const cacheKey="pandora-public-accuracy-v1-cache";
 function setStatus(){
   if(!snapshot)return;
   const old=Date.now()/1000-Number(snapshot.as_of)>30;
-  const delayed=syncError||old||!snapshot.source_online;
+  const daily=historyHorizon==="86400";
+  const delayed=syncError||old||(!daily&&!snapshot.source_online);
   el("state-banner").classList.toggle("delayed",delayed);
   el("state-label").textContent=syncError?"SYNC INTERRUPTED":snapshot.fallback?"SAVED SNAPSHOT":old?"DELAYED PUBLICATION":delayed?"DELAYED FEED":"LEDGER SYNCED";
   const receipt=snapshot.pending||snapshot.latest||snapshot.receipts?.[0];
   const issued=receipt?.issued;
   const freshness="Published "+age(snapshot.as_of)+" · "+displayTime(snapshot.as_of)+" "+timeZone;
-  el("freshness").textContent=freshness+(issued==null?"":" · Latest issue "+age(issued))+(old?" · stale snapshot":"");
+  const issueText=issued==null?"":daily?
+    " · Latest 24h issue "+displayTime(issued)+(receipt.target?" · Target "+displayTime(receipt.target):""):
+    " · Latest issue "+age(issued);
+  el("freshness").textContent=freshness+issueText+(old?" · stale publication":"");
 }
 function outcomeLabel(n){return LABELS[n]||"—";}
 function makeDirection(value){
@@ -409,7 +415,10 @@ function makeDirection(value){
 function paintHistory(){
   if(!snapshot)return;
   const recent=Array.isArray(snapshot.receipts)?snapshot.receipts:[];
-  const selected=recent.filter(r=>filter==="all"||(filter==="correct"?(r.call===r.outcome):(r.call!==r.outcome)));
+  const daily=historyHorizon==="86400";
+  const history=daily?[...recent,...(snapshot.unsettled||[])].sort((a,b)=>b.issued-a.issued):recent;
+  const selected=history.filter(r=>filter==="all"||
+    (r.settled&&(filter==="correct"?r.call===r.outcome:r.call!==r.outcome)));
   const pageSize=Number(el("history-page-size").value);
   const lastPage=Math.max(0,Math.ceil(selected.length/pageSize)-1);
   historyPage=Math.max(0,Math.min(historyPage,lastPage));
@@ -420,14 +429,24 @@ function paintHistory(){
   el("history-prev").disabled=historyPage===0;
   el("history-next").disabled=historyPage===lastPage;
   const tbody=el("history");tbody.replaceChildren();
-  if(!selected.length){const tr=document.createElement("tr");const td=tr.insertCell();td.colSpan=7;td.className="empty";td.textContent="No matching settled receipts in this snapshot.";tbody.append(tr);}
+  if(!selected.length){const tr=document.createElement("tr");const td=tr.insertCell();td.colSpan=7;td.className="empty";td.textContent="No matching receipts in this snapshot.";tbody.append(tr);}
   for(const r of selected.slice(start,end)){
     const row=document.createElement("tr"),hit=r.call===r.outcome;
     const cellText=(s,cls)=>{const td=row.insertCell();td.textContent=s;if(cls)td.className=cls;return td;};
-    cellText("#"+r.id,"idcol");cellText(displayTime(r.issued));row.insertCell().append(makeDirection(r.call));
+    cellText("#"+r.id,"idcol");cellText(displayTime(r.issued));
+    const forecast=row.insertCell();
+    forecast.append(makeDirection(r.call));
+    if(daily&&Array.isArray(r.probabilities)&&r.probabilities.length===3){
+      const odds=document.createElement("div");
+      odds.className="receipt-odds";
+      odds.textContent=r.probabilities.map((p,i)=>LABELS[i]+" "+receiptPct.format(p)).join(" · ");
+      forecast.append(odds);
+    }
     row.insertCell().append(makeDirection(r.baseline));row.insertCell().append(makeDirection(r.outcome));
     cellText(displayTime(r.settled));
-    const verdict=document.createElement("span");verdict.className="verdict "+(hit?"good":"bad");verdict.textContent=hit?"CORRECT":"INCORRECT";
+    const verdict=document.createElement("span");
+    verdict.className="verdict"+(r.settled?(hit?" good":" bad"):"");
+    verdict.textContent=r.settled?(hit?"CORRECT":"INCORRECT"):receiptStatus(r);
     row.insertCell().append(verdict);tbody.append(row);
   }
   const ribbon=el("ribbon");ribbon.replaceChildren();
@@ -438,6 +457,11 @@ function paintHistory(){
     ribbon.append(bar);
   }
 }
+function receiptStatus(r){
+  if(r.pending_status==="missing_settlement")return "MISSING SETTLEMENT";
+  if(r.pending_status==="awaiting_settlement"||r.target<=Date.now()/1000)return "AWAITING SETTLEMENT";
+  return "PENDING";
+}
 function drawFeed(data){
   feed=data;
   const selector=el("forecast-horizon");
@@ -447,6 +471,7 @@ function drawFeed(data){
   const first=h==="10";
   const horizon=first?data:data.horizons?.[h];
   LABELS=first?["UP","DOWN","NO MOVE"]:["UP","DOWN","FLAT"];
+  el("history-heading").textContent=h==="86400"?"Recent 24-hour receipts":"Recent settled forecasts";
   el("target-type").textContent=first?"FIRST ±0.5 bp MIDPRICE MOVE":"OFFICIAL TERMINAL MIDPRICE";
   el("target-window").textContent=selector.selectedOptions[0].textContent;
   el("target-classes").textContent=LABELS.join(" · ");
@@ -490,7 +515,7 @@ function draw(data){
     const settled=Number(current.settled)>0;
     const hit=settled&&current.call===current.outcome;
     el("forecast-outcome").textContent=settled?"SETTLED "+outcomeLabel(current.outcome)+" · "+(hit?"CORRECT":"INCORRECT"):
-      current.pending_status==="awaiting_settlement"?"AWAITING SETTLEMENT":"PENDING";
+      receiptStatus(current);
     ["up","down","no"].forEach((s,i)=>{
       const v=Number(current.probabilities[i]);el("prob-"+s).textContent=pct(v);
       el("bar-"+s).style.width=(Number.isFinite(v)?Math.max(0,Math.min(100,v*100)):0).toFixed(2)+"%";

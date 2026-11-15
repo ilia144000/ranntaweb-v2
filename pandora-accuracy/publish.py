@@ -49,10 +49,12 @@ def public_receipt(raw):
     return result
 
 
-def public_horizon(raw):
+def public_horizon(raw, include_unsettled=False):
     result = {key: raw[key] for key in PUBLIC_SUMMARY_FIELDS if key in raw}
     result["receipts"] = [public_receipt(r) for r in raw.get("receipts", []) if isinstance(r, dict)]
     result["latest"] = public_receipt(raw.get("latest"))
+    if include_unsettled:
+        result["unsettled"] = [public_receipt(r) for r in raw.get("unsettled", [])]
     return result
 
 
@@ -67,7 +69,7 @@ def public_snapshot(raw):
     result["receipts"] = [public_receipt(r) for r in raw.get("receipts", []) if isinstance(r, dict)]
     result["pending"] = public_receipt(raw.get("pending"))
     result["horizons"] = {
-        str(h): public_horizon(value)
+        str(h): public_horizon(value, include_unsettled=str(h) == "86400")
         for h, value in raw.get("horizons", {}).items()
         if str(h) in {str(x) for x in HORIZONS} and isinstance(value, dict)
     }
@@ -89,10 +91,12 @@ def summarize(cohort):
 
 def official_horizon(db,h,now):
     grace=max(5,min(120,h*.2)) if h<=60 else max(30,min(7200,h*.015))
-    rows=db.execute("""SELECT origin,issued,committed,price,version,model,odds,band,actual,resolved,
+    statuses = "('resolved','pending','expired_gap')" if h == 86400 else "('resolved','pending')"
+    rows=db.execute(f"""SELECT origin,issued,committed,price,version,model,odds,band,actual,resolved,
         settlement_price,status FROM receipts WHERE horizon=? AND committed<=?
-        AND status IN ('resolved','pending') ORDER BY origin""",(h,now)).fetchall()
+        AND status IN {statuses} ORDER BY origin""",(h,now)).fetchall()
     verified=[]
+    unsettled=[]
     latest=None
     for origin,issued,committed,price,version,model,raw,band,actual,settled,settlement_price,status in rows:
         target=origin+h
@@ -110,6 +114,10 @@ def official_horizon(db,h,now):
             latest=receipt
         elif status=="pending":
             latest=dict(receipt,pending_status="pending" if target>now else "awaiting_settlement")
+            if h == 86400: unsettled.append(latest)
+        elif status == "expired_gap" and h == 86400:
+            latest=dict(receipt,pending_status="missing_settlement")
+            unsettled.append(latest)
     cohort=[]
     previous=[]
     cursor=0
@@ -125,6 +133,7 @@ def official_horizon(db,h,now):
         r["baseline"]=max(reversed(past),key=counts.__getitem__) if len(past)==10 else 2
         cohort.append(r)
     result=summarize(cohort[-WINDOW:])
+    if h == 86400: result["unsettled"] = list(reversed(unsettled[-PUBLIC_HISTORY:]))
     return dict(result,latest=latest,verified_total=len(verified),source_t=latest["issued"] if latest else None,
                 source_online=bool(latest and now<=latest["target"]+grace),
                 settlement_grace_s=grace,target_type="official_terminal_mid",labels=["UP","DOWN","FLAT"])
@@ -221,6 +230,7 @@ def main():
         started=time.monotonic()
         try:
             data=snapshot()
+            built=time.monotonic()
             body=json.dumps(data,allow_nan=False,separators=(",",":")).encode()
             request=Request(URL,data=body,headers={"Authorization":"Bearer "+token,"Content-Type":"application/json",
                                                    "User-Agent":"RANNTA-Pandora-Publisher/1.0"})
@@ -229,7 +239,7 @@ def main():
                     raise RuntimeError(f"Unexpected HTTP {response.status}")
             message=f"Published {data['n']} receipts through #{data['last_id']} (source_online={data['source_online']})"
             if logger.handlers:
-                logger.info(message)
+                logger.info("%s snapshot_s=%.2f delivery_s=%.2f",message,built-started,time.monotonic()-built)
             else:
                 print(message,flush=True)
         except Exception as error:

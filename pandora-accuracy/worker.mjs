@@ -43,11 +43,14 @@ function publicReceipt(raw) {
   }
   return out;
 }
-function publicHorizon(raw) {
+function publicHorizon(raw, includeUnsettled) {
   const out = {};
   for (const key of SUMMARY_KEYS) if (own(raw, key)) out[key] = raw[key];
   out.receipts = Array.isArray(raw.receipts) ? raw.receipts.map(publicReceipt).filter(Boolean) : [];
   out.latest = publicReceipt(raw.latest);
+  if (includeUnsettled && Array.isArray(raw.unsettled)) {
+    out.unsettled = raw.unsettled.slice(0, 40).map(publicReceipt).filter(Boolean);
+  }
   return out;
 }
 function publicSnapshot(raw) {
@@ -62,7 +65,7 @@ function publicSnapshot(raw) {
   out.horizons = {};
   const horizons = raw.horizons && typeof raw.horizons === "object" ? raw.horizons : {};
   for (const key of PUBLIC_HORIZONS) {
-    if (horizons[key] && typeof horizons[key] === "object") out.horizons[key] = publicHorizon(horizons[key]);
+    if (horizons[key] && typeof horizons[key] === "object") out.horizons[key] = publicHorizon(horizons[key], key === "86400");
   }
   return out;
 }
