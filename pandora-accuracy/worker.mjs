@@ -86,7 +86,11 @@ export default {
           !Number.isFinite(snapshot.as_of) || Math.abs(Date.now() / 1000 - snapshot.as_of) > 180) {
         return json({ error: "Invalid or expired snapshot" }, 400);
       }
-      await env.ACCURACY.put("current", JSON.stringify(publicSnapshot(snapshot)));
+      await env.LIVE_LEDGER.prepare(
+        "INSERT INTO snapshot (id, as_of, data) VALUES (1, ?, ?) " +
+        "ON CONFLICT(id) DO UPDATE SET as_of=excluded.as_of, data=excluded.data " +
+        "WHERE excluded.as_of > snapshot.as_of"
+      ).bind(snapshot.as_of, JSON.stringify(publicSnapshot(snapshot))).run();
       return new Response(null, { status: 204, headers });
     }
     if (request.method !== "GET" && request.method !== "HEAD") {
@@ -107,7 +111,13 @@ export default {
       });
     }
     if (path === API) {
-      const snapshot = await env.ACCURACY.get("current", { cacheTtl: 30 });
+      let snapshot;
+      try {
+        snapshot = await env.LIVE_LEDGER.prepare("SELECT data FROM snapshot WHERE id = 1").first("data");
+      } catch {
+        // A temporary storage failure may still have a labeled saved snapshot.
+      }
+      if (!snapshot) snapshot = await env.ACCURACY.get("current", { cacheTtl: 30 });
       if (!snapshot) return json({ error: "Awaiting first publication" }, 503);
       // Sanitize older persisted snapshots at read time as well.
       let publicData;
@@ -118,7 +128,7 @@ export default {
       }
       return new Response(request.method === "HEAD" ? null : JSON.stringify(publicData), {
         status: 200,
-        headers: { ...headers, "Content-Type": "application/json; charset=utf-8", "Cache-Control": "public, max-age=15" },
+        headers: { ...headers, "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
       });
     }
     return json({ error: "Not found" }, 404);

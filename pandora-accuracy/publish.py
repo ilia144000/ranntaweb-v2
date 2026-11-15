@@ -15,7 +15,7 @@ from urllib.request import Request, urlopen
 
 
 URL = "https://rannta.com/api/pandora/live-accuracy/publish"
-INTERVAL = 100
+INTERVAL = 5
 WINDOW = 434
 PUBLIC_HISTORY = 40
 HOME = Path(os.environ["LOCALAPPDATA"]) / "RANNTA"
@@ -137,15 +137,16 @@ def official_snapshot(now,path=OFFICIAL):
         return {str(h):official_horizon(db,h,now) for h in HORIZONS}
 
 
-def snapshot(path=LEDGER):
+def snapshot(path=LEDGER, *, recent=True):
     with closing(sqlite3.connect(path.resolve().as_uri()+"?mode=ro",uri=True,timeout=4)) as db:
         db.execute("PRAGMA query_only=ON")
         db.execute("BEGIN")
-        rows=db.execute("""SELECT p.id,p.issued,p.target,p.settled,p.outcome,
+        lower_bound = "p.id >= (SELECT max(id) - 4096 FROM pairs) AND" if recent else ""
+        rows=db.execute(f"""SELECT p.id,p.issued,p.target,p.settled,p.outcome,
             coalesce(i.active,f.old_probabilities),p.realized,p.origin,p.status
-            FROM pairs p LEFT JOIN inactivity_pairs i ON i.pair_id=p.id
+            FROM pairs p NOT INDEXED LEFT JOIN inactivity_pairs i ON i.pair_id=p.id
             LEFT JOIN flow_pairs f ON f.pair_id=p.id
-            WHERE json_extract(p.features,'$.threshold_bps')=.5
+            WHERE {lower_bound} json_extract(p.features,'$.threshold_bps')=.5
             AND json_extract(p.features,'$.budget_s')=10 AND
             (p.status='pending' OR (p.status='resolved' AND p.settled>p.issued
             AND ((p.outcome IN (0,1) AND p.settled<p.target)
@@ -177,6 +178,8 @@ def snapshot(path=LEDGER):
         elif status=="pending" and target>now:
             pending=receipt
     cohort=evidence[-WINDOW:]
+    if recent and len(cohort) < WINDOW:
+        return snapshot(path, recent=False)
     # The worker can be between resyncs when we take a batch snapshot.
     # Freshness of the mirror depends on actual forecast activity as well.
     fresh_receipt=bool(cohort and 0<=now-cohort[-1]["settled"]<=45)
@@ -208,11 +211,12 @@ def main():
         return
     token=TOKEN.read_text(encoding="ascii").strip()
     logger=logging.getLogger("pandora_public_accuracy")
-    if options.watch:
+    if options.watch or options.once:
         handler=RotatingFileHandler(TOKEN.parent/"publisher.log",maxBytes=128_000,backupCount=1,encoding="utf8")
         handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s %(message)s"))
         logger.addHandler(handler)
         logger.setLevel(logging.INFO)
+    if options.watch: logger.info("Publisher started")
     while True:
         started=time.monotonic()
         try:
@@ -224,14 +228,14 @@ def main():
                 if response.status!=204:
                     raise RuntimeError(f"Unexpected HTTP {response.status}")
             message=f"Published {data['n']} receipts through #{data['last_id']} (source_online={data['source_online']})"
-            if options.watch:
+            if logger.handlers:
                 logger.info(message)
             else:
                 print(message,flush=True)
         except Exception as error:
+            logger.warning("Publication failed: %s (HTTP status %s)",type(error).__name__,getattr(error,"code","—"))
             if options.once:
                 raise
-            logger.warning("Publication failed: %s (HTTP status %s)",type(error).__name__,getattr(error,"code","—"))
         if options.once:
             return
         time.sleep(max(1,INTERVAL-(time.monotonic()-started)))

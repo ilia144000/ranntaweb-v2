@@ -243,7 +243,7 @@ th,td{padding:9px 10px}
   <section class="live-state" id="state-banner" aria-label="Public feed freshness">
     <div class="live-main"><span class="pulse" aria-hidden="true"></span><span class="live-status" id="state-label">Connecting to public ledger</span></div>
     <span class="live-meta" id="freshness" role="status" aria-live="polite">Loading forecast data…</span>
-    <div class="live-side"><span>Public batch mirror</span></div>
+    <div class="live-side"><span>Public ledger mirror</span></div>
   </section>
 
   <div class="section-head"><div><h2>Prediction performance</h2><p>Matched settled forecasts · identical receipt cohort</p></div><p id="cohort">Awaiting settlements</p></div>
@@ -390,7 +390,7 @@ let historyPage=0,historyHorizon=null;
 const cacheKey="pandora-public-accuracy-v1-cache";
 function setStatus(){
   if(!snapshot)return;
-  const old=Date.now()/1000-Number(snapshot.as_of)>240;
+  const old=Date.now()/1000-Number(snapshot.as_of)>30;
   const delayed=syncError||old||!snapshot.source_online;
   el("state-banner").classList.toggle("delayed",delayed);
   el("state-label").textContent=syncError?"SYNC INTERRUPTED":snapshot.fallback?"SAVED SNAPSHOT":old?"DELAYED PUBLICATION":delayed?"DELAYED FEED":"LEDGER SYNCED";
@@ -550,7 +550,7 @@ async function refresh(){
       el("state-label").textContent="DATA UNAVAILABLE";
       el("freshness").textContent="Public forecast ledger temporarily unavailable.";
     }
-  }finally{setTimeout(refresh,30000);}
+  }finally{setTimeout(refresh,document.hidden?30000:5000);}
 }
 try{
   const cached=JSON.parse(localStorage.getItem(cacheKey)||"null");
@@ -562,7 +562,7 @@ if(!feed){
   }).catch(()=>{});
 }
 refresh();
-setInterval(setStatus,10000);
+setInterval(setStatus,1000);
 </script>
 </body>
 </html>
