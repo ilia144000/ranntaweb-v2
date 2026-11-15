@@ -291,12 +291,12 @@ th,td{padding:9px 10px}
         <div class="prob-row"><span class="prob-name" id="prob-third-label">FLAT</span><div class="track"><div class="fill no" id="bar-no"></div></div><span class="prob-percent" id="prob-no">—</span></div>
       </div>
     </div>
-    <div class="event-times" id="forecast-time"><span>Issue and settlement times appear here in UTC.</span></div>
+    <div class="event-times" id="forecast-time"><span>Issue and settlement times use your browser time zone.</span></div>
   </section>
 
   <section class="surface history" aria-labelledby="history-heading">
     <div class="history-top">
-      <div><h2 id="history-heading">Recent settled forecasts</h2><p style="color:var(--muted);font-size:12px">Public receipt trail · UTC timestamps</p></div>
+      <div><h2 id="history-heading">Recent settled forecasts</h2><p style="color:var(--muted);font-size:12px">Public receipt trail · local time</p></div>
       <div class="filters" aria-label="Filter settled forecasts">
         <button type="button" data-filter="all" aria-pressed="true">All</button>
         <button type="button" data-filter="correct" aria-pressed="false">Correct</button>
@@ -306,7 +306,7 @@ th,td{padding:9px 10px}
     <p class="rib-label">Recent outcome sequence · <span style="color:var(--teal)">correct</span> / <span style="color:var(--red)">incorrect</span></p>
     <div id="ribbon" class="ribbon" aria-label="Recent prediction results"></div>
     <div class="scroller" tabindex="0" role="region" aria-label="Forecast settlement table">
-      <table><thead><tr><th scope="col">Receipt</th><th scope="col">Issued (UTC)</th><th scope="col">Forecast</th><th scope="col">Baseline</th><th scope="col">Actual move</th><th scope="col">Settled (UTC)</th><th scope="col">Result</th></tr></thead><tbody id="history"><tr><td colspan="7" class="empty">Loading receipts…</td></tr></tbody></table>
+      <table><thead><tr><th scope="col">Receipt</th><th scope="col">Issued (local)</th><th scope="col">Forecast</th><th scope="col">Baseline</th><th scope="col">Actual move</th><th scope="col">Settled (local)</th><th scope="col">Result</th></tr></thead><tbody id="history"><tr><td colspan="7" class="empty">Loading receipts…</td></tr></tbody></table>
     </div>
     <nav class="history-pagination" aria-label="Settlement history pagination">
       <label for="history-page-size">Rows per page
@@ -378,7 +378,13 @@ let LABELS=["UP","DOWN","FLAT"];
 const el=id=>document.getElementById(id);
 const pct=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US",{style:"percent",minimumFractionDigits:1,maximumFractionDigits:1}).format(x):"—";
 const num=x=>Number.isFinite(x)?new Intl.NumberFormat("en-US").format(x):"—";
-const utc=x=>Number.isFinite(Number(x))?new Date(Number(x)*1000).toISOString().slice(0,19).replace("T"," "):"—";
+const timeZone=Intl.DateTimeFormat().resolvedOptions().timeZone||"UTC";
+const displayClock=new Intl.DateTimeFormat("sv-SE",{timeZone,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit",hourCycle:"h23"});
+const displayTime=x=>x!=null&&Number.isFinite(Number(x))?displayClock.format(new Date(Number(x)*1000)):"—";
+const age=s=>{
+  const seconds=Math.max(0,Math.floor(Date.now()/1000-Number(s)));
+  return seconds<60?seconds+"s ago":Math.floor(seconds/60)+"m "+seconds%60+"s ago";
+};
 let snapshot=null,feed=null,filter="all",syncError=false,selectedByUser=false;
 let historyPage=0,historyHorizon=null;
 const cacheKey="pandora-public-accuracy-v1-cache";
@@ -388,7 +394,10 @@ function setStatus(){
   const delayed=syncError||old||!snapshot.source_online;
   el("state-banner").classList.toggle("delayed",delayed);
   el("state-label").textContent=syncError?"SYNC INTERRUPTED":snapshot.fallback?"SAVED SNAPSHOT":old?"DELAYED PUBLICATION":delayed?"DELAYED FEED":"LEDGER SYNCED";
-  el("freshness").textContent="Last public update: "+utc(snapshot.as_of)+" UTC"+(old?" · stale snapshot":"");
+  const receipt=snapshot.pending||snapshot.latest||snapshot.receipts?.[0];
+  const issued=receipt?.issued;
+  const freshness="Published "+age(snapshot.as_of)+" · "+displayTime(snapshot.as_of)+" "+timeZone;
+  el("freshness").textContent=freshness+(issued==null?"":" · Latest issue "+age(issued))+(old?" · stale snapshot":"");
 }
 function outcomeLabel(n){return LABELS[n]||"—";}
 function makeDirection(value){
@@ -415,9 +424,9 @@ function paintHistory(){
   for(const r of selected.slice(start,end)){
     const row=document.createElement("tr"),hit=r.call===r.outcome;
     const cellText=(s,cls)=>{const td=row.insertCell();td.textContent=s;if(cls)td.className=cls;return td;};
-    cellText("#"+r.id,"idcol");cellText(utc(r.issued));row.insertCell().append(makeDirection(r.call));
+    cellText("#"+r.id,"idcol");cellText(displayTime(r.issued));row.insertCell().append(makeDirection(r.call));
     row.insertCell().append(makeDirection(r.baseline));row.insertCell().append(makeDirection(r.outcome));
-    cellText(utc(r.settled));
+    cellText(displayTime(r.settled));
     const verdict=document.createElement("span");verdict.className="verdict "+(hit?"good":"bad");verdict.textContent=hit?"CORRECT":"INCORRECT";
     row.insertCell().append(verdict);tbody.append(row);
   }
@@ -490,7 +499,7 @@ function draw(data){
     const times=[["ISSUED",current.issued],["TARGET",current.target]];
     if(settled)times.push(["SETTLED",current.settled]);
     for(const [label,stamp] of times){
-      const part=document.createElement("span");const strong=document.createElement("strong");strong.textContent=label+" ";part.append(strong,document.createTextNode(utc(stamp)+" UTC"));el("forecast-time").append(part);
+      const part=document.createElement("span");const strong=document.createElement("strong");strong.textContent=label+" ";part.append(strong,document.createTextNode(displayTime(stamp)+" · "+timeZone));el("forecast-time").append(part);
     }
 
   }else{
